@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.13.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.13.1" />
+    <PackageReference Include="EPiServer.CMS.Core" Version="12.13.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.13.1" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.18.0" />
+    <PackageReference Include="EPiServer.Find" Version="15.0.3" />
+    <PackageReference Include="EPiServer.Find.Cms" Version="15.0.3" />
+    <PackageReference Include="EPiServer.Find.Framework" Version="15.0.3" />
+    <PackageReference Include="EPiServer.Framework" Version="12.13.1" />
+    <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.13.1" />
+    <PackageReference Include="EPiServer.Hosting" Version="12.13.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PreciseAlloy.Models\PreciseAlloy.Models.csproj" />
+    <ProjectReference Include="..\PreciseAlloy.Utils\PreciseAlloy.Utils.csproj" />
+  </ItemGroup>
+
+</Project>

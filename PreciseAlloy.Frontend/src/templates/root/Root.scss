@@ -1,0 +1,96 @@
+body {
+  /*
+  The special case for Root page
+  */
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow: hidden !important;
+  background-color: white;
+}
+
+.xpack-t-root {
+  display: grid;
+  grid-template-rows: min-content 1fr;
+
+  @include tablet {
+    grid-template-columns: px2rem(300px) 1fr;
+  }
+
+  &.top-panel {
+    @include tablet {
+      grid-template-columns: 1fr;
+      grid-template-rows: min-content 1fr;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  &__target-wrapper {
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    position: relative;
+    transition: max-width linear 0.25s;
+    justify-self: center;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      top: 0;
+      width: px2rem(1px);
+      height: 100%;
+      background-color: black;
+    }
+
+    &::before {
+      left: -(px2rem(1px));
+    }
+
+    &::after {
+      right: -(px2rem(1px));
+    }
+  }
+
+  &__target-resizer {
+    width: px2rem(20px);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: calc(100% + 1px);
+    background-color: $wave-25;
+    cursor: ew-resize;
+
+    &:hover {
+      background-color: $wave-50;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      display: block;
+      width: px2rem(5px);
+      height: px2rem(50px);
+      left: 50%;
+      top: 50%;
+      border-width: 0 px2rem(1px);
+      border-style: solid;
+      border-color: #555;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__target {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    border: none;
+  }
+}

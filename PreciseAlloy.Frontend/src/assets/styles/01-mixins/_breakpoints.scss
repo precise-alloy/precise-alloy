@@ -1,0 +1,17 @@
+@mixin tablet {
+  @media (min-width: #{px2rem($tablet)}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{px2rem($desktop)}) {
+    @content;
+  }
+}
+
+@mixin print {
+  @media print {
+    @content;
+  }
+}

@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.13.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.13.1" />
+    <PackageReference Include="EPiServer.CMS.Core" Version="12.13.1" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.18.0" />
+    <PackageReference Include="EPiServer.Framework" Version="12.13.1" />
+  </ItemGroup>
+
+</Project>

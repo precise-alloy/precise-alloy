@@ -1,0 +1,11 @@
+@mixin firefox-only($include: true) {
+  @if ($include) {
+    @supports (color: -moz-dialog) {
+      @content;
+    }
+  } @else {
+    @supports not (color: -moz-dialog) {
+      @content;
+    }
+  }
+}

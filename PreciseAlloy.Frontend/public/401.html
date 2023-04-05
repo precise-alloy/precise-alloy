@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.svg" />
+
+  <title>401 - Unauthorized</title>
+</head>
+
+<body>
+  <script>
+    const path = window.location.pathname;
+    if (path.toLowerCase() !== '/401.html') {
+      let encodedPath = encodeURIComponent(window.location.href);
+      window.location.href = '/.auth/login/github?post_login_redirect_uri=' + encodedPath;
+    }
+  </script>
+</body>
+
+</html>

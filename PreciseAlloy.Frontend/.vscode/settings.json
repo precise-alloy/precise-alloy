@@ -1,0 +1,44 @@
+{
+  "files.exclude": {
+    ".idea": true,
+    "**/tsconfig.tsbuildinfo": true,
+    "**/package-lock.json": true,
+    "**/*.css.map": true,
+    "**/node_modules": true,
+    "**/.turbo": true
+  },
+  "markdown.extension.tableFormatter.normalizeIndentation": true,
+  "markdown.extension.orderedList.marker": "one",
+  "markdownlint.ignore": ["**/SUMMARY.md"],
+  "compile-hero.typescriptx-output-toggle": false,
+  "compile-hero.sass-output-toggle": false,
+  "compile-hero.pug-output-toggle": false,
+  "compile-hero.less-output-toggle": false,
+  "compile-hero.javascript-output-toggle": false,
+  "compile-hero.jade-output-toggle": false,
+  "compile-hero.disable-compile-files-on-did-save-code": false,
+  "compile-hero.typescript-output-toggle": false,
+  "compile-hero.scss-output-directory": ".",
+  "path-intellisense.showHiddenFiles": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "markdown.extension.list.indentationSize": "inherit",
+  "editor.tabSize": 2,
+  "editor.rulers": [80, 120],
+  "editor.minimap.enabled": false,
+  "markdown.extension.print.absoluteImgPath": false,
+  "markdown.extension.print.imgToBase64": true,
+  "markdown.extension.print.theme": "dark",
+  "liveSassCompile.settings.generateMap": false,
+  "search.exclude": {
+    "**/public/assets/css": true,
+    "**/public/assets/js": true,
+    "**/public/assets/vendor": true
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["/*.states.json"],
+      "url": "./xpack/states.schema.json"
+    }
+  ]
+}
