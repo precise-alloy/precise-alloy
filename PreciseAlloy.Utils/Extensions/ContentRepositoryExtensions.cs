@@ -2,7 +2,7 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.Filters;
 
-namespace PreciseAlloy.Models.Extensions;
+namespace PreciseAlloy.Utils.Extensions;
 
 public static class ContentRepositoryExtensions
 {

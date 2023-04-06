@@ -1,9 +1,9 @@
 using PreciseAlloy.Models.Pages;
-using PreciseAlloy.Utils.Helpers;
 using EPiServer.Core;
 using EPiServer.Find;
 using EPiServer.Find.Cms;
 using Microsoft.Extensions.Logging;
+using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Services.Find;
 
