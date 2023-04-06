@@ -30,17 +30,17 @@ steps:
   - script: |
       npm install
     displayName: Install node modules
-    workingDirectory: ./src/PreciseAlloy.Frontend
+    workingDirectory: ./PreciseAlloy.Frontend
 
   - script: |
       npm run eshn
     displayName: Generate statis site
-    workingDirectory: ./src/PreciseAlloy.Frontend
+    workingDirectory: ./PreciseAlloy.Frontend
 
   - task: AzureStaticWebApp@0
     displayName: Deploy to Azure Static Web App
     inputs:
-      app_location: './src/PreciseAlloy.Frontend/dist/static'
+      app_location: './PreciseAlloy.Frontend/dist/static'
       api_location: ''
       output_location: ''
       skip_app_build: true
