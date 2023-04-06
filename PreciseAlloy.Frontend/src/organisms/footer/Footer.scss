@@ -4,16 +4,25 @@
   color: $white;
 
   &__container {
-    padding: px2rem(32px) 0;
+    padding: px2rem(31px) 0;
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
+    gap: px2rem(20px);
+    text-align: center;
+
+    @include tablet {
+      flex-direction: row;
+      padding: px2rem(51px) 0 px2rem(49px);
+    }
   }
 
   &__social-list {
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 20px;
+    gap: px2rem(20px);
     list-style-type: none;
 
     > li {

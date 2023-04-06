@@ -15,5 +15,9 @@ body {
 .zzz-container {
   margin-left: auto;
   margin-right: auto;
-  max-width: px2rem(1200px);
+  max-width: calc(100vw - px2rem(40px));
+
+  @include tablet {
+    max-width: min(px2rem(1200px), 80vw);
+  }
 }
