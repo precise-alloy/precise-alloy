@@ -1,6 +1,7 @@
 .zzz-footer {
   margin-top: auto;
   background-color: $green;
+  color: $white;
 
   &__container {
     padding: px2rem(32px) 0;
@@ -11,10 +12,17 @@
   &__social-list {
     margin: 0;
     padding: 0;
+    display: flex;
+    gap: 20px;
     list-style-type: none;
-  }
 
-  &__social-item {
-    display: inline;
+    > li {
+      display: inline;
+
+      > a {
+        color: $white;
+        text-decoration: none;
+      }
+    }
   }
 }

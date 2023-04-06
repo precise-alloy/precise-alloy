@@ -5,10 +5,10 @@ const Footer = () => {
     <footer className="zzz-footer">
       <div className="zzz-footer__container zzz-container">
         <ul className="zzz-footer__social-list">
-          <li className="zzz-footer__social-item">
+          <li>
             <a href="#">Facebook</a>
           </li>
-          <li className="zzz-footer__social-item">
+          <li>
             <a href="#">Instagram</a>
           </li>
         </ul>
