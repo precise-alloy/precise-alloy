@@ -25,7 +25,7 @@ steps:
   - task: NodeTool@0
     displayName: Install Node.js
     inputs:
-      versionSpec: "16.x"
+      versionSpec: '16.x'
 
   - task: Cache@2
     inputs:
@@ -34,22 +34,23 @@ steps:
         npm | "$(Agent.OS)"
       path: $(npm_config_cache)
     displayName: Cache npm
+    workingDirectory: ./src/PreciseAlloy.Frontend
 
   - script: |
       npm install
     displayName: Install node modules
-    workingDirectory: ./src/eShopUI
+    workingDirectory: ./src/PreciseAlloy.Frontend
 
   - script: |
       npm run eshn
     displayName: Generate statis site
-    workingDirectory: ./src/eShopUI
+    workingDirectory: ./src/PreciseAlloy.Frontend
 
   - task: AzureStaticWebApp@0
     displayName: Deploy to Azure Static Web App
     inputs:
-      app_location: "./src/PreciseAlloy.Frontend/dist/static"
-      api_location: ""
-      output_location: ""
+      app_location: './src/PreciseAlloy.Frontend/dist/static'
+      api_location: ''
+      output_location: ''
       skip_app_build: true
       azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)
