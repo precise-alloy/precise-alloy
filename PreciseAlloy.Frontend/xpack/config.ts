@@ -7,7 +7,6 @@ import options from './hooks/options';
 import buildStart from './hooks/build-start';
 import writeBundle from './hooks/write-bundle';
 import closeBundle from './hooks/close-bundle';
-import transfrom from './hooks/transform';
 import resolveDynamicImport from './hooks/resolve-dynamic-import';
 import handleHotUpdate from './hooks/handle-hot-update';
 
@@ -21,7 +20,7 @@ const config = defineConfig({
   plugins: [
     options(),
     buildStart(),
-    transfrom(),
+    // transfrom(),
     resolveDynamicImport(),
     handleHotUpdate(),
     writeBundle(),
