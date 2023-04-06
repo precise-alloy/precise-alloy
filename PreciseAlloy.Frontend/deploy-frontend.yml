@@ -1,0 +1,55 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+resources:
+  repositories:
+    - repository: self
+      type: git
+      ref: fe-develop
+
+trigger:
+  - fe-develop
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+
+steps:
+  - checkout: self
+    submodules: false
+
+  - task: NodeTool@0
+    displayName: Install Node.js
+    inputs:
+      versionSpec: "16.x"
+
+  - task: Cache@2
+    inputs:
+      key: 'npm | "$(Agent.OS)" | package-lock.json'
+      restoreKeys: |
+        npm | "$(Agent.OS)"
+      path: $(npm_config_cache)
+    displayName: Cache npm
+
+  - script: |
+      npm install
+    displayName: Install node modules
+    workingDirectory: ./src/eShopUI
+
+  - script: |
+      npm run eshn
+    displayName: Generate statis site
+    workingDirectory: ./src/eShopUI
+
+  - task: AzureStaticWebApp@0
+    displayName: Deploy to Azure Static Web App
+    inputs:
+      app_location: "./src/PreciseAlloy.Frontend/dist/static"
+      api_location: ""
+      output_location: ""
+      skip_app_build: true
+      azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)
