@@ -25,11 +25,11 @@ steps:
   - task: NodeTool@0
     displayName: Install Node.js
     inputs:
-      versionSpec: '16.x'
+      versionSpec: "16.x"
 
   - task: Cache@2
     inputs:
-      key: 'npm | "$(Agent.OS)" | package-lock.json'
+      key: "npm | "$(Agent.OS)" | package-lock.json"
       restoreKeys: |
         npm | "$(Agent.OS)"
       path: $(npm_config_cache)
@@ -49,8 +49,8 @@ steps:
   - task: AzureStaticWebApp@0
     displayName: Deploy to Azure Static Web App
     inputs:
-      app_location: './src/PreciseAlloy.Frontend/dist/static'
-      api_location: ''
-      output_location: ''
+      app_location: "./src/PreciseAlloy.Frontend/dist/static"
+      api_location: ""
+      output_location: ""
       skip_app_build: true
       azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)
