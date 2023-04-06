@@ -1,3 +1,9 @@
+$-white: #fff;
+$-black: #000;
+$-border: #555;
+$-wave-25: #e9eef1;
+$-wave-50: #d2dde4;
+
 body {
   /*
   The special case for Root page
@@ -9,7 +15,7 @@ body {
   height: 100vh !important;
   max-height: 100vh !important;
   overflow: hidden !important;
-  background-color: white;
+  background-color: $-white !important;
 }
 
 .xpack-t-root {
@@ -47,7 +53,7 @@ body {
       top: 0;
       width: px2rem(1px);
       height: 100%;
-      background-color: black;
+      background-color: $-black;
     }
 
     &::before {
@@ -65,11 +71,11 @@ body {
     position: absolute;
     top: 0;
     left: calc(100% + 1px);
-    background-color: $wave-25;
+    background-color: $-wave-25;
     cursor: ew-resize;
 
     &:hover {
-      background-color: $wave-50;
+      background-color: $-wave-50;
     }
 
     &::after {
@@ -82,7 +88,7 @@ body {
       top: 50%;
       border-width: 0 px2rem(1px);
       border-style: solid;
-      border-color: #555;
+      border-color: $-border;
       transform: translate(-50%, -50%);
     }
   }

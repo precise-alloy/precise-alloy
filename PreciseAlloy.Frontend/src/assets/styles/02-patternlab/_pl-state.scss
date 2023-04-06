@@ -1,3 +1,11 @@
+$-white: #fff;
+$-rock: #aaa093;
+$-wave-50: #d2dde4;
+$-beam: #f8c276;
+$-blue: #015174;
+$-lava: #434342;
+$-sand: #d4ccc7;
+
 .pl-state {
   position: absolute !important;
   top: px2rem(8px) !important;
@@ -10,17 +18,17 @@
 
   &__button {
     cursor: pointer;
-    border: px2rem(1px) solid $rock-s;
+    border: px2rem(1px) solid $-rock;
     width: px2rem(40px);
     height: px2rem(40px);
     border-radius: 50%;
-    background-color: $wave-50;
+    background-color: $-wave-50;
     display: flex;
     align-items: center;
     justify-content: center;
 
     &:hover {
-      background-color: $beam;
+      background-color: $-beam;
     }
 
     &.active {
@@ -33,22 +41,22 @@
 
   @keyframes activeStateButton {
     0% {
-      background-color: $white-p;
+      background-color: $-white;
       transform: rotate(0deg);
       box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($black, 0.15);
     }
     40% {
-      background-color: $beam;
-      box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($white-p, 0.8);
+      background-color: $-beam;
+      box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($-white, 0.8);
       box-shadow: none;
     }
     60% {
-      background-color: $beam;
-      box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($white-p, 0.8);
+      background-color: $-beam;
+      box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($-white, 0.8);
       box-shadow: none;
     }
     100% {
-      background-color: $white-p;
+      background-color: $-white;
       transform: rotate(360deg);
       box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($black, 0.15);
     }
@@ -95,8 +103,8 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: $xpack-blue-p;
-  color: $white-p;
+  background-color: $-blue;
+  color: $-white;
   display: none;
   transition: opacity 0.5s ease-in-out;
   opacity: 0;
@@ -149,20 +157,20 @@
   &__group-header {
     position: relative;
     cursor: pointer;
-    background-color: $white-p;
+    background-color: $-white;
     font-size: px2rem(13.33px);
-    color: $lava;
+    color: $-lava;
     padding: 0 px2rem(25px) 0 px2rem(5px);
     border: 1px solid rgb(118, 118, 118);
     min-width: px2rem(60px);
 
-    background-image: url('data:image/svg+xml,%3Csvg%20width%3D%2213%22%20height%3D%227%22%20viewBox%3D%220%200%2013%207%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22m12.12%201.413-1.109-1.3L6.59%204.208%202.07.148.89%201.377%206.523%206.6z%22%20fill%3D%22#{encodecolor($lava)}%22%20fill-rule%3D%22evenodd%22%2F%3E%0A%3C%2Fsvg%3E');
+    background-image: url('data:image/svg+xml,%3Csvg%20width%3D%2213%22%20height%3D%227%22%20viewBox%3D%220%200%2013%207%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22m12.12%201.413-1.109-1.3L6.59%204.208%202.07.148.89%201.377%206.523%206.6z%22%20fill%3D%22grey%22%20fill-rule%3D%22evenodd%22%2F%3E%0A%3C%2Fsvg%3E');
     background-size: px2rem(11px) px2rem(11px);
     background-repeat: no-repeat;
     background-position: right px2rem(5px) center;
 
     &:hover {
-      background-color: $beam !important;
+      background-color: $-beam !important;
     }
   }
 
@@ -171,7 +179,7 @@
     position: absolute;
     top: calc(100% + 1px);
     left: 0;
-    background-color: $sand-s;
+    background-color: $-sand;
     width: px2rem(160px);
     min-width: 100%;
     border: 1px solid rgb(118, 118, 118);
@@ -191,7 +199,7 @@
     display: none !important;
 
     &:checked + label.pl-state-bar__label {
-      background-color: $wave-50;
+      background-color: $-wave-50;
 
       > span {
         &::before {
@@ -210,11 +218,11 @@
     padding: px2rem(5px) px2rem(5px) px2rem(5px) px2rem(20px);
     display: block;
     cursor: pointer;
-    background-color: $white-p;
-    color: $lava;
+    background-color: $-white;
+    color: $-lava;
 
     &:hover {
-      background-color: $beam !important;
+      background-color: $-beam !important;
     }
 
     > span {
@@ -236,13 +244,13 @@
   }
 
   &__close-button {
-    background-color: rgba($white-p, 0.9) !important;
+    background-color: rgba($-white, 0.9) !important;
     cursor: pointer;
-    color: $lava;
+    color: $-lava;
     padding: px2rem(8px);
 
     &:hover {
-      background-color: $white-p !important;
+      background-color: $-white !important;
     }
   }
 }

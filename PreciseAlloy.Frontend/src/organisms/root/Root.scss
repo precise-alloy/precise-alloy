@@ -1,3 +1,15 @@
+$-white: #fff;
+$-wave-25: #e9eef1;
+$-wave-50: #d2dde4;
+$-light-grey: #979797;
+$-pebble: #e9e4e0;
+$-pearl: #f7f4f3;
+$-sand: #d4ccc7;
+$-rock: #aaa093;
+$-lava: #434342;
+$-blue: #015174;
+$-beam: #f8c276;
+
 :root {
   --pl-state-bubble-bg: #f30;
   --navbar-max-width: px2rem(240px);
@@ -10,14 +22,14 @@
   gap: px2rem(1px);
   overflow: hidden auto;
   border-right: px2rem(1px) solid #ddd;
-  background-color: $white-p;
+  background-color: $-white;
   position: sticky;
   top: 0;
   left: 0;
   z-index: 100;
   overflow: hidden;
   background-color: rgb(0, 0, 0, 0.1);
-  box-shadow: 0 px2rem(3px) px2rem(2px) px2rem(-2px) $light-grey;
+  box-shadow: 0 px2rem(3px) px2rem(2px) px2rem(-2px) $-light-grey;
   line-height: 1.5;
 
   @include tablet {
@@ -56,7 +68,7 @@
     }
 
     &:hover {
-      background-color: $pebble-s;
+      background-color: $-pebble;
       transform: scale(1.05);
     }
 
@@ -79,7 +91,7 @@
     max-width: var(--navbar-max-width);
     transform: translateX(-100%);
     transition: all 0.3s ease;
-    background-color: $white-p;
+    background-color: $-white;
 
     &.show {
       display: block;
@@ -105,8 +117,8 @@
 
   &__search {
     padding: px2rem(8px) px2rem(16px);
-    background-color: $pearl-s;
-    border: px2rem(1px) solid $sand-s;
+    background-color: $-pearl;
+    border: px2rem(1px) solid $-sand;
 
     input {
       width: 100%;
@@ -119,8 +131,8 @@
   }
 
   &__search-matches {
-    background-color: $pearl-s;
-    border-bottom: px2rem(2px) solid $rock-s;
+    background-color: $-pearl;
+    border-bottom: px2rem(2px) solid $-rock;
     > * {
       font-weight: 700;
 
@@ -139,18 +151,18 @@
   &__nav-item {
     padding: px2rem(4px) px2rem(8px) px2rem(4px) px2rem(16px);
     display: block;
-    background-color: $white-p;
-    color: $lava;
+    background-color: $-white;
+    color: $-lava;
     font-size: px2rem(13px);
     font-family: Arial, Helvetica, sans-serif;
 
     &--active {
-      background-color: $wave-50;
-      color: $xpack-blue-p;
+      background-color: $-wave-50;
+      color: $-blue;
     }
 
     &:hover {
-      background-color: $beam;
+      background-color: $-beam;
     }
 
     &.panel-position {
@@ -224,7 +236,7 @@
     cursor: pointer;
 
     &:hover {
-      color: $xpack-blue-p;
+      color: $-blue;
     }
   }
 
@@ -244,7 +256,7 @@
       height: min-content;
       position: relative;
       background-color: rgb(0, 0, 0, 0.1);
-      box-shadow: 0 px2rem(3px) px2rem(2px) px2rem(-2px) $light-grey;
+      box-shadow: 0 px2rem(3px) px2rem(2px) px2rem(-2px) $-light-grey;
     }
   }
 
