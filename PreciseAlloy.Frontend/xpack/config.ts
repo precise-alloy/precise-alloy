@@ -1,9 +1,9 @@
 import { defineConfig } from 'vite';
 import alias from './alias';
+import react from '@vitejs/plugin-react';
 import { getAssetFileName, getChunkFileName, getEntryFileName } from './filename';
 import { getManualChunk } from './manual-chunk';
 import { outDir, srcRoot } from './paths';
-import options from './hooks/options';
 import buildStart from './hooks/build-start';
 import writeBundle from './hooks/write-bundle';
 import closeBundle from './hooks/close-bundle';
@@ -18,7 +18,8 @@ const additionalScssData = `
 
 const config = defineConfig({
   plugins: [
-    options(),
+    react(),
+    // options(),
     buildStart(),
     // transfrom(),
     resolveDynamicImport(),
