@@ -6,7 +6,7 @@ const About = () => {
     <>
       <Header />
       <main>
-        <h1>About Page</h1>
+        <h1 className="zzz-container">About Page</h1>
       </main>
       <Footer />
     </>
