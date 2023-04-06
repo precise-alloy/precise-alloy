@@ -13,7 +13,7 @@ interface CopyItem {
   to?: string;
 }
 
-const xpackEnv = loadEnv('production', root) as ImportMetaEnv;
+const xpackEnv = loadEnv('production', root);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p: string) => slash(path.resolve(__dirname, p));
 const log = console.log.bind(console);

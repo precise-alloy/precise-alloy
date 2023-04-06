@@ -4,7 +4,7 @@ import { loadEnv } from 'vite';
 
 export const root = slash(path.resolve(__dirname, '..'));
 
-export const xpackEnv = loadEnv('production', root) as ImportMetaEnv;
+export const xpackEnv = loadEnv('production', root);
 
 export const srcRoot = slash(path.resolve(root, 'src'));
 export const typesRoot = slash(path.resolve(srcRoot, '_types'));
