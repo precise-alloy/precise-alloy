@@ -32,6 +32,7 @@ steps:
       git config --global user.email "VanTuyen.Pham@episerver.com"
       git config --global user.name "Tuyen Pham"
       git remote -v
+      git fetch origin fe-develop:fe-develop
       git checkout -b develop origin/develop
       git merge origin/fe-release
 
