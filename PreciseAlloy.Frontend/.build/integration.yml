@@ -31,11 +31,10 @@ steps:
   - script: |
       git config --global user.email "VanTuyen.Pham@episerver.com"
       git config --global user.name "Tuyen Pham"
-      git remote -v
-      git fetch origin develop:develop
-      git checkout develop
-      git fetch origin fe-release:fe-release
-      git merge fe-release
+      git fetch --all
+      git branch -vv
+      git checkout -b fe-build-temp
+      # git merge origin/develop --allow-unrelated-histories
 
   - script: |
       npm install
@@ -46,8 +45,9 @@ steps:
 
   - script: |
       git add .
-      git commit -m "Mege fe-release into develop"
-      git push origin develop:fe-release-inte-package -f
+      git commit -m "Create release package"
+      git push origin fe-build-temp:fe-release-inte-package -f
+    displayName: 'Create release package'
 
   - task: PowerShell@2
     displayName: 'Create Pull Request from fe-release-inte-package to develop'
@@ -60,17 +60,4 @@ steps:
       CUSTOM_REPOSITORY_NAME: 'Alloy-Template'
       CUSTOM_SOURCE_BRANCH: 'fe-release-inte-package'
       CUSTOM_TARGET_BRANCH: 'develop'
-      CUSTOM_REVIEWER_ID: 'ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2' # Alloy Template Team
-
-  - task: PowerShell@2
-    displayName: 'Create Pull Request from fe-release-inte-package to develop'
-    inputs:
-      targetType: 'filePath'
-      filePath: $(System.DefaultWorkingDirectory)/PreciseAlloy.Frontend/.build/integration.ps1
-      pwsh: true
-    env:
-      SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-      CUSTOM_REPOSITORY_NAME: 'Alloy-Template'
-      CUSTOM_SOURCE_BRANCH: 'fe-release-inte-package'
-      CUSTOM_TARGET_BRANCH: 'eshop-develop'
       CUSTOM_REVIEWER_ID: 'ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2' # Alloy Template Team
