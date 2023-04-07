@@ -34,7 +34,8 @@ steps:
       git remote -v
       git fetch origin develop:develop
       git checkout develop
-      git merge origin/fe-release
+      git fetch origin fe-release:fe-release
+      git merge fe-release
 
   - script: |
       npm install
