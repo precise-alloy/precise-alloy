@@ -32,8 +32,7 @@ steps:
       git config --global user.email "VanTuyen.Pham@episerver.com"
       git config --global user.name "Tuyen Pham"
       git fetch --all
-      git checkout -b develop origin/develop
-      git merge origin/fe-release
+      git merge origin/develop
 
   - script: |
       npm install
@@ -45,7 +44,7 @@ steps:
   - script: |
       git add .
       git commit -m "Mege fe-release into develop"
-      git push origin develop:fe-release-inte-package -f
+      git push origin fe-release:fe-release-inte-package -f
 
   - task: PowerShell@2
     displayName: 'Create Pull Request from fe-release-inte-package to develop'
