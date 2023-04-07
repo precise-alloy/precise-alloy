@@ -32,6 +32,7 @@ steps:
       git config --global user.email "VanTuyen.Pham@episerver.com"
       git config --global user.name "Tuyen Pham"
       git fetch --all
+      git branch -vv
       # git merge origin/develop --allow-unrelated-histories
 
   - script: |
@@ -43,8 +44,9 @@ steps:
 
   - script: |
       git add .
-      git commit -m "Mege fe-release into develop"
+      git commit -m "Create release package"
       git push origin fe-release:fe-release-inte-package -f
+    displayName: 'Create release package'
 
   - task: PowerShell@2
     displayName: 'Create Pull Request from fe-release-inte-package to develop'
