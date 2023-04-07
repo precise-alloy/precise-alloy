@@ -24,17 +24,9 @@ steps:
     persistCredentials: true
 
   - task: NodeTool@0
-    displayName: "Install Node.js"
+    displayName: 'Install Node.js'
     inputs:
-      versionSpec: "16.x"
-
-  - task: Cache@2
-    inputs:
-      key: 'npm | "$(Agent.OS)" | package-lock.json'
-      restoreKeys: |
-        npm | "$(Agent.OS)"
-      path: $(npm_config_cache)
-    displayName: Cache npm
+      versionSpec: '16.x'
 
   - script: |
       git config --global user.email "VanTuyen.Pham@episerver.com"
@@ -46,7 +38,7 @@ steps:
       npm install
       npm run inte
       git checkout -- .
-    displayName: "npm install and inte"
+    displayName: 'npm install and inte'
     workingDirectory: ./PreciseAlloy.Frontend
 
   - script: |
@@ -55,27 +47,27 @@ steps:
       git push origin develop:fe-release-inte-package -f
 
   - task: PowerShell@2
-    displayName: "Create Pull Request from fe-release-inte-package to develop"
+    displayName: 'Create Pull Request from fe-release-inte-package to develop'
     inputs:
-      targetType: "filePath"
+      targetType: 'filePath'
       filePath: $(System.DefaultWorkingDirectory)/PreciseAlloy.Frontend/.build/integration.ps1
       pwsh: true
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-      CUSTOM_REPOSITORY_NAME: "Alloy-Template"
-      CUSTOM_SOURCE_BRANCH: "fe-release-inte-package"
-      CUSTOM_TARGET_BRANCH: "develop"
-      CUSTOM_REVIEWER_ID: "ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2" # Alloy Template Team
+      CUSTOM_REPOSITORY_NAME: 'Alloy-Template'
+      CUSTOM_SOURCE_BRANCH: 'fe-release-inte-package'
+      CUSTOM_TARGET_BRANCH: 'develop'
+      CUSTOM_REVIEWER_ID: 'ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2' # Alloy Template Team
 
   - task: PowerShell@2
-    displayName: "Create Pull Request from fe-release-inte-package to develop"
+    displayName: 'Create Pull Request from fe-release-inte-package to develop'
     inputs:
-      targetType: "filePath"
+      targetType: 'filePath'
       filePath: $(System.DefaultWorkingDirectory)/PreciseAlloy.Frontend/.build/integration.ps1
       pwsh: true
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-      CUSTOM_REPOSITORY_NAME: "Alloy-Template"
-      CUSTOM_SOURCE_BRANCH: "fe-release-inte-package"
-      CUSTOM_TARGET_BRANCH: "eshop-develop"
-      CUSTOM_REVIEWER_ID: "ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2" # Alloy Template Team
+      CUSTOM_REPOSITORY_NAME: 'Alloy-Template'
+      CUSTOM_SOURCE_BRANCH: 'fe-release-inte-package'
+      CUSTOM_TARGET_BRANCH: 'eshop-develop'
+      CUSTOM_REVIEWER_ID: 'ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2' # Alloy Template Team
