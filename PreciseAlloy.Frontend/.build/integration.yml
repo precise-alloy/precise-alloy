@@ -31,6 +31,7 @@ steps:
   - script: |
       git config --global user.email "VanTuyen.Pham@episerver.com"
       git config --global user.name "Tuyen Pham"
+      git remote -v
       git checkout -b develop origin/develop
       git merge origin/fe-release
 
