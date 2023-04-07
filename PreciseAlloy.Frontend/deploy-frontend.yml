@@ -34,7 +34,7 @@ steps:
 
   - script: |
       npm run eshn
-    displayName: Generate statis site
+    displayName: Generate static site
     workingDirectory: ./PreciseAlloy.Frontend
 
   - task: AzureStaticWebApp@0

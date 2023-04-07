@@ -1,0 +1,14 @@
+﻿<header class="zzz-header">
+    <div class="zzz-container">
+        <div>
+            <a href="#">
+                <img class="zzz-header__logo" src="@Html.GetCacheBusterPath("/assets/images/logo.svg")">
+            </a>
+        </div>
+    </div>
+</header>
+
+@{
+    Html.RequireStyle("/assets/css/b-header.css").AtFooter();
+    Html.RequireModuleScript("/assets/js/header.js").AtFooter();
+}

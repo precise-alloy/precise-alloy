@@ -52,7 +52,7 @@ const ActiveItemOptions = () => {
   };
 
   const handleChangePanelPosition = () => {
-    window.setIsTopPanel(!isTopPanel);
+    window.setState('MSG_IS_TOP_PANEL', isTopPanel ? 'false' : 'true');
     setShow(false);
   };
 

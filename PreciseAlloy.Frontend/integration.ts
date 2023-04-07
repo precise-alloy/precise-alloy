@@ -6,15 +6,14 @@ import _ from 'lodash';
 import glob from 'glob';
 import crypto from 'node:crypto';
 import { loadEnv } from 'vite';
-import { root } from 'xpack/paths';
 
 interface CopyItem {
   from: string;
   to?: string;
 }
 
-const xpackEnv = loadEnv('production', root);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const xpackEnv = loadEnv('production', __dirname);
 const toAbsolute = (p: string) => slash(path.resolve(__dirname, p));
 const log = console.log.bind(console);
 
@@ -67,7 +66,7 @@ hashItems.forEach((item) => {
   const srcPath = slash(path.join(srcBasePath, item));
   const files = glob.sync(srcPath + '/**/*.{css,js,svg}');
   files.forEach((file) => {
-    const relativePath = file.substring(staticBasePath.length);
+    const relativePath = slash(file.substring(staticBasePath.length));
 
     if (!/\.0x[a-z0-9]{8}\.\w+$/gi.test(file)) {
       const content = fs.readFileSync(file, 'utf-8');
@@ -83,6 +82,7 @@ hashItems.forEach((item) => {
 
 fs.writeFileSync(path.join(destBasePath, 'hashes.json'), JSON.stringify(hashes, null, '  '));
 
+fs.mkdirSync(patternPath, { recursive: true });
 glob.sync('./dist/static/{atoms,molecules,organisms,templates,pages}/**/*.*').forEach((p) => {
   const basename = path.basename(slash(p).replaceAll(/(atoms|molecules|organisms|templates|pages)\/([\w._-]+)$/gi, '$1-$2'));
   fs.copyFileSync(p, resolve(patternPath, basename));

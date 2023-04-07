@@ -2,11 +2,11 @@ import RequireCss from '@helpers/RequireCss';
 
 const Header = () => {
   return (
-    <header className="zzz-header">
+    <header className="zzz-o-header">
       <div className="zzz-container">
         <div>
           <a href="#">
-            <img className="zzz-header__logo" src="/assets/images/logo.svg" />
+            <img className="zzz-o-header__logo" src="/assets/images/logo.svg" />
           </a>
         </div>
       </div>

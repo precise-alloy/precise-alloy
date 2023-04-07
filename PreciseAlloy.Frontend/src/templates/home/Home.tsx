@@ -1,12 +1,17 @@
 import Footer from '@organisms/footer/Footer';
 import Header from '@organisms/header/Header';
+import Hero from '@organisms/hero/Hero';
+import People from '@organisms/people/People';
+import Teaser from '@organisms/teaser/Teaser';
 
 const Home = () => {
   return (
     <>
       <Header />
       <main>
-        <h1 className="zzz-container">Home Page</h1>
+        <Hero />
+        <Teaser />
+        <People />
       </main>
       <Footer />
     </>

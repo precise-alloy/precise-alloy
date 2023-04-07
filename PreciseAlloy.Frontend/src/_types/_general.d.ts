@@ -18,7 +18,7 @@ declare global {
   interface Window {
     setFavoriteCount: (count: string | number) => any;
     setCartCount: (count: string | number) => any;
-    setIsTopPanel: (isTopPanel: boolean) => any;
+    setState: (name: string, value: string) => void;
   }
 
   interface Element {
