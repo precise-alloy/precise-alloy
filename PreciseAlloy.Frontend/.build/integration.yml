@@ -32,7 +32,7 @@ steps:
       git config --global user.email "VanTuyen.Pham@episerver.com"
       git config --global user.name "Tuyen Pham"
       git fetch --all
-      git merge origin/develop --allow-unrelated-histories
+      # git merge origin/develop --allow-unrelated-histories
 
   - script: |
       npm install
