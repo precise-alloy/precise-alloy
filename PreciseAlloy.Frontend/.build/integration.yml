@@ -31,11 +31,9 @@ steps:
   - script: |
       git config --global user.email "VanTuyen.Pham@episerver.com"
       git config --global user.name "Tuyen Pham"
-      git remote -v
-      git fetch origin develop:develop
-      git checkout develop
-      git fetch origin fe-release:fe-release
-      git merge fe-release
+      git fetch --all
+      git checkout -b develop origin/develop
+      git merge origin/fe-release
 
   - script: |
       npm install
