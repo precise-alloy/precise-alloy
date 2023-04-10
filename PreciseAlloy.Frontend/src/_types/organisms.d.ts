@@ -21,3 +21,11 @@ interface PartnerModel extends BasedAtomicModel {
   description?: string;
   images?: PictureModel[];
 }
+
+interface TeaserModel extends BasedAtomicModel {
+  styleModifier?: ('image-left')[];
+  button?: ButtonModel;
+  title?: string;
+  description?: string;
+  image?: PictureModel;
+}
