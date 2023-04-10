@@ -1,8 +1,8 @@
-﻿<header class="zzz-header">
+﻿<header class="zzz-o-header">
     <div class="zzz-container">
         <div>
             <a href="#">
-                <img class="zzz-header__logo" src="@Html.GetCacheBusterPath("/assets/images/logo.svg")">
+                <img alt="logo" class="zzz-o-header__logo" src="@Html.GetCacheBusterPath("/assets/images/logo.svg")">
             </a>
         </div>
     </div>
@@ -10,5 +10,5 @@
 
 @{
     Html.RequireStyle("/assets/css/b-header.css").AtHeader();
-    Html.RequireModuleScript("/assets/js/header.js").AtFooter();
+    Html.RequireScript("/assets/js/header.js").AtFooter();
 }

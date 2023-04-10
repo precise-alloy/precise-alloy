@@ -1,9 +1,22 @@
+import { PeopleModel } from '@_types/organisms';
 import RequireCss from '@helpers/RequireCss';
+import Avatar from '@organisms/avatar/Avatar';
 
-const People = () => {
+const People = (model: PeopleModel) => {
+  const { subHeader, header, text, items } = model;
+
   return (
     <section className="zzz-o-people">
-      <h2>This is People block</h2>
+      {subHeader && <h3 className="zzz-o-people__sub-header">{subHeader}</h3>}
+      {header && <h2 className="zzz-o-people__header">{header}</h2>}
+      {text && <div className="zzz-o-people__text" dangerouslySetInnerHTML={{ __html: text }}></div>}
+      {items && items.length && (
+        <div className="zzz-o-people__items">
+          {items.map((item, index) => (
+            <Avatar {...item} key={index} />
+          ))}
+        </div>
+      )}
       <RequireCss path="b-people" />
     </section>
   );

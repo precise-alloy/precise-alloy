@@ -1,0 +1,11 @@
+﻿@using EPiServer.Web.Mvc.Html
+@model PreciseAlloy.Web.Features.Components.PeopleBlock.PeopleBlockViewModel
+
+<section class="zzz-o-people">
+    <div class="zzz-container">
+        @Html.PropertyFor(m => m.CurrentBlock.SubHeader, new {TagName = "h3"})
+        @Html.PropertyFor(m => m.CurrentBlock.Header, new {TagName = "h2"})
+        @Html.PropertyFor(m => m.CurrentBlock.Text)
+        @Html.PropertyFor(m => m.CurrentBlock.Items)
+    </div>
+</section>

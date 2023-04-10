@@ -15,7 +15,7 @@ internal static class EngineConfigurator
         var formats = options.ViewLocationFormats;
         foreach (var format in AdditionalViewLocationFormats)
         {
-            formats.Add(format);
+            formats.Insert(0, format);
         }
     }
 }

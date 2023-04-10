@@ -1,10 +1,11 @@
 using EPiServer.Cms.Shell;
 using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Scheduler;
-using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PreciseAlloy.Services.Request;
+using PreciseAlloy.Services.Settings;
 using PreciseAlloy.Web.Infrastructure;
 
 namespace PreciseAlloy.Web;
@@ -41,6 +42,8 @@ public class Startup
             .AddEmbeddedLocalization<Startup>();
 
         services.AddTransient<ContentAreaRenderer, CustomContentAreaRenderer>();
+        services.AddScoped<IRequestContext, RequestContext>();
+        services.AddSingleton<ISettingsService, SettingsService>();
         services.Configure<RazorPagesOptions>(options => options.RootDirectory = "/Features");
     }
 

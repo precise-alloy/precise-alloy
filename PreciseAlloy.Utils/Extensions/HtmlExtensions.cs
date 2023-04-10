@@ -15,17 +15,6 @@ public static class HtmlExtensions
     private static Injected<ILogger> Logger { get; }
     private static readonly IDictionary<string, string> CacheBusterValues;
 
-    private static readonly IDictionary<string, string> ModuleAttributes = new Dictionary<string, string>
-    {
-        ["type"] = "module"
-    };
-
-    private static readonly IDictionary<string, string> AsyncModuleAttributes = new Dictionary<string, string>
-    {
-        ["type"] = "module",
-        ["async"] = ""
-    };
-
     static HtmlExtensions()
     {
         try
@@ -74,8 +63,8 @@ public static class HtmlExtensions
         }
 
         resourcePath = resourcePath.Trim();
-        if (resourcePath.StartsWith("http", StringComparison.InvariantCultureIgnoreCase)
-            || resourcePath.IndexOf("/assets/vendors/", StringComparison.InvariantCultureIgnoreCase) >= 0)
+        if (resourcePath.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+            || resourcePath.IndexOf("/assets/vendors/", StringComparison.OrdinalIgnoreCase) >= 0)
         {
             return "";
         }
@@ -104,20 +93,32 @@ public static class HtmlExtensions
         return ClientResources.RequireStyle(cacheBusterPath, path, null);
     }
 
-    public static ClientResourceSettings RequireModuleScript(this IHtmlHelper htmlHelper, string path)
+    public static ClientResourceSettings RequireScript(
+        this IHtmlHelper htmlHelper,
+        string path,
+        bool module = true,
+        bool? defer = null,
+        bool? async = null)
     {
         var cacheBusterPath = GetCacheBusterPath(path);
-        return ClientResources.RequireScript(cacheBusterPath, path, null, ModuleAttributes);
-    }
 
-    public static ClientResourceSettings RequireDeferModuleScript(this IHtmlHelper htmlHelper, string path)
-    {
-        return RequireModuleScript(htmlHelper, path);
-    }
+        var attributes = new Dictionary<string, string>();
 
-    public static ClientResourceSettings RequireAsyncModuleScript(this IHtmlHelper htmlHelper, string path)
-    {
-        var cacheBusterPath = GetCacheBusterPath(path);
-        return ClientResources.RequireScript(cacheBusterPath, path, null, AsyncModuleAttributes);
+        if (module)
+        {
+            attributes["type"] = "module";
+        }
+
+        if (!module && defer == true)
+        {
+            attributes["defer"] = "";
+        }
+
+        if (async == true)
+        {
+            attributes["async"] = "";
+        }
+
+        return ClientResources.RequireScript(cacheBusterPath, path, null, attributes);
     }
 }

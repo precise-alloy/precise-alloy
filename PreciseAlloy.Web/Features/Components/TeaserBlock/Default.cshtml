@@ -1,0 +1,16 @@
+﻿@using EPiServer.Web.Mvc.Html
+@model PreciseAlloy.Web.Features.Components.TeaserBlock.TeaserBlockViewModel
+
+<section class="zzz-o-teaser">
+    <div class="zzz-container">
+        @if (!string.IsNullOrWhiteSpace(Model.CurrentBlock.Header))
+        {
+            <h1>@Html.PropertyFor(m => m.CurrentBlock.Header)</h1>
+        }
+        @if (Model.CurrentBlock.Text?.IsEmpty == false)
+        {
+            <div>@Html.PropertyFor(m => m.CurrentBlock.Text)</div>
+        }
+        @Html.PropertyFor(m => m.CurrentBlock.CtaButton, new {CssClass="abc"})
+    </div>
+</section>
