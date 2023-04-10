@@ -8,3 +8,11 @@ interface PartnerModel extends BasedAtomicModel {
   description?: string;
   images?: PictureModel[];
 }
+
+interface HeroModel extends BasedAtomicModel {
+  button?: ButtonModel;
+  label?: string;
+  title?: string;
+  description?: string;
+  image?: PictureModel;
+}
