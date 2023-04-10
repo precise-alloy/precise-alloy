@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 
 const blocks: { [name: string]: any } = {
   root: lazy(() => import('./organisms/root/Root')),
+  people: lazy(() => import('./organisms/people/People')),
 };
 
 const loadComponent = (scriptSection: HTMLScriptElement) => {
