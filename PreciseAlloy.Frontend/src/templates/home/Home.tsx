@@ -1,5 +1,4 @@
-import { PeopleModel } from '@_types/organisms';
-import { PartnerModel } from '@_types/organisms';
+import { HeroModel, PartnerModel, PeopleModel } from '@_types/organisms';
 import Partner from '@organisms/Partner/Partner';
 import Footer from '@organisms/footer/Footer';
 import Header from '@organisms/header/Header';
@@ -10,16 +9,17 @@ import Teaser from '@organisms/teaser/Teaser';
 interface Props {
   people?: PeopleModel;
   partner?: PartnerModel;
+  hero?: HeroModel;
 }
 
 const Home = (model: Props) => {
-  const { people, partner } = model;
+  const { people, partner, hero } = model;
 
   return (
     <>
       <Header />
       <main>
-        <Hero />
+        {hero && <Hero {...hero} />}
         {partner && <Partner {...partner} />}
         <Teaser />
         {people && <script data-rct="people" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(people) }}></script>}

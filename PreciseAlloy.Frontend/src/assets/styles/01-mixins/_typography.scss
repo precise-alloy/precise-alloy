@@ -21,8 +21,12 @@
 @mixin font-h1 {
   font-family: $font-crimson-text;
   font-weight: $bold;
-  font-size: px2rem(40px);
+  font-size: px2rem(28px);
   line-height: 1.25;
+
+  @include desktop {
+    font-size: px2rem(40px);
+  }
 }
 
 @mixin font-h2 {
