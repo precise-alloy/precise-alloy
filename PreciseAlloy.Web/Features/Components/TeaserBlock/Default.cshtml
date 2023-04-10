@@ -11,6 +11,6 @@
         {
             <div>@Html.PropertyFor(m => m.CurrentBlock.Text)</div>
         }
-        @Html.PropertyFor(m => m.CurrentBlock.CtaButton)
+        @Html.PropertyFor(m => m.CurrentBlock.CtaButton, new {CssClass="abc"})
     </div>
 </section>
