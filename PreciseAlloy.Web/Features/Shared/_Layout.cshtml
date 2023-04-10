@@ -1,33 +1,9 @@
-﻿@using EPiServer.Framework.Web.Mvc.Html
-@using EPiServer.Web.Mvc.Html
-<!DOCTYPE html>
-<html lang="@ContentLanguage.PreferredCulture.TwoLetterISOLanguageName">
+﻿@{
+    Layout = "_Master";
+}
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="icon" href="~/favicon.svg" type="image/svg+xml" />
-    <link rel="manifest" href="~/site.webmanifest">
-
-    <link rel="stylesheet" href="@Html.GetCacheBusterPath("/assets/css/style-base.css")">
-
-    @Html.RequiredClientResources("Header")
-
-    <script type="module" src="@Html.GetWidgetAssetPath("react-loader")"></script>
-    <link rel="modulepreload" href="@Html.GetWidgetAssetPath("vendor")">
-</head>
-
-<body>
-    <script src="@Html.GetCacheBusterPath("/assets/js/main.js")"></script>
-    @await Component.InvokeAsync("Header")
-    <main>
-        @RenderBody()
-    </main>
-    @await Component.InvokeAsync("Footer")
-    @Html.RequiredClientResources("Footer")
-    @await Html.RenderEPiServerQuickNavigatorAsync()
-</body>
-
-</html>
+@await Component.InvokeAsync("Header")
+<main>
+    @RenderBody()
+</main>
+@await Component.InvokeAsync("Footer")
