@@ -1,15 +1,30 @@
 .zzz-o-people {
   text-align: center;
 
+  &__content {
+    margin: 0 auto;
+    max-width: px2rem(386px);
+  }
+
   &__sub-header {
+    margin-bottom: px2rem(16px);
     @include font-label;
     text-transform: uppercase;
     color: $green;
+  }
+
+  &__header {
+    margin-bottom: px2rem(16px);
+  }
+
+  &__text {
+    margin-bottom: px2rem(45px);
   }
 
   &__items {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: px2rem(47px);
   }
 }
