@@ -1,0 +1,26 @@
+@using EPiServer.Framework.Web.Mvc.Html
+<!DOCTYPE html>
+<html lang="@ContentLanguage.PreferredCulture.TwoLetterISOLanguageName">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="@Html.GetCacheBusterPath("/assets/css/style-base.css")">
+
+    @Html.RequiredClientResources("Header")
+
+    <script type="module" src="@Html.GetWidgetAssetPath("react-loader")"></script>
+    <link rel="modulepreload" href="@Html.GetWidgetAssetPath("vendor")">
+</head>
+
+<body>
+    <script src="@Html.GetCacheBusterPath("/assets/js/main.js")"></script>
+
+    @RenderBody()
+    @Html.RequiredClientResources("Footer")
+</body>
+
+</html>
