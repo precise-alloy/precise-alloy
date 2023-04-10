@@ -1,5 +1,4 @@
-import { PeopleModel, TeaserModel } from '@_types/organisms';
-import { PartnerModel } from '@_types/organisms';
+import { HeroModel, PartnerModel, PeopleModel, TeaserModel } from '@_types/organisms';
 import Partner from '@organisms/Partner/Partner';
 import Footer from '@organisms/footer/Footer';
 import Header from '@organisms/header/Header';
@@ -12,16 +11,17 @@ interface Props {
   partner?: PartnerModel;
   teaser?: TeaserModel;
   teaserImageLeft?: TeaserModel;
+  hero?: HeroModel;
 }
 
 const Home = (model: Props) => {
-  const { people, partner, teaser, teaserImageLeft } = model;
+  const { people, partner, teaser, teaserImageLeft, hero } = model;
 
   return (
     <>
       <Header />
       <main>
-        <Hero />
+        {hero && <Hero {...hero} />}
         {partner && <Partner {...partner} />}
         {teaser && <Teaser {...teaser} />}
         {teaserImageLeft && <Teaser {...teaserImageLeft} />}

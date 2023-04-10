@@ -29,3 +29,11 @@ interface TeaserModel extends BasedAtomicModel {
   description?: string;
   image?: PictureModel;
 }
+
+interface HeroModel extends BasedAtomicModel {
+  button?: ButtonModel;
+  label?: string;
+  title?: string;
+  description?: string;
+  image?: PictureModel;
+}
