@@ -1,5 +1,5 @@
 import { HeroModel, PartnerModel, PeopleModel, TeaserModel } from '@_types/organisms';
-import Partner from '@organisms/Partner/Partner';
+import Partner from '@organisms/partner/Partner';
 import Footer from '@organisms/footer/Footer';
 import Header from '@organisms/header/Header';
 import Hero from '@organisms/hero/Hero';

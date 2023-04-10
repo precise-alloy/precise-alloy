@@ -7,22 +7,22 @@ export const people: PeopleModel = {
   items: [
     {
       name: "Emilia Clarke",
-      src: "/samples/emilia-clarke.jpg",
+      src: "/samples/01.svg",
       jobTitle: "CEO"
     },
     {
       name: "Cliff Curtis",
-      src: "/samples/cliff-curtis.jpg",
+      src: "/samples/01.svg",
       jobTitle: "CEO"
     },
     {
       name: "Rose Leslie",
-      src: "/samples/rose-leslie.jpg",
+      src: "/samples/01.svg",
       jobTitle: "CEO"
     },
     {
       name: "Michelle Yeoh",
-      src: "/samples/michelle-yeoh.jpg",
+      src: "/samples/01.svg",
       jobTitle: "CEO"
     },
   ]
