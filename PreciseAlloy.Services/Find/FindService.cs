@@ -17,10 +17,10 @@ public class FindService : IFindService
         IClient client,
         ILogger logger)
     {
-        logger.EnterConstructor();
-        _client = client;
         _logger = logger;
-        logger.ExitConstructor();
+        _logger.EnterConstructor();
+        _client = client;
+        _logger.ExitConstructor();
     }
 
     public IContentResult<T>? Search<T>(
@@ -63,16 +63,13 @@ public class FindService : IFindService
                 .ExcludeDeleted()
                 .FilterForVisitor();
 
+            _logger.ExitMethod();
             return search.Take(query.PageSize).GetContentResult();
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Fail to search for blocks");
             return null;
-        }
-        finally
-        {
-            _logger.ExitMethod();
         }
     }
 
@@ -127,6 +124,7 @@ public class FindService : IFindService
 
             query.PageIndex = query.PageIndex <= 0 ? 1 : query.PageIndex;
 
+            _logger.ExitMethod();
             return search
                 .Skip((query.PageIndex - 1) * query.PageSize)
                 .Take(query.PageSize)
@@ -136,10 +134,6 @@ public class FindService : IFindService
         {
             _logger.LogError(ex, "Fail to search for pages");
             return null;
-        }
-        finally
-        {
-            _logger.ExitMethod();
         }
     }
 }

@@ -2,8 +2,10 @@
 using EPiServer.Core;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using PreciseAlloy.Models.Settings;
 using PreciseAlloy.Services.Settings;
+using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Services.Request;
 
@@ -13,24 +15,31 @@ public class RequestContext
     private static readonly object NullObject = new();
     private readonly IContentLoader _contentLoader;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly ILogger _logger;
     private readonly IPageRouteHelper _pageRouteHelper;
     private readonly ISettingsService _settingsService;
 
     public RequestContext(
         IContentLoader contentLoader,
         IHttpContextAccessor httpContextAccessor,
+        ILogger logger,
         IPageRouteHelper pageRouteHelper,
         ISettingsService settingsService)
     {
+        _logger = logger;
+        _logger.EnterConstructor();
         _contentLoader = contentLoader;
         _httpContextAccessor = httpContextAccessor;
         _pageRouteHelper = pageRouteHelper;
         _settingsService = settingsService;
+        _logger.ExitConstructor();
     }
 
     public PageData? CurrentPage()
     {
-        return ForceGet(
+        _logger.EnterMethod();
+
+        var page = ForceGet(
             "Context::CurrentPage",
             () =>
             {
@@ -44,45 +53,68 @@ public class RequestContext
                     ? result
                     : _pageRouteHelper.Page;
             });
+
+        _logger.ExitMethod();
+        return page;
     }
 
     public LayoutSettings? GetLayoutSettings()
     {
-        return ForceGet("Context::CurrentLayoutSettings", () => _settingsService.GetLayoutSettings());
+        _logger.EnterMethod();
+
+        var layoutSettings = ForceGet("Context::CurrentLayoutSettings", () => _settingsService.GetLayoutSettings());
+
+        _logger.ExitMethod();
+
+        return layoutSettings;
     }
 
     public void SetPageSubstitute(PageData page)
     {
+        _logger.EnterMethod();
+
         RemoveKey("Context::CurrentLayoutSettings");
         RemoveKey("Context::CurrentDigitalData");
 
         RemoveKey("Context::CurrentPage");
         ForceGet("Context::CurrentPage", () => page);
+
+        _logger.ExitMethod();
     }
 
     private void RemoveKey(string key)
     {
+        _logger.EnterMethod();
+
         var items = _httpContextAccessor.HttpContext?.Items;
         if (items?.ContainsKey(key) == true)
         {
             items.Remove(key);
         }
+
+        _logger.ExitMethod();
     }
 
     private TEntity? ForceGet<TEntity>(string key, Func<TEntity?> getEntity)
         where TEntity : class
     {
+        _logger.EnterMethod();
+
         var items = _httpContextAccessor.HttpContext?.Items;
 
         var cachedValue = items?[key];
         if (cachedValue == NullObject)
         {
+            _logger.ExitMethod("Cache exist with null value");
             return null;
         }
 
         if (cachedValue != null)
         {
-            return (TEntity)cachedValue;
+            var value = (TEntity)cachedValue;
+
+            _logger.ExitMethod("Cache exist with non-null value");
+            return value;
         }
 
         var result = getEntity();
@@ -91,6 +123,7 @@ public class RequestContext
             items[key] = result ?? NullObject;
         }
 
+        _logger.ExitMethod();
         return result;
     }
 }
