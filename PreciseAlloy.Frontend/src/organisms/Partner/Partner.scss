@@ -1,0 +1,27 @@
+.zzz-o-partner {
+  text-align: center;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    gap: px2rem(30px);
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: px2rem(10px);
+  }
+
+  &__label {
+    font-size: px2rem(16px);
+    color: $green;
+    font-weight: 700;
+  }
+
+  &__images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: px2rem(20px);
+  }
+}
