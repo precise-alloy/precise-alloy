@@ -63,8 +63,8 @@ public static class HtmlExtensions
         }
 
         resourcePath = resourcePath.Trim();
-        if (resourcePath.StartsWith("http", StringComparison.InvariantCultureIgnoreCase)
-            || resourcePath.IndexOf("/assets/vendors/", StringComparison.InvariantCultureIgnoreCase) >= 0)
+        if (resourcePath.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+            || resourcePath.IndexOf("/assets/vendors/", StringComparison.OrdinalIgnoreCase) >= 0)
         {
             return "";
         }
