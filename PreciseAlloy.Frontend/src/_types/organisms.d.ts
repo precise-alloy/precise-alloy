@@ -22,6 +22,14 @@ interface PartnerModel extends BasedAtomicModel {
   images?: PictureModel[];
 }
 
+interface TeaserModel extends BasedAtomicModel {
+  styleModifier?: ('image-left')[];
+  button?: ButtonModel;
+  title?: string;
+  description?: string;
+  image?: PictureModel;
+}
+
 interface HeroModel extends BasedAtomicModel {
   button?: ButtonModel;
   label?: string;
