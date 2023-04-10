@@ -34,7 +34,7 @@ steps:
       git fetch --all
       git branch -vv
       git checkout -b fe-build-temp
-      # git merge origin/develop --allow-unrelated-histories
+      git merge origin/develop
 
   - script: |
       npm install
