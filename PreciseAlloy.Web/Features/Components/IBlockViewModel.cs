@@ -1,4 +1,4 @@
-﻿namespace PreciseAlloy.Web.Components;
+﻿namespace PreciseAlloy.Web.Features.Components;
 
 public interface IBlockViewModel<out T>
     where T : class

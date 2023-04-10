@@ -1,14 +1,15 @@
 using EPiServer.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
-using PreciseAlloy.Models.Pages;
 
-namespace PreciseAlloy.Web.Features.Home;
+namespace PreciseAlloy.Web.Features.HomePage;
 
 public class HomePageController
-    : PageController<HomePage>
+    : PageController<Models.Pages.HomePage>
 {
-    public IActionResult Index(HomePage currentPage)
+    public IActionResult Index(Models.Pages.HomePage currentPage)
     {
-        return View();
+        var model = new HomePageViewModel(currentPage);
+
+        return View(model);
     }
 }

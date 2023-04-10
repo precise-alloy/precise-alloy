@@ -1,6 +1,6 @@
 ﻿using PreciseAlloy.Utils.Extensions;
 
-namespace PreciseAlloy.Web.Components;
+namespace PreciseAlloy.Web.Features.Components;
 
 public class BlockViewModel<T>
     : IBlockViewModel<T>
