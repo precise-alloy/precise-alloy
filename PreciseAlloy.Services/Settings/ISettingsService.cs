@@ -4,5 +4,5 @@ namespace PreciseAlloy.Services.Settings;
 
 public interface ISettingsService
 {
-    LayoutSettings GetLayoutSettings();
+    LayoutSettings? GetLayoutSettings();
 }

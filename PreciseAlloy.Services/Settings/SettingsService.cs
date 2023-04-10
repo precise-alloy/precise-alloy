@@ -1,13 +1,33 @@
-﻿using PreciseAlloy.Models.Settings;
+﻿using Microsoft.Extensions.Logging;
+using PreciseAlloy.Models.Settings;
+using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Services.Settings;
 
 public class SettingsService
     : ISettingsService
 {
-    public LayoutSettings GetLayoutSettings()
+    private readonly ILogger _logger;
+
+    public SettingsService(ILogger logger)
     {
-        var layoutSettings = new LayoutSettings();
-        return layoutSettings;
+        _logger = logger;
+        _logger.EnterConstructor();
+        _logger.ExitConstructor();
+    }
+
+    public LayoutSettings? GetLayoutSettings()
+    {
+        try
+        {
+            var layoutSettings = new LayoutSettings();
+
+            return layoutSettings;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Cannot get layout settings");
+            return null;
+        }
     }
 }
