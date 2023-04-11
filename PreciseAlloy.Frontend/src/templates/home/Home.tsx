@@ -24,8 +24,8 @@ const Home = (model: Props) => {
       <main>
         {hero && <Hero {...hero} />}
         {partner && <Partner {...partner} />}
-        {teaser && <Teaser {...teaser} />}
         {teaserImageLeft && <Teaser {...teaserImageLeft} />}
+        {teaser && <Teaser {...teaser} />}
         {people && <script data-rct="people" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(people) }}></script>}
       </main>
       <Footer {...footer} />
