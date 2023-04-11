@@ -19,7 +19,6 @@ const People = (model: PeopleModel) => {
           ))}
         </div>
       )}
-      <RequireCss path="b-people" />
     </section>
   );
 };

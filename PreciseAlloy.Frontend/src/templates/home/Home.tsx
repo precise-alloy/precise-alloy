@@ -3,6 +3,7 @@ import Partner from '@organisms/partner/Partner';
 import Footer from '@organisms/footer/Footer';
 import Hero from '@organisms/hero/Hero';
 import Teaser from '@organisms/teaser/Teaser';
+import RequireCss from '@helpers/RequireCss';
 
 interface Props {
   people?: PeopleModel;
@@ -27,6 +28,7 @@ const Home = (model: Props) => {
         {teaserImageLeft && <Teaser {...teaserImageLeft} />}
         {teaser && <Teaser {...teaser} />}
         {people && <script data-rct="people" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(people) }}></script>}
+        <RequireCss path="b-people" />
       </main>
       <Footer {...footer} />
     </>
