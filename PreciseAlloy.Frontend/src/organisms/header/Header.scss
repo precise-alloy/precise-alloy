@@ -1,4 +1,113 @@
 .zzz-o-header {
   background-color: $green;
   color: $white;
+  padding: px2rem(17px) 0;
+  position: relative;
+
+  @include tablet {
+    padding: px2rem(35px) 0;
+  }
+
+  &__header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__title {
+    @include font-h1;
+
+    margin-right: auto;
+  }
+
+  &__nav-list {
+    list-style: none;
+    display: none;
+    flex-direction: row;
+    gap: px2rem(30px);
+    padding: 0;
+
+    @include tablet {
+      display: flex;
+    }
+
+    &.active {
+      display: block;
+      background-color: $white;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      width: 100%;
+      border: px2rem(1px) solid transparent;
+      margin: 0;
+    }
+
+    &__item {
+      @include font-sub-heading;
+      background-color: transparent;
+
+      a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+        color: $white;
+      }
+
+      @include tablet {
+        &:hover {
+          outline: rgb($white, 0.2) px2rem(15px) solid;
+          background-color: rgb($white, 0.2);
+          cursor: pointer;
+        }
+      }
+    }
+
+    &.active &__item {
+      color: $green;
+
+      a {
+        padding: px2rem(10px) px2rem(20px);
+        color: $green;
+      }
+
+      &:not(:last-child) {
+        border-bottom: rgb($black, 0.2) solid px2rem(1px);
+      }
+    }
+  }
+
+  &__nav-mobile {
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__nav-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: px2rem(8px);
+
+    span {
+      height: px2rem(3px);
+      width: px2rem(30px);
+      background-color: $white;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &.active {
+      gap: 0;
+
+      span:nth-child(1) {
+        transform: rotate(45deg);
+      }
+      span:nth-child(2) {
+        display: none;
+      }
+      span:nth-child(3) {
+        transform: rotate(-45deg);
+        margin-top: px2rem(-3px);
+      }
+    }
+  }
 }
