@@ -5,7 +5,7 @@ window.setState = window.setState || function (key: string, value: string) {
 
 Element.prototype.observeResize =
   Element.prototype.observeResize ||
-  function (callback) {
+  function (this: Element, callback: () => any) {
     if ('ResizeObserver' in window) {
       // create an Observer instance
       const resizeObserver = new ResizeObserver(callback);
