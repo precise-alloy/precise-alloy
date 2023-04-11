@@ -1,16 +1,41 @@
 ﻿@using EPiServer.Web.Mvc.Html
+@using PreciseAlloy.Utils.Extensions
 @model PreciseAlloy.Web.Features.Components.TeaserBlock.TeaserBlockViewModel
 
-<section class="zzz-o-teaser">
+@{
+    var imageClass = Model.CurrentBlock.ShowImageOnTheRight
+        ? ""
+        : "zzz-o-teaser--image-left";
+}
+
+<section class="zzz-o-teaser section-margin-top-xl @imageClass">
     <div class="zzz-container">
-        @if (!string.IsNullOrWhiteSpace(Model.CurrentBlock.Header))
-        {
-            <h1>@Html.PropertyFor(m => m.CurrentBlock.Header)</h1>
-        }
-        @if (Model.CurrentBlock.Text?.IsEmpty == false)
-        {
-            <div>@Html.PropertyFor(m => m.CurrentBlock.Text)</div>
-        }
-        @Html.PropertyFor(m => m.CurrentBlock.CtaButton, new {CssClass="abc"})
+        <div class="zzz-o-teaser__inner">
+            <div class="zzz-o-teaser__content">
+                @Html.PropertyFor(m => m.CurrentBlock.Header, new { TagName = "h2", CssClass="zzz-o-teaser__title h1"})
+
+                @if (Model.CurrentBlock.Text?.IsEmpty == false)
+                {
+                    <div class="zzz-o-teaser__description">
+                        @Html.PropertyFor(m => m.CurrentBlock.Text)
+                    </div>
+                }
+                @if (Model.CurrentBlock.CtaButton != null)
+                {
+                    <div class="zzz-o-teaser__button">
+                        <button class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black">
+                            @Html.PropertyFor(m => m.CurrentBlock.CtaButton.Title)
+                        </button>
+                    </div>
+                }
+            </div>
+            <picture class="zzz-a-picture">
+                <img alt="@Model.CurrentBlock.Header" src="/samples/01.svg" loading="lazy">
+            </picture>
+        </div>
     </div>
 </section>
+
+@{
+    Html.RequireStyle("/assets/css/b-teaser.css").AtFooter();
+}

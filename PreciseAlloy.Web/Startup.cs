@@ -1,3 +1,4 @@
+using Advanced.CMS.GroupingHeader;
 using EPiServer.Cms.Shell;
 using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Scheduler;
@@ -42,9 +43,13 @@ public class Startup
             .AddEmbeddedLocalization<Startup>();
 
         services.AddTransient<ContentAreaRenderer, CustomContentAreaRenderer>();
-        services.AddScoped<IRequestContext, RequestContext>();
         services.AddSingleton<ISettingsService, SettingsService>();
+        services.AddScoped<IRequestContext, RequestContext>();
         services.Configure<RazorPagesOptions>(options => options.RootDirectory = "/Features");
+
+        // Add GroupingHeader
+        // https://github.com/advanced-cms/grouping-header/
+        services.AddGroupingHeader();
     }
 
     public void Configure(
@@ -58,11 +63,15 @@ public class Startup
 
         app.UseStaticFiles();
         app.UseRouting();
+        app.UseCors();
         app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapControllerRoute(name: "Default", pattern: "{controller}/{action}/{id?}");
+            endpoints.MapControllers();
+            endpoints.MapRazorPages();
             endpoints.MapContent();
         });
     }

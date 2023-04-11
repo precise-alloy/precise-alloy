@@ -15,14 +15,14 @@ public class RequestContext
     private static readonly object NullObject = new();
     private readonly IContentLoader _contentLoader;
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly ILogger _logger;
+    private readonly ILogger<RequestContext> _logger;
     private readonly IPageRouteHelper _pageRouteHelper;
     private readonly ISettingsService _settingsService;
 
     public RequestContext(
         IContentLoader contentLoader,
         IHttpContextAccessor httpContextAccessor,
-        ILogger logger,
+        ILogger<RequestContext> logger,
         IPageRouteHelper pageRouteHelper,
         ISettingsService settingsService)
     {

@@ -1,12 +1,17 @@
-﻿<header class="zzz-o-header">
-    <div class="zzz-container">
-        <div>
-            <a href="#">
-                <img alt="logo" class="zzz-o-header__logo" src="@Html.GetCacheBusterPath("/assets/images/logo.svg")">
-            </a>
+﻿@model PreciseAlloy.Models.Settings.LayoutSettings
+
+@if (!Model.HideHeader)
+{
+    <header class="zzz-o-header">
+        <div class="zzz-container">
+            <div>
+                <a href="#">
+                    <img alt="logo" class="zzz-o-header__logo" src="@Html.GetCacheBusterPath("/assets/images/logo.svg")">
+                </a>
+            </div>
         </div>
-    </div>
-</header>
+    </header>
+}
 
 @{
     Html.RequireStyle("/assets/css/b-header.css").AtHeader();

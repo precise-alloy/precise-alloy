@@ -366,3 +366,4 @@ FodyWeavers.xsd
 # Optimizely
 modules/
 blobs/
+log-*.txt
