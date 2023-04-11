@@ -9,19 +9,19 @@ const partner: PartnerModel = {
   description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, porro?',
   images: [
     {
-      src: '/samples/01.svg'
+      src: '/samples/Google.svg'
     },
     {
-      src: '/samples/01.svg'
+      src: '/samples/Microsoft.svg'
     },
     {
-      src: '/samples/01.svg'
+      src: '/samples/Airbnb.svg'
     },
     {
-      src: '/samples/01.svg'
+      src: '/samples/Facebook.svg'
     },
     {
-      src: '/samples/01.svg'
+      src: '/samples/Spotify.svg'
     },
   ],
   button: {

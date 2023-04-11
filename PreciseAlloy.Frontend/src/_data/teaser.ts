@@ -11,13 +11,16 @@ const teaser: TeaserModel = {
     styleModifier: ['btn', 'btn-black']
   },
   image: {
-    src: '/samples/01.svg'
+    src: '/samples/image-3.svg'
   }
 }
 
 const teaserImageLeft: TeaserModel = {
   ...teaser,
-  styleModifier: ['image-left']
+  styleModifier: ['image-left'],
+  image: {
+    src: '/samples/image-2.svg'
+  }
 }
 
 export { teaser, teaserImageLeft }

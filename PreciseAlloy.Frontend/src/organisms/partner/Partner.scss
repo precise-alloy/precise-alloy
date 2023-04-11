@@ -21,7 +21,21 @@
 
   &__images {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
-    gap: px2rem(20px);
+    grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+    gap: px2rem(30px);
+    align-items: center;
+
+    @include tablet {
+      gap: px2rem(20px);
+    }
+
+    @include desktop {
+      gap: px2rem(10px);
+    }
+
+    .zzz-a-picture {
+      justify-self: center;
+      align-self: center;
+    }
   }
 }
