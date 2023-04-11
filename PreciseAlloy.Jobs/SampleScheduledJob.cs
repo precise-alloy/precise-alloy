@@ -42,6 +42,7 @@ public class SampleScheduledJob : ScheduledJobBase
             }
             else
             {
+                Logger.LogError("Failed to execute item: " + CurrentItem);
                 Failed++;
             }
 
