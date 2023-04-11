@@ -3,7 +3,6 @@ import Partner from '@organisms/partner/Partner';
 import Footer from '@organisms/footer/Footer';
 import Header from '@organisms/header/Header';
 import Hero from '@organisms/hero/Hero';
-import People from '@organisms/people/People';
 import Teaser from '@organisms/teaser/Teaser';
 
 interface Props {
