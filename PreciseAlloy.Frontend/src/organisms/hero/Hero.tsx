@@ -3,10 +3,11 @@ import Button from '@atoms/buttons/Button';
 import Picture from '@atoms/pictures/Picture';
 import RequireCss from '@helpers/RequireCss';
 import { getModifiers } from '@helpers/functions';
+import SectionHeader from '@molecules/section-header/SectionHeader';
 
 const Hero = (model: HeroModel) => {
   const styleModifiers = getModifiers(model, 'zzz-o-hero');
-  const { button, label, title, description, image } = model;
+  const { button, label, header, description, image } = model;
 
   return (
     <section className={styleModifiers}>
@@ -15,7 +16,7 @@ const Hero = (model: HeroModel) => {
           <div className="zzz-o-hero__content">
             {label && <div className="zzz-o-hero__label">{label}</div>}
 
-            {title && <h1 className="zzz-o-hero__title">{title}</h1>}
+            {header && <SectionHeader {...header} />}
 
             {description && <div className="zzz-o-hero__description">{description}</div>}
 

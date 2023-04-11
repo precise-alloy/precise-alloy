@@ -1,5 +1,6 @@
 import { BasedAtomicModel } from "./_general";
-import { ButtonModel, PictureModel } from "./atoms";
+import { ButtonModel, LinkWithIconModel, PictureModel } from "./atoms";
+import { SectionHeaderModel } from "./molecules";
 
 export interface AvatarModel extends BasedAtomicModel {
   src: string;
@@ -17,7 +18,7 @@ export interface PeopleModel extends BasedAtomicModel {
 interface PartnerModel extends BasedAtomicModel {
   button?: ButtonModel;
   label?: string;
-  title?: string;
+  header?: SectionHeaderModel;
   description?: string;
   images?: PictureModel[];
 }
@@ -25,7 +26,7 @@ interface PartnerModel extends BasedAtomicModel {
 interface TeaserModel extends BasedAtomicModel {
   styleModifier?: ('image-left')[];
   button?: ButtonModel;
-  title?: string;
+  header?: SectionHeaderModel;
   description?: string;
   image?: PictureModel;
 }
@@ -33,7 +34,20 @@ interface TeaserModel extends BasedAtomicModel {
 interface HeroModel extends BasedAtomicModel {
   button?: ButtonModel;
   label?: string;
-  title?: string;
+  header?: SectionHeaderModel;
   description?: string;
   image?: PictureModel;
+}
+
+interface FooterModel extends BasedAtomicModel {
+  linkList?: LinkListWithIconModel;
+  copyright?: string;
+}
+
+interface PortfolioModel extends BasedAtomicModel {
+  label?: string;
+  header?: SectionHeaderModel;
+  description?: string;
+  images?: PictureModel[];
+  button?: ButtonModel;
 }
