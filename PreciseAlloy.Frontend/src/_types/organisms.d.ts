@@ -42,3 +42,17 @@ interface FooterModel extends BasedAtomicModel {
   linkList?: LinkListWithIconModel;
   copyright?: string;
 }
+
+interface HeaderModel extends BasedAtomicModel {
+  logo?: {
+    src: string;
+  };
+  title?: string;
+  navlinks?: {
+    links: {
+      text: string;
+      url?: string;
+    }[]
+
+  }
+}

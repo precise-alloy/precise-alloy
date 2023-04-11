@@ -1,4 +1,92 @@
 .zzz-o-header {
   background-color: $green;
   color: $white;
+
+  &__header-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__title {
+    margin-right: auto;
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 125%;
+  }
+
+  &__nav-container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__nav-list {
+    list-style: none;
+    display: none;
+    flex-direction: row;
+    gap: 30px;
+    padding: 0;
+
+    @include tablet {
+      display: flex;
+    }
+    .active {
+      display: block;
+    }
+  }
+
+  &__nav-item {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 125%;
+
+    @include tablet {
+      &:hover {
+        outline: rgb(#65987f, 0.5) 15px solid;
+        background-color: rgb(#65987f, 0.5);
+      }
+    }
+  }
+
+  &__nav-mobile {
+    display: block;
+    background: transparent;
+    padding: auto 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__nav-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    span {
+      height: 3px;
+      width: 30px;
+      background-color: $white;
+      transition: all 0.2s ease-in-out;
+    }
+
+    &.active {
+      gap: 0;
+
+      span:nth-child(1) {
+        transform: rotate(45deg);
+      }
+      span:nth-child(2) {
+        display: none;
+      }
+      span:nth-child(3) {
+        transform: rotate(-45deg);
+        margin-top: -3px;
+      }
+    }
+  }
 }
