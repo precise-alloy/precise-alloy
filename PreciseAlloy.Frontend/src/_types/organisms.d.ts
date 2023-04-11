@@ -1,5 +1,5 @@
 import { BasedAtomicModel } from "./_general";
-import { ButtonModel, PictureModel } from "./atoms";
+import { ButtonModel, LinkWithIconModel, PictureModel } from "./atoms";
 
 export interface AvatarModel extends BasedAtomicModel {
   src: string;
@@ -28,4 +28,8 @@ interface HeroModel extends BasedAtomicModel {
   title?: string;
   description?: string;
   image?: PictureModel;
+}
+
+interface FooterModel extends BasedAtomicModel {
+  linkList?: LinkListWithIconModel;
 }

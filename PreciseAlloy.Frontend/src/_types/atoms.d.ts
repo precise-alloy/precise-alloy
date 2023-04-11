@@ -18,3 +18,17 @@ export interface PictureModel extends BasedAtomicModel {
   alt?: string;
   lazy?: boolean;
 }
+
+export interface IconModel extends BasedAtomicModel {
+  iconPath: string;
+  viewBoxWidth: number;
+  viewBoxHeight: number;
+  width?: number;
+  height?: number;
+}
+
+export interface LinkWithIconModel extends BasedAtomicModel {
+  url: string;
+  icon: IconModel;
+  target?: string;
+}
