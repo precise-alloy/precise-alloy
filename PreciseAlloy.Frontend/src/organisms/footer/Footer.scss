@@ -1,37 +1,22 @@
 .zzz-o-footer {
-  margin-top: auto;
   background-color: $green;
   color: $white;
+  padding: px2rem(40px);
 
-  &__container {
-    padding: px2rem(31px) 0;
+  &__copyright {
+    @include font-sub-heading;
+  }
+
+  &__inner {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     gap: px2rem(20px);
+    align-items: center;
     text-align: center;
 
     @include tablet {
       flex-direction: row;
-      padding: px2rem(51px) 0 px2rem(49px);
-    }
-  }
-
-  &__social-list {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: px2rem(20px);
-    list-style-type: none;
-
-    > li {
-      display: inline;
-
-      > a {
-        color: $white;
-        text-decoration: none;
-      }
+      justify-content: space-between;
     }
   }
 }

@@ -25,7 +25,7 @@
   }
 
   &__label {
-    font-size: px2rem(16px);
+    @include font-label;
   }
 
   &__description {

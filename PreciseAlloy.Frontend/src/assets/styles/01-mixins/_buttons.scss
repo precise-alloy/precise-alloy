@@ -1,15 +1,14 @@
-@mixin zzz-button{
+@mixin zzz-button {
   &--btn {
     --button-color: #{$black};
     --bg-color: #{$white};
-    --font-size: #{px2rem(20px)};
     --padding: #{px2rem(10px)} #{px2rem(40px)};
     --border-radius: #{px2rem(8px)};
-  
+
+    @include font-sub-heading;
+
     color: var(--button-color);
     background-color: var(--bg-color);
-    font-family: var(--font-family);
-    font-size: var(--font-size);
     padding: var(--padding);
     border-radius: var(--border-radius);
     border: none;

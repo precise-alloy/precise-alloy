@@ -1,19 +1,19 @@
+import { FooterModel } from '@_types/types';
 import RequireCss from '@helpers/RequireCss';
+import { getModifiers } from '@helpers/functions';
+import LinkListWithIcon from '@molecules/link-list/LinkListWithIcon';
 
-const Footer = () => {
+const Footer = (model: FooterModel) => {
+  const styleModifiers = getModifiers(model, 'zzz-o-footer');
+  const { linkList, copyright } = model;
+
   return (
-    <footer className="zzz-o-footer">
-      <div className="zzz-o-footer__container zzz-container">
-        <ul className="zzz-o-footer__social-list">
-          <li>
-            <a href="#">Facebook</a>
-          </li>
-          <li>
-            <a href="#">Instagram</a>
-          </li>
-        </ul>
-        <div className="zzz-o-footer__copyright">
-          <p>© Start, 2022. All rights reserved.</p>
+    <footer className={styleModifiers}>
+      <div className="zzz-container">
+        <div className="zzz-o-footer__inner">
+          {linkList && <LinkListWithIcon {...linkList} />}
+
+          {copyright && <div className="zzz-o-footer__copyright" dangerouslySetInnerHTML={{ __html: copyright }}></div>}
         </div>
       </div>
       <RequireCss path="b-footer" />
