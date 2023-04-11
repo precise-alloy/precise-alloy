@@ -61,7 +61,8 @@ const footer: FooterModel = {
         url: 'https://www.youtube.com/'
       }
     ]
-  }
+  },
+  copyright: '<p>© Start, 2022. All rights reserved.</p>'
 }
 
 export { footer }

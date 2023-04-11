@@ -3,7 +3,7 @@ import { LinkListWithIconModel } from '@_types/types';
 import LinkWithIcon from '@atoms/links/LinkWithIcon';
 
 const LinkListWithIcon = (model: LinkListWithIconModel) => {
-  const styleModifiers = getModifiers(model, 'zzz-a-link-list-with-icon');
+  const styleModifiers = getModifiers(model, 'zzz-m-link-list-with-icon');
   const { items } = model;
 
   return (

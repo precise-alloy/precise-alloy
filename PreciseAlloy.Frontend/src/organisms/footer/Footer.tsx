@@ -5,7 +5,7 @@ import LinkListWithIcon from '@molecules/link-list/LinkListWithIcon';
 
 const Footer = (model: FooterModel) => {
   const styleModifiers = getModifiers(model, 'zzz-o-footer');
-  const { linkList } = model;
+  const { linkList, copyright } = model;
 
   return (
     <footer className={styleModifiers}>
@@ -13,9 +13,7 @@ const Footer = (model: FooterModel) => {
         <div className="zzz-o-footer__inner">
           {linkList && <LinkListWithIcon {...linkList} />}
 
-          <div className="zzz-o-footer__copyright">
-            <p>© Start, 2022. All rights reserved.</p>
-          </div>
+          {copyright && <div className="zzz-o-footer__copyright" dangerouslySetInnerHTML={{ __html: copyright }}></div>}
         </div>
       </div>
       <RequireCss path="b-footer" />

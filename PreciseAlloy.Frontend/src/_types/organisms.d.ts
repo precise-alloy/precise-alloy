@@ -40,4 +40,5 @@ interface HeroModel extends BasedAtomicModel {
 
 interface FooterModel extends BasedAtomicModel {
   linkList?: LinkListWithIconModel;
+  copyright?: string;
 }
