@@ -33,8 +33,7 @@ steps:
       git config --global user.name "Tuyen Pham"
       git fetch --all
       git branch -vv
-      git checkout -b develop origin/develop
-      git merge origin/fe-release --allow-unrelated-histories
+      git checkout -b fe-build-temp
 
   - script: |
       npm install
@@ -46,7 +45,7 @@ steps:
   - script: |
       git add .
       git commit -m "Create release package"
-      git push origin develop:fe-release-inte-package -f
+      git push origin fe-build-temp:fe-release-inte-package -f
     displayName: 'Create release package'
 
   - task: PowerShell@2
