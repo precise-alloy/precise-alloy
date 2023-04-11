@@ -7,9 +7,9 @@ namespace PreciseAlloy.Services.Settings;
 public class SettingsService
     : ISettingsService
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<SettingsService> _logger;
 
-    public SettingsService(ILogger logger)
+    public SettingsService(ILogger<SettingsService> logger)
     {
         _logger = logger;
         _logger.EnterConstructor();

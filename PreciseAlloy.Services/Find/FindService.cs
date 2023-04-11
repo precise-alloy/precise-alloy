@@ -11,11 +11,11 @@ namespace PreciseAlloy.Services.Find;
 public class FindService : IFindService
 {
     private readonly IClient _client;
-    private readonly ILogger _logger;
+    private readonly ILogger<FindService> _logger;
 
     public FindService(
         IClient client,
-        ILogger logger)
+        ILogger<FindService> logger)
     {
         _logger = logger;
         _logger.EnterConstructor();

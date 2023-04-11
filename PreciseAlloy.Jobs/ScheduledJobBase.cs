@@ -9,7 +9,7 @@ namespace PreciseAlloy.Jobs;
 internal abstract class ScheduledJobBase
     : EPiServer.Scheduler.ScheduledJobBase
 {
-    protected readonly ILogger Logger;
+    protected readonly ILogger<ScheduledJobBase> Logger;
     // ReSharper disable once InconsistentNaming
     protected bool _stopSignaled;
     private DateTime _lastNotificationTime = DateTime.UtcNow;
@@ -20,7 +20,7 @@ internal abstract class ScheduledJobBase
     private string _currentItem = string.Empty;
 
     protected ScheduledJobBase(
-        ILogger logger)
+        ILogger<ScheduledJobBase> logger)
     {
         Logger = logger;
         Logger.EnterConstructor();

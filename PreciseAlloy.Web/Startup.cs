@@ -42,8 +42,8 @@ public class Startup
             .AddEmbeddedLocalization<Startup>();
 
         services.AddTransient<ContentAreaRenderer, CustomContentAreaRenderer>();
-        services.AddScoped<IRequestContext, RequestContext>();
         services.AddSingleton<ISettingsService, SettingsService>();
+        services.AddScoped<IRequestContext, RequestContext>();
         services.Configure<RazorPagesOptions>(options => options.RootDirectory = "/Features");
     }
 
