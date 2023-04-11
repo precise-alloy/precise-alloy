@@ -1,8 +1,31 @@
 .zzz-o-teaser {
-  min-height: px2rem(300px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: #eee; // Teporari for demo purpose
+  --order: inherit;
+
+  &__inner {
+    display: grid;
+    gap: px2rem(30px);
+    align-items: center;
+
+    @include tablet {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__content {
+    display: grid;
+    gap: px2rem(10px);
+    order: 2;
+
+    @include tablet {
+      order: var(--order);
+    }
+  }
+
+  &__button {
+    margin-top: px2rem(10px);
+  }
+
+  &--image-left {
+    --order: 2;
+  }
 }

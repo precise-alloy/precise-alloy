@@ -1,4 +1,5 @@
 import { AvatarModel } from '@_types/organisms';
+import RequireCss from '@helpers/RequireCss';
 
 const Avatar = (model: AvatarModel) => {
   const { src, name, jobTitle } = model;
@@ -10,6 +11,7 @@ const Avatar = (model: AvatarModel) => {
         <h3>{name}</h3>
         <div>{jobTitle}</div>
       </div>
+      <RequireCss path="b-avatar" />
     </div>
   );
 };

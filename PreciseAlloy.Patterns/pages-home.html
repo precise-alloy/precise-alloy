@@ -42,10 +42,10 @@
     href="/assets/css/b-hero.css"
     data-pl-require="true">
   <link rel="stylesheet"
-    href="/assets/css/b-teaser.css"
+    href="/assets/css/b-partner.css"
     data-pl-require="true">
   <link rel="stylesheet"
-    href="/assets/css/b-people.css"
+    href="/assets/css/b-teaser.css"
     data-pl-require="true">
   <link rel="stylesheet"
     href="/assets/css/b-footer.css"
@@ -63,17 +63,100 @@
   </header>
   <main>
     <section class="zzz-o-hero">
-      <h1>This is Hero block</h1>
+      <div class="zzz-container">
+        <div class="zzz-o-hero__inner">
+          <div class="zzz-o-hero__content">
+            <div class="zzz-o-hero__label">WELCOME</div>
+            <h1 class="zzz-o-hero__title">Lorem Ipsum Dolor Sit Amet Consectetur.</h1>
+            <div class="zzz-o-hero__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.</div>
+            <div class="zzz-o-hero__button"><button class="zzz-a-button zzz-a-button--btn">Explore</button></div>
+          </div>
+          <div class="zzz-o-hero__image">
+            <picture class="zzz-a-picture"><img src="/samples/01.svg"
+                loading="lazy"></picture>
+          </div>
+        </div>
+      </div>
       <!-- <link rel="stylesheet" href="/assets/css/b-hero.css" data-pl-require="true"> -->
     </section>
-    <section class="zzz-o-teaser">
-      <h2>This is Teaser block</h2>
+    <div class="zzz-o-partner section-margin-top">
+      <div class="zzz-container">
+        <div class="zzz-o-partner__inner">
+          <div class="zzz-o-partner__content">
+            <div class="zzz-o-partner__label">PARTNERS</div>
+            <h2 class="zzz-o-partner__title h1">Lorem Ipsum Dolor</h2>
+            <div class="zzz-o-partner__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, porro?</div>
+          </div>
+          <div class="zzz-o-partner__images">
+            <picture class="zzz-a-picture"><img src="/samples/01.svg"
+                loading="lazy"></picture>
+            <picture class="zzz-a-picture"><img src="/samples/01.svg"
+                loading="lazy"></picture>
+            <picture class="zzz-a-picture"><img src="/samples/01.svg"
+                loading="lazy"></picture>
+            <picture class="zzz-a-picture"><img src="/samples/01.svg"
+                loading="lazy"></picture>
+            <picture class="zzz-a-picture"><img src="/samples/01.svg"
+                loading="lazy"></picture>
+          </div>
+          <div class="zzz-o-partner__button"><button class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black">Learn More</button></div>
+        </div>
+      </div>
+      <!-- <link rel="stylesheet" href="/assets/css/b-partner.css" data-pl-require="true"> -->
+    </div>
+    <section class="zzz-o-teaser section-margin-top-xl">
+      <div class="zzz-container">
+        <div class="zzz-o-teaser__inner">
+          <div class="zzz-o-teaser__content">
+            <h2 class="zzz-o-teaser__title h1">Lorem Ipsum Dolor Sit Amet Consectetur.</h2>
+            <div class="zzz-o-teaser__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.</div>
+            <div class="zzz-o-teaser__button"><button class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black">Explore</button></div>
+          </div>
+          <picture class="zzz-a-picture"><img src="/samples/01.svg"
+              loading="lazy"></picture>
+        </div>
+      </div>
       <!-- <link rel="stylesheet" href="/assets/css/b-teaser.css" data-pl-require="true"> -->
     </section>
-    <section class="zzz-o-people">
-      <h2>This is People block</h2>
-      <!-- <link rel="stylesheet" href="/assets/css/b-people.css" data-pl-require="true"> -->
+    <section class="zzz-o-teaser section-margin-top-xl zzz-o-teaser--image-left">
+      <div class="zzz-container">
+        <div class="zzz-o-teaser__inner">
+          <div class="zzz-o-teaser__content">
+            <h2 class="zzz-o-teaser__title h1">Lorem Ipsum Dolor Sit Amet Consectetur.</h2>
+            <div class="zzz-o-teaser__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.</div>
+            <div class="zzz-o-teaser__button"><button class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black">Explore</button></div>
+          </div>
+          <picture class="zzz-a-picture"><img src="/samples/01.svg"
+              loading="lazy"></picture>
+        </div>
+      </div>
+      <!-- <link rel="stylesheet" href="/assets/css/b-teaser.css" data-pl-require="true"> -->
     </section>
+    <script data-rct="people"
+      type="application/json">
+      {
+        "subHeader": "Team",
+        "header": "Our Talents",
+        "text": "Lorem ipsum, dolor sit amet consectetur Suscipit nemo hic quos, ab,",
+        "items": [{
+          "name": "Emilia Clarke",
+          "src": "/samples/emilia-clarke.jpg",
+          "jobTitle": "CEO"
+        }, {
+          "name": "Cliff Curtis",
+          "src": "/samples/cliff-curtis.jpg",
+          "jobTitle": "CEO"
+        }, {
+          "name": "Rose Leslie",
+          "src": "/samples/rose-leslie.jpg",
+          "jobTitle": "CEO"
+        }, {
+          "name": "Michelle Yeoh",
+          "src": "/samples/michelle-yeoh.jpg",
+          "jobTitle": "CEO"
+        }]
+      }
+    </script>
   </main>
   <footer class="zzz-o-footer">
     <div class="zzz-o-footer__container zzz-container">
