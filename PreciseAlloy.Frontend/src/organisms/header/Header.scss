@@ -1,11 +1,11 @@
 .zzz-o-header {
   background-color: $green;
   color: $white;
-  padding-top: px2rem(17px);
+  padding: px2rem(17px) 0;
   position: relative;
 
   @include tablet {
-    padding-top: px2rem(35px);
+    padding: px2rem(35px) 0;
   }
 
   &__header-container {
@@ -15,10 +15,9 @@
   }
 
   &__title {
+    @include font-h1;
+
     margin-right: auto;
-    font-size: px2rem(40px);
-    font-weight: 500;
-    line-height: 1.25;
   }
 
   &__nav-list {
@@ -57,8 +56,8 @@
 
       @include tablet {
         &:hover {
-          outline: rgb(#65987f, 0.5) px2rem(15px) solid;
-          background-color: rgb(#65987f, 0.5);
+          outline: rgb($white, 0.2) px2rem(15px) solid;
+          background-color: rgb($white, 0.2);
           cursor: pointer;
         }
       }
@@ -75,23 +74,10 @@
       &:not(:last-child) {
         border-bottom: rgb($black, 0.2) solid px2rem(1px);
       }
-
-      &:hover {
-        background-color: rgb($green, 0.1);
-        text-shadow: 0 px2rem(1px) px2rem(1px) $green;
-      }
     }
   }
 
   &__nav-mobile {
-    display: block;
-    background: transparent;
-    padding: auto 0;
-    height: px2rem(30px);
-    width: px2rem(30px);
-    display: flex;
-    align-items: center;
-
     @include tablet {
       display: none;
     }

@@ -13,6 +13,10 @@ const Header = (model: HeaderModel) => {
   const navListRef = createRef<HTMLUListElement>();
   const navToggleRef = createRef<HTMLDivElement>();
 
+  const toggleMenu = () => {
+    setNavActive(!navActive);
+  };
+
   useOnClickOutside(
     navListRef,
     () => {
@@ -42,13 +46,7 @@ const Header = (model: HeaderModel) => {
 
           {navlinks?.links && (
             <>
-              <div
-                ref={navToggleRef}
-                className={`zzz-o-header__nav-mobile `}
-                onClick={() => {
-                  setNavActive((navActive) => !navActive);
-                }}
-              >
+              <div ref={navToggleRef} className={`zzz-o-header__nav-mobile `} onClick={toggleMenu}>
                 <a href="#!" className={`zzz-o-header__nav-toggle ${navActive ? 'active' : ''}`}>
                   <span></span>
                   <span></span>
