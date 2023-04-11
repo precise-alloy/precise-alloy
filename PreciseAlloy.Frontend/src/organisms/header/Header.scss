@@ -1,50 +1,84 @@
 .zzz-o-header {
   background-color: $green;
   color: $white;
+  padding-top: px2rem(17px);
+  position: relative;
+
+  @include tablet {
+    padding-top: px2rem(35px);
+  }
 
   &__header-container {
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
 
   &__title {
     margin-right: auto;
-    font-size: 40px;
+    font-size: px2rem(40px);
     font-weight: 500;
-    line-height: 125%;
-  }
-
-  &__nav-container {
-    display: flex;
-    align-items: center;
+    line-height: 1.25;
   }
 
   &__nav-list {
     list-style: none;
     display: none;
     flex-direction: row;
-    gap: 30px;
+    gap: px2rem(30px);
     padding: 0;
 
     @include tablet {
       display: flex;
     }
-    .active {
+
+    &.active {
       display: block;
+      background-color: $white;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      width: 100%;
+      border: px2rem(1px) solid transparent;
+      margin: 0;
     }
-  }
 
-  &__nav-item {
-    font-family: 'Work Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 125%;
+    &__item {
+      @include font-sub-heading;
+      background-color: transparent;
 
-    @include tablet {
+      a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+        color: $white;
+      }
+
+      @include tablet {
+        &:hover {
+          outline: rgb(#65987f, 0.5) px2rem(15px) solid;
+          background-color: rgb(#65987f, 0.5);
+          cursor: pointer;
+        }
+      }
+    }
+
+    &.active &__item {
+      color: $green;
+
+      a {
+        padding: px2rem(10px) px2rem(20px);
+        color: $green;
+      }
+
+      &:not(:last-child) {
+        border-bottom: rgb($black, 0.2) solid px2rem(1px);
+      }
+
       &:hover {
-        outline: rgb(#65987f, 0.5) 15px solid;
-        background-color: rgb(#65987f, 0.5);
+        background-color: rgb($green, 0.1);
+        text-shadow: 0 px2rem(1px) px2rem(1px) $green;
       }
     }
   }
@@ -53,7 +87,8 @@
     display: block;
     background: transparent;
     padding: auto 0;
-    height: 100%;
+    height: px2rem(30px);
+    width: px2rem(30px);
     display: flex;
     align-items: center;
 
@@ -65,11 +100,11 @@
   &__nav-toggle {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: px2rem(8px);
 
     span {
-      height: 3px;
-      width: 30px;
+      height: px2rem(3px);
+      width: px2rem(30px);
       background-color: $white;
       transition: all 0.2s ease-in-out;
     }
@@ -85,7 +120,7 @@
       }
       span:nth-child(3) {
         transform: rotate(-45deg);
-        margin-top: -3px;
+        margin-top: px2rem(-3px);
       }
     }
   }
