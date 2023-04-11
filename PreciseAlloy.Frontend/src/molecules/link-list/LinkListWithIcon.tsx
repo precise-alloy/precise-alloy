@@ -10,7 +10,7 @@ const LinkListWithIcon = (model: LinkListWithIconModel) => {
     <ul className={styleModifiers}>
       {items.map((item, index) => {
         return (
-          <li>
+          <li key={index}>
             <LinkWithIcon key={index} {...item} />
           </li>
         );
