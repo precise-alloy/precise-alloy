@@ -34,12 +34,13 @@ steps:
       git fetch --all
       git branch -vv
       git checkout -b fe-build-temp
+    displayName: 'Create git branch'
 
   - script: |
       npm install
       npm run inte
       git checkout -- .
-    displayName: 'npm install and inte'
+    displayName: 'Run npm install and inte'
     workingDirectory: ./PreciseAlloy.Frontend
 
   - script: |
