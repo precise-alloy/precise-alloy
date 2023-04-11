@@ -13,6 +13,8 @@
     border-radius: var(--border-radius);
     border: none;
     cursor: pointer;
+    display: inline-flex;
+    text-decoration: none;
   }
 
   &--btn-black {
