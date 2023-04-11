@@ -3,17 +3,18 @@ import Button from '@atoms/buttons/Button';
 import Picture from '@atoms/pictures/Picture';
 import RequireCss from '@helpers/RequireCss';
 import { getModifiers } from '@helpers/functions';
+import SectionHeader from '@molecules/section-header/SectionHeader';
 
 const Teaser = (model: TeaserModel) => {
   const styleModifiers = getModifiers(model, 'zzz-o-teaser');
-  const { button, title, description, image } = model;
+  const { button, header, description, image } = model;
 
   return (
     <section className={styleModifiers}>
       <div className="zzz-container">
         <div className="zzz-o-teaser__inner">
           <div className="zzz-o-teaser__content">
-            {title && <h2 className="zzz-o-teaser__title h1">{title}</h2>}
+            {header && <SectionHeader {...header} />}
 
             {description && <div className="zzz-o-teaser__description">{description}</div>}
 
