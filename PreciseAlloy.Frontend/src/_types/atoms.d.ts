@@ -31,4 +31,5 @@ export interface LinkWithIconModel extends BasedAtomicModel {
   url: string;
   icon: IconModel;
   target?: string;
+  text?: string;
 }

@@ -1,7 +1,7 @@
 import { FooterModel } from '@_types/types';
 import RequireCss from '@helpers/RequireCss';
 import { getModifiers } from '@helpers/functions';
-import LinkListWithIcon from '@molecules/link-list/LinkListWithIcon';
+import LinkListWithIcon from '@molecules/links/LinkListWithIcon';
 
 const Footer = (model: FooterModel) => {
   const styleModifiers = getModifiers(model, 'zzz-o-footer');

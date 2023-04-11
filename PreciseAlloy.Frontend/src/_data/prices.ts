@@ -1,0 +1,5 @@
+const prices = {
+
+}
+
+export { prices };
