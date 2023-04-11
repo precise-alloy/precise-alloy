@@ -10,8 +10,7 @@ internal abstract class ScheduledJobBase
     : EPiServer.Scheduler.ScheduledJobBase
 {
     protected readonly ILogger<ScheduledJobBase> Logger;
-    // ReSharper disable once InconsistentNaming
-    protected bool _stopSignaled;
+    protected bool StopSignaled;
     private DateTime _lastNotificationTime = DateTime.UtcNow;
     private int _processed;
     private int _total;
@@ -30,7 +29,7 @@ internal abstract class ScheduledJobBase
 
     public override void Stop()
     {
-        _stopSignaled = true;
+        StopSignaled = true;
         Logger.LogInformation("Stop signaled");
     }
 
