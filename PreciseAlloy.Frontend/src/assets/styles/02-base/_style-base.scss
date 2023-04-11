@@ -13,6 +13,10 @@ body {
   @include font-body;
 }
 
+main {
+  flex-grow: 1;
+}
+
 .zzz-container {
   margin-left: auto;
   margin-right: auto;
