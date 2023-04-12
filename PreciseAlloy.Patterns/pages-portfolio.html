@@ -24,36 +24,37 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
   <title>Portfolio</title>
-  <link rel="stylesheet"
-    href="/assets/css/style-base.css">
-  <link rel="stylesheet"
-    href="/assets/css/style-pl.css">
-  <script async=""
-    type="module"
+  <link rel="stylesheet preload"
+    href="/assets/css/style-base.css"
+    as="style">
+  <link rel="stylesheet preload"
+    href="/assets/css/style-pl.css"
+    as="style">
+  <script defer=""
+    src="/assets/js/main.js"></script>
+  <script type="module"
     crossorigin=""
     src="/assets/js/react-loader.0x00000000.js"></script>
   <link rel="modulepreload"
     crossorigin=""
     href="/assets/js/vendor.0x2c817467.js">
-  <link rel="stylesheet"
-    href="/assets/css/b-header.css"
-    data-pl-require="true">
-  <link rel="stylesheet"
-    href="/assets/css/b-portfolio.css"
-    data-pl-require="true">
-  <link rel="stylesheet"
-    href="/assets/css/b-footer.css"
-    data-pl-require="true">
+  <script type="module"
+    defer=""
+    src="/assets/js/header.js"
+    data-pl-require="true"></script>
 </head>
 
 <body>
-  <script src="/assets/js/main.js"></script>
   <header class="zzz-o-header">
     <div class="zzz-container">
-      <div><a href="#"><img class="zzz-o-header__logo"
-            src="/assets/images/logo.svg"></a></div>
+      <div class="zzz-o-header__header-container"><a href="#"><img class="zzz-o-header__logo"
+            src="/assets/images/logo.svg"></a><span class="zzz-o-header__title"></span></div>
     </div>
-    <!-- <link rel="stylesheet" href="/assets/css/b-header.css" data-pl-require="true"> -->
+    <!-- <script type="module" defer="" src="/assets/js/header.js" data-pl-require="true"></script> -->
+    <link rel="stylesheet preload"
+      href="/assets/css/b-header.css"
+      data-pl-require="true"
+      as="style">
   </header>
   <main>
     <div class="zzz-o-portfolio section-margin-top">
@@ -86,7 +87,10 @@
               class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black">Learn more</a></div>
         </div>
       </div>
-      <!-- <link rel="stylesheet" href="/assets/css/b-portfolio.css" data-pl-require="true"> -->
+      <link rel="stylesheet preload"
+        href="/assets/css/b-portfolio.css"
+        data-pl-require="true"
+        as="style">
     </div>
   </main>
   <footer class="zzz-o-footer section-margin-top-xl">
@@ -100,7 +104,7 @@
                 width="10"
                 height="19">
                 <use xlink:href="/assets/images/icons.svg#zzz-facebook"></use>
-              </svg></a></li>
+              </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
               href="https://www.instagram.com/"><svg class="zzz-a-icon"
                 aria-hidden="true"
@@ -108,7 +112,7 @@
                 width="19"
                 height="19">
                 <use xlink:href="/assets/images/icons.svg#zzz-instagram"></use>
-              </svg></a></li>
+              </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
               href="https://www.twitter.com/"><svg class="zzz-a-icon"
                 aria-hidden="true"
@@ -116,7 +120,7 @@
                 width="19"
                 height="19">
                 <use xlink:href="/assets/images/icons.svg#zzz-twitter"></use>
-              </svg></a></li>
+              </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
               href="https://www.pinterest.com/"><svg class="zzz-a-icon"
                 aria-hidden="true"
@@ -124,7 +128,7 @@
                 width="19"
                 height="19">
                 <use xlink:href="/assets/images/icons.svg#zzz-pinterest"></use>
-              </svg></a></li>
+              </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
               href="https://www.tiktok.com/"><svg class="zzz-a-icon"
                 aria-hidden="true"
@@ -132,7 +136,7 @@
                 width="19"
                 height="19">
                 <use xlink:href="/assets/images/icons.svg#zzz-tiktok"></use>
-              </svg></a></li>
+              </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
               href="https://www.whatsapp.com/"><svg class="zzz-a-icon"
                 aria-hidden="true"
@@ -140,7 +144,7 @@
                 width="19"
                 height="19">
                 <use xlink:href="/assets/images/icons.svg#zzz-whatsapp"></use>
-              </svg></a></li>
+              </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
               href="https://www.youtube.com/"><svg class="zzz-a-icon"
                 aria-hidden="true"
@@ -148,18 +152,21 @@
                 width="19"
                 height="19">
                 <use xlink:href="/assets/images/icons.svg#zzz-youtube"></use>
-              </svg></a></li>
+              </svg> </a></li>
         </ul>
         <div class="zzz-o-footer__copyright">
           <p>© Start, 2022. All rights reserved.</p>
         </div>
       </div>
     </div>
-    <!-- <link rel="stylesheet" href="/assets/css/b-footer.css" data-pl-require="true"> -->
+    <link rel="stylesheet preload"
+      href="/assets/css/b-footer.css"
+      data-pl-require="true"
+      as="style">
   </footer>
 
   <script type="text/javascript"
-    async=""
+    defer=""
     src="/assets/js/pl-states.js"></script>
 
 
