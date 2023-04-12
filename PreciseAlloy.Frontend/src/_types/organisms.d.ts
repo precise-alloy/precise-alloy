@@ -1,5 +1,5 @@
 import { BasedAtomicModel } from "./_general";
-import { ButtonModel, LinkWithIconModel, PictureModel } from "./atoms";
+import { ButtonModel, LinkWithIconModel, PictureModel, TextInputModel } from "./atoms";
 import { PriceModel, SectionHeaderModel } from "./molecules";
 
 export interface AvatarModel extends BasedAtomicModel {
@@ -74,9 +74,9 @@ interface PricesModel extends BasedAtomicModel {
 }
 
 interface ContactFormModel extends BasedAtomicModel {
-  name: { label: string; placeHolder?: string; inputName?: string };
-  email: { label: string; placeHolder?: string; inputName?: string };
-  message: { label: string; placeHolder?: string; inputName?: string };
+  name: TextInputModel;
+  email: TextInputModel;
+  message: TextInputModel;
   action?: string;
   submitButton: ButtonModel;
 }
@@ -85,5 +85,5 @@ interface ContactModel extends BasedAtomicModel {
   header?: SectionHeaderModel;
   description?: string;
   form?: ContactFormModel;
-  mapPosition?: 'left' | 'right';
+  map?: { placeholderSrc?: string }
 }

@@ -5,33 +5,35 @@
   gap: px2rem(21px);
 
   &__input-field {
-    display: flex;
-    gap: px2rem(16px);
-    flex-direction: column;
-    align-items: flex-start;
+    .zzz-a-text-input {
+      display: flex;
+      gap: px2rem(16px);
+      flex-direction: column;
+      align-items: flex-start;
 
-    label {
-      @include font-label;
-      font-weight: 400;
-    }
+      label {
+        @include font-label;
+        font-weight: $regular;
+      }
 
-    input[type='text'] {
-      height: px2rem(38px);
-      width: 100%;
-    }
+      input[type='text'] {
+        height: px2rem(38px);
+        width: 100%;
+      }
 
-    textarea {
-      min-height: px2rem(75px);
-    }
+      textarea {
+        min-height: px2rem(75px);
+      }
 
-    input,
-    textarea {
-      @include font-label;
-      font-weight: 400;
-      width: 100%;
-      background-color: rgb($black, 0.05);
-      border: 1px solid $black;
-      border-radius: px2rem(5px);
+      input,
+      textarea {
+        @include font-label;
+        font-weight: $regular;
+        width: 100%;
+        background-color: rgb($black, 0.05);
+        border: px2rem(1px) solid $black;
+        border-radius: px2rem(5px);
+      }
     }
   }
 

@@ -7,7 +7,7 @@ import ContactForm from './ContactForm';
 
 const Contact = (model: ContactModel) => {
   const modifiers = getModifiers(model, 'zzz-o-contact');
-  const { header, description, form } = model;
+  const { header, description, form, map } = model;
 
   return (
     <>
@@ -27,7 +27,7 @@ const Contact = (model: ContactModel) => {
             )}
 
             <div className={`zzz-o-contact__map`}>
-              <Picture src="/samples/01.svg"></Picture>
+              <Picture src={map?.placeholderSrc || '/samples/01.svg'}></Picture>
             </div>
           </div>
         </div>

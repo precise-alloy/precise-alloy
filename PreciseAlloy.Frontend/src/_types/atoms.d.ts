@@ -35,3 +35,12 @@ export interface LinkWithIconModel extends BasedAtomicModel {
   target?: string;
   text?: string;
 }
+
+export interface TextInputModel extends BasedAtomicModel {
+  id?: string;
+  name?: string;
+  label?: string;
+  placeHolder?: string;
+  required?: boolean
+  type?: 'input' | 'textarea'
+}

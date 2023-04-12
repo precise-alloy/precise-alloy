@@ -1,18 +1,17 @@
 .zzz-o-contact {
-  padding-top: px2rem(30px);
+  --map-order: 0
   position: relative;
 
   &__info {
-    display: block;
     text-align: center;
     margin: 0 auto;
 
     @include tablet {
-      width: 50%;
+      max-width: 50%;
     }
 
     @include desktop {
-      width: 30%;
+      max-width: 30%;
     }
   }
 
@@ -35,10 +34,11 @@
   }
 
   &__map {
+    
     order: -1;
 
     @include tablet {
-      order: 0;
+      order: var(--map-order);
       width: 50%;
       height: auto;
       min-height: unset;
@@ -46,18 +46,10 @@
   }
 
   &--map-left {
-    .zzz-o-contact__map {
-      @include tablet {
-        order: -1;
-      }
-    }
+    --map-order: -1
   }
 
   &--map-right {
-    .zzz-o-contact__map {
-      @include tablet {
-        order: 2;
-      }
-    }
+    --map-order: 2
   }
 }
