@@ -6,7 +6,7 @@ export interface ButtonModel extends BasedAtomicModel {
   link?: boolean;
   styleModifier?: ('btn' | 'btn-black')[];
   text: string;
-  type?: 'button';
+  type?: 'button' | 'submit';
 }
 
 export interface PictureModel extends BasedAtomicModel {
@@ -34,4 +34,13 @@ export interface LinkWithIconModel extends BasedAtomicModel {
   icon: IconModel;
   target?: string;
   text?: string;
+}
+
+export interface TextInputModel extends BasedAtomicModel {
+  id?: string;
+  name?: string;
+  label?: string;
+  placeHolder?: string;
+  required?: boolean
+  type?: 'input' | 'textarea'
 }
