@@ -12,14 +12,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
     <title>B2C Home</title>
-    <link rel="stylesheet" href="/assets/css/style-base.css" />
-    <link rel="stylesheet" href="/assets/css/style-pl.css" />
+    <link rel="stylesheet preload" href="/assets/css/style-base.css" as="style" />
+    <link rel="stylesheet preload" href="/assets/css/style-pl.css" as="style" />
+    <script defer src="/assets/js/main.js"></script>
   </head>
 
   <body>
-    <script src="/assets/js/main.js"></script>
     <!--app-html-->
-    <script type="module" async src="/src/react-loader.tsx"></script>
-    <script type="text/javascript" async src="/assets/js/pl-states.js"></script>
+    <script type="module" src="/src/react-loader.tsx"></script>
+    <script type="text/javascript" defer src="/assets/js/pl-states.js"></script>
   </body>
 </html>

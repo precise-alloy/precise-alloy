@@ -12,7 +12,11 @@ const hero: HeroModel = {
     styleModifier: ['btn']
   },
   image: {
-    src: '/samples/image-1.svg'
+    src: '/samples/image-1.svg',
+    width: '590',
+    height: '347',
+    alt: 'hero image',
+    lazy: false
   }
 };
 

@@ -17,6 +17,8 @@ export interface PictureModel extends BasedAtomicModel {
   src: string;
   alt?: string;
   lazy?: boolean;
+  width?: string;
+  height?: string;
 }
 
 export interface IconModel extends BasedAtomicModel {

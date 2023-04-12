@@ -11,7 +11,10 @@ const teaser: TeaserModel = {
     styleModifier: ['btn', 'btn-black']
   },
   image: {
-    src: '/samples/image-3.svg'
+    src: '/samples/image-3.svg',
+    width: '600',
+    height: '432',
+    alt: 'teaser image'
   }
 }
 
