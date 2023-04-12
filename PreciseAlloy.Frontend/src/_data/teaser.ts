@@ -22,7 +22,10 @@ const teaserImageLeft: TeaserModel = {
   ...teaser,
   styleModifier: ['image-left'],
   image: {
-    src: '/samples/image-2.svg'
+    src: '/samples/image-2.svg',
+    width: '600',
+    height: '432',
+    alt: 'teaser image'
   }
 }
 
