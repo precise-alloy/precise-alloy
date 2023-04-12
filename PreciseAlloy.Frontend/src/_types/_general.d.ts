@@ -24,4 +24,8 @@ declare global {
   interface Element {
     observeResize: (callback: () => any) => any;
   }
+
+  interface HTMLElement {
+    onOutsideClick: (hanller: (e) => any, otherDependenceElement?: HTMLElement[]) => any
+  }
 }

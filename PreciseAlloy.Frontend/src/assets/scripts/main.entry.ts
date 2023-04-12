@@ -24,3 +24,24 @@ Element.prototype.observeResize =
       }, 500);
     }
   };
+
+HTMLElement.prototype.onOutsideClick =
+  HTMLElement.prototype.onOutsideClick ||
+  function (this: HTMLElement, handler: (e: Event) => any, otherDependenceElement?: HTMLElement[]) {
+
+    const listener = (event: any) => {
+      // Do nothing if clicking ref's element or descendent elements
+      if (!this || this.contains(event.target)) {
+        return;
+      }
+
+      if (otherDependenceElement && otherDependenceElement.some((r) => r?.contains(event.target))) {
+        return;
+      }
+
+      handler(event);
+    };
+
+    document.addEventListener('mousedown', listener);
+    document.addEventListener('touchstart', listener);
+  }

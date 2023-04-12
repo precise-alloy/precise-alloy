@@ -41,6 +41,13 @@
       width: 100%;
       border: px2rem(1px) solid transparent;
       margin: 0;
+
+      @include tablet {
+        display: flex;
+        background-color: $green;
+        position: relative;
+        width: auto;
+      }
     }
 
     &__item {
@@ -68,16 +75,30 @@
 
       a {
         padding: px2rem(10px) px2rem(20px);
-        color: $green;
+        color: inherit;
       }
 
       &:not(:last-child) {
         border-bottom: rgb($black, 0.2) solid px2rem(1px);
       }
+
+      @include tablet {
+        color: $white;
+
+        a {
+          padding: 0;
+        }
+
+        &:not(:last-child) {
+          border-bottom: none;
+        }
+      }
     }
   }
 
   &__nav-mobile {
+    cursor: pointer;
+
     @include tablet {
       display: none;
     }
@@ -87,6 +108,8 @@
     display: flex;
     flex-direction: column;
     gap: px2rem(8px);
+    height: px2rem(30px);
+    width: px2rem(30px);
 
     span {
       height: px2rem(3px);
@@ -97,6 +120,7 @@
 
     &.active {
       gap: 0;
+      padding-top: px2rem(10px);
 
       span:nth-child(1) {
         transform: rotate(45deg);
