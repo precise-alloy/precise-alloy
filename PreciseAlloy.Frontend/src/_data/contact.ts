@@ -3,7 +3,7 @@ import { ContactModel } from "@_types/organisms";
 const contact: ContactModel = {
   globalModifier: ['section-margin-top'],
   header: { heading: "Contact Us", headingLevel: "h1" },
-  description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+  description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Test.',
   form: {
     name: { label: "Name", name: "inputName", id: "idName", required: true },
     email: { label: "Email", name: "inputEmail", id: "idEmail", required: true },
