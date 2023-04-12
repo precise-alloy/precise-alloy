@@ -4,6 +4,7 @@ import Footer from '@organisms/footer/Footer';
 import Hero from '@organisms/hero/Hero';
 import Teaser from '@organisms/teaser/Teaser';
 import RequireCss from '@helpers/RequireCss';
+import Header from '@organisms/header/Header';
 
 interface Props {
   people?: PeopleModel;
@@ -20,7 +21,7 @@ const Home = (model: Props) => {
 
   return (
     <>
-      {header && <script data-rct="header" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(header) }}></script>}
+      {header && <Header {...header} />}
 
       <main>
         {hero && <Hero {...hero} />}
