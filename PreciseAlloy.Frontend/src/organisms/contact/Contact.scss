@@ -1,0 +1,55 @@
+.zzz-o-contact {
+  --map-order: 0
+  position: relative;
+
+  &__info {
+    text-align: center;
+    margin: 0 auto;
+
+    @include tablet {
+      max-width: 50%;
+    }
+
+    @include desktop {
+      max-width: 30%;
+    }
+  }
+
+  &__main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: px2rem(30px);
+    margin-top: px2rem(45px);
+
+    @include tablet {
+      flex-direction: row;
+    }
+  }
+
+  &__contact-form {
+    @include tablet {
+      width: 50%;
+    }
+  }
+
+  &__map {
+    
+    order: -1;
+
+    @include tablet {
+      order: var(--map-order);
+      width: 50%;
+      height: auto;
+      min-height: unset;
+    }
+  }
+
+  &--map-left {
+    --map-order: -1
+  }
+
+  &--map-right {
+    --map-order: 2
+  }
+}
