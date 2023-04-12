@@ -1,24 +1,48 @@
 @mixin zzz-button {
-  &--btn {
-    --button-color: #{$black};
-    --bg-color: #{$white};
-    --padding: #{px2rem(10px)} #{px2rem(40px)};
-    --border-radius: #{px2rem(8px)};
+  --button-color: #{$black};
+  --bg-color: #{$white};
+  --padding: #{px2rem(10px)} #{px2rem(40px)};
+  --border-radius: #{px2rem(8px)};
+  --bg-hover-color: #{$wave-white};
 
-    @include font-sub-heading;
+  @include font-sub-heading;
 
-    color: var(--button-color);
-    background-color: var(--bg-color);
-    padding: var(--padding);
+  color: var(--button-color);
+  background-color: var(--bg-color);
+  padding: var(--padding);
+  border-radius: var(--border-radius);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  text-decoration: none;
+  position: relative;
+
+  &::before {
+    content: '';
+    height: 100%;
+    width: 0%;
+    display: block;
+    position: absolute;
+    background-color: var(--bg-hover-color);
+    top: 0;
+    left: 50%;
     border-radius: var(--border-radius);
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    text-decoration: none;
+  }
+
+  &:hover {
+    transform: scale(1);
+
+    &::before {
+      z-index: -1;
+      transition: 400ms;
+      width: 100%;
+      left: 0;
+    }
   }
 
   &--btn-black {
     --button-color: #{$white};
     --bg-color: #{$black};
+    --bg-hover-color: #{$wave-black};
   }
 }
