@@ -10,7 +10,7 @@ const RequireCss = ({ path, rel }: Props) => {
     ? '/assets/' + path + '.css'
     : '/assets/css/' + path + '.css';
 
-  return <link rel={rel ?? 'stylesheet'} href={normalizedPath} data-pl-require />;
+  return <link rel={rel ?? 'stylesheet preload'} href={normalizedPath} data-pl-require as="style" />;
 };
 
 export { RequireCss };
