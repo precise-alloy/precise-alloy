@@ -1,7 +1,6 @@
 import Icon from '@atoms/icons/Icon';
 import { getModifiers } from '@helpers/functions';
 import { LinkWithIconModel } from '@_types/types';
-import { spawn } from 'child_process';
 
 const LinkWithIcon = (model: LinkWithIconModel) => {
   const styleModifiers = getModifiers(model, 'zzz-a-link-with-icon');
