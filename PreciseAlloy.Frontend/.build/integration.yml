@@ -33,7 +33,7 @@ steps:
       git config --global user.name "Tuyen Pham"
       git fetch --all
       git branch -vv
-      git checkout -b fe-build-temp
+      git switch -c fe-build-temp
       git merge origin/develop
     displayName: 'Create git branch'
 
