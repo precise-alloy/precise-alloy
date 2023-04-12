@@ -72,3 +72,18 @@ interface PricesModel extends BasedAtomicModel {
   description?: string;
   items?: PriceModel[];
 }
+
+interface ContactFormModel extends BasedAtomicModel {
+  name: { label: string; placeHolder?: string; inputName?: string };
+  email: { label: string; placeHolder?: string; inputName?: string };
+  message: { label: string; placeHolder?: string; inputName?: string };
+  action?: string;
+  submitButton: ButtonModel;
+}
+
+interface ContactModel extends BasedAtomicModel {
+  header?: SectionHeaderModel;
+  description?: string;
+  form?: ContactFormModel;
+  mapPosition?: 'left' | 'right';
+}

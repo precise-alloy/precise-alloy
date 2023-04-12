@@ -1,0 +1,63 @@
+.zzz-o-contact {
+  padding-top: px2rem(30px);
+  position: relative;
+
+  &__info {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+
+    @include tablet {
+      width: 50%;
+    }
+
+    @include desktop {
+      width: 30%;
+    }
+  }
+
+  &__main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: px2rem(30px);
+    margin-top: px2rem(45px);
+
+    @include tablet {
+      flex-direction: row;
+    }
+  }
+
+  &__contact-form {
+    @include tablet {
+      width: 50%;
+    }
+  }
+
+  &__map {
+    order: -1;
+
+    @include tablet {
+      order: 0;
+      width: 50%;
+      height: auto;
+      min-height: unset;
+    }
+  }
+
+  &--map-left {
+    .zzz-o-contact__map {
+      @include tablet {
+        order: -1;
+      }
+    }
+  }
+
+  &--map-right {
+    .zzz-o-contact__map {
+      @include tablet {
+        order: 2;
+      }
+    }
+  }
+}

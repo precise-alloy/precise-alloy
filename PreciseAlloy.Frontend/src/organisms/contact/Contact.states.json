@@ -1,0 +1,24 @@
+{
+  "name": "Contact",
+  "selector": ".zzz-o-contact",
+  "button": {
+    "parentSelector": ".zzz-o-contact__main",
+    "styleModifier": "pl-state--top-right"
+  },
+  "states": [
+    {
+      "name": "Map position",
+      "multiple": false,
+      "options": [
+        {
+          "value": "zzz-o-contact--map-left",
+          "name": "Left"
+        },
+        {
+          "value": "zzz-o-contact--map-right",
+          "name": "Right"
+        }
+      ]
+    }
+  ]
+}
