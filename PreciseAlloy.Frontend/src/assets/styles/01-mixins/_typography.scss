@@ -29,6 +29,13 @@
   }
 }
 
+@mixin font-h1-no-change {
+  font-family: $font-crimson-text;
+  font-weight: $bold;
+  font-size: px2rem(40px);
+  line-height: 1.25;
+}
+
 @mixin font-h2 {
   font-family: $font-crimson-text;
   font-weight: $bold;

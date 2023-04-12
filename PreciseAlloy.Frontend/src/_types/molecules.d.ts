@@ -12,16 +12,20 @@ export interface SectionHeaderModel extends BasedAtomicModel {
 
 export interface PriceModel extends BasedAtomicModel {
   tag?: string;
-  price?: string;
+  price?: {
+    value?: string;
+    time?: string;
+  };
   info?: string;
   button?: ButtonModel;
+  list?: ListModel;
 }
 
-export interface ItemWithIconModel extends BasedAtomicModel {
+export interface ItemModel extends BasedAtomicModel {
   text?: string;
   icon?: IconModel;
 }
 
-export interface ListWithIconModel extends BasedAtomicModel {
-  items?: ItemWithIconModel[];
+export interface ListModel extends BasedAtomicModel {
+  items?: ItemModel[];
 }

@@ -1,0 +1,34 @@
+.zzz-m-price {
+  display: grid;
+  gap: px2rem(10px);
+  box-shadow: px2rem(3px) px2rem(4px) px2rem(12px) px2rem(1px) rgba(0, 0, 0, 0.25);
+  padding: px2rem(30px) px2rem(20px);
+  border-radius: px2rem(6px);
+
+  @include desktop {
+    padding: px2rem(40px);
+  }
+
+  &__price {
+    display: flex;
+    gap: px2rem(10px);
+    align-items: center;
+    justify-content: center;
+
+    .value {
+      @include font-h1-no-change;
+    }
+
+    .time {
+      color: $grey;
+    }
+  }
+
+  &__button {
+    margin-top: px2rem(10px);
+  }
+
+  .zzz-m-list {
+    margin-top: px2rem(10px);
+  }
+}
