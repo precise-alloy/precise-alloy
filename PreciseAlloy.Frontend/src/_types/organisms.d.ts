@@ -1,6 +1,6 @@
 import { BasedAtomicModel } from "./_general";
-import { ButtonModel, LinkWithIconModel, PictureModel } from "./atoms";
-import { SectionHeaderModel } from "./molecules";
+import { ButtonModel, LinkWithIconModel, PictureModel, TextInputModel } from "./atoms";
+import { PriceModel, SectionHeaderModel } from "./molecules";
 
 export interface AvatarModel extends BasedAtomicModel {
   src: string;
@@ -64,4 +64,26 @@ interface PortfolioModel extends BasedAtomicModel {
   description?: string;
   images?: PictureModel[];
   button?: ButtonModel;
+}
+
+interface PricesModel extends BasedAtomicModel {
+  label?: string;
+  header?: SectionHeaderModel;
+  description?: string;
+  items?: PriceModel[];
+}
+
+interface ContactFormModel extends BasedAtomicModel {
+  name: TextInputModel;
+  email: TextInputModel;
+  message: TextInputModel;
+  action?: string;
+  submitButton: ButtonModel;
+}
+
+interface ContactModel extends BasedAtomicModel {
+  header?: SectionHeaderModel;
+  description?: string;
+  form?: ContactFormModel;
+  map?: { placeholderSrc?: string }
 }

@@ -1,0 +1,36 @@
+.zzz-o-prices {
+  text-align: center;
+
+  &__inner {
+    display: grid;
+    gap: px2rem(10px);
+  }
+
+  &__items {
+    margin-top: px2rem(10px);
+    gap: px2rem(30px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    @include desktop {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(px2rem(360px), 1fr));
+    }
+
+    .zzz-m-price {
+      max-width: 360px;
+
+      @include desktop {
+        max-width: inherit;
+      }
+    }
+  }
+
+  &__label {
+    @include font-label;
+
+    color: $green;
+  }
+}

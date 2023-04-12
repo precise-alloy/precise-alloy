@@ -1,0 +1,10 @@
+.zzz-m-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: px2rem(10px);
+
+  .zzz-a-icon {
+    color: $green;
+  }
+}
