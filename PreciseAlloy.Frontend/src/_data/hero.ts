@@ -16,12 +16,7 @@ const hero: HeroModel = {
     width: '590',
     height: '347',
     alt: 'hero image',
-    lazy: false,
-    sources: [
-      {
-        srcSet: '/samples/image-1.svg'
-      }
-    ]
+    lazy: false
   }
 };
 
