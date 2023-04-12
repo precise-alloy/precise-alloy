@@ -36,6 +36,9 @@
   }
 
   &__submit-button {
-    justify-content: center;
+    .zzz-a-button {
+      width: 100%;
+      justify-content: center;
+    }
   }
 }

@@ -34,7 +34,9 @@ const ContactForm = (model: ContactFormModel) => {
           />
         </div>
 
-        <Button className="zzz-o-contact-form__submit-button" type="submit" {...submitButton}></Button>
+        <div className="zzz-o-contact-form__submit-button">
+          <Button type="submit" {...submitButton}></Button>
+        </div>
       </form>
 
       <RequireCss path="b-contact-form" />
