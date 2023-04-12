@@ -4,10 +4,10 @@ import { LinkWithIconModel } from '@_types/types';
 
 const LinkWithIcon = (model: LinkWithIconModel) => {
   const styleModifiers = getModifiers(model, 'zzz-a-link-with-icon');
-  const { url, icon, target } = model;
+  const { url, icon, target, ariaLabel } = model;
 
   return (
-    <a className={styleModifiers} href={url} target={target}>
+    <a className={styleModifiers} href={url} target={target} aria-label={ariaLabel}>
       {icon && <Icon {...icon} />}
     </a>
   );
