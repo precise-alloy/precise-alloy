@@ -20,11 +20,7 @@ main {
 .zzz-container {
   margin-left: auto;
   margin-right: auto;
-  max-width: calc(100vw - px2rem(40px));
-
-  @include tablet {
-    max-width: min(px2rem(1200px), 80vw);
-  }
+  max-width: min(px2rem(1200px), 80vw);
 }
 
 .section-margin-top {
