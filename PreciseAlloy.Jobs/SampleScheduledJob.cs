@@ -1,5 +1,6 @@
 ﻿using EPiServer.PlugIn;
 using Microsoft.Extensions.Logging;
+using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Jobs;
 
@@ -15,13 +16,17 @@ public class SampleScheduledJob : ScheduledJobBase
     public SampleScheduledJob(ILogger<SampleScheduledJob> logger)
         : base(logger)
     {
+        Logger.EnterConstructor();
+        Logger.ExitConstructor();
     }
 
     public override string Execute()
     {
-        Total = Random.Next(100, 500);
+        Logger.EnterMethod();
+        Total = Random.Next(10, 50);
         for (var i = 1; i <= Total; i++)
         {
+            Logger.LogInformation("Process item " + i);
             Processed++;
             CurrentItem = i.ToString();
             Report();
@@ -32,9 +37,29 @@ public class SampleScheduledJob : ScheduledJobBase
 
             if (StopSignaled)
             {
+                Logger.LogInformation("Job stopped");
                 return GetStopMessage();
             }
 
+            ProcessItem(i);
+
+
+            if (StopSignaled)
+            {
+                Logger.LogInformation("Job stopped");
+                return GetStopMessage();
+            }
+        }
+
+        Logger.LogInformation("Job finished");
+        return GetFinishMessage();
+    }
+
+    private void ProcessItem(int item)
+    {
+        Logger.EnterMethod();
+        try
+        {
             var isSuccess = Random.NextDouble() < 0.75;
             if (isSuccess)
             {
@@ -42,16 +67,13 @@ public class SampleScheduledJob : ScheduledJobBase
             }
             else
             {
-                Logger.LogError("Failed to execute item: " + CurrentItem);
-                Failed++;
-            }
-
-            if (StopSignaled)
-            {
-                return GetStopMessage();
+                throw new Exception("A sample exception");
             }
         }
-
-        return GetFinishMessage();
+        catch (Exception ex)
+        {
+            Failed++;
+            Logger.LogError(ex, "Failed to execute item: " + CurrentItem);
+        }
     }
 }

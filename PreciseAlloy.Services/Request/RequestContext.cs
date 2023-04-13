@@ -18,6 +18,9 @@ public class RequestContext
     private readonly ILogger<RequestContext> _logger;
     private readonly IPageRouteHelper _pageRouteHelper;
     private readonly ISettingsService _settingsService;
+    private const string CurrentPageContext = "Context::CurrentPage";
+    private const string CurrentLayoutSettingsContext = "Context::CurrentLayoutSettings";
+    private const string CurrentDigitalDataContext = "Context::CurrentDigitalData";
 
     public RequestContext(
         IContentLoader contentLoader,
@@ -39,30 +42,30 @@ public class RequestContext
     {
         _logger.EnterMethod();
 
-        var page = ForceGet(
-            "Context::CurrentPage",
-            () =>
-            {
-                // Replicating CMS 11 behavior - returning Start Page, if current page is not defined
-                var pageLink = _pageRouteHelper.PageLink;
-                pageLink = !ContentReference.IsNullOrEmpty(pageLink)
-                    ? pageLink
-                    : ContentReference.StartPage;
-
-                return _contentLoader.TryGet<PageData>(pageLink, out var result)
-                    ? result
-                    : _pageRouteHelper.Page;
-            });
+        var page = ForceGet(CurrentPageContext, GetCurrentPage);
 
         _logger.ExitMethod();
         return page;
+    }
+
+    private PageData? GetCurrentPage()
+    {
+        // Replicating CMS 11 behavior - returning Start Page, if current page is not defined
+        var pageLink = _pageRouteHelper.PageLink;
+        pageLink = !ContentReference.IsNullOrEmpty(pageLink)
+            ? pageLink
+            : ContentReference.StartPage;
+
+        return _contentLoader.TryGet<PageData>(pageLink, out var result)
+            ? result
+            : _pageRouteHelper.Page;
     }
 
     public LayoutSettings? GetLayoutSettings()
     {
         _logger.EnterMethod();
 
-        var layoutSettings = ForceGet("Context::CurrentLayoutSettings", () => _settingsService.GetLayoutSettings());
+        var layoutSettings = ForceGet(CurrentLayoutSettingsContext, _settingsService.GetLayoutSettings);
 
         _logger.ExitMethod();
 
@@ -73,11 +76,11 @@ public class RequestContext
     {
         _logger.EnterMethod();
 
-        RemoveKey("Context::CurrentLayoutSettings");
-        RemoveKey("Context::CurrentDigitalData");
+        RemoveKey(CurrentLayoutSettingsContext);
+        RemoveKey(CurrentDigitalDataContext);
 
-        RemoveKey("Context::CurrentPage");
-        ForceGet("Context::CurrentPage", () => page);
+        RemoveKey(CurrentPageContext);
+        ForceGet(CurrentPageContext, () => page);
 
         _logger.ExitMethod();
     }

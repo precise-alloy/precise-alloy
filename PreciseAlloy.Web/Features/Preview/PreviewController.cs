@@ -9,7 +9,7 @@ using PreciseAlloy.Models.Pages;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
 
-namespace PreciseAlloy.Web.Features;
+namespace PreciseAlloy.Web.Features.Preview;
 
 [TemplateDescriptor(
     Inherited = true,

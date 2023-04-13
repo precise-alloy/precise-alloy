@@ -10,7 +10,7 @@ public static class ContentRepositoryExtensions
 
     public static IEnumerable<T> ContentAreaItems<T>(
         this IContentRepository contentRepository,
-        ContentArea contentArea)
+        ContentArea? contentArea)
         where T : class, IContentData
     {
         var items = contentArea
@@ -33,11 +33,11 @@ public static class ContentRepositoryExtensions
 
     public static T? GetPublishedOrNull<T>(
         this IContentRepository contentRepository,
-        ContentReference contentReference)
+        ContentReference? contentReference)
         where T : class, IContentData
     {
         if (ContentReference.IsNullOrEmpty(contentReference)
-            || !contentRepository.TryGet(new ContentReference(contentReference.ID), out T result)
+            || !contentRepository.TryGet(new ContentReference(contentReference!.ID), out T result)
             || result is not IContent content)
         {
             return null;
