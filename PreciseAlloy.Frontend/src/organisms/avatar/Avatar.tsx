@@ -12,7 +12,7 @@ const Avatar = (model: AvatarModel) => {
       </div>
 
       <div className="zzz-o-avatar__info">
-        <h4 className="zzz-o-avatar__name">{name}</h4>
+        <h3 className="zzz-o-avatar__name h4">{name}</h3>
 
         <div className="zzz-o-avatar__job-title">{jobTitle}</div>
       </div>
