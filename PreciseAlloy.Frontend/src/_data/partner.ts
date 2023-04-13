@@ -41,7 +41,10 @@ const partner: PartnerModel = {
   ],
   button: {
     styleModifier: ['btn', 'btn-black'],
-    text: 'Learn More'
+    text: 'Learn More',
+    link: true,
+    href: 'https://www.twitter.com/',
+    target: '_blank',
   },
 }
 

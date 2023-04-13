@@ -12,6 +12,12 @@ const contact: ContactModel = {
       text: "Submit",
       styleModifier: ['btn', 'btn-black'],
     }
+  },
+  map: {
+    src: '/samples/01.svg',
+    width: '585',
+    height: '328',
+    alt: 'map'
   }
 }
 

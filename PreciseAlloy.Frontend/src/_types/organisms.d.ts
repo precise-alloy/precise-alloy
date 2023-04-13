@@ -3,7 +3,7 @@ import { ButtonModel, LinkWithIconModel, PictureModel, TextInputModel } from "./
 import { PriceModel, SectionHeaderModel } from "./molecules";
 
 export interface AvatarModel extends BasedAtomicModel {
-  src: string;
+  image: PictureModel;
   name: string;
   jobTitle: string;
 }
@@ -85,5 +85,5 @@ interface ContactModel extends BasedAtomicModel {
   header?: SectionHeaderModel;
   description?: string;
   form?: ContactFormModel;
-  map?: { placeholderSrc?: string }
+  map?: PictureModel;
 }
