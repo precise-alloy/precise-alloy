@@ -34,7 +34,7 @@ steps:
       git fetch --all
       git branch -vv
       git switch -c fe-build-temp
-      git merge origin/develop
+      git merge origin/develop --allow-unrelated-histories
     displayName: 'Create git branch'
 
   - script: |
