@@ -2,9 +2,11 @@
 using EPiServer.Framework.Web.Resources;
 using EPiServer.ServiceLocation;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace PreciseAlloy.Utils.Extensions;
 
@@ -14,6 +16,12 @@ public static class HtmlExtensions
     private static Injected<IWebHostEnvironment> HostingEnvironment { get; }
     private static Injected<ILogger> Logger { get; }
     private static readonly IDictionary<string, string> CacheBusterValues;
+
+    private static readonly JsonSerializerSettings JsonSerializerSettings = new()
+    {
+        ContractResolver = new CamelCasePropertyNamesContractResolver(),
+        NullValueHandling = NullValueHandling.Ignore
+    };
 
     static HtmlExtensions()
     {
@@ -120,5 +128,36 @@ public static class HtmlExtensions
         }
 
         return ClientResources.RequireScript(cacheBusterPath, path, null, attributes);
+    }
+
+    public static IHtmlContent ReactSection(
+        this IHtmlHelper helper,
+        object data,
+        string reactType,
+        string? reactClass = null,
+        string? reactTag = null)
+    {
+        var resource = new ClientResource
+        {
+            ResourceType = ClientResourceType.Script,
+            InlineContent = JsonConvert.SerializeObject(data, Formatting.Indented, JsonSerializerSettings),
+            Attributes =
+            {
+                ["data-rct"] = reactType,
+                ["type"]="application/json"
+            }
+        };
+
+        if (!string.IsNullOrWhiteSpace(reactClass))
+        {
+            resource.Attributes["data-class"] = reactClass;
+        }
+
+        if (!string.IsNullOrWhiteSpace(reactTag))
+        {
+            resource.Attributes["data-tag"] = reactTag;
+        }
+
+        return ClientResources.RenderResource(resource);
     }
 }
