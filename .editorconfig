@@ -1,5 +1,6 @@
-dotnet_diagnostic.ENC0109.severity = error
 [*.{cs,vb}]
+dotnet_diagnostic.ENC0109.severity = error # prefer using file-scoped namespace over block-scoped namespace
+
 #### Naming styles ####
 
 # Naming rules
