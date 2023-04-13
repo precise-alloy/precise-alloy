@@ -9,13 +9,16 @@ const hero: HeroModel = {
   description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.',
   button: {
     text: 'Explore',
-    styleModifier: ['btn']
+    styleModifier: ['btn'],
+    link: true,
+    href: 'https://www.office.com/',
+    target: '_blank',
   },
   image: {
     src: '/samples/image-1.svg',
     width: '590',
     height: '347',
-    alt: 'hero image',
+    alt: 'hero',
     lazy: false
   }
 };

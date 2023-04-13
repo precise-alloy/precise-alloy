@@ -26,9 +26,11 @@ const Contact = (model: ContactModel) => {
               </div>
             )}
 
-            <div className={`zzz-o-contact__map`}>
-              <Picture src={map?.placeholderSrc || '/samples/01.svg'}></Picture>
-            </div>
+            {map && (
+              <div className={`zzz-o-contact__map`}>
+                <Picture {...map}></Picture>
+              </div>
+            )}
           </div>
         </div>
       </div>

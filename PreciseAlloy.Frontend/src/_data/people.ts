@@ -7,22 +7,42 @@ export const people: PeopleModel = {
   items: [
     {
       name: "Emilia Clarke",
-      src: "/samples/01.svg",
+      image: {
+        src: "/samples/01.svg",
+        width: '175',
+        height: '175',
+        alt: 'people 1'
+      },
       jobTitle: "CEO"
     },
     {
       name: "Cliff Curtis",
-      src: "/samples/01.svg",
+      image: {
+        src: "/samples/01.svg",
+        width: '175',
+        height: '175',
+        alt: 'people 2'
+      },
       jobTitle: "CEO"
     },
     {
       name: "Rose Leslie",
-      src: "/samples/01.svg",
+      image: {
+        src: "/samples/01.svg",
+        width: '175',
+        height: '175',
+        alt: 'people 3'
+      },
       jobTitle: "CEO"
     },
     {
       name: "Michelle Yeoh",
-      src: "/samples/01.svg",
+      image: {
+        src: "/samples/01.svg",
+        width: '175',
+        height: '175',
+        alt: 'people 4'
+      },
       jobTitle: "CEO"
     },
   ]
