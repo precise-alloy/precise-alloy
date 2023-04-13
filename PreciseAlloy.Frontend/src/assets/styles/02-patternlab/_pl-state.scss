@@ -1,41 +1,69 @@
+$-bold: 700;
+
+$-button-border: #aaa093;
+$-button-bg: #d2dde4;
+$-button-bg-hover: #f8c276;
+
+$-bar-bg: #015174;
+$-bar-fg: #fff;
+
+$-group-bg: #fff;
+$-group-bg-hover: #f8c276;
+$-group-fg: #434342;
+
+$-black: #000;
 $-white: #fff;
-$-rock: #aaa093;
-$-wave-50: #d2dde4;
-$-beam: #f8c276;
-$-blue: #015174;
-$-lava: #434342;
+
+$-label-bg: #fff;
+$-label-bg-hover: #f8c276;
+$-label-fg: #434342;
+
 $-sand: #d4ccc7;
+$-lava: #434342;
+$-black: #000;
+$-beam: #f8c276;
+$-wave-50: #d2dde4;
 
 .pl-state {
-  position: absolute !important;
-  top: px2rem(8px) !important;
-  right: px2rem(8px) !important;
-  display: block !important;
-  height: auto !important;
-  max-height: none !important;
-  width: auto !important;
-  max-width: none !important;
+  line-height: 1.4;
+  position: absolute;
+  top: px2rem(8px);
+  right: px2rem(8px);
+  display: block;
+  height: auto;
+  max-height: none;
+  width: auto;
+  max-width: none;
 
   &__button {
+    padding: 0;
     cursor: pointer;
-    border: px2rem(1px) solid $-rock;
+    border: px2rem(1px) solid $-button-border;
     width: px2rem(40px);
     height: px2rem(40px);
     border-radius: 50%;
-    background-color: $-wave-50;
+    background-color: $-button-bg;
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0.5;
+    animation-name: activeStateButton;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+
+    &.active,
+    &:hover {
+      opacity: 1;
+    }
 
     &:hover {
-      background-color: $-beam;
+      background-color: $-button-bg-hover;
     }
 
     &.active {
-      animation-name: activeStateButton;
-      animation-duration: 2s;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
+      animation-play-state: running;
     }
   }
 
@@ -43,7 +71,7 @@ $-sand: #d4ccc7;
     0% {
       background-color: $-white;
       transform: rotate(0deg);
-      box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($black, 0.15);
+      box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($-black, 0.15);
     }
     40% {
       background-color: $-beam;
@@ -58,18 +86,18 @@ $-sand: #d4ccc7;
     100% {
       background-color: $-white;
       transform: rotate(360deg);
-      box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($black, 0.15);
+      box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($-black, 0.15);
     }
   }
 
   &--top-left {
-    left: px2rem(8px) !important;
-    right: auto !important;
+    left: px2rem(8px);
+    right: auto;
   }
 
   &--top-center {
-    left: 50% !important;
-    right: auto !important;
+    left: 50%;
+    right: auto;
 
     & > * {
       position: relative;
@@ -78,22 +106,22 @@ $-sand: #d4ccc7;
   }
 
   &--top-right {
-    left: auto !important;
-    right: px2rem(8px) !important;
+    left: auto;
+    right: px2rem(8px);
   }
 
   &--bottom-left {
-    left: px2rem(8px) !important;
-    right: auto !important;
-    top: auto !important;
-    bottom: px2rem(8px) !important;
+    left: px2rem(8px);
+    right: auto;
+    top: auto;
+    bottom: px2rem(8px);
   }
 
   &--bottom-right {
-    left: auto !important;
-    right: px2rem(8px) !important;
-    top: auto !important;
-    bottom: px2rem(8px) !important;
+    left: auto;
+    right: px2rem(8px);
+    top: auto;
+    bottom: px2rem(8px);
   }
 }
 
@@ -103,12 +131,12 @@ $-sand: #d4ccc7;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: $-blue;
-  color: $-white;
+  background-color: $-bar-bg;
+  color: $-bar-fg;
   display: none;
   transition: opacity 0.5s ease-in-out;
   opacity: 0;
-  box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($black, 0.2);
+  box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($-black, 0.2);
   max-height: 100%;
 
   @include tablet {
@@ -121,17 +149,17 @@ $-sand: #d4ccc7;
   }
 
   &__content {
-    padding: 0 px2rem(8px) px2rem(16px) px2rem(8px);
+    padding: px2rem(4px) px2rem(8px) px2rem(16px) px2rem(8px);
     display: grid;
     grid-template-columns: 1fr 1fr;
     flex-wrap: wrap;
     justify-content: center;
-    grid-gap: px2rem(10px);
     gap: px2rem(10px);
+    grid-gap: px2rem(10px);
 
     @include tablet {
-      grid-gap: px2rem(20px);
       gap: px2rem(20px);
+      grid-gap: px2rem(20px);
       display: flex;
     }
 
@@ -147,31 +175,12 @@ $-sand: #d4ccc7;
   &__group {
     align-self: flex-end;
     position: relative;
-    font-size: px2rem(13.33px);
+    font-size: px2rem(13px);
+    line-height: 1.2;
   }
 
   &__select {
     width: 100%;
-  }
-
-  &__group-header {
-    position: relative;
-    cursor: pointer;
-    background-color: $-white;
-    font-size: px2rem(13.33px);
-    color: $-lava;
-    padding: 0 px2rem(25px) 0 px2rem(5px);
-    border: 1px solid rgb(118, 118, 118);
-    min-width: px2rem(60px);
-
-    background-image: url('data:image/svg+xml,%3Csvg%20width%3D%2213%22%20height%3D%227%22%20viewBox%3D%220%200%2013%207%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22m12.12%201.413-1.109-1.3L6.59%204.208%202.07.148.89%201.377%206.523%206.6z%22%20fill%3D%22grey%22%20fill-rule%3D%22evenodd%22%2F%3E%0A%3C%2Fsvg%3E');
-    background-size: px2rem(11px) px2rem(11px);
-    background-repeat: no-repeat;
-    background-position: right px2rem(5px) center;
-
-    &:hover {
-      background-color: $-beam !important;
-    }
   }
 
   &__checkbox-group {
@@ -184,19 +193,18 @@ $-sand: #d4ccc7;
     min-width: 100%;
     border: 1px solid rgb(118, 118, 118);
     display: none;
-    grid-gap: px2rem(1px);
     gap: px2rem(1px);
+    grid-gap: px2rem(1px);
     z-index: 10;
-    box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($black, 0.2);
+    box-shadow: 0px 0px px2rem(16px) px2rem(8px) rgba($-black, 0.2);
 
     &.expand {
       display: grid;
     }
   }
 
-  &__hidden-radio,
-  &__hidden-checkbox {
-    display: none !important;
+  &__input {
+    display: none;
 
     &:checked + label.pl-state-bar__label {
       background-color: $-wave-50;
@@ -207,7 +215,7 @@ $-sand: #d4ccc7;
           display: block;
           position: absolute;
           left: -(px2rem(15px));
-          font-weight: $bold;
+          font-weight: $-bold;
         }
       }
     }
@@ -215,14 +223,15 @@ $-sand: #d4ccc7;
 
   &__label {
     font-size: px2rem(13.33px);
-    padding: px2rem(5px) px2rem(5px) px2rem(5px) px2rem(20px);
+    padding: px2rem(8px) px2rem(8px) px2rem(8px) px2rem(20px);
     display: block;
     cursor: pointer;
-    background-color: $-white;
-    color: $-lava;
+    background-color: $-label-bg;
+    color: $-label-fg;
+    line-height: 1.4;
 
     &:hover {
-      background-color: $-beam !important;
+      background-color: $-label-bg-hover;
     }
 
     > span {
@@ -244,13 +253,53 @@ $-sand: #d4ccc7;
   }
 
   &__close-button {
-    background-color: rgba($-white, 0.9) !important;
+    position: relative;
+    width: px2rem(32px);
+    height: px2rem(32px);
+    opacity: 0.7;
     cursor: pointer;
-    color: $-lava;
-    padding: px2rem(8px);
+    background-color: transparent;
 
     &:hover {
-      background-color: $-white !important;
+      opacity: 1;
+    }
+
+    &:before,
+    &:after {
+      position: absolute;
+      left: px2rem(15px);
+      content: ' ';
+      height: px2rem(33px);
+      width: px2rem(2px);
+      background-color: $-white;
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__group-header {
+    position: relative;
+    cursor: pointer;
+    background-color: $-group-bg;
+    font-size: px2rem(13.33px);
+    color: $-group-fg;
+    padding: px2rem(4px) px2rem(25px) px2rem(4px) px2rem(5px);
+    border: 1px solid rgb(118, 118, 118);
+    min-width: px2rem(60px);
+    line-height: 1;
+
+    background-image: url('data:image/svg+xml,%3Csvg%20width%3D%2213%22%20height%3D%227%22%20viewBox%3D%220%200%2013%207%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22m12.12%201.413-1.109-1.3L6.59%204.208%202.07.148.89%201.377%206.523%206.6z%22%20fill%3D%22#{encodecolor($-lava)}%22%20fill-rule%3D%22evenodd%22%2F%3E%0A%3C%2Fsvg%3E');
+    background-size: px2rem(11px) px2rem(11px);
+    background-repeat: no-repeat;
+    background-position: right px2rem(5px) center;
+
+    &:hover {
+      background-color: $-group-bg-hover;
     }
   }
 }
