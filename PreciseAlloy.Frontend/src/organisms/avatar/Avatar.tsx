@@ -9,8 +9,12 @@ const Avatar = (model: AvatarModel) => {
     <div className="zzz-o-avatar">
       <div className="zzz-o-avatar__image">
         <Picture {...image} />
-        <h3>{name}</h3>
-        <div>{jobTitle}</div>
+      </div>
+
+      <div className="zzz-o-avatar__info">
+        <h4 className="zzz-o-avatar__name">{name}</h4>
+
+        <div className="zzz-o-avatar__job-title">{jobTitle}</div>
       </div>
       <RequireCss path="b-avatar" />
     </div>

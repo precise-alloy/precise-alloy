@@ -13,9 +13,22 @@
     overflow: hidden;
 
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      transition: all 0.4s ease;
     }
+  }
+
+  &:hover &__image {
+    img {
+      transform: scale(1.05);
+    }
+  }
+
+  &__info {
+    text-align: left;
+    margin-top: px2rem(19px);
+    width: px2rem(202px);
+    display: flex;
+    flex-direction: column;
+    gap: px2rem(17px);
   }
 }
