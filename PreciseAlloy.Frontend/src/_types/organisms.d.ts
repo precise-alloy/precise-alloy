@@ -12,7 +12,8 @@ export interface PeopleModel extends BasedAtomicModel {
   subHeader?: string;
   header?: string;
   text?: string;
-  items?: AvatarModel[]
+  items?: AvatarModel[];
+  button?: ButtonModel;
 }
 
 interface PartnerModel extends BasedAtomicModel {
