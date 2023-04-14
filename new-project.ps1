@@ -8,7 +8,7 @@ $replaces = @(
   };
   @{
     from = 'Alloy-Template';
-    to   = 'Alloy-Template';
+    to   = 'New-Project';
 	description = 'Name of this repository'
   };
   @{
