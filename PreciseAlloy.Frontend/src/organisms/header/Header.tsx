@@ -13,7 +13,7 @@ const Header = (model: HeaderModel) => {
       <div className="zzz-container">
         <div className="zzz-o-header__header-container">
           <a href="#">
-            <img className="zzz-o-header__logo" width={70} height={50} alt="alloy template" src={logo?.src ?? defaultLogoUrl} />
+            <img className="zzz-o-header__logo" width={70} height={50} alt="Precise Alloy's logo" src={logo?.src ?? defaultLogoUrl} />
           </a>
 
           <span className="zzz-o-header__title">{title}</span>
