@@ -3,12 +3,12 @@ $ErrorActionPreference = 'Stop'
 $replaces = @(
   @{
     from = 'Alloy Template';
-    to   = 'New Project';
+    to   = 'New Repositoty';
 	description = 'Name of this repository'
   };
   @{
     from = 'Alloy-Template';
-    to   = 'New-Project';
+    to   = 'New-Repositoty';
 	description = 'Name of this repository'
   };
   @{
