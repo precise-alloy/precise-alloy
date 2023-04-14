@@ -27,7 +27,7 @@ public class GlobalSettingsRepositoryDescriptor : ContentRepositoryDescriptorBas
         typeof(SettingsBase), typeof(SettingsFolder)
     };
 
-    public override IEnumerable<string> MainViews => new string[] { HomeView.ViewName };
+    public override IEnumerable<string> MainViews => new[] { HomeView.ViewName };
 
     public override string Name => LocalizationService.Current.GetString($"/contentRepositories/{RepositoryKey}/name", "Site Settings");
 
