@@ -50,7 +50,7 @@ public partial class SettingsService
             return;
         }
 
-        var parent = _contentLoader.Get<IContent>(e.Content.ParentLink);
+        var parent = _contentRepository.Get<IContent>(e.Content.ParentLink);
         var site = _siteDefinitionRepository.Get(parent.Name);
 
         var id = site?.Id;
@@ -80,7 +80,7 @@ public partial class SettingsService
             return;
         }
 
-        var parent = _contentLoader.Get<IContent>(e.Content.ParentLink);
+        var parent = _contentRepository.Get<IContent>(e.Content.ParentLink);
         var site = _siteDefinitionRepository.Get(parent.Name);
 
         var id = site?.Id;

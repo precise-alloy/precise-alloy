@@ -18,7 +18,7 @@ public class GlobalSettingsRepositoryDescriptor : ContentRepositoryDescriptorBas
 
     public override string CustomNavigationWidget => "epi-cms/component/ContentNavigationTree";
 
-    public override string CustomSelectTitle => LocalizationService.Current.GetString("/contentRepositories/globalSettings/customSelectTitle", "Settings");
+    public override string CustomSelectTitle => LocalizationService.Current.GetString($"/contentRepositories/{RepositoryKey}/customSelectTitle", "Settings");
 
     public override string Key => RepositoryKey;
 
@@ -29,7 +29,7 @@ public class GlobalSettingsRepositoryDescriptor : ContentRepositoryDescriptorBas
 
     public override IEnumerable<string> MainViews => new string[] { HomeView.ViewName };
 
-    public override string Name => LocalizationService.Current.GetString("/contentrepositories/globalsettings/name", "Site Settings");
+    public override string Name => LocalizationService.Current.GetString($"/contentRepositories/{RepositoryKey}/name", "Site Settings");
 
     public override IEnumerable<ContentReference> Roots
     {

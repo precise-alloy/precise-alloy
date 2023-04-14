@@ -30,7 +30,7 @@ public partial class SettingsService
             return;
         }
 
-        if (!_contentLoader
+        if (!_contentRepository
                 .GetChildren<SettingsFolder>(GlobalSettingsRoot)
                 .Any(x => x.Name.Equals(e.Site.Name, StringComparison.InvariantCultureIgnoreCase)))
         {
@@ -47,7 +47,7 @@ public partial class SettingsService
             return;
         }
 
-        var folder = _contentLoader
+        var folder = _contentRepository
             .GetChildren<SettingsFolder>(GlobalSettingsRoot)
             .FirstOrDefault(x => x.Name.Equals(e.Site.Name, StringComparison.InvariantCultureIgnoreCase));
 
@@ -56,7 +56,7 @@ public partial class SettingsService
             return;
         }
 
-        _contentLoader.Delete(folder.ContentLink, true, AccessLevel.NoAccess);
+        _contentRepository.Delete(folder.ContentLink, true, AccessLevel.NoAccess);
         ClearCache();
     }
 
@@ -79,13 +79,13 @@ public partial class SettingsService
         var updatedSite = updatedArgs.Site;
         var settingsRoot = GlobalSettingsRoot;
 
-        if (_contentLoader
+        if (_contentRepository
                 .GetChildren<IContent>(settingsRoot)
                 .FirstOrDefault(x => x.Name.Equals(prevSite.Name, StringComparison.InvariantCultureIgnoreCase)) is ContentFolder currentSettingsFolder)
         {
             var cloneFolder = currentSettingsFolder.CreateWritableClone();
             cloneFolder.Name = updatedSite.Name;
-            _contentLoader.Save(cloneFolder, SaveAction.Publish, AccessLevel.NoAccess);
+            _contentRepository.Save(cloneFolder, SaveAction.Publish, AccessLevel.NoAccess);
         }
         else
         {

@@ -17,7 +17,7 @@ public partial class SettingsService
         }
 
         if (e.ContentLink == ContentReference.RootPage
-            || _contentLoader.TryGet(e.ContentLink, out SettingsBase _))
+            || _contentRepository.TryGet(e.ContentLink, out SettingsBase _))
         {
             ClearCache();
         }

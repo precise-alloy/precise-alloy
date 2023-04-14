@@ -23,6 +23,7 @@ public class SettingsFolder : ContentFolder
         get => ContentLink.CompareToIgnoreWorkID(SettingsRoot)
             ? _localizationService.Service.GetString("/contentrepositories/globalsettings/Name", "Site Settings")
             : base.Name;
+
         set => base.Name = value;
     }
 

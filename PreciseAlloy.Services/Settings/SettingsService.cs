@@ -26,7 +26,7 @@ public partial class SettingsService
 
     private readonly IContentEvents _contentEvents;
     private readonly IContentLanguageSettingsHandler _contentLanguageSettingsHandler;
-    private readonly IContentRepository _contentLoader;
+    private readonly IContentRepository _contentRepository;
     private readonly IContentTypeRepository _contentTypeRepository;
     private readonly IContentVersionRepository _contentVersionRepository;
     private readonly IContextModeResolver _contextModeResolver;
@@ -44,7 +44,7 @@ public partial class SettingsService
     public SettingsService(
         IContentEvents contentEvents,
         IContentLanguageSettingsHandler contentLanguageSettingsHandler,
-        IContentRepository contentLoader,
+        IContentRepository contentRepository,
         IContentTypeRepository contentTypeRepository,
         IContentVersionRepository contentVersionRepository,
         IContextModeResolver contextModeResolver,
@@ -60,7 +60,7 @@ public partial class SettingsService
     {
         _contentEvents = contentEvents;
         _contentLanguageSettingsHandler = contentLanguageSettingsHandler;
-        _contentLoader = contentLoader;
+        _contentRepository = contentRepository;
         _contentTypeRepository = contentTypeRepository;
         _contentVersionRepository = contentVersionRepository;
         _contextModeResolver = contextModeResolver;
@@ -83,7 +83,7 @@ public partial class SettingsService
         {
             var layoutSettings = new LayoutSettings();
 
-            // if( _contentLoader.GetPublishedOrNull<HomePage>(ContentReference.StartPage) is HomePage startPage)
+            // if( _contentRepository.GetPublishedOrNull<HomePage>(ContentReference.StartPage) is HomePage startPage)
             // {
             // }
 
@@ -127,24 +127,26 @@ public partial class SettingsService
 
     public void UpdateSettings()
     {
-        var root = _contentLoader.GetItems(_contentRootService.List(), new LoaderOptions())
+        var root = _contentRepository.GetItems(
+                _contentRootService.List(),
+                new LoaderOptions())
             .FirstOrDefault(x => x.ContentGuid == SettingsFolder.SettingsRootGuid);
 
         if (root == null)
         {
-            _logger.LogWarning($"[Settings] Setting root is NULL");
+            _logger.LogWarning("[Settings] Setting root is NULL");
             return;
         }
 
         GlobalSettingsRoot = root.ContentLink;
-        var children = _contentLoader.GetChildren<SettingsFolder>(GlobalSettingsRoot).ToList();
+        var children = _contentRepository.GetChildren<SettingsFolder>(GlobalSettingsRoot).ToList();
         foreach (var site in _siteDefinitionRepository.List())
         {
             var folder = children.Find(x => x.Name.Equals(site.Name, StringComparison.InvariantCultureIgnoreCase));
             if (folder != null)
             {
                 var settingsTypes = new List<Type>();
-                foreach (var child in _contentLoader.GetChildren<SettingsBase>(folder.ContentLink, new LoaderOptions { LanguageLoaderOption.MasterLanguage() }))
+                foreach (var child in _contentRepository.GetChildren<SettingsBase>(folder.ContentLink, new LoaderOptions { LanguageLoaderOption.MasterLanguage() }))
                 {
                     var settingType = child.GetOriginalType();
                     if (settingsTypes.Contains(settingType))
@@ -217,12 +219,17 @@ public partial class SettingsService
 
     private void RegisterContentRoots()
     {
-        var registeredRoots = _contentLoader.GetItems(_contentRootService.List(), new LoaderOptions());
-        var settingsRootRegistered = registeredRoots.Any(x => x.ContentGuid == SettingsFolder.SettingsRootGuid && x.Name.Equals(SettingsFolder.SettingsRootName));
+        var registeredRoots = _contentRepository.GetItems(_contentRootService.List(), new LoaderOptions());
+        var settingsRootRegistered = registeredRoots
+            .Any(x => x.ContentGuid == SettingsFolder.SettingsRootGuid
+                      && x.Name.Equals(SettingsFolder.SettingsRootName));
 
         if (!settingsRootRegistered)
         {
-            _contentRootService.Register<SettingsFolder>(SettingsFolder.SettingsRootName, SettingsFolder.SettingsRootGuid, ContentReference.RootPage);
+            _contentRootService.Register<SettingsFolder>(
+                SettingsFolder.SettingsRootName,
+                SettingsFolder.SettingsRootGuid,
+                ContentReference.RootPage);
         }
 
         UpdateSettings();
@@ -251,12 +258,12 @@ public partial class SettingsService
 
     private bool RepopulateCacheForAllLanguage(Guid siteId, Type type)
     {
-        var root = _contentLoader.GetItems(_contentRootService.List(), new LoaderOptions())
+        var root = _contentRepository.GetItems(_contentRootService.List(), new LoaderOptions())
             .FirstOrDefault(x => x.ContentGuid == SettingsFolder.SettingsRootGuid)
-                   ?? _contentLoader.Get<IContent>(SettingsFolder.SettingsRootGuid);
+                   ?? _contentRepository.Get<IContent>(SettingsFolder.SettingsRootGuid);
         if (root == null)
         {
-            _logger.LogWarning($"[Settings] Setting root is NULL");
+            _logger.LogWarning("[Settings] Setting root is NULL");
             return false;
         }
 
@@ -266,7 +273,7 @@ public partial class SettingsService
             return false;
         }
 
-        var folder = _contentLoader
+        var folder = _contentRepository
             .GetChildren<SettingsFolder>(root.ContentLink)
             .FirstOrDefault(x => x.Name.Equals(site.Name, StringComparison.InvariantCultureIgnoreCase));
 
@@ -275,7 +282,7 @@ public partial class SettingsService
             return false;
         }
 
-        var settings = _contentLoader.GetChildren<SettingsBase>(
+        var settings = _contentRepository.GetChildren<SettingsBase>(
                 folder.ContentLink,
                 new LoaderOptions { LanguageLoaderOption.MasterLanguage() })
             .FirstOrDefault(x => type == x.GetOriginalType());
@@ -291,13 +298,14 @@ public partial class SettingsService
         return true;
     }
 
+    // ReSharper disable once SuggestBaseTypeForParameter
     private void RepopulateCacheForAllLanguage(Guid siteId, SettingsBase settings)
     {
         var publishedSettings = new Dictionary<string, SettingsBase?>();
         var draftSettings = new Dictionary<string, SettingsBase?>();
         foreach (var lang in settings.ExistingLanguages)
         {
-            var setting = _contentLoader
+            var setting = _contentRepository
                 .Get<SettingsBase>(
                     settings.ContentLink.ToReferenceWithoutVersion(),
                     new LoaderOptions { LanguageLoaderOption.FallbackWithMaster(lang) });
@@ -308,7 +316,7 @@ public partial class SettingsService
             var draftContentLink = _contentVersionRepository.LoadCommonDraft(settings.ContentLink, lang.Name);
             if (draftContentLink != null)
             {
-                var settingsDraft = _contentLoader.Get<SettingsBase>(draftContentLink.ContentLink);
+                var settingsDraft = _contentRepository.Get<SettingsBase>(draftContentLink.ContentLink);
                 draftSettings[lang.Name] = settingsDraft;
             }
         }
@@ -386,9 +394,9 @@ public partial class SettingsService
 
     private void CreateSiteFolder(SiteDefinition siteDefinition)
     {
-        var folder = _contentLoader.GetDefault<SettingsFolder>(GlobalSettingsRoot);
+        var folder = _contentRepository.GetDefault<SettingsFolder>(GlobalSettingsRoot);
         folder.Name = siteDefinition.Name;
-        var reference = _contentLoader.Save(folder, SaveAction.Publish, AccessLevel.NoAccess);
+        var reference = _contentRepository.Save(folder, SaveAction.Publish, AccessLevel.NoAccess);
 
         var settingsModelTypes = _typeScannerLookup.AllTypes
             .Where(t => t.GetCustomAttributes(typeof(SettingsContentTypeAttribute), false).Length > 0);
@@ -403,9 +411,9 @@ public partial class SettingsService
 
             var contentType = _contentTypeRepository.Load(settingsType);
 
-            var newSettings = _contentLoader.GetDefault<IContent>(reference, contentType.ID);
+            var newSettings = _contentRepository.GetDefault<IContent>(reference, contentType.ID);
             newSettings.Name = attribute.SettingsName;
-            _contentLoader.Save(newSettings, SaveAction.Publish, AccessLevel.NoAccess);
+            _contentRepository.Save(newSettings, SaveAction.Publish, AccessLevel.NoAccess);
 
             InsertSettingToCache(
                 siteDefinition.Id,
