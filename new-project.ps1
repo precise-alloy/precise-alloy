@@ -2,36 +2,40 @@ $ErrorActionPreference = 'Stop'
 
 $replaces = @(
   @{
-    from = 'PrecisionAlloy';
-    to   = 'PreciseAlloy';
+    from = 'PreciseAlloy';
+    to   = 'NewName';
   };
   @{
-    from = 'Precision Alloy';
-    to   = 'Precise Alloy';
+    from = 'Precise Alloy';
+    to   = 'New Name';
   };
   @{
-    from = 'Precision-Alloy';
-    to   = 'Precise-Alloy';
+    from = 'Precise-Alloy';
+    to   = 'New-Name';
   };
   @{
-    from = 'Precision.Alloy';
-    to   = 'Precise.Alloy';
+    from = 'Precise.Alloy';
+    to   = 'New.Name';
   };
   @{
-    from = 'precision alloy';
-    to   = 'precise alloy';
+    from = 'precise alloy';
+    to   = 'new name';
   };
   @{
-    from = 'precision-alloy';
-    to   = 'precise-alloy';
+    from = 'precise-alloy';
+    to   = 'new-name';
   };
   @{
-    from = 'precision.alloy';
-    to   = 'precise.alloy';
+    from = 'precise.alloy';
+    to   = 'new-name';
   };
   @{
-    from = 'precisionAlloy';
-    to   = 'preciseAlloy';
+    from = 'preciseAlloy';
+    to   = 'newName';
+  };
+  @{
+    from = 'zzz';
+    to   = 'newname';
   }
 )
 

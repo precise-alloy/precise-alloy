@@ -20,6 +20,7 @@ public abstract class SitePageData
     [AllowedTypes(typeof(BaseBlockData), typeof(PdfFile))]
     public virtual ContentArea? MainContentArea { get; set; }
 
+    #region Metadata
     [CultureSpecific]
     [Display(
         Name = "Meta Title",
@@ -83,6 +84,7 @@ public abstract class SitePageData
         GroupName = TabNames.MetaData,
         Order = 1060)]
     public virtual ContentReference? SocialMediaImage { get; set; }
+    #endregion
 
     [CultureSpecific]
     [Display(
