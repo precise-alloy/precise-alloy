@@ -33,8 +33,8 @@ steps:
       git config --global user.email "VanTuyen.Pham@episerver.com"
       git config --global user.name "Tuyen Pham"
       git switch -c fe-build-temp
-      git fetch origin develop:develop --depth 1
-      git merge develop --allow-unrelated-histories
+      git fetch origin develop:develop
+      git merge develop
     displayName: 'Create git branch'
 
   - script: |
