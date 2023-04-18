@@ -8,7 +8,6 @@ resources:
     - repository: self
       type: git
       ref: fe-release
-      fetchDepth: 0
 
 trigger:
   - fe-release
@@ -23,6 +22,7 @@ steps:
   - checkout: self
     clean: true
     persistCredentials: true
+    fetchDepth: 0
 
   - task: NodeTool@0
     displayName: 'Install Node.js'
