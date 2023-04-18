@@ -8,7 +8,7 @@ const header: HeaderModel = {
       { text: "Home", url: '/' },
       { text: "Porforlio", url: '/pages/portfolio' },
       { text: "Services", url: '/pages/service' },
-      { text: "Contact", url: '/pages/contact' },
+      { text: "Contact Us", url: '/pages/contact' },
     ],
   }
 }

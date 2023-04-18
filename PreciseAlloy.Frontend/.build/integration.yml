@@ -8,6 +8,7 @@ resources:
     - repository: self
       type: git
       ref: fe-release
+      fetchDepth: 0
 
 trigger:
   - fe-release
