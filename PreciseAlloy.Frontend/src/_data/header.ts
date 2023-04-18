@@ -5,10 +5,10 @@ const header: HeaderModel = {
   title: "Start",
   navlinks: {
     links: [
-      { text: "Home", url: 'https://www.google.com/' },
-      { text: "Porforlio", url: 'https://www.google.com/' },
-      { text: "Services", url: 'https://www.google.com/' },
-      { text: "Contact", url: 'https://www.google.com/' },
+      { text: "Home", url: '/' },
+      { text: "Porforlio", url: '/pages/portfolio' },
+      { text: "Services", url: '/pages/service' },
+      { text: "Contact Us", url: '/pages/contact' },
     ],
   }
 }

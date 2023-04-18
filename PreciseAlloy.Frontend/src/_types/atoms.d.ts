@@ -7,6 +7,7 @@ export interface ButtonModel extends BasedAtomicModel {
   styleModifier?: ('btn' | 'btn-black')[];
   text: string;
   type?: 'button' | 'submit';
+  target?: string;
 }
 
 export interface PictureModel extends BasedAtomicModel {
@@ -33,6 +34,7 @@ export interface LinkWithIconModel extends BasedAtomicModel {
   url: string;
   icon: IconModel;
   target?: string;
+  ariaLabel?: string;
   text?: string;
 }
 

@@ -90,7 +90,7 @@ const RootNav = ({ routes: routesProp }: Props) => {
           <input
             type={'text'}
             value={textSearch}
-            placeholder="Find A Pattern"
+            placeholder="Find a pattern"
             onChange={(e) => {
               setTextSearch(e.target.value);
             }}

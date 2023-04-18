@@ -6,24 +6,45 @@ export const people: PeopleModel = {
   text: 'Lorem ipsum, dolor sit amet consectetur Suscipit nemo hic quos, ab,',
   items: [
     {
-      name: "Emilia Clarke",
-      src: "/samples/01.svg",
+      name: "Peg Legge",
+      image: {
+        src: "/samples/peg-legge.svg",
+        width: '175',
+        height: '175',
+        alt: 'people 1'
+      },
       jobTitle: "CEO"
     },
     {
-      name: "Cliff Curtis",
-      src: "/samples/01.svg",
+      name: "Richard Guerra",
+      image: {
+        src: "/samples/richard-guerra.svg",
+        width: '175',
+        height: '175',
+        alt: 'people 2'
+      },
       jobTitle: "CEO"
     },
     {
-      name: "Rose Leslie",
-      src: "/samples/01.svg",
+      name: "Alexandra Stolz",
+      image: {
+        src: "/samples/alexandra-stolz.svg",
+        width: '175',
+        height: '175',
+        alt: 'people 3'
+      },
       jobTitle: "CEO"
     },
     {
-      name: "Michelle Yeoh",
-      src: "/samples/01.svg",
+      name: "Janet Bray",
+      image: {
+        src: "/samples/janet-bray.svg",
+        width: '175',
+        height: '175',
+        alt: 'people 4'
+      },
       jobTitle: "CEO"
     },
-  ]
+  ],
+  button: { text: "View Team", link: true, href: "https://www.google.com/", styleModifier: ['btn', 'btn-black'] }
 }

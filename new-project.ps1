@@ -2,6 +2,21 @@ $ErrorActionPreference = 'Stop'
 
 $replaces = @(
   @{
+    from        = 'Alloy Template';
+    to          = 'New Repositoty';
+    description = 'Name of this repository'
+  };
+  @{
+    from        = 'Alloy-Template';
+    to          = 'New-Repositoty';
+    description = 'Name of this repository'
+  };
+  @{
+    from        = 'alloy-episerver-cms';
+    to          = 'new-name-episerver-cms';
+    description = 'CMS Database name'
+  };
+  @{
     from = 'PreciseAlloy';
     to   = 'NewName';
   };
@@ -132,3 +147,4 @@ function Start-NewSolution {
 }
 
 Start-NewSolution -Path (Get-Location)
+Remove-Item -LiteralPath ./new-project.ps1

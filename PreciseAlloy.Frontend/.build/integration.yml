@@ -22,6 +22,7 @@ steps:
   - checkout: self
     clean: true
     persistCredentials: true
+    fetchDepth: 0
 
   - task: NodeTool@0
     displayName: 'Install Node.js'
@@ -31,10 +32,9 @@ steps:
   - script: |
       git config --global user.email "VanTuyen.Pham@episerver.com"
       git config --global user.name "Tuyen Pham"
-      git fetch --all
-      git branch -vv
       git switch -c fe-build-temp
-      git merge origin/develop
+      git fetch origin develop:develop --depth 1
+      git merge develop --allow-unrelated-histories
     displayName: 'Create git branch'
 
   - script: |
