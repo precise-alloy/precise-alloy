@@ -1,4 +1,5 @@
-﻿using EPiServer.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using EPiServer.DataAnnotations;
 using PreciseAlloy.Models.Interfaces;
 
 namespace PreciseAlloy.Models.Blocks;
@@ -10,6 +11,15 @@ namespace PreciseAlloy.Models.Blocks;
 public class PartnerBlock
     : BaseBlockData, IHasHeading, IHasSubHeading
 {
-    public virtual string? Heading { get; set; }
+    [Display(
+        Name = "Sub-Heading",
+        Order = 100)]
+    [CultureSpecific]
     public virtual string? SubHeading { get; set; }
+
+    [Display(
+        Name = "Heading",
+        Order = 200)]
+    [CultureSpecific]
+    public virtual string? Heading { get; set; }
 }

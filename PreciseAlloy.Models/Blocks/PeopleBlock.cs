@@ -14,7 +14,7 @@ public class PeopleBlock
     : BaseBlockData, IHasHeading, IHasSubHeading
 {
     [Display(
-        Name = "Sub-Header",
+        Name = "Sub-Heading",
         Description = "",
         GroupName = SystemTabNames.Content,
         Order = 100)]
@@ -22,7 +22,7 @@ public class PeopleBlock
     public virtual string? SubHeading { get; set; }
 
     [Display(
-        Name = "Header",
+        Name = "Heading",
         Description = "",
         GroupName = SystemTabNames.Content,
         Order = 200)]

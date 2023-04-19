@@ -16,7 +16,7 @@ public class TeaserBlock
     : BaseBlockData, IHasHeading
 {
     [Display(
-        Name = "Header",
+        Name = "Heading",
         Description = "",
         GroupName = SystemTabNames.Content,
         Order = 100)]
