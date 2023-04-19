@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using PreciseAlloy.Models.Layout;
 using PreciseAlloy.Models.Pages;
+using PreciseAlloy.Models.Settings;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
+using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Web.Features.ViewComponents;
 
@@ -22,7 +24,7 @@ public class MetaDataViewComponent : ViewComponent
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var layoutSettings = _requestContext.GetLayoutSettings();
+        var layoutSettings = _settingsService.GetSiteSettings<LayoutSettings>();
         var currentPage = _requestContext.CurrentPage() as SitePageData;
 
         var browserTitle = currentPage?.MetaTitle + " | First Mile";
@@ -37,7 +39,7 @@ public class MetaDataViewComponent : ViewComponent
                 ? (currentPage.DisableIndexing ? "noindex" : "index") + ", " + (currentPage.DisableFollow ? "nofollow" : "follow")
                 : null,
             CanonicalUrl = currentPage.ToExternalUrl(),
-            SocialMediaImage = layoutSettings?.SocialShareImageUrl,
+            SocialMediaImage = layoutSettings?.SocialShareImageUrl?.GetUrl(),
         };
 
         return await Task.FromResult(View("~/Features/Shared/_MetaData.cshtml", model));

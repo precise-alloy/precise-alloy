@@ -7,7 +7,7 @@ public interface IRequestContext
 {
     PageData? CurrentPage();
 
-    LayoutSettings? GetLayoutSettings();
-
+    bool IsBlockPreviewMode { get; set; }
+    
     void SetPageSubstitute(PageData page);
 }

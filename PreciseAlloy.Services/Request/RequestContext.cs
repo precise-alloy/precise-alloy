@@ -3,7 +3,6 @@ using EPiServer.Core;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using PreciseAlloy.Models.Settings;
 using PreciseAlloy.Services.Settings;
 using PreciseAlloy.Utils.Extensions;
 
@@ -48,6 +47,8 @@ public class RequestContext
         return page;
     }
 
+    public bool IsBlockPreviewMode { get; set; }
+
     private PageData? GetCurrentPage()
     {
         // Replicating CMS 11 behavior - returning Start Page, if current page is not defined
@@ -59,17 +60,6 @@ public class RequestContext
         return _contentLoader.TryGet<PageData>(pageLink, out var result)
             ? result
             : _pageRouteHelper.Page;
-    }
-
-    public LayoutSettings? GetLayoutSettings()
-    {
-        _logger.EnterMethod();
-
-        var layoutSettings = ForceGet(CurrentLayoutSettingsContext, _settingsService.GetLayoutSettings);
-
-        _logger.ExitMethod();
-
-        return layoutSettings;
     }
 
     public void SetPageSubstitute(PageData page)

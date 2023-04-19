@@ -12,7 +12,6 @@ using EPiServer.Web;
 using EPiServer.Web.Routing;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using PreciseAlloy.Models.Pages;
 using PreciseAlloy.Models.Settings;
 using PreciseAlloy.Utils.Extensions;
 
@@ -32,7 +31,6 @@ public partial class SettingsService
     private readonly IContextModeResolver _contextModeResolver;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<SettingsService> _logger;
-    private readonly IPageRouteHelper _pageRouteHelper;
     private readonly ISiteDefinitionEvents _siteDefinitionEvents;
     private readonly ISiteDefinitionRepository _siteDefinitionRepository;
     private readonly ISiteDefinitionResolver _siteDefinitionResolver;
@@ -50,7 +48,6 @@ public partial class SettingsService
         IContextModeResolver contextModeResolver,
         IHttpContextAccessor httpContextAccessor,
         ILogger<SettingsService> logger,
-        IPageRouteHelper pageRouteHelper,
         ISiteDefinitionEvents siteDefinitionEvents,
         ISiteDefinitionRepository siteDefinitionRepository,
         ISiteDefinitionResolver siteDefinitionResolver,
@@ -66,7 +63,6 @@ public partial class SettingsService
         _contextModeResolver = contextModeResolver;
         _httpContextAccessor = httpContextAccessor;
         _logger = logger;
-        _pageRouteHelper = pageRouteHelper;
         _siteDefinitionEvents = siteDefinitionEvents;
         _siteDefinitionRepository = siteDefinitionRepository;
         _siteDefinitionResolver = siteDefinitionResolver;
@@ -75,31 +71,6 @@ public partial class SettingsService
         _contentRootService = contentRootService;
         _logger.EnterConstructor();
         _logger.ExitConstructor();
-    }
-
-    public LayoutSettings? GetLayoutSettings()
-    {
-        try
-        {
-            var layoutSettings = new LayoutSettings();
-
-            // if( _contentRepository.GetPublishedOrNull<HomePage>(ContentReference.StartPage) is HomePage startPage)
-            // {
-            // }
-
-            if (_pageRouteHelper.Page is SitePageData currentPage)
-            {
-                layoutSettings.HideHeader = currentPage.HideSiteHeader;
-                layoutSettings.HideFooter = currentPage.HideSiteFooter;
-            }
-
-            return layoutSettings;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Cannot get layout settings");
-            return null;
-        }
     }
 
     public void InitializeSettings()
@@ -193,7 +164,7 @@ public partial class SettingsService
                 siteId.Value, contentType,
                 _contextModeResolver.CurrentMode == ContextMode.Edit);
 
-            if (settings.FirstOrDefault() is not {Value: { }} setting)
+            if (settings.FirstOrDefault() is not { Value: { } } setting)
             {
                 return default;
             }
@@ -398,7 +369,8 @@ public partial class SettingsService
         folder.Name = siteDefinition.Name;
         var reference = _contentRepository.Save(folder, SaveAction.Publish, AccessLevel.NoAccess);
 
-        var settingsModelTypes = _typeScannerLookup.AllTypes
+        var settingsModelTypes = _typeScannerLookup
+            .AllTypes
             .Where(t => t.GetCustomAttributes(typeof(SettingsContentTypeAttribute), false).Length > 0);
 
         foreach (var settingsType in settingsModelTypes)
@@ -412,7 +384,7 @@ public partial class SettingsService
             var contentType = _contentTypeRepository.Load(settingsType);
 
             var newSettings = _contentRepository.GetDefault<IContent>(reference, contentType.ID);
-            newSettings.Name = attribute.SettingsName;
+            newSettings.Name = attribute.DisplayName;
             _contentRepository.Save(newSettings, SaveAction.Publish, AccessLevel.NoAccess);
 
             InsertSettingToCache(
