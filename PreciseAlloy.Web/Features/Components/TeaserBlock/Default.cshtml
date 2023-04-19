@@ -12,7 +12,7 @@
     <div class="zzz-container">
         <div class="zzz-o-teaser__inner">
             <div class="zzz-o-teaser__content">
-                @Html.PropertyFor(m => m.CurrentBlock.Header, new { TagName = "h2", CssClass="zzz-o-teaser__title h1"})
+                @Html.PropertyFor(m => m.CurrentBlock.Heading, new { TagName = "h2", CssClass="zzz-o-teaser__title h1"})
 
                 @if (Model.CurrentBlock.Text?.IsEmpty == false)
                 {
@@ -30,7 +30,7 @@
                 }
             </div>
             <picture class="zzz-a-picture">
-                <img alt="@Model.CurrentBlock.Header" src="/samples/01.svg" loading="lazy">
+                <img alt="@Model.CurrentBlock.Heading" src="/samples/01.svg" loading="lazy">
             </picture>
         </div>
     </div>

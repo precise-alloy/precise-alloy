@@ -19,7 +19,7 @@ namespace PreciseAlloy.Web.Features.Preview;
 [VisitorGroupImpersonation]
 [RequireClientResources]
 public class PreviewController
-    : ActionControllerBase, IRenderTemplate<IHavePreview>
+    : ActionControllerBase, IRenderTemplate<IHasPreview>
 {
     private readonly IRequestContext _requestContext;
     private readonly IContentLoader _contentLoader;
