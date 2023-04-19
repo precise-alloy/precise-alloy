@@ -15,8 +15,7 @@ namespace PreciseAlloy.Web.Infrastructure;
 public class ContentTypesInitialization
     : IConfigurableModule
 {
-    private readonly Type[] _typesForAssemblyScanning = new[]
-    {
+    private readonly Type[] _typesForAssemblyScanning = {
         typeof(ScheduledJobBase),   // PreciseAlloy.Jobs
         typeof(BaseBlockData),      // PreciseAlloy.Models
         typeof(ISettingsService),   // PreciseAlloy.Services
