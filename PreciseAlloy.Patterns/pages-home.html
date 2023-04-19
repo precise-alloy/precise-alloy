@@ -23,6 +23,8 @@
     content="text/html; charset=UTF-8">
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+  <meta name="description"
+    content="This is the description for Precise Alloy page.">
   <title>Home</title>
   <link rel="stylesheet preload"
     href="/assets/css/style-base.css"
@@ -30,6 +32,14 @@
   <link rel="stylesheet preload"
     href="/assets/css/style-pl.css"
     as="style">
+  <link rel="preload"
+    href="/assets/fonts/work-sans/WorkSans.woff2"
+    as="font"
+    type="font/woff2">
+  <link rel="preload"
+    href="/assets/fonts/crimson-text/CrimsonText.woff2"
+    as="font"
+    type="font/woff2">
   <script defer=""
     src="/assets/js/main.js"></script>
   <script type="module"
@@ -48,15 +58,18 @@
   <header class="zzz-o-header">
     <div class="zzz-container">
       <div class="zzz-o-header__header-container"><a href="#"><img class="zzz-o-header__logo"
+            width="70"
+            height="50"
+            alt="Precise Alloy's logo"
             src="/assets/images/logo.svg"></a><span class="zzz-o-header__title">Start</span>
         <div class="zzz-o-header__nav-mobile">
           <div class="zzz-o-header__nav-toggle"><span></span><span></span><span></span></div>
         </div>
         <ul class="zzz-o-header__nav-list">
-          <li class="zzz-o-header__nav-list__item"><a href="https://www.google.com/">Home</a></li>
-          <li class="zzz-o-header__nav-list__item"><a href="https://www.google.com/">Porforlio</a></li>
-          <li class="zzz-o-header__nav-list__item"><a href="https://www.google.com/">Services</a></li>
-          <li class="zzz-o-header__nav-list__item"><a href="https://www.google.com/">Contact</a></li>
+          <li class="zzz-o-header__nav-list__item"><a href="/">Home</a></li>
+          <li class="zzz-o-header__nav-list__item"><a href="/pages/portfolio">Porforlio</a></li>
+          <li class="zzz-o-header__nav-list__item"><a href="/pages/service">Services</a></li>
+          <li class="zzz-o-header__nav-list__item"><a href="/pages/contact">Contact Us</a></li>
         </ul>
       </div>
     </div>
@@ -76,11 +89,13 @@
               <h1 class="zzz-m-section-header__heading">Lorem Ipsum Dolor Sit Amet Consectetur.</h1>
             </div>
             <div class="zzz-o-hero__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.</div>
-            <div class="zzz-o-hero__button"><button class="zzz-a-button zzz-a-button--btn">Explore</button></div>
+            <div class="zzz-o-hero__button"><a href="https://www.office.com/"
+                class="zzz-a-button zzz-a-button--btn"
+                target="_blank">Explore</a></div>
           </div>
           <div class="zzz-o-hero__image">
             <picture class="zzz-a-picture"><img src="/samples/image-1.svg"
-                alt="hero image"
+                alt="hero"
                 width="590"
                 height="347"></picture>
           </div>
@@ -128,7 +143,9 @@
                 width="167"
                 height="50"></picture>
           </div>
-          <div class="zzz-o-partner__button"><button class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black">Learn More</button></div>
+          <div class="zzz-o-partner__button"><a href="https://www.twitter.com/"
+              class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black"
+              target="_blank">Learn More</a></div>
         </div>
       </div>
       <link rel="stylesheet preload"
@@ -144,10 +161,15 @@
               <h2 class="zzz-m-section-header__heading h1">Lorem Ipsum Dolor Sit Amet Consectetur.</h2>
             </div>
             <div class="zzz-o-teaser__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.</div>
-            <div class="zzz-o-teaser__button"><button class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black">Explore</button></div>
+            <div class="zzz-o-teaser__button"><a href="https://www.youtube.com/"
+                class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black"
+                target="_blank">Explore</a></div>
           </div>
           <picture class="zzz-a-picture"><img src="/samples/image-2.svg"
-              loading="lazy"></picture>
+              alt="teaser 2"
+              loading="lazy"
+              width="600"
+              height="432"></picture>
         </div>
       </div>
       <link rel="stylesheet preload"
@@ -163,10 +185,12 @@
               <h2 class="zzz-m-section-header__heading h1">Lorem Ipsum Dolor Sit Amet Consectetur.</h2>
             </div>
             <div class="zzz-o-teaser__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.</div>
-            <div class="zzz-o-teaser__button"><button class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black">Explore</button></div>
+            <div class="zzz-o-teaser__button"><a href="https://outlook.com/"
+                class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black"
+                target="_blank">Explore</a></div>
           </div>
           <picture class="zzz-a-picture"><img src="/samples/image-3.svg"
-              alt="teaser image"
+              alt="teaser 3"
               loading="lazy"
               width="600"
               height="432"></picture>
@@ -184,22 +208,48 @@
         "header": "Our Talents",
         "text": "Lorem ipsum, dolor sit amet consectetur Suscipit nemo hic quos, ab,",
         "items": [{
-          "name": "Emilia Clarke",
-          "src": "/samples/01.svg",
+          "name": "Peg Legge",
+          "image": {
+            "src": "/samples/peg-legge.svg",
+            "width": "175",
+            "height": "175",
+            "alt": "people 1"
+          },
           "jobTitle": "CEO"
         }, {
-          "name": "Cliff Curtis",
-          "src": "/samples/01.svg",
+          "name": "Richard Guerra",
+          "image": {
+            "src": "/samples/richard-guerra.svg",
+            "width": "175",
+            "height": "175",
+            "alt": "people 2"
+          },
           "jobTitle": "CEO"
         }, {
-          "name": "Rose Leslie",
-          "src": "/samples/01.svg",
+          "name": "Alexandra Stolz",
+          "image": {
+            "src": "/samples/alexandra-stolz.svg",
+            "width": "175",
+            "height": "175",
+            "alt": "people 3"
+          },
           "jobTitle": "CEO"
         }, {
-          "name": "Michelle Yeoh",
-          "src": "/samples/01.svg",
+          "name": "Janet Bray",
+          "image": {
+            "src": "/samples/janet-bray.svg",
+            "width": "175",
+            "height": "175",
+            "alt": "people 4"
+          },
           "jobTitle": "CEO"
-        }]
+        }],
+        "button": {
+          "text": "View Team",
+          "link": true,
+          "href": "https://www.google.com/",
+          "styleModifier": ["btn", "btn-black"]
+        }
       }
     </script>
     <link rel="stylesheet preload"
@@ -212,7 +262,8 @@
       <div class="zzz-o-footer__inner">
         <ul class="zzz-m-link-list-with-icon">
           <li><a class="zzz-a-link-with-icon"
-              href="https://www.facebook.com/"><svg class="zzz-a-icon"
+              href="https://www.facebook.com/"
+              aria-label="click to facebook"><svg class="zzz-a-icon zzz-a-icon--md"
                 aria-hidden="true"
                 viewBox="0 0 10 19"
                 width="10"
@@ -220,7 +271,8 @@
                 <use xlink:href="/assets/images/icons.svg#zzz-facebook"></use>
               </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
-              href="https://www.instagram.com/"><svg class="zzz-a-icon"
+              href="https://www.instagram.com/"
+              aria-label="click to instagram"><svg class="zzz-a-icon zzz-a-icon--md"
                 aria-hidden="true"
                 viewBox="0 0 19 19"
                 width="19"
@@ -228,7 +280,8 @@
                 <use xlink:href="/assets/images/icons.svg#zzz-instagram"></use>
               </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
-              href="https://www.twitter.com/"><svg class="zzz-a-icon"
+              href="https://www.twitter.com/"
+              aria-label="click to twitter"><svg class="zzz-a-icon zzz-a-icon--md"
                 aria-hidden="true"
                 viewBox="0 0 19 19"
                 width="19"
@@ -236,7 +289,8 @@
                 <use xlink:href="/assets/images/icons.svg#zzz-twitter"></use>
               </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
-              href="https://www.pinterest.com/"><svg class="zzz-a-icon"
+              href="https://www.pinterest.com/"
+              aria-label="click to pinterest"><svg class="zzz-a-icon zzz-a-icon--md"
                 aria-hidden="true"
                 viewBox="0 0 19 19"
                 width="19"
@@ -244,7 +298,8 @@
                 <use xlink:href="/assets/images/icons.svg#zzz-pinterest"></use>
               </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
-              href="https://www.tiktok.com/"><svg class="zzz-a-icon"
+              href="https://www.tiktok.com/"
+              aria-label="click to tiktok"><svg class="zzz-a-icon zzz-a-icon--md"
                 aria-hidden="true"
                 viewBox="0 0 19 19"
                 width="19"
@@ -252,7 +307,8 @@
                 <use xlink:href="/assets/images/icons.svg#zzz-tiktok"></use>
               </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
-              href="https://www.whatsapp.com/"><svg class="zzz-a-icon"
+              href="https://www.whatsapp.com/"
+              aria-label="click to whatsapp"><svg class="zzz-a-icon zzz-a-icon--md"
                 aria-hidden="true"
                 viewBox="0 0 19 19"
                 width="19"
@@ -260,7 +316,8 @@
                 <use xlink:href="/assets/images/icons.svg#zzz-whatsapp"></use>
               </svg> </a></li>
           <li><a class="zzz-a-link-with-icon"
-              href="https://www.youtube.com/"><svg class="zzz-a-icon"
+              href="https://www.youtube.com/"
+              aria-label="click to youtube"><svg class="zzz-a-icon zzz-a-icon--md"
                 aria-hidden="true"
                 viewBox="0 0 19 19"
                 width="19"

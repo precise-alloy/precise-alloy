@@ -37,7 +37,7 @@ public static class ContentRepositoryExtensions
         where T : class, IContentData
     {
         if (ContentReference.IsNullOrEmpty(contentReference)
-            || !contentRepository.TryGet(new ContentReference(contentReference!.ID), out T result)
+            || !contentRepository.TryGet(new ContentReference(contentReference!.ID), new LoaderOptions{ LanguageLoaderOption.FallbackWithMaster() }, out T result)
             || result is not IContent content)
         {
             return null;

@@ -6,7 +6,9 @@ using EPiServer.ServiceLocation;
 
 namespace PreciseAlloy.Models.Settings;
 
-[ContentType(GUID = "c709627f-ca9f-4c77-b0fb-8563287ebd93")]
+[ContentType(
+    DisplayName = "Settings Folder",
+    GUID = "c709627f-ca9f-4c77-b0fb-8563287ebd93")]
 [AvailableContentTypes(Include = new[] { typeof(SettingsBase), typeof(SettingsFolder) })]
 public class SettingsFolder : ContentFolder
 {

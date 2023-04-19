@@ -40,12 +40,7 @@ public class PreviewController
         var startPage = _contentLoader.Get<SitePageData>(SiteDefinition.Current.StartPage);
 
         _requestContext.SetPageSubstitute(startPage);
-
-        var layoutSettings = _requestContext.GetLayoutSettings();
-        if (layoutSettings != null)
-        {
-            layoutSettings.IsBlockPreviewMode = true;
-        }
+        _requestContext.IsBlockPreviewMode = true;
 
         return View("~/Features/Preview/Index.cshtml", currentContent);
     }

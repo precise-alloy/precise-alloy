@@ -1,4 +1,5 @@
 ﻿using EPiServer.DataAnnotations;
+using PreciseAlloy.Models.Constants;
 
 namespace PreciseAlloy.Models.Settings;
 
@@ -7,5 +8,9 @@ namespace PreciseAlloy.Models.Settings;
 public sealed class SettingsContentTypeAttribute
     : ContentTypeAttribute
 {
-    public string? SettingsName { get; set; }
+    public SettingsContentTypeAttribute()
+    {
+        Description = string.Empty;
+        GroupName = TabNames.SiteSettings;
+    }
 }

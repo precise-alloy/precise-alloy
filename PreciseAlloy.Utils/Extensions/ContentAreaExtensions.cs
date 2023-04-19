@@ -10,7 +10,7 @@ public static class ContentAreaExtensions
     private static readonly Injected<IContentRepository> ContentRepository;
     
     public static IEnumerable<T> LoadContent<T>(
-        this ContentArea contentArea)
+        this ContentArea? contentArea)
         where T : class, IContentData
     {
         return ContentRepository.Service.ContentAreaItems<T>(contentArea);

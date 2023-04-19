@@ -16,14 +16,14 @@ public class AvatarBlock : BaseBlockData
         Name = "Name",
         Description = "",
         Order = 100)]
-    public virtual string Name { get; set; }
+    public virtual string? Name { get; set; }
 
     [UIHint(UIHint.Image)]
     [Display(
         Name = "Image",
         Description = "",
         Order = 200)]
-    public virtual ContentReference Image { get; set; }
+    public virtual ContentReference? Image { get; set; }
 
     [Display(
         Name = "Job Title",
@@ -31,5 +31,5 @@ public class AvatarBlock : BaseBlockData
         GroupName = SystemTabNames.Content,
         Order = 300)]
     [CultureSpecific]
-    public virtual string JobTitle { get; set; }
+    public virtual string? JobTitle { get; set; }
 }

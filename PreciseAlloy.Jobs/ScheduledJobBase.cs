@@ -15,7 +15,7 @@ public abstract class ScheduledJobBase
     protected int Total;
     protected int Succeeded;
     protected int Failed;
-    protected string CurrentItem = string.Empty;
+    protected string? CurrentItem;
     private DateTime _lastNotificationTime = DateTime.UtcNow;
 
     protected ScheduledJobBase(
@@ -35,11 +35,11 @@ public abstract class ScheduledJobBase
 
     protected virtual string GetMessage(string? type)
     {
-        var stats = $"Processed: {Processed:N0} of {Total:N0} items. Succeeded: {Succeeded:N0}. Failed: {Failed:N0}. Current item: {CurrentItem}";
-
-        return string.IsNullOrWhiteSpace(type)
-            ? stats
-            : $"{type}. {stats}";
+        return (!string.IsNullOrWhiteSpace(type) ? type + ". " : "")
+               + $"Processed: {Processed:N0} of {Total:N0} items. "
+               + $"Succeeded: {Succeeded:N0}. "
+               + $"Failed: {Failed:N0}. "
+               + $"Current item: {CurrentItem ?? "???"}.";
     }
 
     protected virtual string GetStopMessage()

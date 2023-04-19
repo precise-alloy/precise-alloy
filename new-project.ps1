@@ -17,40 +17,49 @@ $replaces = @(
     description = 'CMS Database name'
   };
   @{
-    from = 'PreciseAlloy';
-    to   = 'NewName';
+    from        = 'PreciseAlloy';
+    to          = 'NewName';
+    description = '';
   };
   @{
-    from = 'Precise Alloy';
-    to   = 'New Name';
+    from        = 'Precise Alloy';
+    to          = 'New Name';
+    description = '';
   };
   @{
-    from = 'Precise-Alloy';
-    to   = 'New-Name';
+    from        = 'Precise-Alloy';
+    to          = 'New-Name';
+    description = '';
   };
   @{
-    from = 'Precise.Alloy';
-    to   = 'New.Name';
+    from        = 'Precise.Alloy';
+    to          = 'New.Name';
+    description = '';
   };
   @{
-    from = 'precise alloy';
-    to   = 'new name';
+    from        = 'precise alloy';
+    to          = 'new name';
+    description = '';
   };
   @{
-    from = 'precise-alloy';
-    to   = 'new-name';
+    from        = 'precise-alloy';
+    to          = 'new-name';
+    description = '';
   };
   @{
-    from = 'precise.alloy';
-    to   = 'new-name';
+    from        = 'precise.alloy';
+    to          = 'new-name';
+    description = '';
   };
   @{
-    from = 'preciseAlloy';
-    to   = 'newName';
+    from        = 'preciseAlloy';
+    to          = 'newName';
+    description = '';
   };
   @{
-    from = 'zzz';
-    to   = 'newname';
+    from        = 'zzz';
+    to          = 'newname';
+    description = '';
   }
 )
 
