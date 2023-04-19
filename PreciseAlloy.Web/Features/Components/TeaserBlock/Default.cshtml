@@ -8,30 +8,25 @@
         : "zzz-o-teaser--image-left";
 }
 
-<section class="zzz-o-teaser section-margin-top-xl @imageClass">
+<section class="zzz-o-teaser section-margin-top-xl zzz-o-teaser--image-left">
     <div class="zzz-container">
         <div class="zzz-o-teaser__inner">
             <div class="zzz-o-teaser__content">
-                @Html.PropertyFor(m => m.CurrentBlock.Heading, new { TagName = "h2", CssClass="zzz-o-teaser__title h1"})
-
-                @if (Model.CurrentBlock.Text?.IsEmpty == false)
-                {
-                    <div class="zzz-o-teaser__description">
-                        @Html.PropertyFor(m => m.CurrentBlock.Text)
-                    </div>
-                }
-                @if (Model.CurrentBlock.CtaButton != null)
-                {
-                    <div class="zzz-o-teaser__button">
-                        <button class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black">
-                            @Html.PropertyFor(m => m.CurrentBlock.CtaButton.Title)
-                        </button>
-                    </div>
-                }
+                <div class="zzz-m-section-header">
+                    <h2 class="zzz-m-section-header__heading h1">@Model.CurrentBlock.Heading</h2>
+                </div>
+                <div class="zzz-o-teaser__description">
+                    @Html.PropertyFor(m => m.CurrentBlock.Text)
+                </div>
+                <div class="zzz-o-teaser__button"><a href="https://www.youtube.com/"
+                                                     class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black"
+                                                     target="_blank">Explore</a></div>
             </div>
-            <picture class="zzz-a-picture">
-                <img alt="@Model.CurrentBlock.Heading" src="/samples/01.svg" loading="lazy">
-            </picture>
+            <picture class="zzz-a-picture"><img src="/samples/image-2.svg?v=5d441f7d"
+                                                alt="teaser 2"
+                                                loading="lazy"
+                                                width="600"
+                                                height="432"></picture>
         </div>
     </div>
 </section>
