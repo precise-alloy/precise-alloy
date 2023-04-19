@@ -3,7 +3,7 @@ using EPiServer.Data.Entity;
 
 namespace PreciseAlloy.Models.Settings;
 
-public class SettingsBase
+public abstract class SettingsBase
     : StandardContentBase, IReadOnly<IContent>
 {
     public new IContent CreateWritableClone()
