@@ -31,9 +31,13 @@ public class Startup
             services.Configure<SchedulerOptions>(options => options.Enabled = false);
         }
 
-        services
+        var mvcBuilder = services
             .AddMvc(o => o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
             .AddRazorOptions(x => x.ConfigureRazor());
+        if (_webHostingEnvironment.IsDevelopment())
+        {
+            mvcBuilder.AddRazorRuntimeCompilation();
+        }
 
         services
             .AddCmsAspNetIdentity<ApplicationUser>()

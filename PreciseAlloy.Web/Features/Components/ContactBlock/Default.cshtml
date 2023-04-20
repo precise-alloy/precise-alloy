@@ -1,0 +1,32 @@
+﻿@using EPiServer.Web.Mvc.Html
+@using PreciseAlloy.Utils.Extensions
+@model PreciseAlloy.Models.Blocks.ContactBlock
+
+<div class="zzz-o-contact section-margin-top">
+    <div class="zzz-container">
+        <div class="zzz-o-contact__info">
+            <div class="zzz-m-section-header">
+                <h1 class="zzz-m-section-header__heading">@Html.PropertyFor(m=> m.Heading)</h1>
+            </div>
+            <div class="zzz-o-contact__description">@Html.PropertyFor(m=> m.Description)</div>
+        </div>
+        <div class="zzz-o-contact__main">
+            <div class="zzz-o-contact__contact-form">
+                @Html.PropertyFor(m => m.Forms)
+            </div>
+            <div class="zzz-o-contact__map">
+                <picture class="zzz-a-picture">
+                    <img src="/samples/01.svg?v=5b555967"
+                         alt="map"
+                         loading="lazy"
+                         width="585"
+                         height="328">
+                </picture>
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    Html.RequireStyle("/assets/css/b-contact-form.css").AtHeader();
+    Html.RequireStyle("/assets/css/b-contact.css").AtHeader();
+}
