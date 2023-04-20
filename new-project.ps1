@@ -7,11 +7,6 @@ $replaces = @(
     description = 'Name of this repository'
   };
   @{
-    from        = 'Alloy-Template';
-    to          = 'New-Repositoty';
-    description = 'Name of this repository'
-  };
-  @{
     from        = 'alloy-episerver-cms';
     to          = 'new-name-episerver-cms';
     description = 'CMS Database name'
