@@ -32,7 +32,6 @@ steps:
   - script: |
       git config --global user.email "VanTuyen.Pham@episerver.com"
       git config --global user.name "Tuyen Pham"
-      git switch -c fe-build-temp
       git fetch origin develop:develop
       git merge develop
     displayName: 'Create git branch'
@@ -47,7 +46,7 @@ steps:
   - script: |
       git add .
       git commit -m "Create release package"
-      git push origin fe-build-temp:fe-release-inte-package -f
+      git push origin HEAD:fe-release-inte-package -f
     displayName: 'Create release package'
 
   - task: PowerShell@2
@@ -61,4 +60,3 @@ steps:
       CUSTOM_REPOSITORY_NAME: 'Alloy-Template'
       CUSTOM_SOURCE_BRANCH: 'fe-release-inte-package'
       CUSTOM_TARGET_BRANCH: 'develop'
-      CUSTOM_REVIEWER_ID: 'ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2' # Alloy Template Team
