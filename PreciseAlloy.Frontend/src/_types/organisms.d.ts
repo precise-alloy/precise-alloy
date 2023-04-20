@@ -88,3 +88,8 @@ interface ContactModel extends BasedAtomicModel {
   form?: ContactFormModel;
   map?: PictureModel;
 }
+
+interface AlertModel extends BasedAtomicModel {
+  heading?: string;
+  items?: string[];
+}
