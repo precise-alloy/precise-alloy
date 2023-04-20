@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PreciseAlloy.Web.Features.Components.HeroBlock;
 
-public class HeroBlockComponent : AsyncBlockComponent<Models.Blocks.HeroBlock>
+public class HeroBlockComponent
+    : AsyncBlockComponent<Models.Blocks.HeroBlock>
 {
     protected override async Task<IViewComponentResult> InvokeComponentAsync(Models.Blocks.HeroBlock currentContent)
     {

@@ -2,6 +2,7 @@
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using System.ComponentModel.DataAnnotations;
+using PreciseAlloy.Models.Interfaces;
 
 namespace PreciseAlloy.Models.Blocks;
 
@@ -10,23 +11,23 @@ namespace PreciseAlloy.Models.Blocks;
     Description = "",
     GUID = "2f5cb180-6c82-49be-bfc7-80b013c23099")]
 public class PeopleBlock
-    : BaseBlockData
+    : BaseBlockData, IHasHeading, IHasSubHeading
 {
     [Display(
-        Name = "Sub-Header",
+        Name = "Sub-Heading",
         Description = "",
         GroupName = SystemTabNames.Content,
         Order = 100)]
     [CultureSpecific]
-    public virtual string? SubHeader { get; set; }
+    public virtual string? SubHeading { get; set; }
 
     [Display(
-        Name = "Header",
+        Name = "Heading",
         Description = "",
         GroupName = SystemTabNames.Content,
         Order = 200)]
     [CultureSpecific]
-    public virtual string? Header { get; set; }
+    public virtual string? Heading { get; set; }
 
     [Display(
         Name = "Text",
