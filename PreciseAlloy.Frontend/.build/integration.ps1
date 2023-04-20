@@ -125,12 +125,17 @@ function Request-PullToBaseBranch {
   $repositoryName = $env:CUSTOM_REPOSITORY_NAME
   $sourceBranch = $env:CUSTOM_SOURCE_BRANCH
   $targetBranch = $env:CUSTOM_TARGET_BRANCH
+  $reviewerId = $env:CUSTOM_REVIEWER_ID
   $accessToken = $env:SYSTEM_ACCESSTOKEN
+
+  Write-Host "repositoryName: '$repositoryName'" -ForegroundColor DarkYellow
+  Write-Host "sourceBranch: '$sourceBranch'" -ForegroundColor DarkYellow
+  Write-Host "targetBranch: '$targetBranch'" -ForegroundColor DarkYellow
+  Write-Host "reviewerId: '$reviewerId'" -ForegroundColor DarkYellow
 
   # construct base URLs
   $apisUrl = "{0}/{1}/_apis" -f $env:SYSTEM_TEAMFOUNDATIONCOLLECTIONURI, $env:SYSTEM_TEAMPROJECT
   $projectUrl = "{0}/git/repositories/{1}" -f $apisUrl, $repositoryName
-  $reviewerId = $env:SYSTEM_TEAMPROJECT
 
   # create common headers
   $headers = @{}
