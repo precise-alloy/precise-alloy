@@ -57,6 +57,7 @@ steps:
       pwsh: true
     env:
       SYSTEM_ACCESSTOKEN: $(System.AccessToken)
-      CUSTOM_REPOSITORY_NAME: 'Alloy-Template'
+      CUSTOM_REPOSITORY_NAME: $(Build.Repository.Name)
       CUSTOM_SOURCE_BRANCH: 'fe-release-inte-package'
       CUSTOM_TARGET_BRANCH: 'develop'
+      CUSTOM_REVIEWER_ID: 'ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2' # Check https://www.tuyen.xyz/optimizely-cms/frontend/integration/ for how to get this ID
