@@ -11,10 +11,10 @@ using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Web.Features.ViewComponents.TypeAlert;
 
-public class TypeAlertViewComponent : ViewComponent
+public class TypeAlertViewComponent
+    : ViewComponent
 {
     private readonly IRequestContext _requestContext;
-    private readonly ISettingsService _settingsService;
     private static readonly IList<string> AlertMessages;
 
     static TypeAlertViewComponent()
@@ -31,22 +31,20 @@ public class TypeAlertViewComponent : ViewComponent
     }
 
     public TypeAlertViewComponent(
-        IRequestContext requestContext,
-        ISettingsService settingsService)
+        IRequestContext requestContext)
     {
         _requestContext = requestContext;
-        _settingsService = settingsService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
         if (!AlertMessages.Any()
-            ||_requestContext.IsBlockPreviewMode
+            || _requestContext.IsBlockPreviewMode
             || (_requestContext.CurrentPage() as SitePageData)?.HideSiteHeader == true)
         {
             return new ContentViewComponentResult(string.Empty);
         }
-        
+
         return await Task.FromResult(View("~/Features/Shared/_TypeAlert.cshtml", AlertMessages));
     }
 
