@@ -78,16 +78,12 @@ export default defineConfig({
   plugins: [react(), options(), closeBundle()],
   assetsInclude: ['**/*.svg', '**/*.htm', '**/*.cshtml'],
   build: {
-    lib: {
-      entry: entries,
-      formats: ['es'],
-    },
     rollupOptions: {
       output: {
         entryFileNames,
       },
     },
-    minify: true,
+    minify: 'esbuild',
     sourcemap: true,
     outDir: path.resolve('dist'),
     emptyOutDir: true,

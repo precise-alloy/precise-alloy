@@ -1,0 +1,21 @@
+.zzz-o-alert {
+  position: sticky;
+  top: 0;
+  background-color: $red;
+  color: $white;
+  font-size: px2rem(16px);
+  z-index: 999999;
+
+  > .zzz-container {
+    margin-top: px2rem(20px);
+    margin-bottom: px2rem(20px);
+  }
+
+  &__heading {
+    margin: px2rem(20px) 0;
+  }
+
+  &__item {
+    margin: px2rem(10px) 0;
+  }
+}
