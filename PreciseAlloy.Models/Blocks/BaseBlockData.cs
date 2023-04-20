@@ -4,7 +4,7 @@ using EPiServer.Core;
 namespace PreciseAlloy.Models.Blocks;
 
 public abstract class BaseBlockData
-    : BlockData, IHavePreview
+    : BlockData, IHasPreview
 {
 }
 
