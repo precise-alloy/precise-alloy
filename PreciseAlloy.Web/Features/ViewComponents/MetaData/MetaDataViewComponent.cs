@@ -1,13 +1,12 @@
 ﻿using EPiServer.Cms.Shell;
 using Microsoft.AspNetCore.Mvc;
-using PreciseAlloy.Models.Layout;
 using PreciseAlloy.Models.Pages;
 using PreciseAlloy.Models.Settings;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
 using PreciseAlloy.Utils.Extensions;
 
-namespace PreciseAlloy.Web.Features.ViewComponents;
+namespace PreciseAlloy.Web.Features.ViewComponents.MetaData;
 
 public class MetaDataViewComponent : ViewComponent
 {
@@ -29,7 +28,7 @@ public class MetaDataViewComponent : ViewComponent
 
         var browserTitle = currentPage?.MetaTitle + " | First Mile";
 
-        var model = new MetaData
+        var model = new Models.Layout.MetaData
         {
             BrowserTitle = browserTitle,
             PageTitle = currentPage?.PageName,
