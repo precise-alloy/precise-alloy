@@ -2,6 +2,7 @@
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.DataAnnotations;
+using PreciseAlloy.Models.Interfaces;
 
 namespace PreciseAlloy.Models.Blocks;
 
@@ -10,7 +11,7 @@ namespace PreciseAlloy.Models.Blocks;
     Description = "",
     GUID = "3b6e8aca-a9ff-4e06-b136-ecc10d40faa0")]
 public class HeroBlock
-    : BaseBlockData
+    : BaseBlockData, IHasHeading, IHasSubHeading
 {
     [Display(
         Name = "Sub Heading",

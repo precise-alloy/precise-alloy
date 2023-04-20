@@ -4,6 +4,7 @@ using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.SpecializedProperties;
 using EPiServer.Web;
+using PreciseAlloy.Models.Interfaces;
 
 namespace PreciseAlloy.Models.Blocks;
 
@@ -12,15 +13,15 @@ namespace PreciseAlloy.Models.Blocks;
     Description = "",
     GUID = "e8dcda7f-54d7-4a8c-95ad-51ab3c41a45a")]
 public class TeaserBlock
-    : BaseBlockData
+    : BaseBlockData, IHasHeading
 {
     [Display(
-        Name = "Header",
+        Name = "Heading",
         Description = "",
         GroupName = SystemTabNames.Content,
         Order = 100)]
     [CultureSpecific]
-    public virtual string? Header { get; set; }
+    public virtual string? Heading { get; set; }
 
     [Display(
         Name = "Text",
