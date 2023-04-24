@@ -2,6 +2,7 @@ import Picture from '@atoms/pictures/Picture';
 import { getModifiers } from '@helpers/functions';
 import RequireCss from '@helpers/RequireCss';
 import SectionHeader from '@molecules/section-header/SectionHeader';
+import { EpiForm } from '@organisms/epi-form/EpiForm';
 import { ContactModel } from '@_types/organisms';
 import ContactForm from './ContactForm';
 
@@ -22,7 +23,7 @@ const Contact = (model: ContactModel) => {
           <div className="zzz-o-contact__main">
             {form && (
               <div className="zzz-o-contact__contact-form">
-                <ContactForm {...form} />
+                <EpiForm {...form}></EpiForm>
               </div>
             )}
 

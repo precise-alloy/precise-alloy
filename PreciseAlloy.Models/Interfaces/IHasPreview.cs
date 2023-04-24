@@ -1,5 +1,5 @@
 namespace PreciseAlloy.Models.Interfaces;
 
-public interface IHavePreview
+public interface IHasPreview
 {
 }
