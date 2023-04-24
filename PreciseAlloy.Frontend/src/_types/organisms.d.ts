@@ -93,3 +93,23 @@ interface AlertModel extends BasedAtomicModel {
   heading?: string;
   items?: string[];
 }
+
+interface EpiFormTextFieldModel extends BasedAtomicModel {
+  id?: string;
+  name?: string;
+  label?: string;
+  placeHolder?: string;
+  required?: boolean;
+  errorMessage?: string;
+}
+
+interface EpiFormTextAreaModel extends EpiFormTextFieldModel { }
+
+interface EpiFormModel extends BasedAtomicModel {
+  name?: EpiFormTextFieldModel;
+  email?: EpiFormTextFieldModel;
+  message?: EpiFormTextAreaModel;
+  action?: string;
+  submitButton: ButtonModel;
+
+}
