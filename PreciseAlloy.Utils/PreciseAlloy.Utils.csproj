@@ -11,9 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.13.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.13.1" />
-    <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.13.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.14.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.14.0" />
+    <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.14.0" />
   </ItemGroup>
 
 </Project>
