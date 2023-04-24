@@ -10,7 +10,6 @@ const contact: ContactModel = {
     message: { label: "Message", name: "inputMessage", id: "idMessage", required: true },
     submitButton: {
       text: "Submit",
-      styleModifier: ['btn', 'btn-black'],
     }
   },
   map: {
