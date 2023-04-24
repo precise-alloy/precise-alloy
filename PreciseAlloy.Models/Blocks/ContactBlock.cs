@@ -19,4 +19,7 @@ public class ContactBlock : BaseBlockData
 
     [Display(Name = "Forms", Description = "Forms", Order = 120)]
     public virtual ContentArea? Forms { get; set; }
+
+    [Display(Name = "Right image", Description = "Right image", Order = 130)]
+    public virtual ContentReference? RightImage { get; set; }
 }

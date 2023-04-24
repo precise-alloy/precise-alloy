@@ -1,0 +1,13 @@
+﻿@using PreciseAlloy.Web.Features.Components.ImageView
+@model PreciseAlloy.Web.Features.Components.ImageView.ImageViewModel
+
+@if (Model.HasImageData)
+{
+    <picture class="zzz-a-picture">
+        @foreach (ImageSource imageSource in Model.ImageSources)
+        {
+            <source media="@imageSource.MediaScreen" srcset="@imageSource.Url" />
+        }
+        <img src="@Model.Src" alt="@Model.AltText" width="@Model.Width" height="@Model.Height"  />
+    </picture>
+}
