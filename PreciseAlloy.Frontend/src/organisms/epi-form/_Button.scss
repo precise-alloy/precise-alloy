@@ -1,0 +1,8 @@
+button.FormSubmitButton {
+  @include zzz-button;
+
+  background-color: $black;
+  width: 100%;
+  justify-content: center;
+  margin-top: px2rem(16px);
+}
