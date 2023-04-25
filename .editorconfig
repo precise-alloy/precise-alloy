@@ -3,6 +3,9 @@
 # Read the reason why it should be like this at https://www.tuyen.xyz/optimizely-cms/backend/coding-convention/
 #################################
 
+# Remove the line below if you want to inherit .editorconfig settings from higher directories
+root = true
+
 [*.{cs,vb}]
 dotnet_diagnostic.ENC0109.severity = error # Prefer using file-scoped namespace over block-scoped namespace.
 dotnet_diagnostic.CS8618.severity = error # Non-nullable variable must contain a non-null value when exiting constructor. Consider declaring it as nullable.
