@@ -2,9 +2,11 @@
 
 namespace PreciseAlloy.Web.Features.Components.ContactBlock;
 
-public class ContactBlockViewModel : BlockViewModel<Models.Blocks.ContactBlock>
+public class ContactBlockViewModel
+    : BlockViewModel<Models.Blocks.ContactBlock>
 {
-    public ContactBlockViewModel(Models.Blocks.ContactBlock currentBlock) : base(currentBlock)
+    public ContactBlockViewModel(Models.Blocks.ContactBlock currentBlock)
+        : base(currentBlock)
     {
     }
 

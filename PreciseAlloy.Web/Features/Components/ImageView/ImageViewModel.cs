@@ -1,4 +1,5 @@
-﻿using PreciseAlloy.Models.Media;
+﻿using PreciseAlloy.Models.Constants;
+using PreciseAlloy.Models.Media;
 using SixLabors.ImageSharp.Processing;
 
 namespace PreciseAlloy.Web.Features.Components.ImageView;
@@ -7,7 +8,11 @@ public class ImageViewModel
 {
     private static readonly string[] WebpCompatibleExtensions = { ".jpg", ".jpeg", ".png" };
 
-    private static readonly int[] ImageBaseSizes = { 600, 1024 };
+    private static readonly int[] ImageBaseSizes =
+    {
+        600,
+        1024
+    };
 
     private ImageInfo ImageInfo { get; }
 
@@ -31,63 +36,75 @@ public class ImageViewModel
 
     public IEnumerable<ImageSource> ImageSources { get; }
 
-    private static string Url(string url, int? width, ResizeMode resizeMode, double? centerX, double? centerY,
-        bool extendWidth = false)
+    private static string Url(
+        string url,
+        int? width,
+        ResizeMode resizeMode,
+        double? centerX,
+        double? centerY)
     {
-        bool useCenter = centerX != null || centerY != null;
+        var urlBuilder = new UrlBuilder(url);
 
-        var queryParams = new[]
+        if (width > 0)
         {
-            width > 0 ? "width=" + width : null,
-            useCenter ? FormattableString.Invariant($"rxy={centerX},{centerY}") : null,
-            "rmode=" + resizeMode.ToString().ToLowerInvariant(),
-            IsWebpCompatible(url) ? "format=webp" : null,
-            "quality=80"
-        }.Where(x => !string.IsNullOrWhiteSpace(x));
-
-        var query = string.Join("&", queryParams);
-
-        if (string.IsNullOrWhiteSpace(query))
-        {
-            return url;
+            urlBuilder.QueryCollection["width"] = width.ToString();
         }
 
-        var separator = url.Contains('?') ? "&" : "?";
+        if (centerX > 0
+            || centerY > 0)
+        {
+            urlBuilder.QueryCollection["rxy"] = centerX + "," + centerY;
+        }
 
-        return url + separator + query + (extendWidth ? " " + width + "w" : string.Empty);
+        if (IsWebpCompatible(url))
+        {
+            urlBuilder.QueryCollection["format"] = "webp";
+        }
+
+        // ReSharper disable once StringLiteralTypo
+        urlBuilder.QueryCollection["rmode"] = resizeMode.ToString().ToLowerInvariant();
+        urlBuilder.QueryCollection["quality"] = "80";
+
+        return urlBuilder.ToString();
     }
 
     private static bool IsWebpCompatible(string url)
     {
-        return !string.IsNullOrWhiteSpace(url) &&
-               WebpCompatibleExtensions.Any(x => url.Split("?")[0].EndsWith(x, StringComparison.OrdinalIgnoreCase));
+        return !string.IsNullOrWhiteSpace(url)
+               && WebpCompatibleExtensions
+                   .Any(x => url.Split("?")[0].EndsWith(x, StringComparison.OrdinalIgnoreCase));
     }
 
-    public ImageViewModel(ImageInfo imageInfo, int? width = null, int? height = null, string? imageClass = null)
+    public ImageViewModel(
+        ImageInfo imageInfo,
+        int? width = null,
+        int? height = null,
+        string? imageClass = null)
     {
         ImageInfo = imageInfo;
         Width = width ?? imageInfo.Width;
         Height = height ?? imageInfo.Height;
         ImageCss = imageClass;
 
-        ImageSources = ImageBaseSizes.Where(w => Width > w).Select(w =>
-            new ImageSource(w, Url(imageInfo.Url, w, ResizeMode, imageInfo.CenterX, imageInfo.CenterY, true),
-                $"(max-width: {w}px)"));
+        ImageSources = ImageBaseSizes
+            .Where(w => Width > w)
+            .Select(w => new ImageSource(
+                Url(imageInfo.Url, w, ResizeMode, imageInfo.CenterX, imageInfo.CenterY),
+                w / Frontend.RootElementWidth));
     }
 }
 
 public class ImageSource
 {
-    public ImageSource(int maxWidth, string url, string mediaScreen)
+    public ImageSource(
+        string url,
+        double mediaMaxWidth)
     {
-        MaxWidth = maxWidth;
         Url = url;
-        MediaScreen = mediaScreen;
+        MediaMaxWidth = mediaMaxWidth;
     }
-
-    public int MaxWidth { get; }
 
     public string Url { get; }
 
-    public string MediaScreen { get; }
+    public double MediaMaxWidth { get; }
 }

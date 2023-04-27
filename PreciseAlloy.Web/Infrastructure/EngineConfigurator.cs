@@ -11,7 +11,6 @@ internal static class EngineConfigurator
 {
     private const int FarFutureExpirationDays = 365;
     private static readonly TimeSpan FarFutureExpiration = TimeSpan.FromDays(FarFutureExpirationDays);
-    private static readonly string CacheControlFarFutureExpiration = $"public,max-age={(int)FarFutureExpiration.TotalSeconds}";
     private static readonly string[] AdditionalViewLocationFormats =
     {
         "/Features/{1}/{0}.cshtml",
@@ -27,13 +26,16 @@ internal static class EngineConfigurator
         }
     }
 
-    public static IServiceCollection ConfigureImageResizing(this IServiceCollection services,
-        IConfiguration configuration, IWebHostEnvironment webHostingEnvironment)
+    public static IServiceCollection ConfigureImageResizing(
+        this IServiceCollection services,
+        IConfiguration configuration,
+        IWebHostEnvironment webHostingEnvironment)
     {
         var builder = services.AddImageSharp(x =>
         {
             x.BrowserMaxAge = FarFutureExpiration;
         });
+
         if (webHostingEnvironment.IsDevelopment())
         {
             builder.Configure<BlobImageCacheOptions>(options =>

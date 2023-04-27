@@ -3,9 +3,13 @@ using SixLabors.ImageSharp.Web;
 
 namespace PreciseAlloy.Web.Infrastructure;
 
-public class CdnSupportBlobImageProvider : BlobImageProvider
+public class CdnSupportBlobImageProvider
+    : BlobImageProvider
 {
-    public CdnSupportBlobImageProvider(IWebHostEnvironment environment, FormatUtilities formatUtilities) : base(environment, formatUtilities)
+    public CdnSupportBlobImageProvider(
+        IWebHostEnvironment environment,
+        FormatUtilities formatUtilities)
+        : base(environment, formatUtilities)
     {
         Match = IsMatch;
     }

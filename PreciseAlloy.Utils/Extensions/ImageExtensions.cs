@@ -8,23 +8,26 @@ namespace PreciseAlloy.Utils.Extensions;
 
 public static class ImageExtensions
 {
-    private static readonly Injected<IContentLoader> ContentLoaderInjected;
-    private static IContentLoader ContentLoader => ContentLoaderInjected.Service;
+    private static readonly Injected<IContentLoader> ContentLoader;
 
-    private static readonly Injected<IUrlResolver> UrlResolverInjected;
-    private static IUrlResolver UrlResolver => UrlResolverInjected.Service;
+    private static readonly Injected<IUrlResolver> UrlResolver;
     
-    public static ImageInfo? GetImageInfo(this ContentReference imageContentLink, string alt, string title)
+    public static ImageInfo? GetImageInfo(
+        this ContentReference imageContentLink,
+        string alt,
+        string title)
     {
         if (ContentReference.IsNullOrEmpty(imageContentLink) ||
-            !ContentLoader.TryGet<ImageFile>(imageContentLink, out var image))
+            !ContentLoader.Service.TryGet<ImageFile>(imageContentLink, out var image))
         {
             return null;
         }
 
+        var url = UrlResolver.Service.GetUrl(image);
+
         return new ImageInfo
         {
-            Url = UrlResolver.GetUrl(image),
+            Url = url,
             CenterX = image.CenterX,
             CenterY = image.CenterY,
             TitleText = string.IsNullOrWhiteSpace(title) ? alt : title,

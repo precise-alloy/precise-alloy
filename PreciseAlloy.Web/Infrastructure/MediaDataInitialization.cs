@@ -11,9 +11,11 @@ namespace PreciseAlloy.Web.Infrastructure;
 
 [InitializableModule]
 [ModuleDependency(typeof(InitializationModule))]
-public class MediaDataInitialization : IInitializableModule
+// ReSharper disable once UnusedMember.Global
+public class MediaDataInitialization
+    : IInitializableModule
 {
-    private static Injected<ILogger> _logger;
+    private static readonly Injected<ILogger> Logger;
 
     public void Initialize(InitializationEngine context)
     {
@@ -21,7 +23,9 @@ public class MediaDataInitialization : IInitializableModule
         contentEvent.SavingContent += OnSavingContent;
     }
 
-    private void OnSavingContent(object? sender, ContentEventArgs e)
+    private static void OnSavingContent(
+        object? sender,
+        ContentEventArgs e)
     {
         if (e.Content is IMediaInfo mediaInfo)
         {
@@ -29,7 +33,7 @@ public class MediaDataInitialization : IInitializableModule
         }
     }
 
-    private void UpdateMediaInformation(IMediaInfo mediaInfo)
+    private static void UpdateMediaInformation(IMediaInfo mediaInfo)
     {
         mediaInfo.FileSize = GetFileSize((MediaData)mediaInfo);
         if (mediaInfo is not ImageFile imageFile)
@@ -43,12 +47,12 @@ public class MediaDataInitialization : IInitializableModule
         }
         catch (Exception e)
         {
-            _logger.Service.LogError(e, null);
+            Logger.Service.LogError(e, "Cannot update media information.");
             throw;
         }
     }
 
-    private void FillImageInformation(ImageFile imageFile)
+    private static void FillImageInformation(ImageFile imageFile)
     {
         if (imageFile.BinaryData == null)
         {
@@ -61,7 +65,7 @@ public class MediaDataInitialization : IInitializableModule
         imageFile.ImageHeight = img.Height;
     }
 
-    private int? GetFileSize(MediaData mediaData)
+    private static int? GetFileSize(IBinaryStorable mediaData)
     {
         try
         {
@@ -70,7 +74,7 @@ public class MediaDataInitialization : IInitializableModule
         }
         catch (Exception e)
         {
-            _logger.Service.LogError(e, null);
+            Logger.Service.LogError(e, "Cannot get image file size");
             return null;
         }
     }
