@@ -14,7 +14,7 @@
     <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.14.0" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.14.0" />
     <PackageReference Include="EPiServer.CMS.Core" Version="12.14.0" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.18.0" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.19.0" />
     <PackageReference Include="EPiServer.Forms.Core" Version="5.5.1" />
     <PackageReference Include="EPiServer.Framework" Version="12.14.0" />
   </ItemGroup>

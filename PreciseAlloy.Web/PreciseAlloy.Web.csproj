@@ -16,15 +16,15 @@
   <ItemGroup>
     <PackageReference Include="Advanced.CMS.GroupingHeader" Version="3.0.0" />
     <PackageReference Include="Baaijte.Optimizely.ImageSharp.Web" Version="2.1.2" />
-    <PackageReference Include="EPiServer.CMS" Version="12.18.0" />
+    <PackageReference Include="EPiServer.CMS" Version="12.19.0" />
     <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.14.0" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.14.0" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.14.0" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.14.0" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.14.0" />
     <PackageReference Include="EPiServer.CMS.Core" Version="12.14.0" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.18.0" />
-    <PackageReference Include="EPiServer.CMS.UI" Version="12.18.0" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.19.0" />
+    <PackageReference Include="EPiServer.CMS.UI" Version="12.19.0" />
     <PackageReference Include="EPiServer.Find" Version="15.0.3" />
     <PackageReference Include="EPiServer.Find.Cms" Version="15.0.3" />
     <PackageReference Include="EPiServer.Forms" Version="5.5.1" />

@@ -1,0 +1,18 @@
+﻿@using PreciseAlloy.Utils.Extensions
+@model IList<string>
+
+<footer class="zzz-o-alert">
+    <div class="zzz-container">
+        <h2 class="zzz-o-alert__heading h4">Type Alert!</h2>
+        @foreach (var alert in Model)
+        {
+            <p class="zzz-o-alert__item">
+                @Html.Raw(alert)
+            </p>
+        }
+    </div>
+</footer>
+
+@{
+    Html.RequireStyle("/assets/css/b-alert.css").AtHeader();
+}

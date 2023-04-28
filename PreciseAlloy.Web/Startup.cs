@@ -36,7 +36,10 @@ public class Startup
 
         var mvcBuilder = services
             .AddMvc(o => o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
-            .AddRazorOptions(x => x.ConfigureRazor());
+            .AddRazorOptions(x =>
+            {
+                x.ViewLocationExpanders.Add(new CustomViewLocationExpander());
+            });
         if (_webHostingEnvironment.IsDevelopment())
         {
             mvcBuilder.AddRazorRuntimeCompilation();
