@@ -2,9 +2,9 @@
 
 /// <summary>
 /// Frontend variables
-/// IMPORTANT: DO NOT CHANGE STATIC READONLY TO CONST
 /// </summary>
 public static class Frontend
 {
+    // IMPORTANT: DO NOT CHANGE STATIC READONLY TO CONST
     public static readonly double RootElementWidth = 16;
 }
