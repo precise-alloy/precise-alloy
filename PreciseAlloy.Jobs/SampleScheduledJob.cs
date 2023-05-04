@@ -23,7 +23,7 @@ public class SampleScheduledJob : ScheduledJobBase
     public override string Execute()
     {
         Logger.EnterMethod();
-        Total = Random.Next(10, 50);
+        Total = Random.Next(20, 100);
         for (var i = 1; i <= Total; i++)
         {
             Logger.LogInformation("Process item " + i);

@@ -5,6 +5,7 @@ using EPiServer.DataAnnotations;
 using EPiServer.Web;
 using PreciseAlloy.Models.Blocks;
 using PreciseAlloy.Models.Constants;
+using PreciseAlloy.Models.Interfaces;
 using PreciseAlloy.Models.Media;
 // ReSharper disable UnusedMember.Global
 
@@ -17,7 +18,9 @@ public abstract class SitePageData
         Name = "Main Content Area",
         GroupName = SystemTabNames.Content,
         Order = 10)]
-    [AllowedTypes(typeof(BaseBlockData), typeof(PdfFile))]
+    [AllowedTypes(
+        new[] { typeof(BaseBlockData), typeof(PdfFile) },
+        new[] { typeof(IAtomBlock) })]
     public virtual ContentArea? MainContentArea { get; set; }
 
     #region Metadata
