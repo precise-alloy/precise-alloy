@@ -39,3 +39,4 @@ public/assets/*
 !public/assets/fonts/
 !public/assets/images/
 public/pl-states.json
+*.timestamp-*.mjs
