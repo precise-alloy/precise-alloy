@@ -33,6 +33,7 @@
     "@types/js-beautify": "^1.13.3",
     "@types/lodash": "^4.14.192",
     "@types/node": "^18.15.11",
+    "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",

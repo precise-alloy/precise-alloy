@@ -9,7 +9,9 @@
   },
   "markdown.extension.tableFormatter.normalizeIndentation": true,
   "markdown.extension.orderedList.marker": "one",
-  "markdownlint.ignore": ["**/SUMMARY.md"],
+  "markdownlint.ignore": [
+    "**/SUMMARY.md"
+  ],
   "compile-hero.typescriptx-output-toggle": false,
   "compile-hero.sass-output-toggle": false,
   "compile-hero.pug-output-toggle": false,
@@ -24,7 +26,10 @@
   "editor.formatOnPaste": true,
   "markdown.extension.list.indentationSize": "inherit",
   "editor.tabSize": 2,
-  "editor.rulers": [80, 120],
+  "editor.rulers": [
+    80,
+    120
+  ],
   "editor.minimap.enabled": false,
   "markdown.extension.print.absoluteImgPath": false,
   "markdown.extension.print.imgToBase64": true,
@@ -37,8 +42,11 @@
   },
   "json.schemas": [
     {
-      "fileMatch": ["/*.states.json"],
+      "fileMatch": [
+        "/*.states.json"
+      ],
       "url": "./xpack/states.schema.json"
     }
-  ]
+  ],
+  "git.branchValidationRegex": "^(main|master|develop|stage|fe-develop|fe-release|(features|bugfixes|infra|refactor)\\/.+)$"
 }

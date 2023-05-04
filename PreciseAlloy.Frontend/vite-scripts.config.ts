@@ -5,10 +5,9 @@ import glob from 'glob';
 import path from 'path';
 import fs from 'fs';
 import slash from 'slash';
-import { optimize } from 'svgo';
+import { root } from './xpack/paths';
 
 const options = (): PluginOption => {
-  const srcRoot = path.resolve(__dirname, 'src');
 
   return {
     name: 'options',
@@ -18,12 +17,12 @@ const options = (): PluginOption => {
       const input: { [name: string]: string } = {};
 
       const filePaths = glob
-        .sync('src/assets/scripts/**/*.{js,jsx,ts,tsx}', { root: srcRoot })
+        .sync('src/assets/scripts/**/*.entry.{js,jsx,ts,tsx}', { root: root })
         .map((f) => slash(f))
         .filter((f) => !f.endsWith('d.ts'));
 
       [].forEach.call(filePaths, (filePath: string) => {
-        const baseName = path.basename(filePath).replaceAll(/\.[a-z0-9.@_-]+$/gi, '');
+        const baseName = path.basename(filePath).replaceAll(/\.entry\.[a-z0-9.@_-]+$/gi, '');
 
         if (baseName) {
           input[baseName] = filePath;

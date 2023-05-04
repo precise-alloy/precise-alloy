@@ -108,7 +108,7 @@ const postcssProcess = (result: CompileResult, from: string, to: string) => {
   postcss([autoprefixer({ grid: true }), cssnano])
     .process(result.css, postcssOptions)
     .then((result) => {
-      fs.writeFileSync(path.join(outDir, to), result.css + `\n/*# sourceMappingURL=${to}.map */`);
+      fs.writeFileSync(path.join(outDir, to), result.css + (result.map ? `\n/*# sourceMappingURL=${to}.map */` : ''));
 
       if (result.map) {
         fs.writeFileSync(path.join(outDir, to + '.map'), result.map.toString());
@@ -134,23 +134,40 @@ const styleTemplate = (srcFile: string, isReady: boolean) => compile(srcFile, { 
 const sassCompile = (inputPath: string, isReady: boolean) => {
   const p = slash(inputPath);
 
-  if (p.startsWith('src/assets/styles/00-abstracts/') || p.startsWith('src/assets/styles/01-mixins/')) {
+  if (p.startsWith('src/assets/styles/00-abstracts/')
+    || p.startsWith('src/assets/styles/01-mixins/')) {
     styleBase(isReady);
     styleOrganisms(isReady);
     styleTemplates(isReady);
     stylePlState(isReady);
   }
 
-  if (p.startsWith('src/atoms') || p.startsWith('src/molecules') || p.startsWith('src/02-base')) {
+  if (p.startsWith('src/atoms')
+    || p.startsWith('src/molecules')
+    || p.startsWith('src/assets/styles/02-base')) {
     styleBase(isReady);
   }
 
   if (p.startsWith('src/organisms')) {
-    styleOrganism(p, isReady);
+    if (path.basename(p).startsWith('_')) {
+      glob
+        .sync(path.dirname(p) + '/*.scss', { nodir: true })
+        .filter(p => !path.basename(p).startsWith('_'))
+        .forEach(p => styleOrganism(p, isReady));
+    } else {
+      styleOrganism(p, isReady);
+    }
   }
 
   if (p.startsWith('src/templates')) {
-    styleTemplate(p, isReady);
+    if (path.basename(p).startsWith('_')) {
+      glob
+        .sync(path.dirname(p) + '/*.scss', { nodir: true })
+        .filter(p => !path.basename(p).startsWith('_'))
+        .forEach(p => styleTemplate(p, isReady));
+    } else {
+      styleTemplate(p, isReady);
+    }
   }
 
   if (p.startsWith('src/assets/styles/02-patternlab')) {
@@ -171,7 +188,13 @@ if (isWatch) {
     .on('change', (path) => sassCompile(path, isReady))
     .on('unlink', (path) => log(`File ${path} has been removed`));
 } else {
-  glob.sync('src/**/*.scss').forEach((path) => sassCompile(path, true));
+  styleBase(true);
+  stylePlState(true);
+
+  glob
+    .sync('src/{organisms,templates}/**/*.scss')
+    .filter(p => !path.basename(p).startsWith('_'))
+    .forEach((path) => sassCompile(path, true));
 }
 
 export { };
