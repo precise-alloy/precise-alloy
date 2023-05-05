@@ -1,8 +1,9 @@
 import { RootItemModel } from '@_types/types';
 import { debounce } from 'lodash';
-import { createRef, MouseEvent, RefObject, useCallback, useEffect, useState } from 'react';
+import { createRef, MouseEvent, useCallback, useEffect, useState } from 'react';
 import { useOnClickOutside } from './Root';
 import { useRootContext } from './root-context';
+import { viteAbsoluteUrl } from '@helpers/functions';
 
 interface Props {
   routes: RootItemModel[];
@@ -22,14 +23,14 @@ const RenderedItem = (item: RootItemModel) => {
   const activeClass = activeItem && activeItem.path === item.path ? ' xpack-o-root__nav-item--active' : '';
 
   return (
-    <a className={'xpack-o-root__nav-item' + activeClass} href={item.path} target="inner" onClick={handleClick}>
+    <a className={'xpack-o-root__nav-item' + activeClass} href={viteAbsoluteUrl(item.path, true)} target="inner" onClick={handleClick}>
       {item.name}
     </a>
   );
 };
 
 const RootNav = ({ routes: routesProp }: Props) => {
-  const { activeItem, setActiveItem } = useRootContext();
+  const { activeItem } = useRootContext();
   const [show, setShow] = useState(false);
   const navItemRef = createRef<HTMLDivElement>();
   const buttonRef = createRef<HTMLAnchorElement>();
@@ -78,7 +79,7 @@ const RootNav = ({ routes: routesProp }: Props) => {
       <a ref={buttonRef} className="xpack-o-root__button-close" onClick={handleClick}>
         <button className="xpack-o-root__control-button xpack-o-root__button-close">
           <svg className="xpack-o-root__control-svg">
-            <use xlinkHref={`${show ? '/assets/images/root.svg#close' : '/assets/images/root.svg#list'}`}></use>
+            <use xlinkHref={viteAbsoluteUrl('/assets/images/root.svg#' + (show ? 'close' : 'list'))}></use>
           </svg>
         </button>
       </a>
@@ -102,7 +103,7 @@ const RootNav = ({ routes: routesProp }: Props) => {
             <div className="xpack-o-root__search-matches">
               {routesSearch.length
                 ? routesSearch
-                    .filter((r) => r.path != '/')
+                    .filter((r) => r.path != '/' && r.path != '/index')
                     .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
                     .map((item, index) => <RenderedItem key={index} {...item} />)
                 : textSearch.trim() && <div className="xpack-o-root__nav-message ">No pattern matches</div>}
@@ -111,7 +112,7 @@ const RootNav = ({ routes: routesProp }: Props) => {
 
           <div className={`xpack-o-root__search-not-matches ${textSearch.trim() ? 'blur' : ''}`}>
             {routes
-              .filter((r) => r.path != '/')
+              .filter((r) => r.path != '/' && r.path != '/index')
               .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
               .map((item, index) => (
                 <RenderedItem key={index} {...item} />

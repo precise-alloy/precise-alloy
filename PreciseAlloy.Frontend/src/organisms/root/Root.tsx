@@ -5,6 +5,7 @@ import FrameControls from './FrameControls';
 import ActiveItemOptions from './ActiveItemOptions';
 import RootNav from './RootNav';
 import RequireCss from '@helpers/RequireCss';
+import { viteAbsoluteUrl } from '@helpers/functions';
 
 export function useOnClickOutside(ref: RefObject<HTMLElement>, handler: any, otherDependenceRef?: RefObject<HTMLElement>[]) {
   useEffect(() => {
@@ -45,7 +46,7 @@ const Root = ({ routes }: RootModel) => {
       return;
     }
 
-    frame.src = activeItem.path;
+    frame.src = viteAbsoluteUrl(activeItem.path, true);
     document.title = activeItem.name + ' - ' + import.meta.env.VITE_TITLE_SUFFIX;
   }, [activeItem]);
 

@@ -1,24 +1,31 @@
 {
-  "name": "b2c",
+  "name": "alloy-template",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently --kill-others \"ts-node --esm styles.ts --watch\" \"ts-node --esm states.ts --watch\" \"vite build --config vite-scripts.config.ts --watch\" \"ts-node --esm server.ts\"",
-    "start": "concurrently --kill-others \"ts-node --esm styles.ts --watch\" \"ts-node --esm states.ts --watch\" \"vite build --mode eshn --config vite-scripts.config.ts --watch\" \"ts-node --esm server.ts\"",
+    "dev": "npm start",
+    "start": "concurrently --kill-others \"ts-node --esm styles.ts --watch\" \"ts-node --esm states.ts --watch\" \"vite build --mode development --config vite-scripts.config.ts --watch\" \"ts-node --esm server.ts --mode development\"",
     "serve": "ts-node --esm server.ts",
     "watch": "ts-node --esm server.ts",
     "build": "tsc && npm run build:static && npm run build:server",
+    "build:eshn": "tsc && npm run build:static:eshn && npm run build:server:eshn",
     "preview": "vite preview",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
+    "build:server:eshn": "vite build --ssr src/entry-server.tsx --outDir dist/server --mode eshn",
     "build:static": "vite build --outDir dist/static",
+    "build:static:eshn": "vite build --outDir dist/static --mode eshn",
     "generate": "ts-node --esm states.ts && npm run scripts && npm run styles && npm run build && ts-node --esm prerender.ts --add-hash",
-    "eshn": "ts-node --esm states.ts && npm run scripts:eshn && npm run styles && npm run build && ts-node --esm prerender.ts --add-hash",
+    "eshn": "ts-node --esm states.ts && npm run scripts:eshn && npm run styles && npm run build:eshn && ts-node --esm prerender.ts --add-hash --mode eshn",
     "inte": "npm run scripts && npm run styles && npm run build && ts-node --esm prerender.ts && ts-node --esm integration.ts",
     "scripts": "vite build --config vite-scripts.config.ts && vite build --emptyOutDir false",
     "scripts:eshn": "vite build --mode eshn --config vite-scripts.config.ts && vite build --mode eshn --emptyOutDir false",
     "styles": "ts-node --esm styles.ts",
     "format": "prettier --write ."
+  },
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=16.0.0"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -38,6 +45,7 @@
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
+    "chalk": "^5.2.0",
     "cheerio": "^1.0.0-rc.12",
     "concurrently": "^8.0.1",
     "css": "^3.0.0",
