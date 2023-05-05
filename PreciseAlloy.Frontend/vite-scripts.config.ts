@@ -74,6 +74,7 @@ paths.forEach((p) => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: process.env.BASE_URL,
   plugins: [react(), options(), closeBundle()],
   assetsInclude: ['**/*.svg', '**/*.htm', '**/*.cshtml'],
   build: {

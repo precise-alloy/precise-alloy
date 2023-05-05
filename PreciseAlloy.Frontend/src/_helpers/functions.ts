@@ -77,3 +77,18 @@ export const pascalToString = (s: string) => {
 
   return stringSplit.join(' ');
 };
+
+export const viteAbsoluteUrl = (remain: string, addExtension: boolean = false): string => {
+  const baseUrl = import.meta.env.BASE_URL;
+  const normalizedRemain = (remain?.startsWith('/') ? remain : '/' + remain) + (addExtension && !remain.endsWith('/') ? import.meta.env.VITE_PATH_EXTENSION : '');
+  if (!baseUrl) {
+    return normalizedRemain;
+  }
+
+  if (!baseUrl.endsWith('/')) {
+    return baseUrl + normalizedRemain;
+  }
+
+  const len = baseUrl.length;
+  return baseUrl.substring(0, len - 1) + normalizedRemain;
+}

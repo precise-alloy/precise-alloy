@@ -2,13 +2,15 @@ import { ViteDevServer, createServer } from 'vite';
 
 interface Props {
   root: string;
+  baseUrl?: string;
   isTest: boolean;
   hmrPort?: number;
 }
 
-const createViteDevServer = ({ root, hmrPort, isTest }: Props): Promise<ViteDevServer> => {
+const createViteDevServer = ({ root, baseUrl, hmrPort, isTest }: Props): Promise<ViteDevServer> => {
   const server = createServer({
     root,
+    base: baseUrl,
     logLevel: isTest ? 'error' : 'info',
     server: {
       middlewareMode: true,

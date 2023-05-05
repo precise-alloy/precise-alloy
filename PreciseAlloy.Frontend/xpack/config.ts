@@ -3,7 +3,7 @@ import alias from './alias';
 import react from '@vitejs/plugin-react';
 import { getAssetFileName, getChunkFileName, getEntryFileName } from './filename';
 import { getManualChunk } from './manual-chunk';
-import { outDir, srcRoot } from './paths';
+import { outDir, srcRoot, xpackEnv } from './paths';
 import buildStart from './hooks/build-start';
 import writeBundle from './hooks/write-bundle';
 import closeBundle from './hooks/close-bundle';
@@ -17,6 +17,7 @@ const additionalScssData = `
 `
 
 const config = defineConfig({
+  base: xpackEnv.VITE_BASE_URL,
   plugins: [
     react(),
     // options(),

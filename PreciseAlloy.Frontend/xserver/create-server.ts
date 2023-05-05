@@ -2,21 +2,25 @@ import fs from 'node:fs';
 import path from 'node:path';
 import express from 'express';
 import serveStatic from 'serve-static';
-import { ViteDevServer } from 'vite';
+import { ViteDevServer, loadEnv } from 'vite';
 import { createViteDevServer } from './create-vite-dev-server.js';
 import { useRenderer } from './renderer.js';
+import chalk from 'chalk';
 
 interface Props {
   root: string;
   isTest: boolean;
   port: number;
   hmrPort?: number;
+  baseUrl?: string;
 }
 
+const argvModeIndex = process.argv.indexOf('--mode');
+const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
 process.env.MY_CUSTOM_SECRET = 'API_KEY_4c2928b5a14b475d94c3579cbea06178';
 const isProd = process.env.NODE_ENV === 'production';
 
-const createServer = async ({ root, hmrPort, isTest }: Props) => {
+const createServer = async ({ root, hmrPort, baseUrl, isTest }: Props) => {
   const resolve = (p: string) => path.join(root, p);
 
   const indexProd = isProd ? fs.readFileSync(resolve('index.html'), 'utf-8') : '';
@@ -25,7 +29,7 @@ const createServer = async ({ root, hmrPort, isTest }: Props) => {
 
   let viteDevServer: ViteDevServer | undefined;
   if (!isProd) {
-    viteDevServer = await createViteDevServer({ root, hmrPort, isTest });
+    viteDevServer = await createViteDevServer({ root, baseUrl, hmrPort, isTest });
     // use vite's connect instance as middleware
     app.use(viteDevServer.middlewares);
   }
@@ -46,7 +50,8 @@ const createServer = async ({ root, hmrPort, isTest }: Props) => {
 const startServer = (props: Props) => {
   createServer(props).then(({ app }) => {
     app.listen(props.port, () => {
-      console.log('http://localhost:' + props.port);
+      const xpackEnv = loadEnv(mode, props.root);
+      console.log('Running on ' + chalk.green('http://localhost:' + props.port + xpackEnv.VITE_BASE_URL));
     });
   });
 };

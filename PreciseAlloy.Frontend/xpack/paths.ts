@@ -2,9 +2,11 @@ import path from 'path';
 import slash from 'slash';
 import { loadEnv } from 'vite';
 
+const argvModeIndex = process.argv.indexOf('--mode');
+const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
 export const root = slash(path.resolve(__dirname, '..'));
 
-export const xpackEnv = loadEnv('production', root);
+export const xpackEnv = loadEnv(mode, root);
 
 export const srcRoot = slash(path.resolve(root, 'src'));
 export const typesRoot = slash(path.resolve(srcRoot, '_types'));

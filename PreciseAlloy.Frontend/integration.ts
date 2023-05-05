@@ -11,9 +11,10 @@ interface CopyItem {
   from: string;
   to?: string;
 }
-
+const argvModeIndex = process.argv.indexOf('--mode');
+const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const xpackEnv = loadEnv('production', __dirname);
+const xpackEnv = loadEnv(mode, __dirname);
 const toAbsolute = (p: string) => slash(path.resolve(__dirname, p));
 const log = console.log.bind(console);
 
