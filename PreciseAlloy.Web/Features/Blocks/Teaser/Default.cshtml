@@ -1,0 +1,34 @@
+﻿@model PreciseAlloy.Web.Features.Blocks.Teaser.TeaserBlockViewModel
+
+@{
+    var imageClass = Model.CurrentBlock.ShowImageOnTheRight
+        ? ""
+        : "zzz-o-teaser--image-left";
+}
+
+<section class="zzz-o-teaser section-margin-top-xl zzz-o-teaser--image-left">
+    <div class="zzz-container">
+        <div class="zzz-o-teaser__inner">
+            <div class="zzz-o-teaser__content">
+                <div class="zzz-m-section-header">
+                    <h2 class="zzz-m-section-header__heading h1">@Model.CurrentBlock.Heading</h2>
+                </div>
+                <div class="zzz-o-teaser__description">
+                    @Html.PropertyFor(m => m.CurrentBlock.Text)
+                </div>
+                <div class="zzz-o-teaser__button"><a href="https://www.youtube.com/"
+                                                     class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black"
+                                                     target="_blank">Explore</a></div>
+            </div>
+            <picture class="zzz-a-picture"><img src="/samples/image-2.svg?v=5d441f7d"
+                                                alt="teaser 2"
+                                                loading="lazy"
+                                                width="600"
+                                                height="432"></picture>
+        </div>
+    </div>
+</section>
+
+@{
+    Html.RequireStyle("/assets/css/b-teaser.css").AtFooter();
+}

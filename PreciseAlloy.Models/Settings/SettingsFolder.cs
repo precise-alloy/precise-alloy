@@ -13,7 +13,7 @@ namespace PreciseAlloy.Models.Settings;
 public class SettingsFolder : ContentFolder
 {
     public const string SettingsRootName = "SettingsRoot";
-    public static Guid SettingsRootGuid = new("79611ee5-7ddd-4ac8-b00e-5e8e8d2a57ee");
+    public static readonly Guid SettingsRootGuid = new("79611ee5-7ddd-4ac8-b00e-5e8e8d2a57ee");
 
     private Injected<LocalizationService> _localizationService;
     private static Injected<ContentRootService> _rootService;
