@@ -1,6 +1,7 @@
 import { createRef, MouseEvent, useState } from 'react';
 import { useOnClickOutside } from './Root';
 import { useRootContext } from './root-context';
+import { viteAbsoluteUrl } from '@helpers/functions';
 
 const ActiveItemOptions = () => {
   const { activeItem, isTopPanel } = useRootContext();
@@ -74,7 +75,7 @@ const ActiveItemOptions = () => {
           {isTopPanel ? 'Set left panel' : 'Set top panel'}
         </a>
 
-        <a className="xpack-o-root__nav-item" href={activeItem.path} target="_blank">
+        <a className="xpack-o-root__nav-item" href={viteAbsoluteUrl(activeItem.path, true)} target="_blank">
           Open in new tab
         </a>
       </div>

@@ -9,6 +9,7 @@ import * as cheerio from 'cheerio';
 import crypto from 'node:crypto';
 import slash from 'slash';
 import _ from 'lodash';
+import { loadEnv } from 'vite';
 
 interface Route {
   name: string;
@@ -20,8 +21,12 @@ interface RenderedPage {
   url: string;
   fileName: string;
 }
+const argvModeIndex = process.argv.indexOf('--mode');
+const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
+const isWatch = process.argv.includes('--watch');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const xpackEnv = loadEnv(mode, __dirname);
 const toAbsolute = (p: string) => path.resolve(__dirname, p);
 const log = console.log.bind(console);
 
@@ -54,15 +59,10 @@ const routesToPrerender = fs
   .readdirSync(toAbsolute('src/pages'))
   .map((file): Route => {
     const name = path.parse(file).name;
-    const normalizedName = name.replaceAll(/^(\w+)/gi, (_p0, p1: string) =>
-      _.lowerCase(
-        p1.replaceAll(/(b2c|eshop)/gi, (_m0, m1: string) => {
-          return m1.toLowerCase();
-        })
-      )
+    const normalizedName = name
+      .replaceAll(/^(\w+)/gi, (_p0, p1: string) => _.lowerCase(_.lowerCase(p1))
         .replaceAll(' ', '-')
-        .replaceAll('b-2-c', 'b2c')
-    );
+      );
 
     return {
       name: _.startCase(_.lowerCase(name)),
@@ -88,13 +88,20 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
         ['.css', '.ico', '.js', '.webmanifest', '.svg'].includes(path.extname(href).toLowerCase()) &&
         !/\.0x[a-z0-9]{8}\.\w+$/gi.test(href)
       ) {
-        const content = fs.readFileSync(toAbsolute('dist/static' + href));
-        const sha1Hash = crypto.createHash('sha1');
-        sha1Hash.update(content);
-        const hash = sha1Hash.digest('hex').substring(0, 8);
+        const path = toAbsolute('dist/static' + href);
+        if (fs.existsSync(path)) {
+          const content = fs.readFileSync(path);
+          const sha1Hash = crypto.createHash('sha1');
+          sha1Hash.update(content);
+          const hash = sha1Hash
+            .digest('base64url')
+            .substring(0, 10);
 
-        if (addHash) {
-          newPath += '?v=' + hash;
+          if (addHash) {
+            newPath += '?v=' + hash;
+          }
+        } else {
+          // Log warning
         }
       }
 
@@ -135,10 +142,25 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
   });
 };
 
+const viteAbsoluteUrl = (remain: string, addExtension: boolean = false): string => {
+  const baseUrl = xpackEnv.VITE_BASE_URL;
+  const normalizedRemain = (remain?.startsWith('/') ? remain : '/' + remain) + (addExtension && !remain.endsWith('/') ? (xpackEnv.VITE_PATH_EXTENSION ?? '') : '');
+  if (!baseUrl) {
+    return normalizedRemain;
+  }
+
+  if (!baseUrl.endsWith('/')) {
+    return baseUrl + normalizedRemain;
+  }
+
+  const len = baseUrl.length;
+  return baseUrl.substring(0, len - 1) + normalizedRemain;
+}
+
 const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
   // pre-render each route...
   for (const route of routesToPrerender) {
-    const output = await render(route.route);
+    const output = await render(viteAbsoluteUrl(route.route, true));
 
     const destLocalizedFolderPath = toAbsolute('dist/static');
 
