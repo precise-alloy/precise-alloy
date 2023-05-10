@@ -11,7 +11,7 @@ const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !p
 const root = path.dirname(fileURLToPath(import.meta.url));
 const xpackEnv = loadEnv(mode, root);
 const isTest = !!xpackEnv.VITE_TEST_BUILD || process.env.NODE_ENV === 'test';
-const port = parseInt(xpackEnv.VITE_PORT);
+const port = xpackEnv.VITE_PORT ? parseInt(xpackEnv.VITE_PORT) : 5000;
 
 if (!isTest) {
   console.log(root);
