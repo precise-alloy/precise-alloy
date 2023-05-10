@@ -2,10 +2,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'path';
 import { startServer } from './xserver/create-server.js';
 import { loadEnv } from 'vite';
-import { loadEnv } from 'vite';
 
-const argvModeIndex = process.argv.indexOf('--mode');
-const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
 console.log('[INIT] server');
 console.log(`import.meta.url = ${import.meta.url}`);
 
