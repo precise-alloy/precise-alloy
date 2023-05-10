@@ -1,3 +1,5 @@
+import { viteAbsoluteUrl } from "./functions";
+
 interface Props {
   path: string;
   async?: boolean;
@@ -9,7 +11,11 @@ interface Props {
 }
 
 const RequireJs = ({ path, async, defer, inplace, type }: Props) => {
-  const normalizedPath = /^https?:\/\//gi.test(path) ? path : path.startsWith('vendors/') ? '/assets/' + path + '.js' : '/assets/js/' + path + '.js';
+  const normalizedPath = /^https?:\/\//gi.test(path)
+    ? path
+    : path.startsWith('vendors/')
+      ? viteAbsoluteUrl('/assets/') + path + '.js'
+      : viteAbsoluteUrl('/assets/js/' + path + '.js');
 
   return <script type={type ?? 'module'} async={async} defer={defer} src={normalizedPath} data-pl-require data-pl-inplace={inplace}></script>;
 };

@@ -1,4 +1,4 @@
-import { defineConfig, PluginOption } from 'vite';
+import { defineConfig, loadEnv, PluginOption } from 'vite';
 import { PreRenderedChunk } from 'rollup';
 import react from '@vitejs/plugin-react';
 import glob from 'glob';
@@ -6,9 +6,14 @@ import path from 'path';
 import fs from 'fs';
 import slash from 'slash';
 import { root } from './xpack/paths';
+import { fileURLToPath } from 'url';
+
+const argvModeIndex = process.argv.indexOf('--mode');
+const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const xpackEnv = loadEnv(mode, __dirname);
 
 const options = (): PluginOption => {
-
   return {
     name: 'options',
     enforce: 'pre',
@@ -74,7 +79,7 @@ paths.forEach((p) => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.BASE_URL,
+  base: xpackEnv.VITE_BASE_URL,
   plugins: [react(), options(), closeBundle()],
   assetsInclude: ['**/*.svg', '**/*.htm', '**/*.cshtml'],
   build: {
