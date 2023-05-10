@@ -1,0 +1,9 @@
+﻿@model PreciseAlloy.Web.Features.Blocks.Avatar.AvatarBlockViewModel
+
+<div class="zzz-o-avatar">
+    <div>
+        <div class="zzz-o-avatar__image">@Html.PropertyFor(m => m.CurrentBlock.Image)</div>
+        <h3>@Html.PropertyFor(m => m.CurrentBlock.Name)</h3>
+        <div>@Html.PropertyFor(m => m.CurrentBlock.JobTitle)</div>
+    </div>
+</div>

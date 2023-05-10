@@ -8,6 +8,7 @@ namespace PreciseAlloy.Models.Media;
     DisplayName = "SVG File",
     Description = "")]
 [MediaDescriptor(ExtensionString = "svg")]
+// ReSharper disable once UnusedMember.Global
 public class SvgImageFile : ImageFile
 {
 }

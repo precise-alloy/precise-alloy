@@ -23,7 +23,8 @@ public static class ContentLoaderExtensions
         // we can be almost sure that will succeed at runtime as
         // EPiServer provides us with proxy class which implements IContent
         // The only known exception for now is Content Property of Block Type
-        return result is not IContent content || FilterPublishedInstance.ShouldFilter(content)
+        return result is not IContent content
+               || FilterPublishedInstance.ShouldFilter(content)
             ? null
             : result;
 

@@ -1,7 +1,10 @@
 #################################
-# The rules in this file is very strict, it is intentional.
+# The rules in this file are very strict, it is intentional.
 # Read the reason why it should be like this at https://www.tuyen.xyz/optimizely-cms/backend/coding-convention/
 #################################
+
+# Remove the line below if you want to inherit .editorconfig settings from higher directories
+root = true
 
 [*.{cs,vb}]
 dotnet_diagnostic.ENC0109.severity = error # Prefer using file-scoped namespace over block-scoped namespace.

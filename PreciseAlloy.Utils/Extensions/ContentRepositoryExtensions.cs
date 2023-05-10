@@ -1,6 +1,7 @@
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Filters;
+// ReSharper disable UnusedMember.Global
 
 namespace PreciseAlloy.Utils.Extensions;
 
@@ -37,7 +38,10 @@ public static class ContentRepositoryExtensions
         where T : class, IContentData
     {
         if (ContentReference.IsNullOrEmpty(contentReference)
-            || !contentRepository.TryGet(new ContentReference(contentReference!.ID), new LoaderOptions{ LanguageLoaderOption.FallbackWithMaster() }, out T result)
+            || !contentRepository.TryGet(
+                new ContentReference(contentReference!.ID),
+                new LoaderOptions{ LanguageLoaderOption.FallbackWithMaster() },
+                out T result)
             || result is not IContent content)
         {
             return null;

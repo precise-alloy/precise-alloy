@@ -52,5 +52,5 @@ public class TeaserBlock
         Description = "",
         GroupName = SystemTabNames.Content,
         Order = 500)]
-    public virtual LinkItem? CtaButton { get; set; }
+    public virtual ButtonBlock? CtaButton { get; set; }
 }

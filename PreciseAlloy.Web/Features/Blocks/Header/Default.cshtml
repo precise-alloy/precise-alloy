@@ -1,0 +1,39 @@
+﻿@model PreciseAlloy.Web.Features.Blocks.Header.HeaderViewModel
+
+<header class="zzz-o-header">
+    <div class="zzz-container">
+        <div class="zzz-o-header__header-container">
+            <a href="#">
+                <img class="zzz-o-header__logo"
+                     width="70"
+                     height="50"
+                     alt="@Model.LogoAlternativeText"
+                     src="@Html.GetCacheBusterPath("/assets/images/logo.svg")">
+            </a>
+            <span class="zzz-o-header__title">@Model.CompanyName</span>
+            <div class="zzz-o-header__nav-mobile">
+                <div class="zzz-o-header__nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <ul class="zzz-o-header__nav-list">
+                @if (Model.Menu != null)
+                {
+                    foreach (var menuItem in Model.Menu)
+                    {
+                        <li class="zzz-o-header__nav-list__item">
+                            @Html.DisplayFor(m => menuItem)
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</header>
+
+@{
+    Html.RequireStyle("/assets/css/b-header.css").AtHeader();
+    Html.RequireScript("/assets/js/header.js").AtFooter();
+}
