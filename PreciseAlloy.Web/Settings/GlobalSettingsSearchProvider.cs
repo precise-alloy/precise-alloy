@@ -107,7 +107,7 @@ public class GlobalSettingsSearchProvider
         var language = contentData.Language.Name;
 
         // ReSharper disable StringLiteralTypo
-        return $"/episerver/ArjoWeb.Cms.Settings/settings#context=epi.cms.contentdata:///{contentLink.ID}&viewsetting=viewlanguage:///{language}";
+        return $"/episerver/PreciseAlloy.Cms.Settings/settings#context=epi.cms.contentdata:///{contentLink.ID}&viewsetting=viewlanguage:///{language}";
         // ReSharper restore StringLiteralTypo
     }
 }
