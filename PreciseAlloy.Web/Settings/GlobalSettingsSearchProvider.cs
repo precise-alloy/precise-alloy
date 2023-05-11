@@ -55,7 +55,7 @@ public class GlobalSettingsSearchProvider
 
     public override IEnumerable<SearchResult> Search(Query query)
     {
-        if (string.IsNullOrWhiteSpace(value: query?.SearchQuery)
+        if (string.IsNullOrWhiteSpace(query.SearchQuery)
             || query.SearchQuery.Trim().Length < 2)
         {
             return Enumerable.Empty<SearchResult>();
