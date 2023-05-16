@@ -289,7 +289,7 @@ interface ComponentState {
       return;
     }
 
-    fetch("/pl-states.json")
+    fetch(import.meta.env.BASE_URL + "pl-states.json")
       .then((response) => response.json())
       .then((data) => appendButtons(data));
   };

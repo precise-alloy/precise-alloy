@@ -7,6 +7,7 @@ import fs from 'fs';
 import slash from 'slash';
 import { root } from './xpack/paths';
 import { fileURLToPath } from 'url';
+import transformIndexHtml from './xpack/hooks/transform-index-html';
 
 const argvModeIndex = process.argv.indexOf('--mode');
 const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
@@ -80,7 +81,7 @@ paths.forEach((p) => {
 // https://vitejs.dev/config/
 export default defineConfig({
   base: xpackEnv.VITE_BASE_URL,
-  plugins: [react(), options(), closeBundle()],
+  plugins: [react(), options(), closeBundle(), transformIndexHtml(xpackEnv.VITE_BASE_URL)],
   assetsInclude: ['**/*.svg', '**/*.htm', '**/*.cshtml'],
   build: {
     rollupOptions: {

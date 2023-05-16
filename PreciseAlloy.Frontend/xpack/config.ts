@@ -9,6 +9,7 @@ import writeBundle from './hooks/write-bundle';
 import closeBundle from './hooks/close-bundle';
 import resolveDynamicImport from './hooks/resolve-dynamic-import';
 import handleHotUpdate from './hooks/handle-hot-update';
+import transformIndexHtml from './hooks/transform-index-html';
 
 // console.log('config');
 
@@ -23,6 +24,7 @@ const config = defineConfig({
     // options(),
     buildStart(),
     // transfrom(),
+    transformIndexHtml(xpackEnv.VITE_BASE_URL),
     resolveDynamicImport(),
     handleHotUpdate(),
     writeBundle(),
