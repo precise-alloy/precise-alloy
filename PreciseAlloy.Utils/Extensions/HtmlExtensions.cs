@@ -95,10 +95,21 @@ public static class HtmlExtensions
         return GetWidgetAssetPath(name);
     }
 
-    public static ClientResourceSettings RequireStyle(this IHtmlHelper htmlHelper, string path)
+    public static ClientResourceSettings RequireStyle(this IHtmlHelper htmlHelper, string[] paths)
     {
-        var cacheBusterPath = GetCacheBusterPath(path);
-        return ClientResources.RequireStyle(cacheBusterPath, path, null);
+        if (paths.Length == 0)
+        {
+            throw new ArgumentException($"{nameof(paths)} cannot be empty");
+        }
+
+        ClientResourceSettings settings = null; 
+        foreach (string path in paths)
+        {
+            var cacheBusterPath = GetCacheBusterPath(path);
+            settings = ClientResources.RequireStyle(cacheBusterPath, path, null);    
+        }
+
+        return settings!;
     }
 
     public static ClientResourceSettings RequireScript(
