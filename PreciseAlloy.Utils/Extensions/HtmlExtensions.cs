@@ -95,7 +95,7 @@ public static class HtmlExtensions
         return GetWidgetAssetPath(name);
     }
 
-    public static ClientResourceSettings RequireStyle(this IHtmlHelper htmlHelper, string[] paths)
+    public static ClientResourceSettings RequireStyle(this IHtmlHelper htmlHelper, params string[] paths)
     {
         if (paths.Length == 0)
         {
