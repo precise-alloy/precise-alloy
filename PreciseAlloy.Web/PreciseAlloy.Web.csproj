@@ -26,8 +26,8 @@
     <PackageReference Include="EPiServer.CMS.Core" Version="12.15.0" />
     <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.20.0" />
     <PackageReference Include="EPiServer.CMS.UI" Version="12.20.0" />
-    <PackageReference Include="EPiServer.Find" Version="15.0.3" />
-    <PackageReference Include="EPiServer.Find.Cms" Version="15.0.3" />
+    <PackageReference Include="EPiServer.Find" Version="15.1.1" />
+    <PackageReference Include="EPiServer.Find.Cms" Version="15.1.1" />
     <PackageReference Include="EPiServer.Forms" Version="5.5.1" />
     <PackageReference Include="EPiServer.Framework" Version="12.15.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.16" />
