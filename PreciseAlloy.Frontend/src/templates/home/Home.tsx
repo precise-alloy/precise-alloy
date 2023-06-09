@@ -3,8 +3,8 @@ import Partner from '@organisms/partner/Partner';
 import Footer from '@organisms/footer/Footer';
 import Hero from '@organisms/hero/Hero';
 import Teaser from '@organisms/teaser/Teaser';
-import RequireCss from '@helpers/RequireCss';
 import Header from '@organisms/header/Header';
+import ReactSection from '@helpers/ReactSection';
 
 interface Props {
   people?: PeopleModel;
@@ -28,8 +28,7 @@ const Home = (model: Props) => {
         {partner && <Partner {...partner} />}
         {teaserImageLeft && <Teaser {...teaserImageLeft} />}
         {teaser && <Teaser {...teaser} />}
-        {people && <script data-rct="people" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(people) }}></script>}
-        <RequireCss path="b-people" />
+        {people && <ReactSection type='people' data={people} css={'b-people'} />}
       </main>
       <Footer {...footer} />
     </>
