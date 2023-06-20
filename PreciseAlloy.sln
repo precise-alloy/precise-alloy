@@ -10,7 +10,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PreciseAlloy.Services", "Pr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PreciseAlloy.Utils", "PreciseAlloy.Utils\PreciseAlloy.Utils.csproj", "{EC96FBA7-BC1E-41E6-BBC2-384692C7ED60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PreciseAlloy.Jobs", "PreciseAlloy.Jobs\PreciseAlloy.Jobs.csproj", "{119E4450-9842-4C6E-BECE-5F11A1B73C4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PreciseAlloy.Jobs", "PreciseAlloy.Jobs\PreciseAlloy.Jobs.csproj", "{119E4450-9842-4C6E-BECE-5F11A1B73C4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4A01CBF9-3A02-48C2-B9F7-B898C3A2525B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

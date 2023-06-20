@@ -124,6 +124,10 @@ public static class HtmlExtensions
 
         if (async == true)
         {
+            if (attributes.ContainsKey("defer"))
+            {
+                attributes.Remove("defer");
+            }
             attributes["async"] = "";
         }
 

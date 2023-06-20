@@ -55,7 +55,7 @@ public class GlobalSettingsSearchProvider
 
     public override IEnumerable<SearchResult> Search(Query query)
     {
-        if (string.IsNullOrWhiteSpace(value: query?.SearchQuery)
+        if (string.IsNullOrWhiteSpace(query.SearchQuery)
             || query.SearchQuery.Trim().Length < 2)
         {
             return Enumerable.Empty<SearchResult>();
@@ -107,7 +107,7 @@ public class GlobalSettingsSearchProvider
         var language = contentData.Language.Name;
 
         // ReSharper disable StringLiteralTypo
-        return $"/episerver/ArjoWeb.Cms.Settings/settings#context=epi.cms.contentdata:///{contentLink.ID}&viewsetting=viewlanguage:///{language}";
+        return $"/episerver/PreciseAlloy.Cms.Settings/settings#context=epi.cms.contentdata:///{contentLink.ID}&viewsetting=viewlanguage:///{language}";
         // ReSharper restore StringLiteralTypo
     }
 }
