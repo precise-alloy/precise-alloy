@@ -16,8 +16,11 @@ namespace PreciseAlloy.Web;
 public class Startup
 {
     private readonly IWebHostEnvironment _webHostingEnvironment;
-    private IConfiguration _configuration;
-    public Startup(IWebHostEnvironment webHostingEnvironment, IConfiguration configuration)
+    private readonly IConfiguration _configuration;
+
+    public Startup(
+        IWebHostEnvironment webHostingEnvironment,
+        IConfiguration configuration)
     {
         _webHostingEnvironment = webHostingEnvironment;
         _configuration = configuration;
@@ -32,6 +35,10 @@ public class Startup
                 Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data"));
 
             services.Configure<SchedulerOptions>(options => options.Enabled = false);
+        }
+        else
+        {
+            services.AddCmsCloudPlatformSupport(_configuration);
         }
 
         var mvcBuilder = services
