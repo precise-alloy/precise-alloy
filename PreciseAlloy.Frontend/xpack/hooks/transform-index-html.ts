@@ -10,8 +10,7 @@ const transformIndexHtml = (baseUrl: string): PluginOption => {
     transformIndexHtml(html) {
       // console.log('transformIndexHtml');
 
-      console.log(html);
-      return html.replaceAll('__BASE_URL__/', baseUrl);
+      return html.replaceAll('#__BASE_URL__/', baseUrl);
     }
   }
 }
