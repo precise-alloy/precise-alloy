@@ -1,11 +1,11 @@
-import RequireCss from '@helpers/RequireCss';
 import RequireJs from '@helpers/RequireJs';
 import { RootModel } from '@_types/types';
+import ReactSection from '@helpers/ReactSection';
 
 const Root = (model: RootModel) => {
   return (
     <main className="xpack-t-root">
-      <script data-rct="root" type="application/json" dangerouslySetInnerHTML={{ __html: JSON.stringify(model, null, '  ') }}></script>
+      {model && <ReactSection type='root' data={model} css={'p-root'} />}
 
       <div id="root-iframe-wrapper" className="xpack-t-root__target-wrapper">
         <iframe
@@ -17,7 +17,6 @@ const Root = (model: RootModel) => {
         <div id="root-iframe-resizer" className="xpack-t-root__target-resizer"></div>
         <RequireJs path="root" defer />
       </div>
-      <RequireCss path="p-root" />
     </main>
   );
 };
