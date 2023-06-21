@@ -1,5 +1,4 @@
 import { PeopleModel } from '@_types/organisms';
-import RequireCss from '@helpers/RequireCss';
 import Avatar from '@organisms/avatar/Avatar';
 import Button from '@atoms/buttons/Button';
 

@@ -51,7 +51,11 @@ const cssVip = (code: string): string => {
     return code;
   }
 
-  obj.stylesheet!.rules = obj.stylesheet!.rules.filter((r: Rule) => {
+  if (!obj.stylesheet) {
+    return code;
+  }
+
+  obj.stylesheet.rules = obj.stylesheet.rules.filter((r: Rule) => {
     if (r.type === 'font-face' || r.type === 'media' || r.type === 'supports') {
       return true;
     }

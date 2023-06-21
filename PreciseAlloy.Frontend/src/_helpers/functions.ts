@@ -14,7 +14,7 @@ const getModifiers = (model: BasedAtomicModel, baseClass: string) => {
 };
 
 const getCookie = (name: string) => {
-  let cookies: any = {};
+  const cookies: { [name: string]: string } = {};
 
   document.cookie.split(';').forEach((cookie) => {
     const [name, value] = cookie.split('=');
@@ -25,8 +25,8 @@ const getCookie = (name: string) => {
   return cookies[name];
 };
 
-const generatePagingData = (numberPages: number, currentPage: number, range: number = 5) => {
-  let halfRange = Math.floor(range / 2);
+const generatePagingData = (numberPages: number, currentPage: number, range = 5) => {
+  const halfRange = Math.floor(range / 2);
   let start = 0,
     end = 0;
 
@@ -47,7 +47,7 @@ const generatePagingData = (numberPages: number, currentPage: number, range: num
   return Array.from({ length: end - start + 1 }, (_, i) => i + start);
 };
 
-const roundNumber = (num: number | boolean | undefined | string | null, numberDecimalDigit: number = 2) => {
+const roundNumber = (num: number | boolean | undefined | string | null, numberDecimalDigit = 2) => {
   if (typeof num !== 'number') {
     return '';
   }
@@ -58,12 +58,10 @@ const roundNumber = (num: number | boolean | undefined | string | null, numberDe
 export { getModifiers, getCookie, generatePagingData, roundNumber };
 
 export function splitWords(s: string) {
-  var re,
-    match,
-    output = [];
-  re = /([A-Za-z]?)([a-z]+)/g;
+  const output = [];
+  const re = /([A-Za-z]?)([a-z]+)/g;
 
-  match = re.exec(s);
+  let match = re.exec(s);
   while (match) {
     output.push([match[1].toUpperCase(), match[2]].join(''));
     match = re.exec(s);
@@ -78,7 +76,7 @@ export const pascalToString = (s: string) => {
   return stringSplit.join(' ');
 };
 
-export const viteAbsoluteUrl = (path: string, addExtension: boolean = false): string => {
+export const viteAbsoluteUrl = (path: string, addExtension = false): string => {
   if (/^https?:\/\//gi.test(path)) {
     return path;
   }

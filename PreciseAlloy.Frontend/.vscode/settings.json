@@ -31,6 +31,9 @@
     120
   ],
   "editor.minimap.enabled": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
   "markdown.extension.print.absoluteImgPath": false,
   "markdown.extension.print.imgToBase64": true,
   "markdown.extension.print.theme": "dark",

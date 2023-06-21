@@ -1,9 +1,9 @@
 import { RootItemModel } from '@_types/types';
 import { debounce } from 'lodash';
 import { createRef, MouseEvent, useCallback, useEffect, useState } from 'react';
-import { useOnClickOutside } from './Root';
 import { useRootContext } from './root-context';
 import { viteAbsoluteUrl } from '@helpers/functions';
+import { useOnClickOutside } from './useClickOutside';
 
 interface Props {
   routes: RootItemModel[];
@@ -44,9 +44,10 @@ const RootNav = ({ routes: routesProp }: Props) => {
     setShow(!show);
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChange = useCallback(
     debounce((text: string) => {
-      let tempRoutes: RootItemModel[] = [],
+      const tempRoutes: RootItemModel[] = [],
         tempRoutesSearch: RootItemModel[] = [];
 
       routesProp.forEach((item) => {
@@ -72,7 +73,7 @@ const RootNav = ({ routes: routesProp }: Props) => {
 
   useEffect(() => {
     handleChange(textSearch);
-  }, [textSearch]);
+  }, [handleChange, textSearch]);
 
   return (
     <>

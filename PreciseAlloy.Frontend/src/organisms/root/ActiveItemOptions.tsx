@@ -1,7 +1,7 @@
 import { createRef, MouseEvent, useState } from 'react';
-import { useOnClickOutside } from './Root';
 import { useRootContext } from './root-context';
 import { viteAbsoluteUrl } from '@helpers/functions';
+import { useOnClickOutside } from './useClickOutside';
 
 const ActiveItemOptions = () => {
   const { activeItem, isTopPanel } = useRootContext();

@@ -4,7 +4,6 @@ import RequireCss from '@helpers/RequireCss';
 import SectionHeader from '@molecules/section-header/SectionHeader';
 import { EpiForm } from '@organisms/epi-form/EpiForm';
 import { ContactModel } from '@_types/organisms';
-import ContactForm from './ContactForm';
 
 const Contact = (model: ContactModel) => {
   const modifiers = getModifiers(model, 'zzz-o-contact');

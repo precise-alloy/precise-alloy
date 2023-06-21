@@ -43,6 +43,6 @@ export interface TextInputModel extends BasedAtomicModel {
   name?: string;
   label?: string;
   placeHolder?: string;
-  required?: boolean
-  type?: 'input' | 'textarea'
+  required?: boolean;
+  type?: 'input' | 'textarea';
 }

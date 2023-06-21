@@ -16,16 +16,16 @@ export interface BasedAtomicModel {
 
 declare global {
   interface Window {
-    setFavoriteCount: (count: string | number) => any;
-    setCartCount: (count: string | number) => any;
+    setFavoriteCount: (count: string | number) => void;
+    setCartCount: (count: string | number) => void;
     setState: (name: string, value: string) => void;
   }
 
   interface Element {
-    observeResize: (callback: () => any) => any;
+    observeResize: (callback: () => void) => void;
   }
 
   interface HTMLElement {
-    onOutsideClick: (hanller: (e) => any, otherDependenceElement?: HTMLElement[]) => any
+    onOutsideClick: (hanller: (e) => void, otherDependenceElement?: HTMLElement[]) => void;
   }
 }
