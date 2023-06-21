@@ -2,7 +2,7 @@ import RequireCss from "./RequireCss";
 
 interface Model {
   type: string;
-  data: any;
+  data: unknown;
   css?: string | string[];
 }
 const ReactSection = ({ type, data, css }: Model) => {

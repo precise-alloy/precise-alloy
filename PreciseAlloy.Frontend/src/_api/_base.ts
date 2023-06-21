@@ -24,7 +24,7 @@ export const getApiUrl = (remain: string, params?: RequestParams) => {
   return url;
 };
 
-const sendAsync = async (remain: string, method: Method, params?: RequestParams, body?: any, skipResponseBody?: boolean) => {
+const sendAsync = async (remain: string, method: Method, params?: RequestParams, body?: unknown, skipResponseBody?: boolean) => {
   const url = getApiUrl(remain, params);
 
   const requestInit: RequestInit = {
@@ -45,18 +45,18 @@ export const getAsync = async (remain: string, params?: RequestParams) => {
   return sendAsync(remain, Method.GET, params);
 };
 
-export const postAsync = async (remain: string, params?: RequestParams, body?: any, skipResponseBody?: boolean) => {
+export const postAsync = async (remain: string, params?: RequestParams, body?: unknown, skipResponseBody?: boolean) => {
   return sendAsync(remain, Method.POST, params, body, skipResponseBody);
 };
 
-export const putAsync = async (remain: string, params?: RequestParams, body?: any, skipResponseBody?: boolean) => {
+export const putAsync = async (remain: string, params?: RequestParams, body?: unknown, skipResponseBody?: boolean) => {
   return sendAsync(remain, Method.PUT, params, body, skipResponseBody);
 };
 
-export const patchAsync = async (remain: string, params?: RequestParams, body?: any, skipResponseBody?: boolean) => {
+export const patchAsync = async (remain: string, params?: RequestParams, body?: unknown, skipResponseBody?: boolean) => {
   return sendAsync(remain, Method.PATCH, params, body, skipResponseBody);
 };
 
-export const deleteAsync = async (remain: string, params?: RequestParams, body?: any, skipResponseBody?: boolean) => {
+export const deleteAsync = async (remain: string, params?: RequestParams, body?: unknown, skipResponseBody?: boolean) => {
   return sendAsync(remain, Method.DELETE, params, body, skipResponseBody);
 };

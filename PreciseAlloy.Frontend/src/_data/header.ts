@@ -1,5 +1,4 @@
 import { HeaderModel } from "@_types/organisms";
-import { url } from "inspector";
 
 const header: HeaderModel = {
   title: "Start",

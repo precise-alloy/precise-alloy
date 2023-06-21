@@ -1,30 +1,30 @@
 interface Theme {
-  value: string,
-  name: string
-};
+  value: string;
+  name: string;
+}
 
 interface StateOption {
-  name: string,
-  value: string
+  name: string;
+  value: string;
 }
 
 interface State {
-  name: string,
-  options?: StateOption[],
-  multiple?: boolean
+  name: string;
+  options?: StateOption[];
+  multiple?: boolean;
 }
 
 interface StateButton {
-  parentSelector?: string,
-  styleModifier: string,
-  zIndex?: number
+  parentSelector?: string;
+  styleModifier: string;
+  zIndex?: number;
 }
 
 interface ComponentState {
-  name: string,
-  selector: string,
-  button?: StateButton,
-  states: State[]
+  name: string;
+  selector: string;
+  button?: StateButton;
+  states: State[];
 }
 
 (() => {
@@ -89,7 +89,7 @@ interface ComponentState {
         + `<label class="pl-state-bar__label" for="${id}"><span>${option.name}</span></label>`
     });
 
-    let html = `<div class="pl-state-bar__group">`
+    const html = `<div class="pl-state-bar__group">`
       + `<div>${state.name}:</div>`
       + `<div class="pl-state-bar__group-header">${header}</div>`
       + `<div class="pl-state-bar__checkbox-group">${optionsHtml}</div>`
@@ -99,7 +99,7 @@ interface ComponentState {
   };
 
   const deactiveStateButtons = () => {
-    var stateButtons = [...document.querySelectorAll(".pl-state__button")];
+    const stateButtons = [...document.querySelectorAll(".pl-state__button")];
     stateButtons.forEach(stateButton => stateButton.classList.remove("active"));
   };
 
@@ -244,7 +244,7 @@ interface ComponentState {
 
       const items = document.querySelectorAll(plState.selector);
       [].forEach.call(items, (item: HTMLElement) => {
-        let html = `<div class="pl-state ${buttonModifier}" ${buttonZIndex}>`
+        const html = `<div class="pl-state ${buttonModifier}" ${buttonZIndex}>`
           + `<div class="pl-state__controls">`
           + `<button class="pl-state__button" ${buttonTitle}>`
           + `<img src="${import.meta.env.BASE_URL}pl-states.svg" loading="async">`

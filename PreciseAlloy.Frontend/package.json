@@ -21,7 +21,8 @@
     "scripts": "vite build --config vite-scripts.config.ts && vite build --emptyOutDir false",
     "scripts:eshn": "vite build --mode eshn --config vite-scripts.config.ts && vite build --mode eshn --emptyOutDir false",
     "styles": "ts-node --esm styles.ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix"
   },
   "engines": {
     "npm": ">=8.0.0",
@@ -43,6 +44,8 @@
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
     "chalk": "^5.2.0",
@@ -51,6 +54,9 @@
     "css": "^3.0.0",
     "cssnano": "^6.0.0",
     "debounce": "^1.2.1",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
     "express": "^4.18.2",
     "glob": "^9.3.4",
     "js-beautify": "^1.14.7",

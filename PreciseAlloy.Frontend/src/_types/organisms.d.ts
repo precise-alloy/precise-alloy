@@ -1,5 +1,5 @@
 import { BasedAtomicModel } from "./_general";
-import { ButtonModel, LinkWithIconModel, PictureModel, TextInputModel } from "./atoms";
+import { ButtonModel, PictureModel, TextInputModel } from "./atoms";
 import { PriceModel, SectionHeaderModel } from "./molecules";
 
 export interface AvatarModel extends BasedAtomicModel {
@@ -54,9 +54,9 @@ interface HeaderModel extends BasedAtomicModel {
     links: {
       text: string;
       url?: string;
-    }[]
+    }[];
 
-  }
+  };
 }
 
 interface PortfolioModel extends BasedAtomicModel {
@@ -103,7 +103,7 @@ interface EpiFormTextFieldModel extends BasedAtomicModel {
   errorMessage?: string;
 }
 
-interface EpiFormTextAreaModel extends EpiFormTextFieldModel { }
+type EpiFormTextAreaModel = EpiFormTextFieldModel
 
 interface EpiFormModel extends BasedAtomicModel {
   name?: EpiFormTextFieldModel;

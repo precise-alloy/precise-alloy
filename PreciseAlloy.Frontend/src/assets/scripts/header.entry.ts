@@ -1,5 +1,3 @@
-
-
 const setupHeader = () => {
   const el = document.querySelector('.zzz-o-header');
 
@@ -10,7 +8,7 @@ const setupHeader = () => {
 
   if (!button || !navList) return;
 
-  button.addEventListener('click', (e) => {
+  button.addEventListener('click', () => {
     button.classList.toggle('active');
     navList.classList.toggle('active');
   })

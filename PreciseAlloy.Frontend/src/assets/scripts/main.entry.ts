@@ -5,7 +5,7 @@ window.setState = window.setState || function (key: string, value: string) {
 
 Element.prototype.observeResize =
   Element.prototype.observeResize ||
-  function (this: Element, callback: () => any) {
+  function (this: Element, callback: () => void) {
     if ('ResizeObserver' in window) {
       // create an Observer instance
       const resizeObserver = new ResizeObserver(callback);
@@ -27,15 +27,14 @@ Element.prototype.observeResize =
 
 HTMLElement.prototype.onOutsideClick =
   HTMLElement.prototype.onOutsideClick ||
-  function (this: HTMLElement, handler: (e: Event) => any, otherDependenceElement?: HTMLElement[]) {
-
-    const listener = (event: any) => {
+  function (this: HTMLElement, handler: (e: MouseEvent | TouchEvent) => void, otherDependenceElement?: HTMLElement[]) {
+    const listener = (event: MouseEvent | TouchEvent) => {
       // Do nothing if clicking ref's element or descendent elements
-      if (!this || this.contains(event.target)) {
+      if (!event.target || !this || this.contains(event.target as Node)) {
         return;
       }
 
-      if (otherDependenceElement && otherDependenceElement.some((r) => r?.contains(event.target))) {
+      if (otherDependenceElement && otherDependenceElement.some((r) => r?.contains(event.target as Node))) {
         return;
       }
 

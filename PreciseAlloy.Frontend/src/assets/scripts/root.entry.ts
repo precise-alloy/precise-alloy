@@ -4,12 +4,15 @@ const MIN_FRAME_SIZE = 350;
 let orgWidth: number;
 let pos: number;
 
-const wrapper = document.getElementById('root-iframe-wrapper')!;
-const frame = document.getElementById('root-iframe')!;
-const resizer = document.getElementById('root-iframe-resizer')!;
-const root = document.getElementById('.xpack-t-root');
+const wrapper = document.getElementById('root-iframe-wrapper');
+const frame = document.getElementById('root-iframe');
+const resizer = document.getElementById('root-iframe-resizer');
 
 const setIFrameWidth = (width?: number) => {
+  if (!wrapper) {
+    return;
+  }
+
   if (width) {
     wrapper.style.maxWidth = `min(100%, ${width}px)`;
   } else {
@@ -30,6 +33,10 @@ const resize = (e: globalThis.MouseEvent) => {
 };
 
 const mouseUp = () => {
+  if (!wrapper || !frame) {
+    return;
+  }
+
   wrapper.style.removeProperty('transition');
   frame.style.removeProperty('pointer-events');
 
@@ -37,7 +44,7 @@ const mouseUp = () => {
 };
 
 const handleResizerMouseDown = (e: MouseEvent) => {
-  if (e.offsetX >= BORDER_SIZE) {
+  if (!wrapper || !frame || e.offsetX >= BORDER_SIZE) {
     return;
   }
 
@@ -51,7 +58,7 @@ const handleResizerMouseDown = (e: MouseEvent) => {
 
 const initTopPanel = () => {
   const isTopPanel = localStorage.getItem('MSG_IS_TOP_PANEL') === 'true';
-  let rootEl = document.querySelector('.xpack-t-root');
+  const rootEl = document.querySelector('.xpack-t-root');
 
   if (!rootEl) {
     return;
@@ -64,19 +71,21 @@ const initTopPanel = () => {
 const handleStoreModified = (event: StorageEvent) => {
   switch (event.key) {
     case 'MSG_IS_TOP_PANEL':
-      const isTopPanel = event.newValue === 'true';
-      let rootEl = document.querySelector('.xpack-t-root');
+      {
+        const isTopPanel = event.newValue === 'true';
+        const rootEl = document.querySelector('.xpack-t-root');
 
-      if (!rootEl) {
-        return;
-      }
+        if (!rootEl) {
+          return;
+        }
 
-      if (isTopPanel) {
-        rootEl.classList.add('top-panel');
-      } else {
-        rootEl.classList.remove('top-panel');
+        if (isTopPanel) {
+          rootEl.classList.add('top-panel');
+        } else {
+          rootEl.classList.remove('top-panel');
+        }
+        break;
       }
-      break;
   }
 };
 
@@ -85,6 +94,10 @@ const addStoreEvent = () => {
 };
 
 const setup = () => {
+  if (!resizer || !frame) {
+    return;
+  }
+
   resizer.onmousedown = handleResizerMouseDown;
 
   const getIFrameActualWidth = () => {

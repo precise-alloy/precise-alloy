@@ -1,36 +1,11 @@
 import { RootItemModel, RootModel } from '@_types/types';
-import { RefObject, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RootContext, RootData } from './root-context';
 import FrameControls from './FrameControls';
 import ActiveItemOptions from './ActiveItemOptions';
 import RootNav from './RootNav';
 import RequireCss from '@helpers/RequireCss';
 import { viteAbsoluteUrl } from '@helpers/functions';
-
-export function useOnClickOutside(ref: RefObject<HTMLElement>, handler: any, otherDependenceRef?: RefObject<HTMLElement>[]) {
-  useEffect(() => {
-    const listener = (event: any) => {
-      // Do nothing if clicking ref's element or descendent elements
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
-
-      if (otherDependenceRef && otherDependenceRef.some((r) => r.current?.contains(event.target))) {
-        return;
-      }
-
-      handler(event);
-    };
-
-    document.addEventListener('mousedown', listener);
-    document.addEventListener('touchstart', listener);
-
-    return () => {
-      document.removeEventListener('mousedown', listener);
-      document.removeEventListener('touchstart', listener);
-    };
-  }, [ref, handler]);
-}
 
 const Root = ({ routes }: RootModel) => {
   const [activeItem, setActiveItem] = useState<RootItemModel>();
@@ -67,13 +42,12 @@ const Root = ({ routes }: RootModel) => {
       const homeIndex = routes.findIndex((r) => r.path === '/pages/home');
       setActiveItem(routes[homeIndex]);
     }
-  }, []);
+  }, [routes]);
 
   const handleStorageChange = (event: StorageEvent) => {
     switch (event.key) {
       case 'MSG_IS_TOP_PANEL':
-        const isTopPanel = event.newValue === 'true';
-        setTopPanel(isTopPanel);
+        setTopPanel(event.newValue === 'true');
         break;
     }
   };
