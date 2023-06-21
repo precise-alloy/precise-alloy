@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -11,12 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.14.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.14.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.14.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.14.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.14.0" />
-    <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.14.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.15.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.15.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.15.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.15.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.15.0" />
+    <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.15.0" />
   </ItemGroup>
 
 </Project>

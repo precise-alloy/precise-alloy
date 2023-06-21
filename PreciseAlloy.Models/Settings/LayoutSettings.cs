@@ -23,6 +23,13 @@ public class LayoutSettings : SettingsBase
         GroupName = TabNames.SiteMetaData,
         Order = 100)]
     public virtual ContentReference? SocialShareImageUrl { get; set; }
+
+    [UIHint(UIHint.Textarea)]
+    [Display(
+        Name = "Robots TXT content",
+        GroupName = TabNames.SiteMetaData,
+        Order = 200)]
+    public virtual string? RobotsTxtContent { get; set; }
     #endregion
 
     #region Header
