@@ -32,6 +32,7 @@ public static class ContentRepositoryExtensions
         }
     }
 
+    // ReSharper disable once MemberCanBePrivate.Global
     public static T? GetPublishedOrNull<T>(
         this IContentRepository contentRepository,
         ContentReference? contentReference)
