@@ -1,8 +1,9 @@
-﻿@model EPiServer.SpecializedProperties.LinkItem
+﻿@model EPiServer.SpecializedProperties.LinkItem?
+
 @{
-    if(Model != null &&  ViewData["CssClass"] != null)
+    if(Model != null && ViewData["CssClass"] != null)
     {
-        Model.Attributes["class"] = ViewData["CssClass"].ToString();
+        Model.Attributes["class"] = ViewData["CssClass"]?.ToString();
     }
 }
 
