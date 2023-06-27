@@ -12,7 +12,7 @@ const RequireCss = ({ path, rel }: Props) => {
       ? viteAbsoluteUrl('/assets/' + path + '.css')
       : viteAbsoluteUrl('/assets/css/' + path + '.css');
 
-  return <link rel={rel ?? 'stylesheet preload'} href={normalizedPath} data-pl-require as="style" />;
+  return <link rel={rel ?? 'stylesheet'} href={normalizedPath} data-pl-require />;
 };
 
 export { RequireCss };

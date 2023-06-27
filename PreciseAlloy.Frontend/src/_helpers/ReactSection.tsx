@@ -12,14 +12,14 @@ const ReactSection = ({ type, data, css }: Model) => {
   }
   else if (typeof css === 'string') {
     return <>
-      <script data-rct={type} type="application/json" dangerouslySetInnerHTML={innerHtml}></script>
       <RequireCss path={css} />
+      <script data-rct={type} type="application/json" dangerouslySetInnerHTML={innerHtml}></script>
     </>
   } else if (typeof css === 'object') {
     const cssItems = css as string[];
     return <>
-      <script data-rct={type} type="application/json" dangerouslySetInnerHTML={innerHtml}></script>
       {cssItems.map(i => <RequireCss path={i} />)}
+      <script data-rct={type} type="application/json" dangerouslySetInnerHTML={innerHtml}></script>
     </>
   } else {
     return <></>
