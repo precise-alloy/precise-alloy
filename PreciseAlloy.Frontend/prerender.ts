@@ -84,7 +84,7 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
 
       if (
         href.startsWith(xpackEnv.VITE_BASE_URL) &&
-        !href.startsWith(xpackEnv.VITE_BASE_URL.length + 'assets/vendors/') &&
+        !href.startsWith(xpackEnv.VITE_BASE_URL + 'assets/vendors/') &&
         ['.css', '.ico', '.js', '.webmanifest', '.svg'].includes(path.extname(href).toLowerCase()) &&
         !/\.0x[a-z0-9]{8}\.\w+$/gi.test(href)
       ) {
