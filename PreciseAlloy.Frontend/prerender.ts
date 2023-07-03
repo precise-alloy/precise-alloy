@@ -10,6 +10,7 @@ import crypto from 'node:crypto';
 import slash from 'slash';
 import _ from 'lodash';
 import { loadEnv } from 'vite';
+import chalk from 'chalk';
 
 interface Route {
   name: string;
@@ -23,7 +24,6 @@ interface RenderedPage {
 }
 const argvModeIndex = process.argv.indexOf('--mode');
 const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
-const isWatch = process.argv.includes('--watch');
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const xpackEnv = loadEnv(mode, __dirname);
@@ -83,12 +83,12 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
       }
 
       if (
-        href.startsWith('/') &&
-        !href.startsWith('/assets/vendors/') &&
+        href.startsWith(xpackEnv.VITE_BASE_URL) &&
+        !href.startsWith(xpackEnv.VITE_BASE_URL + 'assets/vendors/') &&
         ['.css', '.ico', '.js', '.webmanifest', '.svg'].includes(path.extname(href).toLowerCase()) &&
         !/\.0x[a-z0-9]{8}\.\w+$/gi.test(href)
       ) {
-        const path = toAbsolute('dist/static' + href);
+        const path = toAbsolute('dist/static/' + href.substring(xpackEnv.VITE_BASE_URL.length));
         if (fs.existsSync(path)) {
           const content = fs.readFileSync(path);
           const sha1Hash = crypto.createHash('sha1');
@@ -102,6 +102,7 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
           }
         } else {
           // Log warning
+          log(chalk.yellow('Cannot find:', path));
         }
       }
 
@@ -142,7 +143,7 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
   });
 };
 
-const viteAbsoluteUrl = (remain: string, addExtension: boolean = false): string => {
+const viteAbsoluteUrl = (remain: string, addExtension = false): string => {
   const baseUrl = xpackEnv.VITE_BASE_URL;
   const normalizedRemain = (remain?.startsWith('/') ? remain : '/' + remain) + (addExtension && !remain.endsWith('/') ? (xpackEnv.VITE_PATH_EXTENSION ?? '') : '');
   if (!baseUrl) {
@@ -164,7 +165,7 @@ const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
 
     const destLocalizedFolderPath = toAbsolute('dist/static');
 
-    let html = template.replace(`<!--app-html-->`, output!.html).replace('@style.scss', '/assets/css/' + route.name + '.css');
+    let html = template.replace(`<!--app-html-->`, output.html ?? '').replace('@style.scss', '/assets/css/' + route.name + '.css');
     const $ = cheerio.load(html);
     const paths: string[] = [];
     removeDuplicateAssets($, 'link[data-pl-require][rel="stylesheet"][href]', 'href', paths);
@@ -200,7 +201,7 @@ const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
 
 (async () => {
   const renderedPages: RenderedPage[] = [];
-  const pool: Promise<any>[] = [];
+  const pool: Promise<unknown>[] = [];
 
   const assetCopyPaths: { src: string; dest: string }[] = [
     {
