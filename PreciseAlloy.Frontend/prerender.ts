@@ -168,7 +168,7 @@ const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
     let html = template.replace(`<!--app-html-->`, output.html ?? '').replace('@style.scss', '/assets/css/' + route.name + '.css');
     const $ = cheerio.load(html);
     const paths: string[] = [];
-    removeDuplicateAssets($, 'link[data-pl-require][rel="stylesheet"][href]', 'href', paths);
+    removeDuplicateAssets($, 'link[data-pl-require][href]', 'href', paths);
     removeDuplicateAssets($, 'script[data-pl-require][src]', 'src', paths);
     updateResourcePath($, 'link', 'href', addHash);
     updateResourcePath($, 'script', 'src', addHash);
