@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Logging;
+
 // ReSharper disable UnusedMember.Global
 
 namespace PreciseAlloy.Utils.Extensions;
@@ -22,7 +23,12 @@ public static class LoggerExtensions
         [CallerFilePath] string callerFilePath = "",
         [CallerLineNumber] int callerLineNumber = 0)
     {
-        logger.Log(LogLevel, $"Enter constructor {callerMemberName}, file {callerFilePath}, line {callerLineNumber}.");
+        logger.Log(
+            LogLevel,
+            "Enter constructor `{callerMemberName}`, file `{callerFilePath}`, line {callerLineNumber}.",
+            callerMemberName,
+            callerFilePath,
+            callerLineNumber);
     }
 
     /// <summary>
@@ -38,7 +44,12 @@ public static class LoggerExtensions
         [CallerFilePath] string callerFilePath = "",
         [CallerLineNumber] int callerLineNumber = 0)
     {
-        logger.Log(LogLevel, $"Enter method {callerMemberName}, file {callerFilePath}, line {callerLineNumber}.");
+        logger.Log(
+            LogLevel,
+            "Enter method `{callerMemberName}`, file `{callerFilePath}`, line {callerLineNumber}.",
+            callerMemberName,
+            callerFilePath,
+            callerLineNumber);
     }
 
     /// <summary>
@@ -54,7 +65,11 @@ public static class LoggerExtensions
         [CallerFilePath] string callerFilePath = "",
         [CallerLineNumber] int callerLineNumber = 0)
     {
-        logger.Log(LogLevel, $"Exit constructor {callerMemberName}, file {callerFilePath}, line {callerLineNumber}.");
+        logger.Log(
+            LogLevel, "Exit constructor `{callerMemberName}`, file `{callerFilePath}`, line {callerLineNumber}.",
+            callerMemberName,
+            callerFilePath,
+            callerLineNumber);
     }
 
     /// <summary>
@@ -72,9 +87,13 @@ public static class LoggerExtensions
         [CallerFilePath] string callerFilePath = "",
         [CallerLineNumber] int callerLineNumber = 0)
     {
-        logger.Log(LogLevel, string.IsNullOrEmpty(message)
-            ? $"Exit method {callerMemberName}, file {callerFilePath}, line {callerLineNumber}."
-            : $"Exit method {callerMemberName}, message: [{message}], file {callerFilePath}, line {callerLineNumber}.");
+        logger.Log(
+            LogLevel,
+            "Exit method `{callerMemberName}`, message: `{message}`, file `{callerFilePath}`, line {callerLineNumber}.",
+            message,
+            callerMemberName,
+            callerFilePath,
+            callerLineNumber);
     }
 
     /// <summary>
@@ -92,7 +111,13 @@ public static class LoggerExtensions
         [CallerFilePath] string callerFilePath = "",
         [CallerLineNumber] int callerLineNumber = 0)
     {
-        logger.Log(LogLevel, $"Read cache key [{cacheKey}] in {callerMemberName}, file {callerFilePath}, line {callerLineNumber}.");
+        logger.Log(
+            LogLevel,
+            "Read cache key `{cacheKey}` in `{callerMemberName}`, file `{callerFilePath}`, line {callerLineNumber}.",
+            cacheKey,
+            callerMemberName,
+            callerFilePath,
+            callerLineNumber);
     }
 
     /// <summary>
@@ -110,7 +135,13 @@ public static class LoggerExtensions
         [CallerFilePath] string callerFilePath = "",
         [CallerLineNumber] int callerLineNumber = 0)
     {
-        logger.Log(LogLevel, $"Write cache key [{cacheKey}] in {callerMemberName}, file {callerFilePath}, line {callerLineNumber}.");
+        logger.Log(
+            LogLevel,
+            "Write cache key `{cacheKey}` in `{callerMemberName}`, file `{callerFilePath}`, line {callerLineNumber}.",
+            cacheKey,
+            callerMemberName,
+            callerFilePath,
+            callerLineNumber);
     }
 
     /// <summary>
@@ -128,7 +159,13 @@ public static class LoggerExtensions
         [CallerFilePath] string callerFilePath = "",
         [CallerLineNumber] int callerLineNumber = 0)
     {
-        logger.Log(LogLevel, $"Remove cache key [{cacheKey}] in {callerMemberName}, file {callerFilePath}, line {callerLineNumber}.");
+        logger.Log(
+            LogLevel,
+            "Remove cache key `{cacheKey}` in `{callerMemberName}`, file `{callerFilePath}`, line {callerLineNumber}.",
+            cacheKey,
+            callerMemberName,
+            callerFilePath,
+            callerLineNumber);
     }
 
     /// <summary>
@@ -146,6 +183,14 @@ public static class LoggerExtensions
         [CallerFilePath] string callerFilePath = "",
         [CallerLineNumber] int callerLineNumber = 0)
     {
-        logger.Log(LogLevel, $"Dirty cache type [{cacheType.FullName}] in {callerMemberName}, file {callerFilePath}, line {callerLineNumber}.");
+        var cacheTypeFullName = cacheType.FullName;
+        
+        logger.Log(
+            LogLevel,
+            "Dirty cache type `{cacheTypeFullName}` in `{callerMemberName}`, file `{callerFilePath}`, line {callerLineNumber}.",
+            cacheTypeFullName, 
+            callerMemberName,
+            callerFilePath,
+            callerLineNumber);
     }
 }

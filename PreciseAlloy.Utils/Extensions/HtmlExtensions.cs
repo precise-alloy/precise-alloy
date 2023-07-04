@@ -41,7 +41,6 @@ public static class HtmlExtensions
             {
                 CacheBusterValues = cacheBusterValues;
             }
-
         }
         catch (Exception ex)
         {
@@ -87,7 +86,8 @@ public static class HtmlExtensions
 
     public static string GetWidgetAssetPath(string name)
     {
-        return CacheBusterValues.Keys.FirstOrDefault(k => k.Contains($"/{name}.0x", StringComparison.OrdinalIgnoreCase)) ?? "";
+        return CacheBusterValues.Keys.FirstOrDefault(k =>
+            k.Contains($"/{name}.0x", StringComparison.OrdinalIgnoreCase)) ?? "";
     }
 
     public static string GetWidgetAssetPath(this IHtmlHelper htmlHelper, string name)
@@ -117,14 +117,13 @@ public static class HtmlExtensions
             attributes["type"] = "module";
         }
 
-        if (!module && defer == true)
-        {
-            attributes["defer"] = "";
-        }
-
         if (async == true)
         {
             attributes["async"] = "";
+        }
+        else if (!module && defer == true)
+        {
+            attributes["defer"] = "";
         }
 
         return ClientResources.RequireScript(cacheBusterPath, path, null, attributes);
@@ -144,7 +143,7 @@ public static class HtmlExtensions
             Attributes =
             {
                 ["data-rct"] = reactType,
-                ["type"]="application/json"
+                ["type"] = "application/json"
             }
         };
 

@@ -9,14 +9,15 @@ namespace PreciseAlloy.Jobs;
 public abstract class ScheduledJobBase
     : EPiServer.Scheduler.ScheduledJobBase
 {
-    protected readonly ILogger<ScheduledJobBase> Logger;
-    protected bool StopSignaled;
-    protected int Processed;
-    protected int Total;
-    protected int Succeeded;
-    protected int Failed;
-    protected string? CurrentItem;
     private DateTime _lastNotificationTime = DateTime.UtcNow;
+    
+    protected readonly ILogger<ScheduledJobBase> Logger;
+    protected bool StopSignaled { get; private set; }
+    protected int Processed { get; set; }
+    protected int Total { get; set; }
+    protected int Succeeded { get; set; }
+    protected int Failed { get; set; }
+    protected string? CurrentItem { get; set; }
 
     protected ScheduledJobBase(
         ILogger<ScheduledJobBase> logger)
