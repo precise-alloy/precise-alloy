@@ -121,7 +121,7 @@ const useRenderer = ({ app, indexProd, isProd, viteDevServer, resolve }: Props) 
       const html = template.replace(`<!--app-html-->`, output.html);
       const $ = cheerio.load(html);
       const paths: string[] = [];
-      removeDuplicateAssets($, 'link[data-pl-require][rel="stylesheet"][href]', 'href', paths);
+      removeDuplicateAssets($, 'link[data-pl-require][href]', 'href', paths);
       removeDuplicateAssets($, 'script[data-pl-require][src]', 'src', paths);
       updateResourcePath($, 'link', 'href', addHash);
       updateResourcePath($, 'script', 'src', addHash);
