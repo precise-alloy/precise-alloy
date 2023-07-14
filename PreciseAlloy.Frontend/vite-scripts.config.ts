@@ -78,10 +78,38 @@ paths.forEach((p) => {
   entries[name] = p;
 });
 
+const mock = (): PluginOption => {
+  return {
+    name: 'mock-js',
+    enforce: 'pre',
+    transform: function (code: string, id: string) {
+      if (!id.includes('mock-api.entry.ts')) {
+        return {
+          code,
+          map: this.getCombinedSourcemap()
+        };
+      }
+
+      const files: string[] = glob.sync(slash(path.resolve(__dirname, "mock-api/request/**/index.ts")));
+
+      for (const file of files) {
+        const data = fs.readFileSync(file);
+
+        code += data;
+      }
+
+      return {
+        code,
+        map: this.getCombinedSourcemap()
+      };
+    }
+  }
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   base: xpackEnv.VITE_BASE_URL,
-  plugins: [react(), options(), closeBundle(), transformIndexHtml(xpackEnv.VITE_BASE_URL)],
+  plugins: [react(), mock(), options(), closeBundle(), transformIndexHtml(xpackEnv.VITE_BASE_URL)],
   assetsInclude: ['**/*.svg', '**/*.htm', '**/*.cshtml'],
   build: {
     rollupOptions: {
@@ -106,6 +134,7 @@ export default defineConfig({
       { find: '@data', replacement: path.resolve(__dirname, 'src/_data') },
       { find: '@_types', replacement: path.resolve(__dirname, 'src/_types') },
       { find: '@_api', replacement: path.resolve(__dirname, 'src/_api') },
+      { find: '@mock', replacement: path.resolve(__dirname, 'mock-api') },
     ],
   },
 });

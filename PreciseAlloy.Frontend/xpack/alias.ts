@@ -13,6 +13,7 @@ const alias = [
   { find: '@_types', replacement: path.resolve(srcRoot, '_types') },
   { find: '@_http', replacement: path.resolve(srcRoot, '_http') },
   { find: '@_api', replacement: path.resolve(srcRoot, '_api') },
+  { find: '@mock', replacement: path.resolve(srcRoot, 'mock-api') },
 ];
 
 export default alias;
