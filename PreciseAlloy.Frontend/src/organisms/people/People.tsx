@@ -1,9 +1,18 @@
-import { PeopleModel } from '@_types/organisms';
+import { AvatarModel, PeopleModel } from '@_types/organisms';
 import Avatar from '@organisms/avatar/Avatar';
 import Button from '@atoms/buttons/Button';
+import { useEffect, useState } from 'react';
+import { getAllAvatars } from '@_api/avatar';
 
 const People = (model: PeopleModel) => {
-  const { subHeader, header, text, items, button } = model;
+  const { subHeader, header, text, button } = model;
+  const [items, setItems] = useState<AvatarModel[]>([]);
+  
+  useEffect(() => {
+    getAllAvatars().then((data: AvatarModel[]) => {
+      setItems(data);
+    }).catch(console.error);
+  }, []);
 
   return (
     <section className="zzz-o-people section-margin-top-xl">

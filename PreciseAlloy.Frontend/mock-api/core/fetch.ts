@@ -1,6 +1,6 @@
 import center from "./event";
 
-export default function mockFetch(url: string, req?: RequestInit): Promise<Response> {
+export default function mockFetch(url: URL, req?: RequestInit): Promise<Response> {
   const response = center.dispatch({ url, req });
 
   return new Promise(resolve => {

@@ -18,6 +18,6 @@ export interface EventListenerModel {
 }
 
 export interface DispatchModel {
-  url: string;
+  url: URL;
   req?: RequestInit;
 }

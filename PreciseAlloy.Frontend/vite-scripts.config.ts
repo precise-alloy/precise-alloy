@@ -91,6 +91,11 @@ const mock = (): PluginOption => {
       }
 
       const files: string[] = glob.sync(slash(path.resolve(__dirname, "mock-api/request/**/index.ts")));
+      const additionWatchFiles: string[] = glob.sync(slash(path.resolve(__dirname, "mock-api/**/*.ts")));
+
+      for (const additionFile of additionWatchFiles) {
+        this.addWatchFile(additionFile);
+      }
 
       for (const file of files) {
         const data = fs.readFileSync(file);

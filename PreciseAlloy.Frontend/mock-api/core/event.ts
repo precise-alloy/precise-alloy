@@ -28,9 +28,8 @@ class EventCenter {
    */
   dispatch(model: DispatchModel): MockResponseModel {
     const { url, req } = model;
-    const obj = new URL(url, window.location.origin);
 
-    const callback = this.events[obj.href];
+    const callback = this.events[url.href];
 
     if (typeof callback === 'function') {
       return callback.call(this, req);
