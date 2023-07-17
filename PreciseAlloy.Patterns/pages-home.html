@@ -26,6 +26,30 @@
   <meta name="description"
     content="This is the description for Precise Alloy page.">
   <title>Home</title>
+  <meta name="twitter:image"
+    content="/icons/apple-touch-icon.png">
+  <meta name="og:image"
+    content="/icons/apple-touch-icon.png">
+  <meta name="theme-color"
+    content="#fff"
+    media="(prefers-color-scheme: light)">
+  <meta name="theme-color"
+    content="#fff"
+    media="(prefers-color-scheme: dark)">
+  <link rel="apple-touch-icon"
+    sizes="180x180"
+    href="/icons/apple-touch-icon.png">
+  <link rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/icons/favicon-32x32.png">
+  <link rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/icons/favicon-16x16.png">
+  <link rel="manifest"
+    href="/manifest.json"
+    crossorigin="">
   <link rel="stylesheet preload"
     href="/assets/css/style-base.css"
     as="style">
@@ -40,6 +64,12 @@
     href="/assets/fonts/crimson-text/CrimsonText.woff2"
     as="font"
     type="font/woff2">
+
+  <!-- Don't include this file in production environment -->
+  <script defer=""
+    src="/assets/js/mock-api.js"></script>
+  <!-- Don't include this file in production environment -->
+
   <script defer=""
     src="/assets/js/main.js"></script>
   <script type="module"
