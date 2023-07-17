@@ -13,6 +13,7 @@ enum Method {
 export const getApiUrl = (remain: string, params?: RequestParams) => {
   const baseApiUrl = import.meta.env.VITE_APP_API_URL ?? window.location.origin;
   const url = new URL(remain, baseApiUrl);
+
   if (params) {
     Object.keys(params).forEach((key) => {
       if (params[key] !== undefined) {
@@ -25,20 +26,26 @@ export const getApiUrl = (remain: string, params?: RequestParams) => {
 };
 
 const sendAsync = async (remain: string, method: Method, params?: RequestParams, body?: unknown, skipResponseBody?: boolean) => {
-  const url = getApiUrl(remain, params);
+  try {
+    const url = getApiUrl(remain, params);
 
-  const requestInit: RequestInit = {
-    method: method,
-  };
-
-  if (body) {
-    requestInit.body = JSON.stringify(body);
-    requestInit.headers = {
-      'Content-Type': 'application/json',
+    const requestInit: RequestInit = {
+      method: method,
     };
-  }
 
-  return skipResponseBody ? fetch(url, requestInit) : fetch(url, requestInit).then((res) => res.json());
+    if (body) {
+      requestInit.body = JSON.stringify(body);
+      requestInit.headers = {
+        'Content-Type': 'application/json',
+      };
+    }
+
+    return skipResponseBody ? fetch(url, requestInit) : fetch(url, requestInit).then((res) => res.json());
+  } catch (error) {
+    return Promise.reject({
+      error: error
+    })
+  }
 };
 
 export const getAsync = async (remain: string, params?: RequestParams) => {
