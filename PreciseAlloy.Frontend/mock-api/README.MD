@@ -15,9 +15,10 @@ Mock http request made using [fetch](https://developer.mozilla.org/en-US/docs/We
 
 ## Usage
 
-- Only support from origin: window.location.origin
-- Only support from url start with '/api'
-- Fall back to default fetch when the conditions are not matched
+fetch(input, init):
+
+- input should be a string or a [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL)
+- Fall back to default fetch when the conditions above are not matched
 
 **Example**: You want to create a GET request for the url '/api/avatar'.
 

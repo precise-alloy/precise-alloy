@@ -21,3 +21,9 @@ export interface DispatchModel {
   url: URL;
   req?: RequestInit;
 }
+
+declare global {
+  interface Window {
+    originFetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response>;
+  }
+}
