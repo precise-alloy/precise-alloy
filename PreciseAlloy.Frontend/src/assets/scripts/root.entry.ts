@@ -1,5 +1,6 @@
 const BORDER_SIZE = 20;
 const MIN_FRAME_SIZE = 350;
+const MSG_IFRAME_SIZE = 'MSG_IFRAME_SIZE'
 
 let orgWidth: number;
 let pos: number;
@@ -7,6 +8,8 @@ let pos: number;
 const wrapper = document.getElementById('root-iframe-wrapper');
 const frame = document.getElementById('root-iframe');
 const resizer = document.getElementById('root-iframe-resizer');
+
+let iframeSize = sessionStorage.getItem(MSG_IFRAME_SIZE);
 
 const setIFrameWidth = (width?: number) => {
   if (!wrapper) {
@@ -28,6 +31,7 @@ const resize = (e: globalThis.MouseEvent) => {
 
   const size = Math.max(MIN_FRAME_SIZE, orgWidth + dx);
   setIFrameWidth(size);
+  iframeSize = size + '';
 
   return false;
 };
@@ -39,6 +43,7 @@ const mouseUp = () => {
 
   wrapper.style.removeProperty('transition');
   frame.style.removeProperty('pointer-events');
+  iframeSize && sessionStorage.setItem(MSG_IFRAME_SIZE, iframeSize)
 
   document.removeEventListener('mousemove', resize, false);
 };
@@ -99,6 +104,7 @@ const setup = () => {
   }
 
   resizer.onmousedown = handleResizerMouseDown;
+  setIFrameWidth(iframeSize ? parseInt(iframeSize) : undefined)
 
   const getIFrameActualWidth = () => {
     const el = document.getElementById('root-actual-iframe-width');

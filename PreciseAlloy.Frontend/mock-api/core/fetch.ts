@@ -1,4 +1,5 @@
 import center from "./event";
+import _ from 'lodash';
 
 export default function mockFetch(input: URL | RequestInfo, req?: RequestInit): Promise<Response> {
   if (typeof input === 'string') {
@@ -21,14 +22,14 @@ export default function mockFetch(input: URL | RequestInfo, req?: RequestInit): 
 
   console.log(`${input.href}: you're using mock fetch`);
 
-  return new Promise(resolve => {
-    resolve(
-      new Response(
-        JSON.stringify(response.body),
-        {
-          status: response.status
-        }
-      )
-    )
-  })
+  // Simulate network latency, delay the response between 200 and 2000 miliseconds
+  const ms = _.random(200, 2000, true);
+  const latency = new Promise(r => setTimeout(r, ms));
+
+  return latency.then(() => new Response(
+    JSON.stringify(response.body),
+    {
+      status: response.status
+    }
+  ));
 }
