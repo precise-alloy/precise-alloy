@@ -15,24 +15,23 @@ namespace PreciseAlloy.Web;
 
 public class Startup
 {
-    private readonly IWebHostEnvironment _webHostingEnvironment;
+    private readonly IWebHostEnvironment _webHostEnvironment;
     private readonly IConfiguration _configuration;
 
     public Startup(
-        IWebHostEnvironment webHostingEnvironment,
+        IWebHostEnvironment webHostEnvironment,
         IConfiguration configuration)
     {
-        _webHostingEnvironment = webHostingEnvironment;
+        _webHostEnvironment = webHostEnvironment;
         _configuration = configuration;
     }
 
     public void ConfigureServices(IServiceCollection services)
     {
-        if (_webHostingEnvironment.IsDevelopment())
+        if (_webHostEnvironment.IsDevelopment())
         {
-            AppDomain.CurrentDomain.SetData(
-                "DataDirectory",
-                Path.Combine(_webHostingEnvironment.ContentRootPath, "App_Data"));
+            var appDataPath = Path.Combine(_webHostEnvironment.ContentRootPath, "App_Data");
+            AppDomain.CurrentDomain.SetData("DataDirectory", appDataPath);
 
             services.Configure<SchedulerOptions>(options => options.Enabled = false);
         }
@@ -43,11 +42,9 @@ public class Startup
 
         var mvcBuilder = services
             .AddMvc(o => o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
-            .AddRazorOptions(x =>
-            {
-                x.ViewLocationExpanders.Add(new CustomViewLocationExpander());
-            });
-        if (_webHostingEnvironment.IsDevelopment())
+            .AddRazorOptions(x => { x.ViewLocationExpanders.Add(new CustomViewLocationExpander()); });
+
+        if (_webHostEnvironment.IsDevelopment())
         {
             mvcBuilder.AddRazorRuntimeCompilation();
         }
@@ -58,12 +55,13 @@ public class Startup
             .AddFind()
             .AddAdminUserRegistration()
             .AddEmbeddedLocalization<Startup>()
-            .ConfigureImageResizing(_configuration, _webHostingEnvironment)
+            .ConfigureImageResizing(_configuration, _webHostEnvironment)
             .Configure<UrlSegmentOptions>(o =>
             {
                 o.SupportIriCharacters = true;
                 o.ValidCharacters = @"\p{L}0-9\-_~\.\$";
             });
+
         services.AddTransient<ContentAreaRenderer, CustomContentAreaRenderer>();
         services.AddSingleton<ISettingsService, SettingsService>();
         services.AddScoped<IRequestContext, RequestContext>();
@@ -89,7 +87,7 @@ public class Startup
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseBaaijteOptimizelyImageSharp();
-        
+
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllerRoute(name: "Default", pattern: "{controller}/{action}/{id?}");
