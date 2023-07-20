@@ -1,7 +1,7 @@
 .top-panel {
   &.xpack-o-root {
     border: none;
-    border-bottom: px2rem(1px) solid $body-color;
+    @include border-bottom;
 
     @include lg {
       --navbar-max-width: px2rem(240px);
