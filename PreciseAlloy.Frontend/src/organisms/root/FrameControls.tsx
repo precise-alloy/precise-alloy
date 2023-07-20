@@ -20,7 +20,6 @@ const FrameControls = () => {
     if (width) {
       wrapper.style.maxWidth = `min(100%, ${width}px)`;
       sessionStorage.setItem(MSG_IFRAME_SIZE, width + '');
-
     } else {
       wrapper.style.removeProperty('max-width');
     }
@@ -62,7 +61,6 @@ const FrameControls = () => {
 
     setIFrameWidth(undefined);
     sessionStorage.removeItem(MSG_IFRAME_SIZE);
-
   };
 
   const handleRandomClick = () => {
@@ -75,7 +73,6 @@ const FrameControls = () => {
     const width = randomIntFromInterval(MIN_FRAME_SIZE, Math.max(MIN_FRAME_SIZE, maxWidth));
     setIFrameWidth(width);
     sessionStorage.setItem(MSG_IFRAME_SIZE, width + '');
-
   };
 
   const handleDiscoClick = () => {
@@ -90,7 +87,6 @@ const FrameControls = () => {
       const width = randomIntFromInterval(MIN_FRAME_SIZE, Math.max(MIN_FRAME_SIZE, maxWidth));
       setIFrameWidth(width);
       sessionStorage.setItem(MSG_IFRAME_SIZE, width + '');
-
     }, 2000);
 
     setDiscoTimer(timer);

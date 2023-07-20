@@ -26,7 +26,6 @@ const setIFrameWidth = (width?: number) => {
 const resize = (e: globalThis.MouseEvent) => {
   e.stopPropagation();
   e.preventDefault();
-  e.cancelBubble = true;
   const dx = (e.x - pos) * 2;
 
   const size = Math.max(MIN_FRAME_SIZE, orgWidth + dx);
@@ -124,6 +123,10 @@ const setup = () => {
   }
   initTopPanel();
   addStoreEvent();
+
+  if (wrapper) {
+    window.onload = () => wrapper.classList.add('initialized');
+  }
 };
 
 setup();

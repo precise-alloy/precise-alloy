@@ -55,11 +55,10 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
         })
       )
         .replaceAll(' ', '-')
-        .replaceAll('b-2-c', 'b2c')
     )
     .replace(/\.scss$/gi, '.css')}`;
 
-  let srcCss: string[] = [
+  const srcCss: string[] = [
     slash(`@import '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/00-abstracts/abstracts'))}';`),
     slash(`@import '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/01-mixins/mixins'))}';`),
     fs.readFileSync(srcFile, 'utf-8'),

@@ -1,6 +1,15 @@
-$-white: #fff;
-$-black: #000;
-$-border: #555;
+@import './breakpoint';
+@import './theme';
+@import './border';
+@import './state-toggle';
+@import './form';
+@import './xpack-root';
+@import './top-panel';
+
+:root {
+  --navbar-max-width: px2rem(240px);
+}
+
 $-wave-25: #e9eef1;
 $-wave-50: #d2dde4;
 
@@ -15,7 +24,7 @@ body {
   height: 100vh !important;
   max-height: 100vh !important;
   overflow: hidden !important;
-  background-color: $-white !important;
+  background-color: $body-bg !important;
 }
 
 .xpack-t-root {
@@ -24,12 +33,12 @@ body {
   display: grid;
   grid-template-rows: min-content 1fr;
 
-  @include tablet {
+  @include lg {
     grid-template-columns: px2rem(300px) 1fr;
   }
 
   &.top-panel {
-    @include tablet {
+    @include lg {
       grid-template-columns: 1fr;
       grid-template-rows: min-content 1fr;
     }
@@ -44,8 +53,11 @@ body {
     max-width: 100%;
     height: 100vh;
     position: relative;
-    transition: max-width linear 0.25s;
     justify-self: center;
+
+    &.initialized {
+      transition: max-width linear 0.25s;
+    }
 
     &::before,
     &::after {
@@ -55,7 +67,7 @@ body {
       top: 0;
       width: px2rem(1px);
       height: 100%;
-      background-color: $-black;
+      background-color: $body-color;
     }
 
     &::before {
@@ -90,7 +102,7 @@ body {
       top: 50%;
       border-width: 0 px2rem(1px);
       border-style: solid;
-      border-color: $-border;
+      border-color: $border-color;
       transform: translate(-50%, -50%);
     }
   }

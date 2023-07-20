@@ -4,7 +4,6 @@ import { RootContext, RootData } from './root-context';
 import FrameControls from './FrameControls';
 import ActiveItemOptions from './ActiveItemOptions';
 import RootNav from './RootNav';
-import RequireCss from '@helpers/RequireCss';
 import { viteAbsoluteUrl } from '@helpers/functions';
 
 const Root = ({ routes }: RootModel) => {
@@ -67,7 +66,6 @@ const Root = ({ routes }: RootModel) => {
         <FrameControls />
         <ActiveItemOptions />
       </div>
-      <RequireCss path="b-root" />
     </RootContext.Provider>
   ) : (
     <></>

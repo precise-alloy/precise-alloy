@@ -53,7 +53,12 @@ const ActiveItemOptions = () => {
   };
 
   const handleChangePanelPosition = () => {
-    window.setState('MSG_IS_TOP_PANEL', isTopPanel ? 'false' : 'true');
+    const key = 'MSG_IS_TOP_PANEL';
+    const value = isTopPanel ? 'false' : 'true';
+
+    window.localStorage.setItem(key, value);
+    window.dispatchEvent(new StorageEvent('storage', { key, newValue: value }));
+
     setShow(false);
   };
 

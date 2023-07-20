@@ -1,0 +1,19 @@
+@mixin input {
+  border: px2rem(1px) solid #bbb;
+  background-color: #eee;
+  color: $body-color;
+  border-radius: px2rem(4px);
+
+  &:focus-visible {
+    border-color: $black;
+  }
+
+  @include dark {
+    background-color: #1b1f22;
+    border-color: #555;
+
+    &:focus-visible {
+      border-color: $body-color;
+    }
+  }
+}
