@@ -68,14 +68,12 @@
     height: calc(100vh - px2rem(160px));
     max-width: var(--navbar-max-width);
     transform: translateX(-100%);
-    transition: all 0.3s ease;
     border-bottom: px2rem(1px) solid $border-color;
 
     &.show {
       display: block;
       box-shadow: 0 px2rem(2px) px2rem(4px) #a6a6a6;
       transform: translateX(0);
-      transition: transform 0.2s ease-out;
     }
 
     @include lg {
@@ -167,13 +165,11 @@
     right: 0;
     padding: px2rem(20px) 0;
     transform: translateX(100%);
-    transition: all 0.3s ease;
 
     &.show {
       display: block;
       box-shadow: 0 px2rem(2px) px2rem(4px) #a6a6a6;
       transform: translateX(0);
-      transition: transform 0.2s ease-out;
     }
 
     @include lg {
