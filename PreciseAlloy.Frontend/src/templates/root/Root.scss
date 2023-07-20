@@ -25,6 +25,8 @@ body {
   max-height: 100vh !important;
   overflow: hidden !important;
   background-color: $body-bg !important;
+  font-size: px2rem(16px);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .xpack-t-root {
