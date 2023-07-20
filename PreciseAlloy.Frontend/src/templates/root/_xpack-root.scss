@@ -68,6 +68,7 @@
     height: calc(100vh - px2rem(160px));
     max-width: var(--navbar-max-width);
     transform: translateX(-100%);
+    background-color: $body-bg;
     border-bottom: px2rem(1px) solid $border-color;
 
     &.show {
