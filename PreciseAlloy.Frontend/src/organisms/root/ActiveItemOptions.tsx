@@ -26,6 +26,12 @@ const ActiveItemOptions = () => {
     return false;
   };
 
+  const handleThemeToggle = () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme') ?? 'light';
+    const theme = currentTheme == 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+  };
+
   const toggleCtaText = keyExist ? 'Hide state selector' : 'Show state selector';
 
   const StateAnimationHtml = () =>
@@ -53,7 +59,12 @@ const ActiveItemOptions = () => {
   };
 
   const handleChangePanelPosition = () => {
-    window.setState('MSG_IS_TOP_PANEL', isTopPanel ? 'false' : 'true');
+    const key = 'MSG_IS_TOP_PANEL';
+    const value = isTopPanel ? 'false' : 'true';
+
+    window.localStorage.setItem(key, value);
+    window.dispatchEvent(new StorageEvent('storage', { key, newValue: value }));
+
     setShow(false);
   };
 
@@ -69,6 +80,10 @@ const ActiveItemOptions = () => {
         <a className="xpack-o-root__nav-item pl-state-toggle" href="#" onClick={handleStateToggle}>
           <StateAnimationHtml />
           {toggleCtaText}
+        </a>
+
+        <a className="xpack-o-root__nav-item pl-state-toggle" href="#" onClick={handleThemeToggle}>
+          Change theme
         </a>
 
         <a className="xpack-o-root__nav-item panel-position" href="#" onClick={handleChangePanelPosition}>
