@@ -11,7 +11,7 @@ body {
   display: flex;
   flex-direction: column;
   @include font-body;
-  background-color: $white;
+  background-color: $primary-bg;
 }
 
 main {

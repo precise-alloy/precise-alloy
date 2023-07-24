@@ -1,6 +1,6 @@
 .zzz-o-header {
-  background-color: $green;
-  color: $white;
+  background-color: $secondary-bg;
+  color: $secondary;
   padding: px2rem(17px) 0;
   position: relative;
 
@@ -78,8 +78,8 @@
         color: inherit;
       }
 
-      &:not(:last-child) {
-        border-bottom: rgb($black, 0.2) solid px2rem(1px);
+      &.zzz-theme-toggle {
+        border-top: rgb($black, 0.2) solid px2rem(1px);
       }
 
       @include tablet {
@@ -87,10 +87,6 @@
 
         a {
           padding: 0;
-        }
-
-        &:not(:last-child) {
-          border-bottom: none;
         }
       }
     }

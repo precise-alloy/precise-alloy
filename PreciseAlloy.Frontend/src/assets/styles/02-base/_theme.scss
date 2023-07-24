@@ -1,0 +1,65 @@
+:root,
+[data-theme='light'] {
+  --white: #fff;
+  --black: #000;
+  --green: #0b5b33;
+  --wave-white: #d2dde4;
+  --wave-black: #3c3f41;
+  --grey: #212529bf;
+  --red: #ff0000;
+  --white-rgb: 255, 255, 255;
+  --black-rgb: 0, 0, 0;
+
+  --primary: var(--black);
+  --primary-rgb: var(--black-rgb);
+  --primary-bg-rgb: var(--white-rgb);
+  --primary-bg: var(--white);
+  --secondary: var(--white);
+  --secondary-bg: var(--green);
+  --subtitle: var(--green);
+
+  // Button color
+  --btn-primary-color: var(--white);
+  --btn-primary-bg: var(--black);
+  --btn-secondary-color: var(--black);
+  --btn-secondary-bg: var(--white);
+}
+
+[data-theme='dark'] {
+  --green: #021f10;
+  --primary-bg: #212529;
+  --primary-bg-rgb: 33, 37, 41;
+  --primary: #fff;
+  --primary-rgb: 255, 255, 255;
+  --subtitle: #17d372;
+  --grey: #17d372;
+  --red: #c60101;
+}
+
+.theme-toggle {
+  position: relative;
+
+  .zzz-a-icon {
+    visibility: hidden;
+    pointer-events: none;
+    cursor: pointer;
+
+    &:nth-child(1) {
+      @include dark {
+        visibility: visible;
+        pointer-events: inherit;
+      }
+    }
+
+    &:nth-child(2) {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      @include light {
+        visibility: visible;
+        pointer-events: inherit;
+      }
+    }
+  }
+}

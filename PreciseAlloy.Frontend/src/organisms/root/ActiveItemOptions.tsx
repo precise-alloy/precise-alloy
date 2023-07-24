@@ -27,9 +27,7 @@ const ActiveItemOptions = () => {
   };
 
   const handleThemeToggle = () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme') ?? 'light';
-    const theme = currentTheme == 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', theme);
+    window.dispatchEvent(new CustomEvent('toggleTheme'));
   };
 
   const toggleCtaText = keyExist ? 'Hide state selector' : 'Show state selector';
