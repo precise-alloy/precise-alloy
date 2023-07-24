@@ -51,7 +51,7 @@ steps:
     displayName: 'Create release package'
 
   - task: PowerShell@2
-    displayName: 'Create PR from fe-release-inte-package --> develop'
+    displayName: 'PR to develop'
     inputs:
       targetType: 'filePath'
       filePath: $(System.DefaultWorkingDirectory)/PreciseAlloy.Frontend/.build/integration.ps1
@@ -64,7 +64,7 @@ steps:
       CUSTOM_REVIEWER_ID: $(CustomReviewId)
 
   - task: PowerShell@2
-    displayName: 'Create PR from fe-release-inte-package --> fe-develop'
+    displayName: 'PR to fe-develop'
     inputs:
       targetType: 'filePath'
       filePath: $(System.DefaultWorkingDirectory)/PreciseAlloy.Frontend/.build/integration.ps1
