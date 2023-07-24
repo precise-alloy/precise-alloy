@@ -37,7 +37,17 @@
 }
 
 .theme-toggle {
-  position: relative;
+  padding: px2rem(10px) px2rem(20px);
+
+  @include tablet {
+    padding: 0;
+  }
+
+  a {
+    display: block;
+    padding: 0;
+    position: relative;
+  }
 
   .zzz-a-icon {
     visibility: hidden;
