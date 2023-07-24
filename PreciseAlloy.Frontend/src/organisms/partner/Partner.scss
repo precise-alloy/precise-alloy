@@ -1,5 +1,6 @@
 .zzz-o-partner {
   text-align: center;
+  color: $primary;
 
   &__inner {
     display: flex;
@@ -16,7 +17,7 @@
   &__label {
     @include font-label;
 
-    color: $green;
+    color: $subtitle;
   }
 
   &__images {

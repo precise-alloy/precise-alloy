@@ -1,5 +1,6 @@
 .zzz-o-portfolio {
   text-align: center;
+  color: $primary;
 
   &__inner {
     display: grid;
@@ -9,7 +10,7 @@
   &__label {
     @include font-label;
 
-    color: $green;
+    color: $subtitle;
   }
 
   &__description {

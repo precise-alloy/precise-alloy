@@ -1,5 +1,6 @@
 .zzz-o-people {
   text-align: center;
+  color: $primary;
 
   &__content {
     margin: 0 auto;
@@ -10,7 +11,7 @@
     margin-bottom: px2rem(16px);
     @include font-label;
     text-transform: uppercase;
-    color: $green;
+    color: $subtitle;
   }
 
   &__header {

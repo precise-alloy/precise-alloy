@@ -1,14 +1,14 @@
 .zzz-o-avatar {
   padding: px2rem(20px) px2rem(38px);
-  background: $white;
-  box-shadow: px2rem(3px) px2rem(4px) px2rem(12px) px2rem(1px) rgba(0, 0, 0, 0.25);
+  background: $primary-bg;
+  box-shadow: px2rem(3px) px2rem(4px) px2rem(12px) px2rem(1px) rgba($primary-rgb, 0.25);
   border-radius: px2rem(5px);
 
   &__image {
     margin: 0 auto;
     width: px2rem(175px);
     height: px2rem(175px);
-    border: px2rem(1px) solid $black;
+    border: px2rem(1px) solid $primary;
     border-radius: 50%;
     overflow: hidden;
 
