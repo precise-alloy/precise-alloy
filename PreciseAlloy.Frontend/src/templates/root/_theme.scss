@@ -20,7 +20,7 @@ $border-color: var(--border-color);
 }
 
 :root,
-.theme-light {
+[data-theme='dark'] {
   --body-color: #212529;
   --body-strong-color: #121416;
   --body-color-rgb: 33, 37, 41;

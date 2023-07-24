@@ -30,8 +30,8 @@
         @include font-label;
         font-weight: $regular;
         width: 100%;
-        background-color: rgb($black, 0.05);
-        border: px2rem(1px) solid $black;
+        background-color: rgb($primary-rgb, 0.05);
+        border: px2rem(1px) solid $primary;
         border-radius: px2rem(5px);
       }
     }

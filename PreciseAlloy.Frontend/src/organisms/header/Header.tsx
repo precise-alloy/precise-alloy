@@ -2,6 +2,7 @@ import { getModifiers } from '@helpers/functions';
 import RequireCss from '@helpers/RequireCss';
 import RequireJs from '@helpers/RequireJs';
 import { HeaderModel } from '@_types/organisms';
+import Icon from '@atoms/icons/Icon';
 
 const Header = (model: HeaderModel) => {
   const modifiers = getModifiers(model, 'zzz-o-header');
@@ -34,6 +35,14 @@ const Header = (model: HeaderModel) => {
                     <a href={link.url}>{link.text}</a>
                   </li>
                 ))}
+
+                <li className="theme-toggle">
+                  <a aria-label="Toggle Theme">
+                    <Icon iconPath={'#zzz-theme-light'} viewBoxWidth={19} viewBoxHeight={19} />
+
+                    <Icon iconPath={'#zzz-theme-moon'} viewBoxWidth={19} viewBoxHeight={19} />
+                  </a>
+                </li>
               </ul>
             </>
           )}
