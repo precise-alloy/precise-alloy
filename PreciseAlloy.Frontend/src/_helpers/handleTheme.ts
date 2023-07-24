@@ -15,12 +15,6 @@ const getCurrentTheme = () => {
   return getTheme(!theme || theme.toLowerCase() === 'light');
 };
 
-const initTheme = () => {
-  const theme = getCurrentTheme();
-
-  setTheme(theme);
-};
-
 const switchTheme = () => {
   const currentTheme = getCurrentTheme();
   const newTheme = getTheme(currentTheme !== 'light');
@@ -28,4 +22,4 @@ const switchTheme = () => {
   setTheme(newTheme);
 }
 
-export { THEME_KEY, getCurrentTheme, initTheme, switchTheme, getTheme, setTheme };
+export { THEME_KEY, getCurrentTheme, switchTheme, getTheme, setTheme };

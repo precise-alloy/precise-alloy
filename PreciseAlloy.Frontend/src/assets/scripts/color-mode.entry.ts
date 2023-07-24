@@ -1,6 +1,4 @@
-import { THEME_KEY, initTheme, switchTheme } from "@helpers/handleTheme";
-
-initTheme();
+import { THEME_KEY, switchTheme } from "@helpers/handleTheme";
 
 /**
  * Handle storage change
