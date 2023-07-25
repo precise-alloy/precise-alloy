@@ -6,14 +6,12 @@
   const urlParams = new URLSearchParams(window.location.search);
   const theme = urlParams.get('theme');
   if (theme === 'dark' || theme == 'light') {
-    localStorage.setItem(THEME_KEY, theme);
     document.documentElement.setAttribute('data-theme', theme);
     return;
   }
 
   if (localStorage.getItem(THEME_KEY) === 'dark'
     || (!localStorage.getItem(THEME_KEY) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
-    localStorage.setItem(THEME_KEY, 'dark');
     document.documentElement.setAttribute('data-theme', 'dark');
   }
 })();
