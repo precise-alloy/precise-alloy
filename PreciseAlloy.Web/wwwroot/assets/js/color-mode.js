@@ -1,0 +1,2 @@
+const t="MSG_THEME",o=e=>e?"light":"dark",r=e=>{localStorage.setItem(t,e),document.documentElement.setAttribute("data-theme",e)},a=()=>{const e=localStorage.getItem(t);return o(!e||e.toLowerCase()==="light")},c=()=>{const e=a(),s=o(e!=="light");r(s)},m=e=>{switch(e.key){case t:{document.documentElement.setAttribute("data-theme",e.newValue);break}}},h=()=>{c()},n=document.querySelector(".theme-toggle");n&&n.addEventListener("click",()=>{c()});window.addEventListener("storage",m);window.addEventListener("toggleTheme",h);
+//# sourceMappingURL=color-mode.js.map
