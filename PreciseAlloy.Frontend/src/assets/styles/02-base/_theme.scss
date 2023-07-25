@@ -50,25 +50,21 @@
   }
 
   .zzz-a-icon {
-    visibility: hidden;
-    pointer-events: none;
     cursor: pointer;
 
     &:nth-child(1) {
+      display: none;
+
       @include dark {
-        visibility: visible;
-        pointer-events: inherit;
+        display: block;
       }
     }
 
     &:nth-child(2) {
-      position: absolute;
-      top: 0;
-      left: 0;
+      display: block;
 
-      @include light {
-        visibility: visible;
-        pointer-events: inherit;
+      @include dark {
+        display: none;
       }
     }
   }
