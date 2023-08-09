@@ -14,10 +14,10 @@
     <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.16.0" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.16.0" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.16.0" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.22.2" />
-    <PackageReference Include="EPiServer.Find" Version="15.1.1" />
-    <PackageReference Include="EPiServer.Find.Cms" Version="15.1.1" />
-    <PackageReference Include="EPiServer.Find.Framework" Version="15.1.1" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.22.3" />
+    <PackageReference Include="EPiServer.Find" Version="15.1.2" />
+    <PackageReference Include="EPiServer.Find.Cms" Version="15.1.2" />
+    <PackageReference Include="EPiServer.Find.Framework" Version="15.1.2" />
     <PackageReference Include="EPiServer.Framework" Version="12.16.0" />
     <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.16.0" />
     <PackageReference Include="EPiServer.Hosting" Version="12.16.0" />
