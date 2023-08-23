@@ -10,25 +10,30 @@ import closeBundle from './hooks/close-bundle';
 import resolveDynamicImport from './hooks/resolve-dynamic-import';
 import handleHotUpdate from './hooks/handle-hot-update';
 import transformIndexHtml from './hooks/transform-index-html';
+import mock from './hooks/mock';
+import options from './hooks/options';
 
 // console.log('config');
 
 const additionalScssData = `
 @import "${srcRoot}/assets/styles/additional-data";
-`
+`;
 
 const config = defineConfig({
   base: xpackEnv.VITE_BASE_URL,
   plugins: [
     react(),
-    // options(),
+    mock(),
+    options(),
     buildStart(),
     // transfrom(),
     transformIndexHtml(xpackEnv.VITE_BASE_URL),
     resolveDynamicImport(),
     handleHotUpdate(),
     writeBundle(),
-    closeBundle()],
+    closeBundle(),
+  ],
+  assetsInclude: ['**/*.svg', '**/*.htm', '**/*.cshtml'],
   build: {
     rollupOptions: {
       output: {
@@ -38,7 +43,7 @@ const config = defineConfig({
         manualChunks: getManualChunk,
       },
     },
-    minify: true,
+    minify: 'esbuild',
     sourcemap: true,
     outDir,
     emptyOutDir: true,
@@ -47,9 +52,9 @@ const config = defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: additionalScssData
-      }
-    }
+        additionalData: additionalScssData,
+      },
+    },
   },
 
   resolve: {
