@@ -15,10 +15,9 @@
     "build:server:eshn": "vite build --ssr src/entry-server.tsx --outDir dist/server --mode eshn",
     "build:static": "vite build --outDir dist/static",
     "build:static:eshn": "vite build --outDir dist/static --mode eshn",
-    "generate": "ts-node --esm states.ts && npm run scripts && npm run styles && npm run build && ts-node --esm prerender.ts --add-hash",
+    "generate": "ts-node --esm states.ts && npm run styles && npm run build && ts-node --esm prerender.ts --add-hash",
     "eshn": "ts-node --esm states.ts && npm run styles && npm run build:eshn && ts-node --esm prerender.ts --add-hash --mode eshn",
-    "inte": "npm run scripts && npm run styles && npm run build && ts-node --esm prerender.ts && ts-node --esm integration.ts",
-    "scripts": "vite build --emptyOutDir false",
+    "inte": "npm run styles && npm run build && ts-node --esm prerender.ts && ts-node --esm integration.ts",
     "styles": "ts-node --esm styles.ts",
     "format": "prettier --write .",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix"
