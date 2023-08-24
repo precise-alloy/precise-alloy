@@ -202,32 +202,6 @@ const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
   const renderedPages: RenderedPage[] = [];
   const pool: Promise<unknown>[] = [];
 
-  const assetCopyPaths: { src: string; dest: string }[] = [
-    {
-      src: toAbsolute('public/assets/css'),
-      dest: toAbsolute('dist/static/assets/css'),
-    },
-    {
-      src: toAbsolute('dist/assets/js'),
-      dest: toAbsolute('dist/static/assets/js'),
-    },
-    {
-      src: toAbsolute('public/assets/vendors'),
-      dest: toAbsolute('dist/static/assets/vendors'),
-    },
-  ];
-
-  assetCopyPaths.forEach((item) => {
-    if (fs.existsSync(item.dest)) {
-      fs.rmSync(item.dest, { recursive: true, force: true });
-    }
-
-    if (fs.existsSync(item.src)) {
-      fs.mkdirSync(item.dest);
-      fs.cpSync(item.src, item.dest, { recursive: true, force: true });
-    }
-  });
-
   const addHash = !!process.argv.includes('--add-hash');
   pool.push(renderPage(renderedPages, addHash));
 
