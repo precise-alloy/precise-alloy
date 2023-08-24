@@ -1,4 +1,4 @@
-import mockFetch from "@mock/core/fetch";
+import mockFetch from '@mock/core/fetch';
 
 window.originFetch = window.fetch;
 
