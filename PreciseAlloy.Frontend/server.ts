@@ -6,7 +6,10 @@ import { loadEnv } from 'vite';
 console.log('[INIT] server');
 
 const argvModeIndex = process.argv.indexOf('--mode');
-const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
+const mode =
+  argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-')
+    ? process.argv[argvModeIndex + 1]
+    : 'production';
 const root = path.dirname(fileURLToPath(import.meta.url));
 const xpackEnv = loadEnv(mode, root);
 const isTest = !!xpackEnv.VITE_TEST_BUILD || process.env.NODE_ENV === 'test';
@@ -18,6 +21,7 @@ if (!isTest) {
     root,
     isTest,
     port,
-    baseUrl: xpackEnv.VITE_BASE_URL
+    hmrPort: port + 1,
+    baseUrl: xpackEnv.VITE_BASE_URL,
   });
 }
