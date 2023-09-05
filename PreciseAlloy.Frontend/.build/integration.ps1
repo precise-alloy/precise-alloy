@@ -1,6 +1,6 @@
 Write-Output "Script is running"
 
-$apiVersion = '7.1'
+$apiVersion = '7.0'
 
 function Get-Teams {
   param(
