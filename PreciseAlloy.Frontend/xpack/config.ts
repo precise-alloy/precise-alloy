@@ -10,7 +10,6 @@ import closeBundle from './hooks/close-bundle';
 import resolveDynamicImport from './hooks/resolve-dynamic-import';
 import handleHotUpdate from './hooks/handle-hot-update';
 import transformIndexHtml from './hooks/transform-index-html';
-import mock from './hooks/mock';
 import options from './hooks/options';
 
 // console.log('config');
@@ -23,7 +22,6 @@ const config = defineConfig({
   base: xpackEnv.VITE_BASE_URL,
   plugins: [
     react(),
-    mock(),
     options(),
     buildStart(),
     // transfrom(),
