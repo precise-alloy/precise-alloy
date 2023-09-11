@@ -1,5 +1,5 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions';
-import { AvatarModel } from '../../../src/_types/organisms';
+import { AvatarModel } from '@_types/organisms';
 
 export const avatars: AvatarModel[] = [
   {
