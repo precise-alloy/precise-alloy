@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "npm start",
-    "start": "concurrently --kill-others \"ts-node --esm styles.ts --watch\" \"ts-node --esm states.ts --watch\" \"cross-env scriptOnly=true vite build --mode development --watch\" \"ts-node --esm server.ts --mode development\"",
+    "start": "concurrently --kill-others \"swa start --app-devserver-url http://localhost:15889 --devserver-timeout 120 --api-location api --api-port 15891 --port 15892 --swa-config-location public\" \"ts-node --esm styles.ts --watch\" \"ts-node --esm states.ts --watch\" \"cross-env scriptOnly=true vite build --mode development --watch\" \"ts-node --esm server.ts --mode development\"",
     "serve": "ts-node --esm server.ts",
     "watch": "ts-node --esm server.ts",
     "build": "tsc && npm run build:static && npm run build:server",
