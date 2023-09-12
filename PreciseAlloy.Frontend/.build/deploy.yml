@@ -49,4 +49,5 @@ steps:
       api_location: PreciseAlloy.Frontend/api
       output_location: ''
       skip_app_build: true
+      skip_api_build: true
       azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)
