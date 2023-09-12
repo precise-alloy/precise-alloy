@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
     "module": "commonjs",
     "target": "es6",
     "outDir": "dist",
     "rootDir": ".",
     "sourceMap": true,
     "strict": false,
+    "baseUrl": "../",
     "paths": {
       "@_types/*": [
-        "../src/_types"
+        "src/_types/*"
       ]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "**/*.json",
-    "../src/_types"
+    "**/*.json"
   ]
 }
