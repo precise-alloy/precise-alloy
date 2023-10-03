@@ -11,12 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.17.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.17.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.17.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.17.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.17.1" />
-    <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.17.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.18.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.18.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.18.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.18.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.18.0" />
+    <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.18.0" />
   </ItemGroup>
 
 </Project>
