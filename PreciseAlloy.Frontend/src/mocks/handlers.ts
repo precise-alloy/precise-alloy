@@ -1,8 +1,5 @@
-import { avatars } from '@data/avatars';
-import { rest } from 'msw';
+import { handlers } from './consts';
+import './avatar';
+import './user';
 
-export const handlers = [
-  rest.get('/api/avatar', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(avatars));
-  }),
-];
+export { handlers };
