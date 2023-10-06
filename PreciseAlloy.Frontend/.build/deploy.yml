@@ -41,7 +41,7 @@ steps:
     displayName: Deploy to Azure Static Web App
     inputs:
       app_location: PreciseAlloy.Frontend/dist/static
-      api_location: PreciseAlloy.Frontend/api/dist/src/functions
+      api_location: ''
       output_location: ''
       skip_app_build: true
       skip_api_build: true
