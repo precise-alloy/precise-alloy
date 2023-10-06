@@ -22,7 +22,7 @@ export const getApiUrl = (remain: string, params?: RequestParams) => {
     });
   }
 
-  return url;
+  return url.toString();
 };
 
 const sendAsync = async (remain: string, method: Method, params?: RequestParams, body?: unknown, skipResponseBody?: boolean) => {
