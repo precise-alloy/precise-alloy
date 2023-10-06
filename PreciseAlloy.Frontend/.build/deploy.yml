@@ -33,11 +33,6 @@ steps:
     workingDirectory: ./PreciseAlloy.Frontend
 
   - script: |
-      npm install
-    displayName: Install node modules (API)
-    workingDirectory: ./PreciseAlloy.Frontend/api
-
-  - script: |
       npm run eshn
     displayName: Generate static site
     workingDirectory: PreciseAlloy.Frontend

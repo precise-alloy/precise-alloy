@@ -56,8 +56,8 @@
       "@_api/*": [
         "./src/_api/*"
       ],
-      "@mock/*": [
-        "./mock-api/*"
+      "@mocks/*": [
+        "./src/mocks/*"
       ],
     }
   },

@@ -16,3 +16,6 @@ export const outDir = slash(path.resolve(root, 'dist'));
 export const getAbsolutePath = (p: string) => {
   return path.isAbsolute(p) ? slash(p) : slash(path.resolve(root, p));
 };
+
+
+export { mode };

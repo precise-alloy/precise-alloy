@@ -1,7 +1,6 @@
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions';
 import { AvatarModel } from '@_types/organisms';
 
-export const avatars: AvatarModel[] = [
+const avatars: AvatarModel[] = [
   {
     name: 'Peg Legge',
     image: {
@@ -44,14 +43,4 @@ export const avatars: AvatarModel[] = [
   },
 ];
 
-export async function getAvatars(_request: HttpRequest, _context: InvocationContext): Promise<HttpResponseInit> {
-  return {
-    jsonBody: avatars,
-  };
-}
-
-app.http('avatar', {
-  methods: ['GET'],
-  authLevel: 'anonymous',
-  handler: getAvatars,
-});
+export { avatars };
