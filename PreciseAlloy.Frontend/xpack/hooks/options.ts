@@ -1,5 +1,5 @@
 import path from 'path';
-import glob from 'glob';
+import { glob } from 'glob';
 import { PluginOption } from 'vite';
 import { srcRoot, root, mode } from '../paths';
 const scriptOnly = process.env.scriptOnly;

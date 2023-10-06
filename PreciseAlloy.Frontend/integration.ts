@@ -3,7 +3,7 @@ import path, { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import slash from 'slash';
 import _ from 'lodash';
-import glob from 'glob';
+import { glob } from 'glob';
 import crypto from 'node:crypto';
 import { loadEnv } from 'vite';
 

@@ -45,7 +45,7 @@ const getExternalName = (_: string): string | null | void => {
   //   return "vendor_mui";
   // }
 
-  return 'vendor'; // all other package goes here
+  // return 'vendor'; // all other package goes here
 };
 
 export const getManualChunk = (id: string, api: ManualChunkMeta): string | null | void => {

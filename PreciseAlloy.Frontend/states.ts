@@ -1,7 +1,7 @@
 import fs from 'fs';
 import chokidar from 'chokidar';
 import debounce from 'debounce';
-import glob from 'glob';
+import { glob } from 'glob';
 import _ from 'lodash';
 
 const isWatch = process.argv.includes('--watch');

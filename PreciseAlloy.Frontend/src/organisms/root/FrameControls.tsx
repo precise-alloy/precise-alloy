@@ -9,7 +9,7 @@ const randomIntFromInterval = (min: number, max: number): number => {
 };
 
 const FrameControls = () => {
-  const [discoTimer, setDiscoTimer] = useState<NodeJS.Timer>();
+  const [discoTimer, setDiscoTimer] = useState<NodeJS.Timeout>();
 
   const setIFrameWidth = (width?: number) => {
     const wrapper = document.getElementById('root-iframe-wrapper');
