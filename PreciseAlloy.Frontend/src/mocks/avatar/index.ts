@@ -1,9 +1,9 @@
 import { avatars } from '@data/avatars';
 import { handlers } from '@mocks/handlers';
-import { rest } from 'msw';
+import { HttpResponse, http } from 'msw';
 
 handlers.push(
-  rest.get('/api/avatar', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(avatars));
+  http.get('/api/avatar', () => {
+    return HttpResponse.json(avatars);
   })
 );
