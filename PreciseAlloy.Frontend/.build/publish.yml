@@ -1,0 +1,67 @@
+parameters:
+  - name: versionType
+    displayName: Version Type
+    type: string
+    default: patch
+    values:
+      - patch
+      - major
+      - minor
+      - premajor
+      - preminor
+      - prepatch
+      - prerelease
+
+trigger: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - checkout: self
+    submodules: false
+    persistCredentials: true
+    clean: true
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '18.x'
+    displayName: 'Install Node.js'
+
+  - script: |
+      npm ci
+    displayName: 'npm install'
+    workingDirectory: ./PreciseAlloy.Frontend
+
+  - script: |
+      npm run cli:build
+    displayName: 'Build cli'
+    workingDirectory: ./PreciseAlloy.Frontend
+
+  - script: |
+      npm whoami
+    displayName: 'Check authentication'
+    workingDirectory: ./PreciseAlloy.Frontend
+
+  - script: |
+      git config --global user.email "VanTuyen.Pham@episerver.com"
+      git config --global user.name "Tuyen Pham"
+      git checkout -b fe-npm-version
+      export VERSION=$(npm version ${{ parameters.versionType }})
+      git commit -am "[skip ci] Update to $VERSION version"
+      git tag $VERSION
+      git tag -l
+      git push -f origin fe-npm-version --follow-tags
+    displayName: 'Create version and tag'
+    workingDirectory: ./PreciseAlloy.Frontend
+
+  - script: |
+      npm publish --access public --verbose
+    displayName: 'npm publish'
+    workingDirectory: ./PreciseAlloy.Frontend
+
+  - script: node $(System.DefaultWorkingDirectory)/PreciseAlloy.Frontend/.build/publish.js
+    displayName: 'Create PR and merge it to fe-develop'
+    workingDirectory: ./PreciseAlloy.Frontend
+    env:
+      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)

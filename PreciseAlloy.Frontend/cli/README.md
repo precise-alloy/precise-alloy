@@ -1,0 +1,1 @@
+[![Build Status](https://episerver-es-emea.visualstudio.com/Alloy-Template/_apis/build/status%2FFE%20-%20Integration?branchName=fe-release)](https://episerver-es-emea.visualstudio.com/Alloy-Template/_build/latest?definitionId=28&branchName=fe-release)
