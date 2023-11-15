@@ -60,8 +60,7 @@ steps:
     displayName: 'npm publish'
     workingDirectory: ./PreciseAlloy.Frontend
 
-  - script: |
-      az repos pr create --bypass-policy true --source-branch fe-npm-version --target-branch fe-develop --delete-source-branch
+  - script: node $(System.DefaultWorkingDirectory)/PreciseAlloy.Frontend/.build/publish.js
     displayName: 'Create PR and merge it to fe-develop'
     workingDirectory: ./PreciseAlloy.Frontend
     env:
