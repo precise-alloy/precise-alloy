@@ -24,7 +24,7 @@ const createApp = async (model: Props) => {
     console.error(
       'It is likely you do not have write permissions for this folder.'
     );
-    
+
     process.exit(1);
   }
 
@@ -47,6 +47,8 @@ const createApp = async (model: Props) => {
     appName,
     root,
   })
+
+  console.log('\nInitializing a git repository.')
 
   if (tryGitInit(root)) {
     console.log('\nInitialized a git repository.')

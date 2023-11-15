@@ -42,6 +42,12 @@ const installTemplate = async (model: Props) => {
       }
     });
 
+  packageJson.dependencies && Object.keys(packageJson.dependencies).map(dependency => {
+    if (!dependency.startsWith('react')) {
+      delete packageJson.dependencies[dependency];
+    }
+  });
+
   const devDeps = Object.keys(packageJson.devDependencies).length;
 
   if (!devDeps) delete packageJson.devDependencies;

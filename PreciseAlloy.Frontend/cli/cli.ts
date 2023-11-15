@@ -28,8 +28,8 @@ program
   .name(packageName)
   .description('Create a FE framework')
   .version(packageJson.version)
-  .arguments('<project-directory>')
-  .usage(`${green('<project-directory>')} [options]`)
+  .argument('[project-directory]', 'the project name', '')
+  .usage(`${green('[project-directory]')} [options]`)
   .action((name) => {
     projectPath = name;
   })
@@ -91,10 +91,10 @@ const run = async () => {
   if (!projectPath) {
     console.log(
       '\nPlease specify the project directory:\n' +
-        `  ${cyan(program.name())} ${green('<project-directory>')}\n` +
-        'For example:\n' +
-        `  ${cyan(program.name())} ${green('my-app')}\n\n` +
-        `Run ${cyan(`${program.name()} --help`)} to see all options.`
+      `  ${cyan(program.name())} ${green('<project-directory>')}\n` +
+      'For example:\n' +
+      `  ${cyan(program.name())} ${green('my-app')}\n\n` +
+      `Run ${cyan(`${program.name()} --help`)} to see all options.`
     );
     process.exit(1);
   }
