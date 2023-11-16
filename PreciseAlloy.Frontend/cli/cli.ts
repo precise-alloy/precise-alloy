@@ -40,7 +40,7 @@ const parseVersion = (version: string): number => {
   return parseInt(version.replaceAll('.', ''));
 };
 
-const update = fetch(`https://registry.npmjs.org/${packageName}/latest`)
+const update = fetch(`https://registry.npmjs.org/${packageJson.name}/latest`)
   .then((res) => res.json())
   .catch(() => null);
 
