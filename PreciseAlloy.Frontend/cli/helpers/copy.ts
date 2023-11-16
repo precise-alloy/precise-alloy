@@ -8,7 +8,9 @@ interface CopyOption {
 
 const excludeFiles = [
   '.git',
-  '.build/publish.yml',
+  'bin',
+  '.vscode',
+  '.build',
   'public/samples',
   'public/assets/vendors',
   'src/_api/!(_base.ts)',
