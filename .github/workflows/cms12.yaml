@@ -26,12 +26,12 @@ jobs:
     steps:
       - name: Set variables
         run: |
-          echo "SOLUTION=./src/ArjoWeb/ArjoWeb.csproj" >> $env:GITHUB_ENV
+          echo "SOLUTION=PreciseAlloy.Web/PreciseAlloy.Web.csproj" >> $env:GITHUB_ENV
           echo "BUILD_PLATFORM=Any CPU" >> $env:GITHUB_ENV
           echo "BUILD_CONFIGURATION=Release" >> $env:GITHUB_ENV
-          echo "NPM_DIRECTOTY=src/ArjoUI" >> $env:GITHUB_ENV
+          echo "NPM_DIRECTOTY=PreciseAlloy.Frontend" >> $env:GITHUB_ENV
           echo "USE_MAINTENANCE_PAGE=false" >> $env:GITHUB_ENV
-          echo "NUGET_CONFIG=./Nuget.config" >> $env:GITHUB_ENV
+          echo "NUGET_CONFIG=nuget.config" >> $env:GITHUB_ENV
           echo "BINARIES_DIRECTORY=${GITHUB_WORKSPACE}/dist" >> $env:GITHUB_ENV
 
           Write-Host "Publish path: ${GITHUB_WORKSPACE}/dist"
@@ -101,7 +101,7 @@ jobs:
       - name: ${{ env.ENV_ID }} - Zip artifact for deployment
         run: |
           $rootPath = "{0}/*" -f $env:BINARIES_DIRECTORY
-          $packageName = "arjo.cms.app.{0}.nupkg" -f $env:GITHUB_RUN_NUMBER
+          $packageName = "alloy.cms.app.{0}.nupkg" -f $env:GITHUB_RUN_NUMBER
           $compress = @{
             Path = $rootPath
             DestinationPath = $packageName
