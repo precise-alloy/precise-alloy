@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -12,7 +12,7 @@
     <PackageReference Include="EPiServer.CMS.Core" Version="12.19.1" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.19.1" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.19.1" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.24.0" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.25.1" />
     <PackageReference Include="EPiServer.Find" Version="16.0.0" />
     <PackageReference Include="EPiServer.Find.Cms" Version="16.0.0" />
     <PackageReference Include="EPiServer.Find.Framework" Version="16.0.0" />
