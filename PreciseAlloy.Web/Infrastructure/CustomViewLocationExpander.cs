@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+
 // ReSharper disable UseStringInterpolation
 
 namespace PreciseAlloy.Web.Infrastructure;
@@ -11,19 +11,11 @@ public class CustomViewLocationExpander
         ViewLocationExpanderContext context,
         IEnumerable<string> viewLocations)
     {
-        if (context == null)
-        {
-            throw new ArgumentNullException(nameof(context));
-        }
-
-        if (viewLocations == null)
-        {
-            throw new ArgumentNullException(nameof(viewLocations));
-        }
+        ArgumentNullException.ThrowIfNull(context);
+        ArgumentNullException.ThrowIfNull(viewLocations);
 
         var segments = context.ViewName.Split('/');
-        if (segments.Length == 3
-            && segments[0] == "Components")
+        if (segments is ["Components", _, _])
         {
             if (segments[1].EndsWith("Block"))
             {

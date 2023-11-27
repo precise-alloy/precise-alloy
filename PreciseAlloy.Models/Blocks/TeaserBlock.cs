@@ -2,7 +2,6 @@
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
-using EPiServer.SpecializedProperties;
 using EPiServer.Web;
 using PreciseAlloy.Models.Interfaces;
 
