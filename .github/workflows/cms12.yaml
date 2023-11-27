@@ -149,6 +149,7 @@ jobs:
             Verbose = $true
           }
 
+          echo $params
           $deploy = Start-EpiDeployment @params
 
           echo "DeploymentId - $($deploy.id)" 
