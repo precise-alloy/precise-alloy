@@ -69,19 +69,16 @@
     src="/assets/js/color-mode.js"></script>
   <script src="/assets/js/theme-critical.js"></script>
 
-  <!-- Don't include this file in production environment -->
-  <script defer=""
-    src="/assets/js/mock-api.js"></script>
-  <!-- Don't include this file in production environment -->
-
   <script defer=""
     src="/assets/js/main.js"></script>
+
+  <!-- Don't include this line in a production site -->
+  <script type="module"
+    src="/assets/js/mock-api.js"></script>
+  <!-- Don't include this line in a production site -->
   <script type="module"
     crossorigin=""
     src="/assets/js/react-loader.0x00000000.js"></script>
-  <link rel="modulepreload"
-    crossorigin=""
-    href="/assets/js/vendor.0x2c817467.js">
   <link rel="stylesheet"
     href="/assets/css/b-header.css"
     data-pl-require="true">
@@ -379,7 +376,6 @@
     </div>
     <!-- <link rel="stylesheet" href="/assets/css/b-footer.css" data-pl-require="true"> -->
   </footer>
-
   <script type="text/javascript"
     defer=""
     src="/assets/js/pl-states.js"></script>
