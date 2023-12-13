@@ -1,5 +1,4 @@
 ﻿using EPiServer.Core;
-using PreciseAlloy.Models.Settings;
 
 namespace PreciseAlloy.Services.Request;
 
