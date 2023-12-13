@@ -1,0 +1,175 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy CMS 12
+
+# Controls when the action will run.
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      target-env:
+        description: 'Target Enviornment (inte/prep/prod)'
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Set variables
+        run: |
+          echo "SOLUTION=PreciseAlloy.Web/PreciseAlloy.Web.csproj" >> $env:GITHUB_ENV
+          echo "BUILD_PLATFORM=Any CPU" >> $env:GITHUB_ENV
+          echo "BUILD_CONFIGURATION=Release" >> $env:GITHUB_ENV
+          echo "NPM_DIRECTOTY=PreciseAlloy.Frontend" >> $env:GITHUB_ENV
+          echo "USE_MAINTENANCE_PAGE=false" >> $env:GITHUB_ENV
+          echo "NUGET_CONFIG=nuget.config" >> $env:GITHUB_ENV
+          echo "BINARIES_DIRECTORY=${GITHUB_WORKSPACE}/dist" >> $env:GITHUB_ENV
+
+          Write-Host "Publish path: ${GITHUB_WORKSPACE}/dist"
+
+          if ("${{ github.event.inputs.target-env }}" -eq "inte") {
+            echo "ENV_ID=INTE" >> $env:GITHUB_ENV
+            echo "ENV_NAME=Integration" >> $env:GITHUB_ENV
+            echo "DIRECT_DEPLOY=true" >> $env:GITHUB_ENV
+            echo "BRANCH=stage-cms12" >> $env:GITHUB_ENV
+          }
+
+          if ("${{ github.event.inputs.target-env }}" -eq "inte-debug") {
+            echo "ENV_ID=INTE" >> $env:GITHUB_ENV
+            echo "ENV_NAME=Integration" >> $env:GITHUB_ENV
+            echo "DIRECT_DEPLOY=true" >> $env:GITHUB_ENV
+            echo "BRANCH=temp/cms12-upgrade-debug" >> $env:GITHUB_ENV
+          }
+
+          if ("${{ github.event.inputs.target-env }}" -eq "prep") {
+            echo "ENV_ID=PREP" >> $env:GITHUB_ENV
+            echo "ENV_NAME=Preproduction" >> $env:GITHUB_ENV
+            echo "DIRECT_DEPLOY=false" >> $env:GITHUB_ENV
+            echo "BRANCH=main-cms12" >> $env:GITHUB_ENV
+          }
+
+          if ("${{ github.event.inputs.target-env }}" -eq "prod") {
+            echo "ENV_ID=PROD" >> $env:GITHUB_ENV
+            echo "ENV_NAME=Production" >> $env:GITHUB_ENV
+            echo "DIRECT_DEPLOY=false" >> $env:GITHUB_ENV
+            echo "BRANCH=prod-cms12" >> $env:GITHUB_ENV
+          }
+        env:
+          REQUEST_FOR: ${{ github.event.head.user.login }}
+        shell: pwsh
+
+      - uses: actions/checkout@v4
+        name: ${{ env.ENV_ID }} - Checkout
+        with:
+          ref: ${{ env.BRANCH }}
+
+      - name: ${{ env.ENV_ID }} - Set username
+        run: |
+          $username = (git log -n 1 --pretty=format:%an)
+          echo "USERNAME=$username" >> $env:GITHUB_ENV
+          Write-Host "Request for: $username"
+        shell: pwsh
+
+      - name: ${{ env.ENV_ID }} - Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      - name: ${{ env.ENV_ID }} - Restore dependencies
+        run: |
+          dotnet restore $env:SOLUTION `
+            --configfile $env:NUGET_CONFIG `
+            --force
+        shell: pwsh
+
+      - name: ${{ env.ENV_ID }} - Publish
+        run: |
+          dotnet publish $env:SOLUTION `
+            --no-restore `
+            --output $env:BINARIES_DIRECTORY
+        shell: pwsh
+
+      - name: ${{ env.ENV_ID }} - Zip artifact for deployment
+        run: |
+          $rootPath = "{0}/*" -f $env:BINARIES_DIRECTORY
+          $packageName = "alloy.cms.app.{0}.nupkg" -f $env:GITHUB_RUN_NUMBER
+          $compress = @{
+            Path = $rootPath
+            DestinationPath = $packageName
+          }
+          Compress-Archive @compress
+          echo "PACKAGE_NAME=$packageName" >> $env:GITHUB_ENV
+        env:
+          GITHUB_RUN_NUMBER: ${{ vars.GITHUB_RUN_NUMBER }}
+          GITHUB_WORKSPACE: ${{ vars.GITHUB_WORKSPACE }}
+        shell: pwsh
+
+      # - name: ${{ env.ENV_ID }} - Upload artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: ${{ env.PACKAGE_NAME }}
+      #     path: ${{ env.PACKAGE_NAME }}
+      #     retention-days: 3
+
+      - name: ${{ env.ENV_ID }} - Deploy
+        run: |
+          # Install EpiCloud
+          if (-not (Get-Module -Name EpiCloud -ListAvailable)) {
+              Install-Module EpiCloud -Scope CurrentUser -Force
+          }
+
+          #Package Full Path
+          $package = Get-Item $env:PACKAGE_NAME
+          Write-Host "packagePath: $($package.FullName)" 
+
+          # Connect to epi-cloud
+          Connect-EpiCloud -ProjectId $env:PROJECT_ID -ClientKey $env:CLIENT_KEY -ClientSecret $env:CLIENT_SECRET
+
+          # Upload
+          $sasUrl = Get-EpiDeploymentPackageLocation
+          Add-EpiDeploymentPackage -SasUrl $sasUrl -Path $package.FullName
+
+          # Start Deployment
+          $params = @{
+            DeploymentPackage = $package.Name
+            TargetEnvironment = $env:ENV_NAME
+            DirectDeploy = [bool]::Parse($env:DIRECT_DEPLOY)
+            UseMaintenancePage = [bool]::Parse($env:USE_MAINTENANCE_PAGE)
+            Wait = $false
+            ShowProgress = $false
+            Verbose = $true
+          }
+
+          echo $params
+          $deploy = Start-EpiDeployment @params
+
+          echo "DeploymentId - $($deploy.id)" 
+          echo "##vso[task.setvariable variable=deploymentId;]$($deploy.id)"
+        shell: pwsh
+        env:
+          PROJECT_ID: ${{ secrets.DXP_PROJECT_ID }}
+          CLIENT_KEY: ${{ secrets.DXP_CLIENT_KEY }}
+          CLIENT_SECRET: ${{ secrets.DXP_CLIENT_SECRET }}
+
+      - name: ${{ env.ENV_ID }} - Teams notification
+        run: |
+          $params = @{
+            channel = $env:PUSH_CHANNEL
+            env = $env:ENV_NAME
+            branch = $env:BRANCH
+            requestFor = $env:USERNAME
+          }
+          Invoke-RestMethod -Uri $env:PUSH_URI -Method POST -Body ($params|ConvertTo-Json) -ContentType "application/json"
+        shell: pwsh
+        env:
+          PUSH_URI: ${{ secrets.PUSH_URI }}
+          PUSH_CHANNEL: ${{ secrets.PUSH_CHANNEL }}
