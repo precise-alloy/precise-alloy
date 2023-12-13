@@ -8,15 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="Advanced.CMS.GroupingHeader" Version="3.0.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.19.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.19.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.19.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.19.1" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.19.1" />
-    <PackageReference Include="EPiServer.CMS.Core" Version="12.19.1" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.25.1" />
-    <PackageReference Include="EPiServer.Forms.Core" Version="5.7.1" />
-    <PackageReference Include="EPiServer.Framework" Version="12.19.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.20.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.20.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.20.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.20.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.20.0" />
+    <PackageReference Include="EPiServer.CMS.Core" Version="12.20.0" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.26.0" />
+    <PackageReference Include="EPiServer.Forms.Core" Version="5.7.2" />
+    <PackageReference Include="EPiServer.Framework" Version="12.20.0" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.0" />
