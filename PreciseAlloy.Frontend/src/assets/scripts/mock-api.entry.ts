@@ -1,5 +1,11 @@
-import mockFetch from "@mock/core/fetch";
+import { worker } from '@mocks/browser';
 
-window.originFetch = window.fetch;
-
-window.fetch = mockFetch;
+worker.start({
+  serviceWorker: {
+    url: `${import.meta.env.VITE_BASE_URL}mockServiceWorker.js`,
+    options: {
+      scope: `${import.meta.env.VITE_BASE_URL}`,
+    },
+  },
+  onUnhandledRequest: 'bypass',
+});

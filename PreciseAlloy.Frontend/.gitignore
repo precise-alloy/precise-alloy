@@ -40,3 +40,6 @@ public/assets/*
 !public/assets/images/
 public/pl-states.json
 *.timestamp-*.mjs
+
+# cli
+bin

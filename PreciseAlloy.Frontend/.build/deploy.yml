@@ -22,26 +22,28 @@ steps:
   - checkout: self
     submodules: false
 
-  - task: NodeTool@0
-    displayName: Install Node.js
-    inputs:
-      versionSpec: '16.x'
+  - script: |
+      curl -fsSL https://bun.sh/install | bash
+      echo '##vso[task.prependpath]~/.bun/bin'
+    displayName: Install bun
+    workingDirectory: PreciseAlloy.Frontend
 
   - script: |
-      npm install
+      bun install
     displayName: Install node modules
     workingDirectory: ./PreciseAlloy.Frontend
 
   - script: |
-      npm run eshn
+      bun run eshn
     displayName: Generate static site
-    workingDirectory: ./PreciseAlloy.Frontend
+    workingDirectory: PreciseAlloy.Frontend
 
   - task: AzureStaticWebApp@0
     displayName: Deploy to Azure Static Web App
     inputs:
-      app_location: './PreciseAlloy.Frontend/dist/static'
+      app_location: PreciseAlloy.Frontend/dist/static
       api_location: ''
       output_location: ''
       skip_app_build: true
+      skip_api_build: true
       azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN)

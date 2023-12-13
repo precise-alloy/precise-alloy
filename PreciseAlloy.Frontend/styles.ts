@@ -1,10 +1,10 @@
 import fs from 'fs';
 import chokidar from 'chokidar';
-import sass, { CompileResult, StringOptionsWithoutImporter } from 'sass';
+import * as sass from 'sass';
 import slash from 'slash';
 import debounce from 'debounce';
 import path from 'path';
-import glob from 'glob';
+import { glob } from 'glob';
 import postcss, { ProcessOptions } from 'postcss';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
@@ -25,8 +25,8 @@ if (!fs.existsSync(outDir)) {
 // Something to use when events are received.
 const log = console.log.bind(console);
 
-const stringOptions = (srcFile: string): StringOptionsWithoutImporter<'sync' | 'async'> => {
-  const options: StringOptionsWithoutImporter<'sync' | 'async'> = {
+const stringOptions = (srcFile: string): sass.StringOptionsWithoutImporter<'sync' | 'async'> => {
+  const options:sass. StringOptionsWithoutImporter<'sync' | 'async'> = {
     sourceMap: true,
     sourceMapIncludeSources: true,
     syntax: 'scss',
@@ -94,7 +94,7 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
     });
 };
 
-const postcssProcess = (result: CompileResult, from: string, to: string) => {
+const postcssProcess = (result: sass.CompileResult, from: string, to: string) => {
   const postcssOptions: ProcessOptions = {
     from: pathToFileURL(from).href,
     to,

@@ -32,7 +32,7 @@
   ],
   "editor.minimap.enabled": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": "explicit"
   },
   "markdown.extension.print.absoluteImgPath": false,
   "markdown.extension.print.imgToBase64": true,
@@ -51,5 +51,12 @@
       "url": "./xpack/states.schema.json"
     }
   ],
-  "git.branchValidationRegex": "^(main|master|develop|stage|fe-develop|fe-release|(features|bugfixes|infra|refactor)\\/.+)$"
+  "git.branchValidationRegex": "^(main|master|develop|stage|fe-develop|fe-release|(features|bugfixes|infra|refactor)\\/.+)$",
+  "azureFunctions.deploySubpath": "api",
+  "azureFunctions.postDeployTask": "npm install (functions)",
+  "azureFunctions.projectLanguage": "TypeScript",
+  "azureFunctions.projectRuntime": "~4",
+  "debug.internalConsoleOptions": "neverOpen",
+  "azureFunctions.projectLanguageModel": 4,
+  "azureFunctions.preDeployTask": "npm prune (functions)"
 }

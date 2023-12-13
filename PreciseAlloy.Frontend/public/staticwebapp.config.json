@@ -31,6 +31,15 @@
       }
     },
     {
+      "route": "/api",
+      "allowedRoles": [
+        "anonymous"
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
       "route": "/favicon.*",
       "allowedRoles": [
         "anonymous"
@@ -163,5 +172,8 @@
   },
   "mimeTypes": {
     ".json": "text/json"
+  },
+  "platform": {
+    "apiRuntime": "node:18"
   }
 }

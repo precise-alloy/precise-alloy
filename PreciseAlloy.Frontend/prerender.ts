@@ -23,14 +23,17 @@ interface RenderedPage {
   fileName: string;
 }
 const argvModeIndex = process.argv.indexOf('--mode');
-const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
+const mode =
+  argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-')
+    ? process.argv[argvModeIndex + 1]
+    : 'production';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const xpackEnv = loadEnv(mode, __dirname);
 const toAbsolute = (p: string) => path.resolve(__dirname, p);
 const log = console.log.bind(console);
 
-const template = fs.readFileSync(toAbsolute(process.env.VITE_TEMPLATE ?? 'dist/index.html'), 'utf-8');
+const template = fs.readFileSync(toAbsolute(process.env.VITE_TEMPLATE ?? 'dist/static/index.html'), 'utf-8');
 const { render } = await import(pathToFileURL(toAbsolute('./dist/server/entry-server.js')).href);
 
 const beautifyOptions: HTMLBeautifyOptions | JSBeautifyOptions | CSSBeautifyOptions = {
@@ -59,10 +62,7 @@ const routesToPrerender = fs
   .readdirSync(toAbsolute('src/pages'))
   .map((file): Route => {
     const name = path.parse(file).name;
-    const normalizedName = name
-      .replaceAll(/^(\w+)/gi, (_p0, p1: string) => _.lowerCase(_.lowerCase(p1))
-        .replaceAll(' ', '-')
-      );
+    const normalizedName = name.replaceAll(/^(\w+)/gi, (_p0, p1: string) => _.lowerCase(_.lowerCase(p1)).replaceAll(' ', '-'));
 
     return {
       name: _.startCase(_.lowerCase(name)),
@@ -93,9 +93,7 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
           const content = fs.readFileSync(path);
           const sha1Hash = crypto.createHash('sha1');
           sha1Hash.update(content);
-          const hash = sha1Hash
-            .digest('base64url')
-            .substring(0, 10);
+          const hash = sha1Hash.digest('base64url').substring(0, 10);
 
           if (addHash) {
             newPath += '?v=' + hash;
@@ -145,7 +143,8 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
 
 const viteAbsoluteUrl = (remain: string, addExtension = false): string => {
   const baseUrl = xpackEnv.VITE_BASE_URL;
-  const normalizedRemain = (remain?.startsWith('/') ? remain : '/' + remain) + (addExtension && !remain.endsWith('/') ? (xpackEnv.VITE_PATH_EXTENSION ?? '') : '');
+  const normalizedRemain =
+    (remain?.startsWith('/') ? remain : '/' + remain) + (addExtension && !remain.endsWith('/') ? xpackEnv.VITE_PATH_EXTENSION ?? '' : '');
   if (!baseUrl) {
     return normalizedRemain;
   }
@@ -156,7 +155,7 @@ const viteAbsoluteUrl = (remain: string, addExtension = false): string => {
 
   const len = baseUrl.length;
   return baseUrl.substring(0, len - 1) + normalizedRemain;
-}
+};
 
 const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
   // pre-render each route...
@@ -202,32 +201,6 @@ const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
 (async () => {
   const renderedPages: RenderedPage[] = [];
   const pool: Promise<unknown>[] = [];
-
-  const assetCopyPaths: { src: string; dest: string }[] = [
-    {
-      src: toAbsolute('public/assets/css'),
-      dest: toAbsolute('dist/static/assets/css'),
-    },
-    {
-      src: toAbsolute('dist/assets/js'),
-      dest: toAbsolute('dist/static/assets/js'),
-    },
-    {
-      src: toAbsolute('public/assets/vendors'),
-      dest: toAbsolute('dist/static/assets/vendors'),
-    },
-  ];
-
-  assetCopyPaths.forEach((item) => {
-    if (fs.existsSync(item.dest)) {
-      fs.rmSync(item.dest, { recursive: true, force: true });
-    }
-
-    if (fs.existsSync(item.src)) {
-      fs.mkdirSync(item.dest);
-      fs.cpSync(item.src, item.dest, { recursive: true, force: true });
-    }
-  });
 
   const addHash = !!process.argv.includes('--add-hash');
   pool.push(renderPage(renderedPages, addHash));
