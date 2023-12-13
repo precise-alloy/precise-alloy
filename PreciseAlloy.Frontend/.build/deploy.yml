@@ -22,18 +22,19 @@ steps:
   - checkout: self
     submodules: false
 
-  - task: NodeTool@0
-    displayName: Install Node.js
-    inputs:
-      versionSpec: 18.x
+  - script: |
+      curl -fsSL https://bun.sh/install | bash
+      echo '##vso[task.prependpath]~/.bun/bin'
+    displayName: Install bun
+    workingDirectory: PreciseAlloy.Frontend
 
   - script: |
-      npm install
+      bun install
     displayName: Install node modules
     workingDirectory: ./PreciseAlloy.Frontend
 
   - script: |
-      npm run eshn
+      bun run eshn
     displayName: Generate static site
     workingDirectory: PreciseAlloy.Frontend
 

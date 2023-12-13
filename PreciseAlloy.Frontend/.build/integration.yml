@@ -25,10 +25,11 @@ steps:
     persistCredentials: true
     fetchDepth: 0
 
-  - task: NodeTool@0
-    displayName: 'Install Node.js'
-    inputs:
-      versionSpec: '16.x'
+  - script: |
+      curl -fsSL https://bun.sh/install | bash
+      echo '##vso[task.prependpath]~/.bun/bin'
+    displayName: Install bun
+    workingDirectory: PreciseAlloy.Frontend
 
   - script: |
       git config --global user.email "VanTuyen.Pham@episerver.com"
@@ -38,10 +39,10 @@ steps:
     displayName: 'Create git branch'
 
   - script: |
-      npm install
-      npm run inte
+      bun install
+      bun run inte
       git checkout -- .
-    displayName: 'Run npm install and inte'
+    displayName: 'Run bun install and inte'
     workingDirectory: ./PreciseAlloy.Frontend
 
   - script: |

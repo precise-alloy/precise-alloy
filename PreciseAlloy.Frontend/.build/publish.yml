@@ -23,23 +23,24 @@ steps:
     persistCredentials: true
     clean: true
 
-  - task: NodeTool@0
-    inputs:
-      versionSpec: '18.x'
-    displayName: 'Install Node.js'
+  - script: |
+      curl -fsSL https://bun.sh/install | bash
+      echo '##vso[task.prependpath]~/.bun/bin'
+    displayName: Install bun
+    workingDirectory: PreciseAlloy.Frontend
 
   - script: |
-      npm ci
+      bun ci
     displayName: 'npm install'
     workingDirectory: ./PreciseAlloy.Frontend
 
   - script: |
-      npm run cli:build
+      bun run cli:build
     displayName: 'Build cli'
     workingDirectory: ./PreciseAlloy.Frontend
 
   - script: |
-      npm whoami
+      bun whoami
     displayName: 'Check authentication'
     workingDirectory: ./PreciseAlloy.Frontend
 
