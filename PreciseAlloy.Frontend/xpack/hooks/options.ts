@@ -7,12 +7,13 @@ const scriptOnly = process.env.scriptOnly;
 const options = (): PluginOption => {
   // console.log('[INIT] options');
 
-  const getSiteInputs = (input: { [name: string]: string }) => {
+  const getSiteInputs = () => {
+    const inputs: { [name: string]: string } = {};
     if (!scriptOnly) {
-      input['index'] = `${root}/index.html`;
+      inputs['index'] = `${root}/index.html`;
     }
 
-    const filePaths = glob.sync('/**/*.entry.ts', { root: srcRoot });
+    const filePaths = glob.sync(['/src/assets/**/*.entry.ts', '/xpack/scripts/**/*.entry.ts'], { root: root });
 
     [].forEach.call(filePaths, (filePath: string) => {
       const fileName = path.basename(filePath).toLowerCase();
@@ -23,10 +24,12 @@ const options = (): PluginOption => {
       }
 
       if (entryName != fileName) {
-        input[entryName] = filePath;
+        inputs[entryName] = filePath;
         return;
       }
     });
+
+    return inputs;
   };
 
   return {
@@ -40,11 +43,7 @@ const options = (): PluginOption => {
         return options;
       }
 
-      const input: { [name: string]: string } = {};
-
-      getSiteInputs(input);
-
-      options.input = input;
+      options.input = getSiteInputs();
     },
   };
 };

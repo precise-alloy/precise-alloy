@@ -26,7 +26,7 @@ if (!fs.existsSync(outDir)) {
 const log = console.log.bind(console);
 
 const stringOptions = (srcFile: string): sass.StringOptionsWithoutImporter<'sync' | 'async'> => {
-  const options:sass. StringOptionsWithoutImporter<'sync' | 'async'> = {
+  const options: sass.StringOptionsWithoutImporter<'sync' | 'async'> = {
     sourceMap: true,
     sourceMapIncludeSources: true,
     syntax: 'scss',
@@ -53,8 +53,7 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
         p1.replaceAll(/(b2c|eshop)/gi, (_m0, m1: string) => {
           return m1.toLowerCase();
         })
-      )
-        .replaceAll(' ', '-')
+      ).replaceAll(' ', '-')
     )
     .replace(/\.scss$/gi, '.css')}`;
 
@@ -126,24 +125,22 @@ const styleTemplates = debounce((isReady: boolean) => {
 }, 200);
 
 const styleBase = debounce((isReady: boolean) => compile('src/assets/styles/style-base.scss', { isReady }), 200);
-const stylePlState = debounce((isReady: boolean) => compile('src/assets/styles/style-pl.scss', { isReady }), 200);
+const stylePlState = debounce((isReady: boolean) => compile('xpack/styles/pl-states.scss', { isReady }), 200);
+const styleRoot = debounce((isReady: boolean) => compile('xpack/styles/root.scss', { isReady }), 200);
 const styleOrganism = (srcFile: string, isReady: boolean) => compile(srcFile, { prefix: 'b-', isReady });
 const styleTemplate = (srcFile: string, isReady: boolean) => compile(srcFile, { prefix: 'p-', isReady });
 
 const sassCompile = (inputPath: string, isReady: boolean) => {
   const p = slash(inputPath);
 
-  if (p.startsWith('src/assets/styles/00-abstracts/')
-    || p.startsWith('src/assets/styles/01-mixins/')) {
+  if (p.startsWith('src/assets/styles/00-abstracts/') || p.startsWith('src/assets/styles/01-mixins/')) {
     styleBase(isReady);
     styleOrganisms(isReady);
     styleTemplates(isReady);
     stylePlState(isReady);
   }
 
-  if (p.startsWith('src/atoms')
-    || p.startsWith('src/molecules')
-    || p.startsWith('src/assets/styles/02-base')) {
+  if (p.startsWith('src/atoms') || p.startsWith('src/molecules') || p.startsWith('src/assets/styles/02-base')) {
     styleBase(isReady);
   }
 
@@ -151,8 +148,8 @@ const sassCompile = (inputPath: string, isReady: boolean) => {
     if (path.basename(p).startsWith('_')) {
       glob
         .sync(path.dirname(p) + '/*.scss', { nodir: true })
-        .filter(p => !path.basename(p).startsWith('_'))
-        .forEach(p => styleOrganism(p, isReady));
+        .filter((p) => !path.basename(p).startsWith('_'))
+        .forEach((p) => styleOrganism(p, isReady));
     } else {
       styleOrganism(p, isReady);
     }
@@ -162,20 +159,22 @@ const sassCompile = (inputPath: string, isReady: boolean) => {
     if (path.basename(p).startsWith('_')) {
       glob
         .sync(path.dirname(p) + '/*.scss', { nodir: true })
-        .filter(p => !path.basename(p).startsWith('_'))
-        .forEach(p => styleTemplate(p, isReady));
+        .filter((p) => !path.basename(p).startsWith('_'))
+        .forEach((p) => styleTemplate(p, isReady));
     } else {
       styleTemplate(p, isReady);
     }
   }
 
-  if (p.startsWith('src/assets/styles/02-patternlab')) {
+  if (p.startsWith('xpack/styles/pl-states')) {
     stylePlState(isReady);
+  } else if (p.startsWith('xpack/styles')) {
+    styleRoot(isReady);
   }
 };
 
 if (isWatch) {
-  const watcher = chokidar.watch('src/**/*.scss');
+  const watcher = chokidar.watch(['src/**/*.scss', 'xpack/styles/**/*.scss']);
   let isReady = false;
 
   watcher
@@ -191,9 +190,9 @@ if (isWatch) {
   stylePlState(true);
 
   glob
-    .sync('src/{organisms,templates}/**/*.scss')
-    .filter(p => !path.basename(p).startsWith('_'))
+    .sync(['src/{organisms,templates}/**/*.scss', 'xpack/styles/**/*.scss'])
+    .filter((p) => !path.basename(p).startsWith('_'))
     .forEach((path) => sassCompile(path, true));
 }
 
-export { };
+export {};

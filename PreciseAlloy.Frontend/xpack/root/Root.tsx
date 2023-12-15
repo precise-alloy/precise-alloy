@@ -6,9 +6,12 @@ import ActiveItemOptions from './ActiveItemOptions';
 import RootNav from './RootNav';
 import { viteAbsoluteUrl } from '@helpers/functions';
 
+console.log('1');
+let _isTopPanel = localStorage.getItem('MSG_IS_TOP_PANEL') === 'true';
+
 const Root = ({ routes }: RootModel) => {
   const [activeItem, setActiveItem] = useState<RootItemModel>();
-  const [isTopPanel, setTopPanel] = useState<boolean>(localStorage.getItem('MSG_IS_TOP_PANEL') === 'true');
+  const [isTopPanel, setTopPanel] = useState<boolean>(_isTopPanel);
 
   useEffect(() => {
     if (!activeItem) {
