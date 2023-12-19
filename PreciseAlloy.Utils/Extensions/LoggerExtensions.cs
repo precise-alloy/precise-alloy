@@ -17,6 +17,7 @@ public static class LoggerExtensions
     /// <param name="callerMemberName">The method name, this parameter will be filled by compiler automatically</param>
     /// <param name="callerFilePath">The file path, this parameter will be filled by compiler automatically</param>
     /// <param name="callerLineNumber">The line number, this parameter will be filled by compiler automatically</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void EnterConstructor(
         this ILogger logger,
         [CallerMemberName] string callerMemberName = "",
@@ -38,6 +39,7 @@ public static class LoggerExtensions
     /// <param name="callerMemberName">The method name, this parameter will be filled by compiler automatically</param>
     /// <param name="callerFilePath">The file path, this parameter will be filled by compiler automatically</param>
     /// <param name="callerLineNumber">The line number, this parameter will be filled by compiler automatically</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void EnterMethod(
         this ILogger logger,
         [CallerMemberName] string callerMemberName = "",
@@ -59,6 +61,7 @@ public static class LoggerExtensions
     /// <param name="callerMemberName">The method name, this parameter will be filled by compiler automatically</param>
     /// <param name="callerFilePath">The file path, this parameter will be filled by compiler automatically</param>
     /// <param name="callerLineNumber">The line number, this parameter will be filled by compiler automatically</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ExitConstructor(
         this ILogger logger,
         [CallerMemberName] string callerMemberName = "",
@@ -80,6 +83,7 @@ public static class LoggerExtensions
     /// <param name="callerMemberName">The method name, this parameter will be filled by compiler automatically</param>
     /// <param name="callerFilePath">The file path, this parameter will be filled by compiler automatically</param>
     /// <param name="callerLineNumber">The line number, this parameter will be filled by compiler automatically</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ExitMethod(
         this ILogger logger,
         string? message = null,
@@ -104,6 +108,7 @@ public static class LoggerExtensions
     /// <param name="callerMemberName">The method name, this parameter will be filled by compiler automatically</param>
     /// <param name="callerFilePath">The file path, this parameter will be filled by compiler automatically</param>
     /// <param name="callerLineNumber">The line number, this parameter will be filled by compiler automatically</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void ReadCache(
         this ILogger logger,
         string cacheKey,
@@ -128,6 +133,7 @@ public static class LoggerExtensions
     /// <param name="callerMemberName">The method name, this parameter will be filled by compiler automatically</param>
     /// <param name="callerFilePath">The file path, this parameter will be filled by compiler automatically</param>
     /// <param name="callerLineNumber">The line number, this parameter will be filled by compiler automatically</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteCache(
         this ILogger logger,
         string cacheKey,
@@ -152,6 +158,7 @@ public static class LoggerExtensions
     /// <param name="callerMemberName">The method name, this parameter will be filled by compiler automatically</param>
     /// <param name="callerFilePath">The file path, this parameter will be filled by compiler automatically</param>
     /// <param name="callerLineNumber">The line number, this parameter will be filled by compiler automatically</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void RemoveCache(
         this ILogger logger,
         string cacheKey,
@@ -176,6 +183,7 @@ public static class LoggerExtensions
     /// <param name="callerMemberName">The method name, this parameter will be filled by compiler automatically</param>
     /// <param name="callerFilePath">The file path, this parameter will be filled by compiler automatically</param>
     /// <param name="callerLineNumber">The line number, this parameter will be filled by compiler automatically</param>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void DirtyCache(
         this ILogger logger,
         Type cacheType,
@@ -184,11 +192,11 @@ public static class LoggerExtensions
         [CallerLineNumber] int callerLineNumber = 0)
     {
         var cacheTypeFullName = cacheType.FullName;
-        
+
         logger.Log(
             LogLevel,
             "Dirty cache type `{cacheTypeFullName}` in `{callerMemberName}`, file `{callerFilePath}`, line {callerLineNumber}.",
-            cacheTypeFullName, 
+            cacheTypeFullName,
             callerMemberName,
             callerFilePath,
             callerLineNumber);
