@@ -59,6 +59,9 @@
       "@mocks/*": [
         "./src/mocks/*"
       ],
+      "@xpack/*": [
+        "./xpack/*"
+      ],
     }
   },
   "include": [

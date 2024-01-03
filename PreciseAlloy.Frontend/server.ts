@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import path from 'path';
-import { startServer } from './xserver/create-server.js';
+import { startServer } from './xpack/create-server.js';
 import { loadEnv } from 'vite';
 
 console.log('[INIT] server');

@@ -1,21 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
 import _ from 'lodash';
 import { viteAbsoluteUrl } from '@helpers/functions';
+import RootTemplate from '@xpack/root/Template';
 
 // Auto generates routes from files under ./pages
 // https://vitejs.dev/guide/features.html#glob-import
 const pages = import.meta.glob('./pages/*.tsx', { eager: true });
-let rootComponent: unknown;
 
 const routes = Object.keys(pages).map((path) => {
   const match = path.match(/\.\/pages\/(.*)\.\w+$/);
-  const name=match? match[1]: '';
+  const name = match ? match[1] : '';
   const normalizedName = name.replaceAll(/^(\w+)/gi, (_p0, p1: string) => _.lowerCase(p1).replaceAll(' ', '-'));
-
-  if (name === 'Root') {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    rootComponent = (pages[path] as any).default;
-  }
 
   return {
     name: _.startCase(_.lowerCase(name)),
@@ -27,8 +22,8 @@ const routes = Object.keys(pages).map((path) => {
 
 routes.push({
   name: 'Root',
-  path: '/index',
-  component: rootComponent,
+  path: '/',
+  component: RootTemplate,
 });
 
 const App = () => {

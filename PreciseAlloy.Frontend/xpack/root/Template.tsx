@@ -1,11 +1,11 @@
-import RequireJs from '@helpers/RequireJs';
 import { RootModel } from '@_types/types';
+import RequireJs from '@helpers/RequireJs';
 import ReactSection from '@helpers/ReactSection';
 
-const Root = (model: RootModel) => {
+const Template = (model: RootModel) => {
   return (
     <main className="xpack-t-root">
-      {model && <ReactSection type='root' data={model} css={'p-root'} />}
+      {model && <ReactSection type="root" data={model} css={'root'} />}
 
       <div id="root-iframe-wrapper" className="xpack-t-root__target-wrapper">
         <iframe
@@ -21,4 +21,4 @@ const Root = (model: RootModel) => {
   );
 };
 
-export default Root;
+export default Template;
