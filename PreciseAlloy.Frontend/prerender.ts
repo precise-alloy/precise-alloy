@@ -71,6 +71,11 @@ const routesToPrerender = fs
   })
   .filter((r) => r.name != 'root');
 
+routesToPrerender.push({
+  name: 'Root',
+  route: '/',
+});
+
 const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string, addHash: boolean) => {
   $(tagName).each((_, el) => {
     const href = $(el).attr(attr);
