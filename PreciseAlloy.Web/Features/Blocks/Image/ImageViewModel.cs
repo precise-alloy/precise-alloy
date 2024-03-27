@@ -1,6 +1,5 @@
 ﻿using PreciseAlloy.Models.Constants;
-using PreciseAlloy.Models.Media;
-using SixLabors.ImageSharp.Processing;
+using ImageInfo = PreciseAlloy.Models.Media.ImageInfo;
 
 namespace PreciseAlloy.Web.Features.Blocks.Image;
 
@@ -14,7 +13,7 @@ public class ImageViewModel
         1024
     };
 
-    private ImageInfo ImageInfo { get; }
+    private Models.Media.ImageInfo ImageInfo { get; }
 
     public int? Width { get; }
 
@@ -94,17 +93,11 @@ public class ImageViewModel
     }
 }
 
-public class ImageSource
+public class ImageSource(
+    string url,
+    double mediaMaxWidth)
 {
-    public ImageSource(
-        string url,
-        double mediaMaxWidth)
-    {
-        Url = url;
-        MediaMaxWidth = mediaMaxWidth;
-    }
+    public string Url { get; } = url;
 
-    public string Url { get; }
-
-    public double MediaMaxWidth { get; }
+    public double MediaMaxWidth { get; } = mediaMaxWidth;
 }
