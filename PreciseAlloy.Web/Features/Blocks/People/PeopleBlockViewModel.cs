@@ -2,11 +2,4 @@
 
 namespace PreciseAlloy.Web.Features.Blocks.People;
 
-public class PeopleBlockViewModel
-    : BlockViewModel<PeopleBlock>
-{
-    public PeopleBlockViewModel(PeopleBlock currentBlock)
-        : base(currentBlock)
-    {
-    }
-}
+public class PeopleBlockViewModel(PeopleBlock currentBlock) : BlockViewModel<PeopleBlock>(currentBlock);

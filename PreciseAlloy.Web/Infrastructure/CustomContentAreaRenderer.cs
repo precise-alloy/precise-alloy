@@ -10,14 +10,8 @@ namespace PreciseAlloy.Web.Infrastructure
     public class CustomContentAreaRenderer
         : ContentAreaRenderer
     {
-        private readonly IContentAreaLoader _contentAreaLoader;
-        private readonly IContentRenderer _contentRenderer;
-
-        public CustomContentAreaRenderer()
-        {
-            _contentAreaLoader = ServiceLocator.Current.GetInstance<IContentAreaLoader>();
-            _contentRenderer = ServiceLocator.Current.GetInstance<IContentRenderer>();
-        }
+        private readonly IContentAreaLoader _contentAreaLoader = ServiceLocator.Current.GetInstance<IContentAreaLoader>();
+        private readonly IContentRenderer _contentRenderer = ServiceLocator.Current.GetInstance<IContentRenderer>();
 
 
         protected override void RenderContentAreaItem(IHtmlHelper htmlHelper, ContentAreaItem contentAreaItem,

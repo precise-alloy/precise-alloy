@@ -17,26 +17,17 @@ namespace PreciseAlloy.Web.Features.Pages.Preview;
     AvailableWithoutTag = false)]
 [VisitorGroupImpersonation]
 [RequireClientResources]
-public class PreviewPageController
+public class PreviewPageController(
+    IRequestContext requestContext,
+    IContentLoader contentLoader)
     : ActionControllerBase, IRenderTemplate<IHasPreview>
 {
-    private readonly IRequestContext _requestContext;
-    private readonly IContentLoader _contentLoader;
-
-    public PreviewPageController(
-        IRequestContext requestContext,
-        IContentLoader contentLoader)
-    {
-        _requestContext = requestContext;
-        _contentLoader = contentLoader;
-    }
-
     public ActionResult Index(IContent currentContent)
     {
-        var startPage = _contentLoader.Get<SitePageData>(SiteDefinition.Current.StartPage);
+        var startPage = contentLoader.Get<SitePageData>(SiteDefinition.Current.StartPage);
 
-        _requestContext.SetPageSubstitute(startPage);
-        _requestContext.IsBlockPreviewMode = true;
+        requestContext.SetPageSubstitute(startPage);
+        requestContext.IsBlockPreviewMode = true;
 
         return View(currentContent);
     }
