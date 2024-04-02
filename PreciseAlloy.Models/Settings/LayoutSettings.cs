@@ -24,6 +24,7 @@ public class LayoutSettings : SettingsBase
         Order = 100)]
     public virtual ContentReference? SocialShareImageUrl { get; set; }
 
+    // Do not set CultureSpecific attribute for this property
     [UIHint(UIHint.Textarea)]
     [Display(
         Name = "Robots TXT content",
