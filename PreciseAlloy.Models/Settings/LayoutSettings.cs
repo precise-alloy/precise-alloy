@@ -13,7 +13,8 @@ namespace PreciseAlloy.Models.Settings;
     DisplayName = "Layout Settings",
     Description = "",
     GUID = "eb7c042f-121f-464e-968a-6a433b45dc5f")]
-public class LayoutSettings : SettingsBase
+public class LayoutSettings
+    : SettingsBase
 {
     #region Metadata
     [UIHint(UIHint.Image)]
@@ -23,14 +24,6 @@ public class LayoutSettings : SettingsBase
         GroupName = TabNames.SiteMetaData,
         Order = 100)]
     public virtual ContentReference? SocialShareImageUrl { get; set; }
-
-    // Do not set CultureSpecific attribute for this property
-    [UIHint(UIHint.Textarea)]
-    [Display(
-        Name = "Robots TXT content",
-        GroupName = TabNames.SiteMetaData,
-        Order = 200)]
-    public virtual string? RobotsTxtContent { get; set; }
     #endregion
 
     #region Header

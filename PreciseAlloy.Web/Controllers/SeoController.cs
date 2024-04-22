@@ -20,7 +20,7 @@ public class SeoController(
             return Content("User-Agent: *\nDisallow: /", "text/plain", Encoding.UTF8);
         }
 
-        var layoutSettings = settingsService.GetSiteSettings<LayoutSettings>();
+        var layoutSettings = settingsService.GetSiteSettings<SeoSettings>();
         var robotsContent = layoutSettings?.RobotsTxtContent ?? string.Empty;
         return Content(robotsContent, "text/plain", Encoding.UTF8);
     }
