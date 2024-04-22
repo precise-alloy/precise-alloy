@@ -92,7 +92,10 @@ public class GlobalSettingsSearchProvider(
         }
 
         var contentLink = contentData.ContentLink;
-        var language = contentData.Language.Name;
+
+        var language = contentData is ILocalizable localizable
+            ? localizable.Language.Name
+            : string.Empty;
 
         // ReSharper disable StringLiteralTypo
         return $"/episerver/PreciseAlloy.Cms.Settings/settings#context=epi.cms.contentdata:///{contentLink.ID}&viewsetting=viewlanguage:///{language}";
