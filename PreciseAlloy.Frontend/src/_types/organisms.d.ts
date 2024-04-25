@@ -1,6 +1,6 @@
-import { BasedAtomicModel } from "./_general";
-import { ButtonModel, PictureModel, TextInputModel } from "./atoms";
-import { PriceModel, SectionHeaderModel } from "./molecules";
+import { BasedAtomicModel } from './_general';
+import { ButtonModel, PictureModel, TextInputModel } from './atoms';
+import { PriceModel, SectionHeaderModel } from './molecules';
 
 export interface AvatarModel extends BasedAtomicModel {
   image: PictureModel;
@@ -25,7 +25,7 @@ interface PartnerModel extends BasedAtomicModel {
 }
 
 interface TeaserModel extends BasedAtomicModel {
-  styleModifier?: ('image-left')[];
+  styleModifier?: 'image-left'[];
   button?: ButtonModel;
   header?: SectionHeaderModel;
   description?: string;
@@ -55,7 +55,6 @@ interface HeaderModel extends BasedAtomicModel {
       text: string;
       url?: string;
     }[];
-
   };
 }
 
@@ -75,11 +74,11 @@ interface PricesModel extends BasedAtomicModel {
 }
 
 interface ContactFormModel extends BasedAtomicModel {
-  name: TextInputModel;
-  email: TextInputModel;
-  message: TextInputModel;
-  action?: string;
-  submitButton: ButtonModel;
+  header?: SectionHeaderModel;
+  name?: TextInputModel;
+  email?: TextInputModel;
+  message?: TextInputModel;
+  submitButton?: ButtonModel;
 }
 
 interface ContactModel extends BasedAtomicModel {
@@ -103,7 +102,7 @@ interface EpiFormTextFieldModel extends BasedAtomicModel {
   errorMessage?: string;
 }
 
-type EpiFormTextAreaModel = EpiFormTextFieldModel
+type EpiFormTextAreaModel = EpiFormTextFieldModel;
 
 interface EpiFormModel extends BasedAtomicModel {
   name?: EpiFormTextFieldModel;
@@ -111,5 +110,4 @@ interface EpiFormModel extends BasedAtomicModel {
   message?: EpiFormTextAreaModel;
   action?: string;
   submitButton: ButtonModel;
-
 }

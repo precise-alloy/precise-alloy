@@ -44,5 +44,19 @@ export interface TextInputModel extends BasedAtomicModel {
   label?: string;
   placeHolder?: string;
   required?: boolean;
-  type?: 'input' | 'textarea';
+  requiredMessage?: string;
+  type?: 'text' | 'email' | 'password';
+}
+
+export interface TextareaModel extends BasedAtomicModel {
+  id?: string;
+  name?: string;
+  label?: string;
+  placeHolder?: string;
+  required?: boolean;
+  requiredMessage?: string;
+}
+
+export interface ErrorMessageModel extends BasedAtomicModel {
+  error?: string;
 }

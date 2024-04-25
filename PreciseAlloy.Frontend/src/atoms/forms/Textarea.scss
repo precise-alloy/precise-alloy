@@ -1,0 +1,13 @@
+.zzz-a-textarea {
+  label {
+    @include font-label;
+    font-weight: $regular;
+    margin-bottom: px2rem(16px);
+    display: block
+  }
+
+  textarea {
+    @include zzz-input;
+    min-height: px2rem(75px);
+  }
+}
