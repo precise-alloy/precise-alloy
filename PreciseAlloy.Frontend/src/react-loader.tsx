@@ -6,7 +6,6 @@ const blocks: { [name: string]: any } = {
   root: lazy(() => import('../xpack/root/Root')),
   people: lazy(() => import('./organisms/people/People')),
   header: lazy(() => import('./organisms/header/Header')),
-  contactForm: lazy(() => import('./organisms/contact/ContactForm')),
 };
 
 const loadComponent = (scriptSection: HTMLScriptElement) => {
