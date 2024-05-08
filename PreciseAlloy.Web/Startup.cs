@@ -2,6 +2,7 @@ using Advanced.CMS.GroupingHeader;
 using Baaijte.Optimizely.ImageSharp.Web;
 using EPiServer.Cms.Shell;
 using EPiServer.Cms.UI.AspNetIdentity;
+using EPiServer.Framework.Web.Resources;
 using EPiServer.Scheduler;
 using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
@@ -21,10 +22,18 @@ public class Startup(
     {
         if (webHostEnvironment.IsDevelopment())
         {
+            // Set App_Data path
             var appDataPath = Path.Combine(webHostEnvironment.ContentRootPath, "App_Data");
             AppDomain.CurrentDomain.SetData("DataDirectory", appDataPath);
 
+            // Disable scheduler
             services.Configure<SchedulerOptions>(options => options.Enabled = false);
+
+            // UI
+            services.Configure<ClientResourceOptions>(uiOptions =>
+            {
+                uiOptions.Debug = true;
+            });
         }
         else
         {
