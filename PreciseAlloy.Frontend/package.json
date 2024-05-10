@@ -7,6 +7,7 @@
   },
   "scripts": {
     "start": "bun run dev",
+    "predev": "bun upgrade",
     "dev": "concurrently --kill-others \"bun styles.ts --watch\" \"bun states.ts --watch\" \"cross-env scriptOnly=true vite build --mode development --watch\" \"bun server.ts --mode development\"",
     "serve": "bun server.ts",
     "watch": "bun server.ts",

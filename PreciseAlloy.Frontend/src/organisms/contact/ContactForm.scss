@@ -4,43 +4,15 @@
   justify-content: left;
   gap: px2rem(21px);
 
-  &__input-field {
-    .zzz-a-text-input {
-      display: flex;
-      gap: px2rem(16px);
-      flex-direction: column;
-      align-items: flex-start;
-
-      label {
-        @include font-label;
-        font-weight: $regular;
-      }
-
-      input[type='text'] {
-        height: px2rem(38px);
-        width: 100%;
-      }
-
-      textarea {
-        min-height: px2rem(75px);
-      }
-
-      input,
-      textarea {
-        @include font-label;
-        font-weight: $regular;
-        width: 100%;
-        background-color: rgb($primary-rgb, 0.05);
-        border: px2rem(1px) solid $primary;
-        border-radius: px2rem(5px);
-      }
-    }
+  .zzz-a-text-input {
+    margin-bottom: px2rem(20px);
   }
 
-  &__submit-button {
-    .zzz-a-button {
-      width: 100%;
-      justify-content: center;
-    }
+  .zzz-a-textarea {
+    margin-bottom: px2rem(20px);
+  }
+
+  .zzz-m-section-header {
+    margin-bottom: px2rem(20px);
   }
 }

@@ -1,15 +1,15 @@
-import { HeaderModel } from "@_types/organisms";
+import { HeaderModel } from '@_types/organisms';
 
 const header: HeaderModel = {
-  title: "Start",
+  title: 'Start',
   navlinks: {
     links: [
-      { text: "Home", url: '/' },
-      { text: "Porforlio", url: '/pages/portfolio' },
-      { text: "Services", url: '/pages/service' },
-      { text: "Contact Us", url: '/pages/contact' },
+      { text: 'Home', url: '/pages/home' },
+      { text: 'Portforlio', url: '/pages/portfolio' },
+      { text: 'Services', url: '/pages/service' },
+      { text: 'Contact Us', url: '/pages/contact' },
     ],
-  }
-}
+  },
+};
 
-export { header }
+export { header };
