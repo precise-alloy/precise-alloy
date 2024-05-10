@@ -11,10 +11,8 @@ using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Web.Features.Blocks.TypeAlert;
 
-public class TypeAlertViewComponent
-    : ViewComponent
+public class TypeAlertViewComponent(IRequestContext requestContext) : ViewComponent
 {
-    private readonly IRequestContext _requestContext;
     private static readonly IList<string> AlertMessages;
 
     static TypeAlertViewComponent()
@@ -30,17 +28,11 @@ public class TypeAlertViewComponent
         AlertMessages = ValidateContentTypes(typesForAssemblyScanning);
     }
 
-    public TypeAlertViewComponent(
-        IRequestContext requestContext)
-    {
-        _requestContext = requestContext;
-    }
-
     public async Task<IViewComponentResult> InvokeAsync()
     {
         if (!AlertMessages.Any()
-            || _requestContext.IsBlockPreviewMode
-            || (_requestContext.CurrentPage() as SitePageData)?.HideSiteHeader == true)
+            || requestContext.IsBlockPreviewMode
+            || (requestContext.CurrentPage() as SitePageData)?.HideSiteHeader == true)
         {
             return new ContentViewComponentResult(string.Empty);
         }

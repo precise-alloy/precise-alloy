@@ -1,9 +1,9 @@
 ﻿using EPiServer.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using PreciseAlloy.Models.Blocks;
-using PreciseAlloy.Models.Media;
 using PreciseAlloy.Utils.Extensions;
 using PreciseAlloy.Web.Features.Blocks.Image;
+using ImageInfo = PreciseAlloy.Models.Media.ImageInfo;
 
 namespace PreciseAlloy.Web.Features.Blocks.Contact;
 

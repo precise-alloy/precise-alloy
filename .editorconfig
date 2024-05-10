@@ -122,6 +122,7 @@ csharp_style_throw_expression = true:suggestion
 csharp_style_prefer_null_check_over_type_check = true:suggestion
 csharp_prefer_simple_default_expression = false:warning
 csharp_style_prefer_local_over_anonymous_function = true:suggestion
+csharp_style_prefer_primary_constructors = true:error
 csharp_style_prefer_index_operator = true:warning
 csharp_indent_labels = one_less_than_current
 csharp_space_around_binary_operators = before_and_after

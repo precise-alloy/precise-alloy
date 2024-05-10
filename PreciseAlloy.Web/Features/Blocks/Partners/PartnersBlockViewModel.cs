@@ -2,11 +2,4 @@
 
 namespace PreciseAlloy.Web.Features.Blocks.Partners;
 
-public class PartnersBlockViewModel
-    : BlockViewModel<PartnersBlock>
-{
-    public PartnersBlockViewModel(PartnersBlock currentBlock)
-        : base(currentBlock)
-    {
-    }
-}
+public class PartnersBlockViewModel(PartnersBlock currentBlock) : BlockViewModel<PartnersBlock>(currentBlock);

@@ -9,29 +9,21 @@ using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Web.Features.Blocks.Footer;
 
-public class FooterViewComponent : ViewComponent
+public class FooterViewComponent(
+    IRequestContext requestContext,
+    ISettingsService settingsService)
+    : ViewComponent
 {
-    private readonly IRequestContext _requestContext;
-    private readonly ISettingsService _settingsService;
-
-    public FooterViewComponent(
-        IRequestContext requestContext,
-        ISettingsService settingsService)
-    {
-        _requestContext = requestContext;
-        _settingsService = settingsService;
-    }
-
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var currentPage = _requestContext.CurrentPage() as SitePageData;
-        if (_requestContext.IsBlockPreviewMode
+        var currentPage = requestContext.CurrentPage() as SitePageData;
+        if (requestContext.IsBlockPreviewMode
             || currentPage?.HideSiteHeader == true)
         {
             return new ContentViewComponentResult(string.Empty);
         }
 
-        var layoutSettings = _settingsService.GetSiteSettings<LayoutSettings>();
+        var layoutSettings = settingsService.GetSiteSettings<LayoutSettings>();
         var model = new FooterViewModel
         {
             SocialLinks = layoutSettings

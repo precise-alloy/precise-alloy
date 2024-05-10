@@ -49,5 +49,7 @@ public class GlobalSettingsRepositoryDescriptor : ContentRepositoryDescriptorBas
 
     public override int SortOrder => 1000;
 
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
     private readonly Injected<ISettingsService> _settings;
+#pragma warning restore CS0649 // Field is never assigned to, and will always have its default value
 }

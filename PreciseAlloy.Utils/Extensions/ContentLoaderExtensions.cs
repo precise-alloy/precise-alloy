@@ -4,10 +4,12 @@ using EPiServer.Filters;
 
 namespace PreciseAlloy.Utils.Extensions;
 
+// ReSharper disable once UnusedMember.Global
 public static class ContentLoaderExtensions
 {
     private static readonly FilterPublished FilterPublishedInstance = new();
 
+    // ReSharper disable once UnusedMember.Global
     public static T? GetPublishedOrNull<T>(
         this IContentLoader contentLoader,
         ContentReference contentReference)

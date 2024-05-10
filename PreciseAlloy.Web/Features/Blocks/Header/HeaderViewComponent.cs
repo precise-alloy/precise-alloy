@@ -8,25 +8,17 @@ using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Web.Features.Blocks.Header;
 
-public class HeaderViewComponent : ViewComponent
+public class HeaderViewComponent(
+    IRequestContext requestContext,
+    ISettingsService settingsService)
+    : ViewComponent
 {
-    private readonly IRequestContext _requestContext;
-    private readonly ISettingsService _settingsService;
-
-    public HeaderViewComponent(
-        IRequestContext requestContext,
-        ISettingsService settingsService)
-    {
-        _requestContext = requestContext;
-        _settingsService = settingsService;
-    }
-
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        var currentPage = _requestContext.CurrentPage() as SitePageData;
-        var layoutSettings = _settingsService.GetSiteSettings<LayoutSettings>();
+        var currentPage = requestContext.CurrentPage() as SitePageData;
+        var layoutSettings = settingsService.GetSiteSettings<LayoutSettings>();
 
-        if (_requestContext.IsBlockPreviewMode
+        if (requestContext.IsBlockPreviewMode
             || currentPage?.HideSiteHeader == true)
         {
             return new ContentViewComponentResult(string.Empty);

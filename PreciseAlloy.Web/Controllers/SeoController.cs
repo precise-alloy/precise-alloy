@@ -5,26 +5,23 @@ using PreciseAlloy.Services.Settings;
 
 namespace PreciseAlloy.Web.Controllers;
 
-public class SeoController
+public class SeoController(
+    ISettingsService settingsService,
+    IHostEnvironment hostEnvironment)
     : Controller
 {
-    private readonly ISettingsService _settingsService;
-    public SeoController(ISettingsService settingsService)
-    {
-        _settingsService = settingsService;
-    }
-
     [Route("robots.txt")]
     [HttpGet]
     public ActionResult Index()
     {
-        var layoutSettings = _settingsService.GetSiteSettings<LayoutSettings>();
-        var robotsContent = layoutSettings?.RobotsTxtContent;
-
-        if (string.IsNullOrWhiteSpace(robotsContent))
+        if (!hostEnvironment.IsProduction())
         {
-            return NotFound();
+            // Disallow all robots on non-production environments
+            return Content("User-Agent: *\nDisallow: /", "text/plain", Encoding.UTF8);
         }
+
+        var layoutSettings = settingsService.GetSiteSettings<SeoSettings>();
+        var robotsContent = layoutSettings?.RobotsTxtContent ?? string.Empty;
         return Content(robotsContent, "text/plain", Encoding.UTF8);
     }
 }

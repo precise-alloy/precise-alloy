@@ -11,45 +11,33 @@ using PreciseAlloy.Services.Settings;
 namespace PreciseAlloy.Web.Settings;
 
 [SearchProvider]
-public class GlobalSettingsSearchProvider
-    : ContentSearchProviderBase<SettingsBase, ContentType>
+public class GlobalSettingsSearchProvider(
+    LocalizationService localizationService,
+    ISiteDefinitionResolver siteDefinitionResolver,
+    IContentTypeRepository<ContentType> contentTypeRepository,
+    EditUrlResolver editUrlResolver,
+    ServiceAccessor<SiteDefinition> currentSiteDefinition,
+    IContentLanguageAccessor contentLanguageAccessor,
+    IUrlResolver urlResolver,
+    ITemplateResolver templateResolver,
+    UIDescriptorRegistry uiDescriptorRegistry,
+    IContentLoader contentLoader,
+    ISettingsService settingsService)
+    : ContentSearchProviderBase<SettingsBase, ContentType>(localizationService: localizationService,
+        siteDefinitionResolver: siteDefinitionResolver,
+        contentTypeRepository: contentTypeRepository,
+        editUrlResolver: editUrlResolver,
+        currentSiteDefinition: currentSiteDefinition,
+        languageResolver: contentLanguageAccessor,
+        urlResolver: urlResolver,
+        templateResolver: templateResolver,
+        uiDescriptorRegistry: uiDescriptorRegistry)
 {
     internal const string SearchArea = "Settings/globalsettings";
-    private readonly IContentLoader _contentLoader;
-    private readonly LocalizationService _localizationService;
-    private readonly ISettingsService _settingsService;
-
-    public GlobalSettingsSearchProvider(
-        LocalizationService localizationService,
-        ISiteDefinitionResolver siteDefinitionResolver,
-        IContentTypeRepository<ContentType> contentTypeRepository,
-        EditUrlResolver editUrlResolver,
-        ServiceAccessor<SiteDefinition> currentSiteDefinition,
-        IContentLanguageAccessor contentLanguageAccessor,
-        IUrlResolver urlResolver,
-        ITemplateResolver templateResolver,
-        UIDescriptorRegistry uiDescriptorRegistry,
-        IContentLoader contentLoader,
-        ISettingsService settingsService)
-        : base(
-            localizationService: localizationService,
-            siteDefinitionResolver: siteDefinitionResolver,
-            contentTypeRepository: contentTypeRepository,
-            editUrlResolver: editUrlResolver,
-            currentSiteDefinition: currentSiteDefinition,
-            languageResolver: contentLanguageAccessor,
-            urlResolver: urlResolver,
-            templateResolver: templateResolver,
-            uiDescriptorRegistry: uiDescriptorRegistry)
-    {
-        _contentLoader = contentLoader;
-        _settingsService = settingsService;
-        _localizationService = localizationService;
-    }
 
     public override string Area => SearchArea;
 
-    public override string Category => _localizationService.GetString("/episerver/cms/components/globalSettings/title", "Site Settings");
+    public override string Category => localizationService.GetString("/episerver/cms/components/globalSettings/title", "Site Settings");
 
     protected override string IconCssClass => "epi-iconSettings";
 
@@ -64,8 +52,8 @@ public class GlobalSettingsSearchProvider
         var searchResultList = new List<SearchResult>();
         var str = query.SearchQuery.Trim();
 
-        var globalSettings = _contentLoader
-            .GetChildren<SettingsBase>(contentLink: _settingsService.GlobalSettingsRoot);
+        var globalSettings = contentLoader
+            .GetChildren<SettingsBase>(contentLink: settingsService.GlobalSettingsRoot);
 
         foreach (var setting in globalSettings)
         {
@@ -88,7 +76,7 @@ public class GlobalSettingsSearchProvider
     protected override string CreatePreviewText(IContentData? content)
     {
         return content == null
-            ? $"{(content as SettingsBase)?.Name} {_localizationService.GetString("/contentRepositories/globalsettings/customSelectTitle", "Settings").ToLower()}"
+            ? $"{(content as SettingsBase)?.Name} {localizationService.GetString("/contentRepositories/globalsettings/customSelectTitle", "Settings").ToLower()}"
             : string.Empty;
     }
 
@@ -104,7 +92,10 @@ public class GlobalSettingsSearchProvider
         }
 
         var contentLink = contentData.ContentLink;
-        var language = contentData.Language.Name;
+
+        var language = contentData is ILocalizable localizable
+            ? localizable.Language.Name
+            : string.Empty;
 
         // ReSharper disable StringLiteralTypo
         return $"/episerver/PreciseAlloy.Cms.Settings/settings#context=epi.cms.contentdata:///{contentLink.ID}&viewsetting=viewlanguage:///{language}";

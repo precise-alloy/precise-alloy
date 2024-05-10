@@ -2,11 +2,4 @@
 
 namespace PreciseAlloy.Web.Features.Blocks.Teaser;
 
-public class TeaserBlockViewModel
-    : BlockViewModel<TeaserBlock>
-{
-    public TeaserBlockViewModel(TeaserBlock currentBlock)
-        : base(currentBlock)
-    {
-    }
-}
+public class TeaserBlockViewModel(TeaserBlock currentBlock) : BlockViewModel<TeaserBlock>(currentBlock);

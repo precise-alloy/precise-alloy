@@ -2,6 +2,7 @@ using Advanced.CMS.GroupingHeader;
 using Baaijte.Optimizely.ImageSharp.Web;
 using EPiServer.Cms.Shell;
 using EPiServer.Cms.UI.AspNetIdentity;
+using EPiServer.Framework.Web.Resources;
 using EPiServer.Scheduler;
 using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
@@ -13,38 +14,37 @@ using PreciseAlloy.Web.Infrastructure;
 
 namespace PreciseAlloy.Web;
 
-public class Startup
+public class Startup(
+    IWebHostEnvironment webHostEnvironment,
+    IConfiguration configuration)
 {
-    private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly IConfiguration _configuration;
-
-    public Startup(
-        IWebHostEnvironment webHostEnvironment,
-        IConfiguration configuration)
-    {
-        _webHostEnvironment = webHostEnvironment;
-        _configuration = configuration;
-    }
-
     public void ConfigureServices(IServiceCollection services)
     {
-        if (_webHostEnvironment.IsDevelopment())
+        if (webHostEnvironment.IsDevelopment())
         {
-            var appDataPath = Path.Combine(_webHostEnvironment.ContentRootPath, "App_Data");
+            // Set App_Data path
+            var appDataPath = Path.Combine(webHostEnvironment.ContentRootPath, "App_Data");
             AppDomain.CurrentDomain.SetData("DataDirectory", appDataPath);
 
+            // Disable scheduler
             services.Configure<SchedulerOptions>(options => options.Enabled = false);
+
+            // UI
+            services.Configure<ClientResourceOptions>(uiOptions =>
+            {
+                uiOptions.Debug = true;
+            });
         }
         else
         {
-            services.AddCmsCloudPlatformSupport(_configuration);
+            services.AddCmsCloudPlatformSupport(configuration);
         }
 
         var mvcBuilder = services
             .AddMvc(o => o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
             .AddRazorOptions(x => { x.ViewLocationExpanders.Add(new CustomViewLocationExpander()); });
 
-        if (_webHostEnvironment.IsDevelopment())
+        if (webHostEnvironment.IsDevelopment())
         {
             mvcBuilder.AddRazorRuntimeCompilation();
         }
@@ -55,7 +55,7 @@ public class Startup
             .AddFind()
             .AddAdminUserRegistration()
             .AddEmbeddedLocalization<Startup>()
-            .ConfigureImageResizing(_configuration, _webHostEnvironment)
+            .ConfigureImageResizing(configuration, webHostEnvironment)
             .Configure<UrlSegmentOptions>(o =>
             {
                 o.SupportIriCharacters = true;

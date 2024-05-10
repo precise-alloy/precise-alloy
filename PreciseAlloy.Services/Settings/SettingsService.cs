@@ -116,7 +116,8 @@ public partial class SettingsService
             if (folder != null)
             {
                 var settingsTypes = new List<Type>();
-                foreach (var child in _contentRepository.GetChildren<SettingsBase>(folder.ContentLink, new LoaderOptions { LanguageLoaderOption.MasterLanguage() }))
+                foreach (var child in _contentRepository.GetChildren<SettingsBase>(folder.ContentLink,
+                             [LanguageLoaderOption.MasterLanguage()]))
                 {
                     var settingType = child.GetOriginalType();
                     if (settingsTypes.Contains(settingType))
@@ -254,7 +255,7 @@ public partial class SettingsService
 
         var settings = _contentRepository.GetChildren<SettingsBase>(
                 folder.ContentLink,
-                new LoaderOptions { LanguageLoaderOption.MasterLanguage() })
+                [LanguageLoaderOption.MasterLanguage()])
             .FirstOrDefault(x => type == x.GetOriginalType());
 
         if (settings == null)
@@ -278,7 +279,7 @@ public partial class SettingsService
             var setting = _contentRepository
                 .Get<SettingsBase>(
                     settings.ContentLink.ToReferenceWithoutVersion(),
-                    new LoaderOptions { LanguageLoaderOption.FallbackWithMaster(lang) });
+                    [LanguageLoaderOption.FallbackWithMaster(lang)]);
             publishedSettings[lang.Name] = setting;
             draftSettings[lang.Name] = setting;
 
@@ -359,7 +360,7 @@ public partial class SettingsService
 
         return languageSettings.TryGetValue(language, out var fallBacks)
             ? fallBacks.ToList() //Clone List<>
-            : new List<string>();
+            : [];
     }
 
     private void CreateSiteFolder(SiteDefinition siteDefinition)
