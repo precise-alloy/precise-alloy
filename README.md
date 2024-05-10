@@ -11,3 +11,7 @@ To rename the code base, update `$replaces` array in **new-project.ps1** file, t
 ## Documentation
 
 Please read our guides [here](https://tuyen.blog/optimizely-cms/frontend/get-started/).
+
+## License
+
+MIT.
