@@ -7,6 +7,7 @@ using EPiServer.Scheduler;
 using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
+using Geta.Optimizely.ContentTypeIcons.Infrastructure.Initialization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
@@ -87,6 +88,8 @@ public class Startup(
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseBaaijteOptimizelyImageSharp();
+
+        app.UseContentTypeIcons();
 
         app.UseEndpoints(endpoints =>
         {
