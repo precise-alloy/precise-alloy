@@ -1,0 +1,179 @@
+{
+  "routes": [
+    {
+      "route": "/.auth/login/aad",
+      "statusCode": 404,
+      "allowedRoles": [
+        "anonymous"
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
+      "route": "/.auth/login/twitter",
+      "statusCode": 404,
+      "allowedRoles": [
+        "anonymous"
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
+      "route": "/logout",
+      "redirect": "/.auth/logout",
+      "allowedRoles": [
+        "anonymous"
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
+      "route": "/api",
+      "allowedRoles": [
+        "anonymous"
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
+      "route": "/favicon.*",
+      "allowedRoles": [
+        "anonymous"
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
+      "route": "/40{0,1,2,3,4}.html",
+      "allowedRoles": [
+        "anonymous"
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
+      "route": "/*.{png,jpg,jpeg,gif,woff2,otf,ttf,pdf,doc,docx,ppt,pptx,xls,xlsx,csv,rtf,zip,rar,7z,webp}",
+      "headers": {
+        "Cache-Control": "public, max-age=604800, immutable",
+        "X-Robots-Tag": "noindex, nofollow"
+      },
+      "allowedRoles": [
+        "anonymous"
+      ]
+    },
+    {
+      "route": "/*.{js,css,svg}",
+      "headers": {
+        "Cache-Control": "public, max-age=3600, immutable",
+        "X-Robots-Tag": "noindex, nofollow"
+      },
+      "allowedRoles": [
+        "anonymous"
+      ]
+    },
+    {
+      "route": "/*.{pdf,doc,docx,ppt,pptx,xls,xlsx,csv,rtf,zip,rar,7z}",
+      "headers": {
+        "Content-Disposition": "attachment",
+        "Content-Type": "application/octet-stream",
+        "Content-Transfer-Encoding": "binary",
+        "X-Robots-Tag": "noindex, nofollow"
+      },
+      "allowedRoles": [
+        "anonymous"
+      ]
+    },
+    {
+      "route": "/*.{html,json}",
+      "allowedRoles": [
+        "anonymous"
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow"
+      }
+    },
+    {
+      "route": "/accessareapage",
+      "rewrite": "/pages/access-area-page"
+    },
+    {
+      "route": "/blogarticlepage",
+      "rewrite": "/pages/blog-article-page"
+    },
+    {
+      "route": "/bloglandingpage",
+      "rewrite": "/pages/blog-landing-page"
+    },
+    {
+      "route": "/changepassword",
+      "rewrite": "/pages/change-password"
+    },
+    {
+      "route": "/confirmchangepassword",
+      "rewrite": "/pages/confirm-change-password"
+    },
+    {
+      "route": "/confirmresetpassword",
+      "rewrite": "/pages/confirm-reset-password"
+    },
+    {
+      "route": "/eshopbusinesspartnerpopuppage",
+      "rewrite": "/pages/eshop-business-partner-popup-page"
+    },
+    {
+      "route": "/editprofile",
+      "rewrite": "/pages/edit-profile"
+    },
+    {
+      "route": "/forgotpassword",
+      "rewrite": "/pages/forgot-password"
+    },
+    {
+      "route": "/pages/architect-portal-downloadRequirement",
+      "rewrite": "/pages/architect-portal-download"
+    },
+    {
+      "route": "/home",
+      "rewrite": "/pages/home"
+    },
+    {
+      "route": "/login",
+      "rewrite": "/pages/login"
+    },
+    {
+      "route": "/signup",
+      "rewrite": "/pages/sign-up"
+    }
+  ],
+  "responseOverrides": {
+    "400": {
+      "rewrite": "/400.html"
+    },
+    "401": {
+      "rewrite": "/401.html"
+    },
+    "403": {
+      "rewrite": "/403.html"
+    },
+    "404": {
+      "rewrite": "/404.html"
+    }
+  },
+  "globalHeaders": {
+    "content-security-policy": "default-src *  data: blob: filesystem: about: ws: wss: 'unsafe-inline' 'unsafe-eval'; script-src * data: blob: 'unsafe-inline' 'unsafe-eval'; connect-src * data: blob: 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src * data: blob:; style-src * data: blob: 'unsafe-inline'; font-src * data: blob: 'unsafe-inline'; frame-ancestors * data: blob:; object-src * data: blob:; media-src * data: blob:; worker-src * data: blob:;",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "*"
+  },
+  "mimeTypes": {
+    ".json": "text/json"
+  },
+  "platform": {
+    "apiRuntime": "node:18"
+  }
+}

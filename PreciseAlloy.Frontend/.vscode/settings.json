@@ -4,7 +4,7 @@
     "**/tsconfig.tsbuildinfo": true,
     "**/package-lock.json": true,
     "**/*.css.map": true,
-    "**/node_modules": true,
+    // "**/node_modules": true,
     "**/.turbo": true
   },
   "markdown.extension.tableFormatter.normalizeIndentation": true,

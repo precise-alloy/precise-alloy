@@ -43,3 +43,6 @@ public/pl-states.json
 
 # cli
 bin
+
+# include packages
+!packages/*

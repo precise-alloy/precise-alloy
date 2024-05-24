@@ -1,0 +1,75 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "composite": true,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "paths": {
+      "@_types/*": [
+        "./src/_types/*"
+      ],
+      "@helpers/*": [
+        "./src/_helpers/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@data/*": [
+        "./src/_data/*"
+      ],
+      "@atoms/*": [
+        "./src/atoms/*"
+      ],
+      "@molecules/*": [
+        "./src/molecules/*"
+      ],
+      "@organisms/*": [
+        "./src/organisms/*"
+      ],
+      "@templates/*": [
+        "./src/templates/*"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@_http/*": [
+        "./src/_http/*"
+      ],
+      "@_api/*": [
+        "./src/_api/*"
+      ],
+      "@mocks/*": [
+        "./src/mocks/*"
+      ],
+      "@xpack/*": [
+        "./xpack/*"
+      ],
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.json"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
