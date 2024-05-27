@@ -96,7 +96,7 @@ const renderer = ({ app, indexProd, isProd, viteDevServer, resolve }: Props) => 
 
       if (!isProd) {
         // always read fresh template in dev
-        template = fs.readFileSync(resolve('../../index.html'), 'utf-8');
+        template = fs.readFileSync(resolve('./index.html'), 'utf-8');
         template = await viteDevServer!.transformIndexHtml(req.originalUrl, template);
         render = (await viteDevServer!.ssrLoadModule(resolve('src/entry-server.tsx'))).render;
       } else {

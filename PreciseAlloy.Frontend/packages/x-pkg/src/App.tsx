@@ -5,8 +5,6 @@ import RootTemplate from '@xpack/root/Template';
 
 // Auto generates routes from files under ./pages
 // https://vitejs.dev/guide/features.html#glob-import
-console.log(import.meta.glob);
-
 const pages = import.meta.glob('./pages/*.tsx', { eager: true });
 
 const routes = Object.keys(pages).map((path) => {

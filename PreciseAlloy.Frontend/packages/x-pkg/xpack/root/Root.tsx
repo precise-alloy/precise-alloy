@@ -7,7 +7,7 @@ import RootNav from './RootNav';
 import { viteAbsoluteUrl } from '@helpers/functions';
 
 console.log('1');
-let _isTopPanel = localStorage.getItem('MSG_IS_TOP_PANEL') === 'true';
+const _isTopPanel = localStorage.getItem('MSG_IS_TOP_PANEL') === 'true';
 
 const Root = ({ routes }: RootModel) => {
   const [activeItem, setActiveItem] = useState<RootItemModel>();
@@ -38,6 +38,7 @@ const Root = ({ routes }: RootModel) => {
     const hash = window.location.hash;
     const activePath = hash && hash.startsWith('#/') ? hash.substring(1) : '/pages/home';
     const activeIndex = routes.findIndex((r) => r.path === activePath);
+
     if (activeIndex >= 0) {
       setActiveItem(routes[activeIndex]);
     } else {

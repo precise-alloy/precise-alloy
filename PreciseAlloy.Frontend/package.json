@@ -1,5 +1,5 @@
 {
-  "name": "@tuyen-at-work/x-pkg",
+  "name": "@tuyen-at-work/x-pkg-site",
   "version": "0.0.15",
   "type": "module",
   "bin": {
@@ -42,7 +42,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.1",
-    "validate-npm-package-name": "^5.0.0"
+    "validate-npm-package-name": "^5.0.0",
+    "@tuyen-at-work/x-pkg": "workspace:*"
   },
   "devDependencies": {
     "@types/css": "^0.0.37",

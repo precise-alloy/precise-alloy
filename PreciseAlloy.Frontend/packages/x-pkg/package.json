@@ -1,15 +1,17 @@
 {
-  "name": "x-pkg",
+  "name": "@tuyen-at-work/x-pkg",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "serve": "bun server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "styles": "bun styles.ts",
+    "states": "bun states.ts",
+    "scripts": "bun scripts.ts",
+    "watch-ts": "cross-env scriptOnly=true vite build --mode development --watch"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "vite": "^5.2.11"
-  }
+  "license": "ISC"
 }

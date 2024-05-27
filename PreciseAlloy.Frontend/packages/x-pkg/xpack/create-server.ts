@@ -23,7 +23,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const createServer = async ({ root, hmrPort, baseUrl, isTest }: Props) => {
   const resolve = (p: string) => path.join(root, p);
 
-  const indexProd = isProd ? fs.readFileSync(resolve('../../index.html'), 'utf-8') : '';
+  const indexProd = isProd ? fs.readFileSync(resolve('./index.html'), 'utf-8') : '';
 
   const app = express();
 
