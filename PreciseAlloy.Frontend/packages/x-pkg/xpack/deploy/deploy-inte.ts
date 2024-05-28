@@ -1,4 +1,0 @@
-const deployInte = () => {
-}
-
-export { deployInte };
