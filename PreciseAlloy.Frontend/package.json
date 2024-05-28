@@ -2,9 +2,6 @@
   "name": "@tuyen-at-work/x-pkg-site",
   "version": "0.0.15",
   "type": "module",
-  "bin": {
-    "x-pkg": "./bin/cli.js"
-  },
   "scripts": {
     "start": "bun run dev",
     "predev": "bun upgrade",

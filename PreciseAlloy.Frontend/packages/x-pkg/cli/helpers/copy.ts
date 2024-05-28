@@ -36,11 +36,9 @@ const copy = async (src: string | string[], dest: string, { cwd }: CopyOption) =
     ignore: excludeFiles,
   });
 
-  const destRelativeToCwd = path.resolve(dest);
+  sourceFiles.push(path.join(cwd, '..', 'package.json'))
 
-  await fs.mkdir(path.join(destRelativeToCwd, 'src/atoms'), { recursive: true });
-  await fs.mkdir(path.join(destRelativeToCwd, 'src/molecules'), { recursive: true });
-  await fs.mkdir(path.join(destRelativeToCwd, 'src/mocks/example'), { recursive: true });
+  const destRelativeToCwd = path.resolve(dest);
 
   return Promise.all(
     sourceFiles.map(async (p) => {
@@ -52,6 +50,8 @@ const copy = async (src: string | string[], dest: string, { cwd }: CopyOption) =
 
       // Ensure the destination directory exists
       await fs.mkdir(path.dirname(filePath), { recursive: true });
+
+      console.log(`Copy ${from} to ${filePath}`);
 
       return fs.copyFile(from, filePath);
     })

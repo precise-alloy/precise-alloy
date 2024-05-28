@@ -4,14 +4,18 @@
   "description": "",
   "type": "module",
   "main": "index.js",
+  "bin": {
+    "x-pkg": "./bin/cli.js"
+  },
   "scripts": {
     "serve": "bun server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "styles": "bun styles.ts",
     "states": "bun states.ts",
-    "scripts": "bun scripts.ts",
     "watch-ts": "cross-env scriptOnly=true vite build --mode development --watch",
-    "start": "concurrently --kill-others \"bun run styles --watch\" \"bun run states --watch\" \"cross-env scriptOnly=true vite build --mode development --watch\" \"bun server.ts --mode development\""
+    "start": "concurrently --kill-others \"bun run styles --watch\" \"bun run states --watch\" \"cross-env scriptOnly=true vite build --mode development --watch\" \"bun server.ts --mode development\"",
+    "build-cli": "vite build --c vite.cli.config.ts",
+    "watch-cli": "vite build --c vite.cli.config.ts --watch"
   },
   "author": "",
   "license": "ISC"

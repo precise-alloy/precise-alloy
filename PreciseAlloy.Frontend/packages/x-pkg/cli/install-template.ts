@@ -5,7 +5,6 @@ import { copy } from './helpers/copy.js';
 import os from 'os';
 import chalk from 'chalk';
 import { install } from './helpers/install.js';
-import { formatFiles } from './helpers/format-files.js';
 
 export const filename = fileURLToPath(import.meta.url);
 export const dirname = path.dirname(filename);
@@ -15,32 +14,31 @@ interface Props {
   root: string;
 }
 
-const { cyan } = chalk;
+const { cyan, green } = chalk;
 
 const installTemplate = async (model: Props) => {
   const { appName, root } = model;
   console.log('\nInitializing project');
-  const copySource = ['**'];
+  const copySource = ['**/*', '**/*/'];
 
   await copy(copySource, root, {
-    cwd: path.join(dirname, '..'),
+    cwd: path.join(dirname, '..', 'template'),
   });
 
-  await formatFiles(root);
+  console.log(`${green('Update package.json')}`);
 
-  const packageJson = JSON.parse(await fs.readFile('package.json', 'utf8'));
+  const packageJson = JSON.parse(await fs.readFile('package.json', 'utf8')) || {};
 
   packageJson.name = appName;
   packageJson.description = '';
   packageJson.version = '0.1.0';
+  packageJson.scripts = {
+    "start": "x-pkg start",
+    "build": "x-pkg build",
+    "inte": "x-pkg inte"
+  };
 
   delete packageJson.bin;
-  packageJson.scripts &&
-    Object.keys(packageJson.scripts).map((scriptName: string) => {
-      if (scriptName.startsWith('cli')) {
-        delete packageJson.scripts[scriptName];
-      }
-    });
 
   packageJson.dependencies && Object.keys(packageJson.dependencies).map(dependency => {
     if (!dependency.startsWith('react')) {
