@@ -1,0 +1,12 @@
+@mixin font-body {
+  font-family: $font-work-sans;
+  font-size: px2rem(15px);
+  line-height: 1.25;
+}
+
+@mixin font-h1 {
+  font-family: $font-crimson-text;
+  font-weight: $bold;
+  font-size: px2rem(28px);
+  line-height: 1.25;
+}

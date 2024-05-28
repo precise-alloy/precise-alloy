@@ -1,0 +1,5 @@
+@use 'sass:math';
+
+@function px2rem($pxValue: 16px) {
+  @return math.div($pxValue, 16px) * 1rem;
+}
