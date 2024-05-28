@@ -10,7 +10,8 @@
     "styles": "bun styles.ts",
     "states": "bun states.ts",
     "scripts": "bun scripts.ts",
-    "watch-ts": "cross-env scriptOnly=true vite build --mode development --watch"
+    "watch-ts": "cross-env scriptOnly=true vite build --mode development --watch",
+    "start": "concurrently --kill-others \"bun run styles --watch\" \"bun run states --watch\" \"cross-env scriptOnly=true vite build --mode development --watch\" \"bun server.ts --mode development\""
   },
   "author": "",
   "license": "ISC"

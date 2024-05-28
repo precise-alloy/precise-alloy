@@ -1,6 +1,23 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "paths": {
+      "@_types/*": [
+        "./src/_types/*"
+      ],
+      "@helpers/*": [
+        "./src/_helpers/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@data/*": [
+        "./src/_data/*"
+      ],
+      "@xpack/*": [
+        "./xpack/*"
+      ],
+    }
   },
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json"
 }

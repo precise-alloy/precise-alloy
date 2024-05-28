@@ -10,8 +10,6 @@ const ActiveItemOptions = () => {
   const optionItemsRef = createRef<HTMLDivElement>();
   const buttonRef = createRef<HTMLButtonElement>();
 
-  console.log(activeItem);
-
   useOnClickOutside(optionItemsRef, () => setShow(false), [buttonRef]);
 
   const handleStateToggle = (event: MouseEvent<HTMLAnchorElement>) => {

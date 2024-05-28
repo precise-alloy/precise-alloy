@@ -1,4 +1,4 @@
-import { BasedAtomicModel } from '../_types/types';
+import { BasedAtomicModel } from '@_types/types';
 
 const getModifiers = (model: BasedAtomicModel, baseClass: string) => {
   const classes = [baseClass];

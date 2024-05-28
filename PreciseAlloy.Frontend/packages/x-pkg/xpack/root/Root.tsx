@@ -6,7 +6,6 @@ import ActiveItemOptions from './ActiveItemOptions';
 import RootNav from './RootNav';
 import { viteAbsoluteUrl } from '@helpers/functions';
 
-console.log('1');
 const _isTopPanel = localStorage.getItem('MSG_IS_TOP_PANEL') === 'true';
 
 const Root = ({ routes }: RootModel) => {

@@ -1,0 +1,12 @@
+{
+    "openapi":"3.0.2",
+    "info": {
+      "title":"ALLOY API",
+      "version":"1.0"
+    },
+    "servers": [
+      {"url":"/"}
+    ],
+    "paths": {
+    }
+  }

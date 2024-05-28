@@ -1,2 +1,0 @@
-.zzz-o-teaser{--order:inherit;color:var(--primary);position:relative}.zzz-o-teaser__inner{align-items:center;display:grid;gap:1.875rem}@media(min-width:48rem){.zzz-o-teaser__inner{grid-template-columns:repeat(2,1fr)}}.zzz-o-teaser__content{display:grid;gap:.625rem;order:2}@media(min-width:48rem){.zzz-o-teaser__content{order:var(--order)}}.zzz-o-teaser__button{margin-top:.625rem}.zzz-o-teaser--image-left{--order:2}
-/*# sourceMappingURL=b-teaser.css.map */
