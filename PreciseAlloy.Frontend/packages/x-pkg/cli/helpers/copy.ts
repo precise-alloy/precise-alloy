@@ -36,8 +36,6 @@ const copy = async (src: string | string[], dest: string, { cwd }: CopyOption) =
     ignore: excludeFiles,
   });
 
-  sourceFiles.push(path.join(cwd, '..', 'package.json'))
-
   const destRelativeToCwd = path.resolve(dest);
 
   return Promise.all(
@@ -50,8 +48,6 @@ const copy = async (src: string | string[], dest: string, { cwd }: CopyOption) =
 
       // Ensure the destination directory exists
       await fs.mkdir(path.dirname(filePath), { recursive: true });
-
-      console.log(`Copy ${from} to ${filePath}`);
 
       return fs.copyFile(from, filePath);
     })

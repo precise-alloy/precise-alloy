@@ -49,7 +49,7 @@ async function notifyUpdate(): Promise<void> {
     const data = (await update) as { version: string };
 
     if (data.version && parseVersion(data.version) !== parseVersion(packageJson.version)) {
-      const updateMessage = `npm update ${packageName}`;
+      const updateMessage = `npm update ${packageJson.name}`;
 
       console.log(
         yellow(bold(`A new version of '${packageName}' is available!`)) + '\n' + 'You can update by running: ' + cyan(updateMessage) + '\n'
