@@ -145,6 +145,15 @@
         display: flex;
       }
     }
+
+    &--last {
+      margin-bottom: px2rem(20px);
+    }
+  }
+
+  &__nav-item-seperator {
+    @include border-top;
+    margin: px2rem(16px) 0 px2rem(8px);
   }
 
   &__frame-control {
@@ -164,7 +173,7 @@
     position: fixed;
     top: px2rem(31px);
     right: 0;
-    padding: px2rem(20px) 0;
+    padding: px2rem(20px) 0 px2rem(8px);
     transform: translateX(100%);
 
     &.show {

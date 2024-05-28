@@ -91,6 +91,15 @@ const ActiveItemOptions = () => {
         <a className="xpack-o-root__nav-item" href={viteAbsoluteUrl(activeItem.path, true)} target="_blank">
           Open in new tab
         </a>
+
+        <div className="xpack-o-root__nav-item-seperator"></div>
+
+        <a className="xpack-o-root__nav-item" href="https://tuyen.blog/optimizely-cms/frontend/get-started/" target="_blank">
+          About this library
+          <svg viewBox="0 0 30 30" className="xpack-o-root__control-svg">
+            <use xlinkHref="/assets/images/root.svg#external"></use>
+          </svg>
+        </a>
       </div>
     </div>
   ) : (
