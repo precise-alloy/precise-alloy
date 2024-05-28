@@ -19,8 +19,8 @@ public abstract class SitePageData
         GroupName = SystemTabNames.Content,
         Order = 10)]
     [AllowedTypes(
-        new[] { typeof(BaseBlockData), typeof(PdfFile) },
-        new[] { typeof(IAtomBlock) })]
+        [typeof(BaseBlockData), typeof(PdfFile)],
+        [typeof(IAtomBlock)])]
     public virtual ContentArea? MainContentArea { get; set; }
 
     #region Metadata

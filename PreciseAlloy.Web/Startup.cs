@@ -7,6 +7,8 @@ using EPiServer.Scheduler;
 using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
+using Geta.Optimizely.ContentTypeIcons.Infrastructure.Configuration;
+using Geta.Optimizely.ContentTypeIcons.Infrastructure.Initialization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
@@ -43,6 +45,16 @@ public class Startup(
         var mvcBuilder = services
             .AddMvc(o => o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
             .AddRazorOptions(x => { x.ViewLocationExpanders.Add(new CustomViewLocationExpander()); });
+
+        services.AddContentTypeIcons(x =>
+        {
+            x.EnableTreeIcons = true;
+            x.ForegroundColor = "#ffffff";
+            x.BackgroundColor = "#a1331f";
+            x.FontSize = 40;
+            x.CustomFontPath = Path.Combine(webHostEnvironment.WebRootPath, "assets", "fonts");
+            x.CachePath = Path.Combine(webHostEnvironment.ContentRootPath, "App_Data", "thumb_cache");
+        });
 
         if (webHostEnvironment.IsDevelopment())
         {
@@ -87,6 +99,8 @@ public class Startup(
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseBaaijteOptimizelyImageSharp();
+
+        app.UseContentTypeIcons();
 
         app.UseEndpoints(endpoints =>
         {
