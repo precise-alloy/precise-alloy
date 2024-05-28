@@ -3,6 +3,24 @@ import { useRootContext } from './root-context';
 import { viteAbsoluteUrl } from '@helpers/functions';
 import { useOnClickOutside } from './useClickOutside';
 
+const StateAnimationHtml = (model: { keyExist: boolean }) =>
+  model.keyExist ? (
+    <></>
+  ) : (
+    <div className="pl-state-toggle__circles">
+      <div className="pl-state-toggle__circle"></div>
+      <div className="pl-state-toggle__circle"></div>
+      <div className="pl-state-toggle__circle"></div>
+      <div className="pl-state-toggle__circle"></div>
+      <div className="pl-state-toggle__circle"></div>
+      <div className="pl-state-toggle__circle"></div>
+      <div className="pl-state-toggle__circle"></div>
+      <div className="pl-state-toggle__circle"></div>
+      <div className="pl-state-toggle__circle"></div>
+      <div className="pl-state-toggle__circle"></div>
+    </div>
+  );
+
 const ActiveItemOptions = () => {
   const { activeItem, isTopPanel } = useRootContext();
   const key = 'pl-show-state-selector';
@@ -32,24 +50,6 @@ const ActiveItemOptions = () => {
 
   const toggleCtaText = keyExist ? 'Hide state selector' : 'Show state selector';
 
-  const StateAnimationHtml = () =>
-    keyExist ? (
-      <></>
-    ) : (
-      <div className="pl-state-toggle__circles">
-        <div className="pl-state-toggle__circle"></div>
-        <div className="pl-state-toggle__circle"></div>
-        <div className="pl-state-toggle__circle"></div>
-        <div className="pl-state-toggle__circle"></div>
-        <div className="pl-state-toggle__circle"></div>
-        <div className="pl-state-toggle__circle"></div>
-        <div className="pl-state-toggle__circle"></div>
-        <div className="pl-state-toggle__circle"></div>
-        <div className="pl-state-toggle__circle"></div>
-        <div className="pl-state-toggle__circle"></div>
-      </div>
-    );
-
   const [show, setShow] = useState(false);
 
   const handleClick = () => {
@@ -76,7 +76,7 @@ const ActiveItemOptions = () => {
 
       <div ref={optionItemsRef} className={`xpack-o-root__active-item-options ${show ? 'show' : ''}`}>
         <a className="xpack-o-root__nav-item pl-state-toggle" href="#" onClick={handleStateToggle}>
-          <StateAnimationHtml />
+          <StateAnimationHtml keyExist={!!keyExist} />
           {toggleCtaText}
         </a>
 
