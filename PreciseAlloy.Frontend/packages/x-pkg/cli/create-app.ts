@@ -16,8 +16,6 @@ const createApp = async (model: Props) => {
   const { appPath } = model;
   const root = path.resolve(appPath);
 
-  console.log('test');
-
   if (!(await isWriteable(path.dirname(root)))) {
     console.error(
       'The application path is not writable, please check folder permissions and try again.'
