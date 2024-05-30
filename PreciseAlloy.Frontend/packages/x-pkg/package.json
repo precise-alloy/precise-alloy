@@ -18,5 +18,8 @@
     "watch-cli": "vite build --c vite.cli.config.ts --watch"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "vite-plugin-static-copy": "^1.0.5"
+  }
 }

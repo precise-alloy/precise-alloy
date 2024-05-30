@@ -1,5 +1,4 @@
 import { PluginOption } from 'vite';
-import { deployInte } from '../deploy/deploy-inte';
 
 const closeBundle = (): PluginOption => {
   // console.log('[INIT] closeBundle');
@@ -10,7 +9,6 @@ const closeBundle = (): PluginOption => {
 
     closeBundle() {
       // console.log('closeBundle');
-      deployInte();
     },
   };
 };

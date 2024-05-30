@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, normalizePath } from 'vite';
 import alias from './alias';
 import react from '@vitejs/plugin-react';
 import { getAssetFileName, getChunkFileName, getEntryFileName } from './filename';
@@ -11,8 +11,8 @@ import resolveDynamicImport from './hooks/resolve-dynamic-import';
 import handleHotUpdate from './hooks/handle-hot-update';
 import transformIndexHtml from './hooks/transform-index-html';
 import options from './hooks/options';
-
-// console.log('config');
+import path from 'path';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 const additionalScssData = `
 @import "${srcRoot}/assets/styles/additional-data";
@@ -30,6 +30,14 @@ const config = defineConfig({
     handleHotUpdate(),
     writeBundle(),
     closeBundle(),
+    viteStaticCopy({
+      targets: [
+        {
+          src: normalizePath(path.resolve(outDir, '..', 'public', '*')),
+          dest: normalizePath(outDir),
+        },
+      ]
+    })
   ],
   assetsInclude: ['**/*.svg', '**/*.htm', '**/*.cshtml'],
   build: {

@@ -10,6 +10,9 @@ import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
 import _ from 'lodash';
 import { pathToFileURL } from 'url';
+import chalk from 'chalk';
+
+const { green } = chalk;
 
 const isWatch = process.argv.includes('--watch');
 const outDir = './public/assets/css';
@@ -132,6 +135,8 @@ const styleTemplate = (srcFile: string, isReady: boolean) => compile(srcFile, { 
 
 const sassCompile = (inputPath: string, isReady: boolean) => {
   const p = slash(inputPath);
+
+  console.log(green(`Compiling ${p}`));
 
   if (p.includes('src/assets/styles/00-abstracts/') || p.includes('src/assets/styles/01-mixins/')) {
     styleBase(isReady);

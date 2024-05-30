@@ -11,7 +11,7 @@ export const xpackEnv = loadEnv(mode, root);
 export const srcRoot = slash(path.resolve(root, 'src'));
 export const typesRoot = slash(path.resolve(srcRoot, '_types'));
 export const viteSharedRoot = slash(path.resolve(root, 'xpack/shared'));
-export const outDir = slash(path.resolve(root, 'dist'));
+export const outDir = slash(path.resolve(root, '..', '..', 'dist'));
 
 export const getAbsolutePath = (p: string) => {
   return path.isAbsolute(p) ? slash(p) : slash(path.resolve(root, p));
