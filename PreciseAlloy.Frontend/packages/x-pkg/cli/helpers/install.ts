@@ -51,4 +51,4 @@ const install = async () => {
   }
 };
 
-export { install };
+export { install, executeCommand };
