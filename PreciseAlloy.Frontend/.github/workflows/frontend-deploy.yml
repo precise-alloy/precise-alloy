@@ -1,0 +1,56 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Frontend Deploy
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches:
+      - fe-develop
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    timeout-minutes: 5
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout Base 🛎️
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          ref: fe-develop
+
+      - name: Bun Install 🛎️
+        uses: oven-sh/setup-bun@v1
+
+      - name: Bun Build 🛎️
+        run: |
+          bun install
+          bun run eshn
+
+      - name: Deploy to Azure Static Web App 🚀
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          action: upload
+          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
+          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
+          app_location: docs # App source code path
+          api_location: '' #api # Api source code path - optional
+          output_location: '' # Built app content directory - optional
+          skip_app_build: true
+          skip_api_build: true
+          ###### End of Repository/Build Configurations ######
