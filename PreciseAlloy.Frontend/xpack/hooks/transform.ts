@@ -23,7 +23,12 @@ const transfrom = (): PluginOption => {
       // console.log('transform');
 
       const magicString = new MagicString(code);
-      magicString.replaceAll('VITE_EXTENSION_UNIQUE_ID', xpackEnv.VITE_EXTENSION_UNIQUE_ID).replaceAll(/\/assets\/[a-z0-9./_-]+\.svg/gi, (s) => {
+      magicString.replaceAll('VITE_EXTENSION_UNIQUE_ID', xpackEnv.VITE_EXTENSION_UNIQUE_ID).replaceAll(/\/assets\/[a-z0-9./_-]+\.svg\??/gi, (s) => {
+        if (s.includes('?')) {
+          // If the path already has a query string, return the original path
+          return s;
+        }
+
         if (hashes[s]) {
           // If the hash is already calculated, return the hash
           return s + '?v=' + hashes[s];
