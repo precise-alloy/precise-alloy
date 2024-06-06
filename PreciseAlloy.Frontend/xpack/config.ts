@@ -11,6 +11,7 @@ import resolveDynamicImport from './hooks/resolve-dynamic-import';
 import handleHotUpdate from './hooks/handle-hot-update';
 import transformIndexHtml from './hooks/transform-index-html';
 import options from './hooks/options';
+import transfrom from './hooks/transform';
 
 // console.log('config');
 
@@ -24,7 +25,7 @@ const config = defineConfig({
     react(),
     options(),
     buildStart(),
-    // transfrom(),
+    transfrom(),
     transformIndexHtml(xpackEnv.VITE_BASE_URL),
     resolveDynamicImport(),
     handleHotUpdate(),
