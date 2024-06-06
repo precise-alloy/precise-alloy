@@ -27,7 +27,7 @@ const transfrom = (): PluginOption => {
       const magicString = new MagicString(code);
       magicString.replaceAll('VITE_EXTENSION_UNIQUE_ID', xpackEnv.VITE_EXTENSION_UNIQUE_ID).replaceAll(/\/assets\/[a-z0-9./_-]+\.svg\??/gi, (s) => {
         if (!addHash || s.includes('?')) {
-          // If the path already has a query string, return the original path
+          // If the hash is not required or the path already contains a hash, return the original path
           return s;
         }
 
