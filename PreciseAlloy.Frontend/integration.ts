@@ -12,7 +12,10 @@ interface CopyItem {
   to?: string;
 }
 const argvModeIndex = process.argv.indexOf('--mode');
-const mode = argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-') ? process.argv[argvModeIndex + 1] : 'production';
+const mode =
+  argvModeIndex >= 0 && argvModeIndex < process.argv.length - 1 && !process.argv[argvModeIndex + 1].startsWith('-')
+    ? process.argv[argvModeIndex + 1]
+    : 'production';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const xpackEnv = loadEnv(mode, __dirname);
 const toAbsolute = (p: string) => slash(path.resolve(__dirname, p));
@@ -92,7 +95,7 @@ if (patternPath) {
 
   glob.sync(slash(path.resolve(patternPath + '/**/*.{htm,html}'))).forEach((p) => {
     const text = fs.readFileSync(p, 'utf-8');
-    const newText = text.replaceAll(/react-loader\.\w+\.js/gi, 'react-loader.0x00000000.js');
+    const newText = text.replaceAll(/react-loader\.\w+\.js/gi, 'react-loader.0x00000000.js').replaceAll(/\.svg\?v=[a-z0-9_-]+/gi, '.svg');
     if (text !== newText) {
       fs.writeFileSync(p, newText);
     }
