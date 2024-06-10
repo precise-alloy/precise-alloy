@@ -1,0 +1,11 @@
+// For: Geta.Optimizely.ContentTypeIcons
+span.epi-objectIcon[data-dojo-attach-point='iconNode'][role='presentation'] {
+  display: inline-flex;
+  margin-right: 8px;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    font-size: 18px;
+  }
+}
