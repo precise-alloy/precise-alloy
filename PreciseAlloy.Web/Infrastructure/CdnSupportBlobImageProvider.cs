@@ -1,5 +1,4 @@
 ﻿using Baaijte.Optimizely.ImageSharp.Web.Providers;
-using SixLabors.ImageSharp.Web;
 
 namespace PreciseAlloy.Web.Infrastructure;
 

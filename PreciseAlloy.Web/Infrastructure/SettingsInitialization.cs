@@ -9,7 +9,8 @@ namespace PreciseAlloy.Web.Infrastructure;
 
 [ModuleDependency(typeof(EPiServer.Web.InitializationModule))]
 // ReSharper disable once UnusedMember.Global
-public class SettingsInitialization : IConfigurableModule
+public class SettingsInitialization
+    : IConfigurableModule
 {
     void IConfigurableModule.ConfigureContainer(ServiceConfigurationContext context)
     {

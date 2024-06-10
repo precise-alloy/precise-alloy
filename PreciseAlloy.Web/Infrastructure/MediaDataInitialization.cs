@@ -4,7 +4,6 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using PreciseAlloy.Models.Interfaces;
 using PreciseAlloy.Models.Media;
-using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
 namespace PreciseAlloy.Web.Infrastructure;
@@ -15,7 +14,9 @@ namespace PreciseAlloy.Web.Infrastructure;
 public class MediaDataInitialization
     : IInitializableModule
 {
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
     private static readonly Injected<ILogger> Logger;
+#pragma warning restore CS0649 // Field is never assigned to, and will always have its default value
 
     public void Initialize(InitializationEngine context)
     {

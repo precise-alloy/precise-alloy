@@ -45,7 +45,10 @@ internal static class EngineConfigurator
         {
             builder.Configure<AzureBlobStorageCacheOptions>(options =>
                 {
-                    options.ConnectionString = configuration.GetConnectionString("EPiServerAzureBlobs");
+                    var azureBlobConnectionString = configuration.GetConnectionString("EPiServerAzureBlobs");
+                    ArgumentException.ThrowIfNullOrWhiteSpace(azureBlobConnectionString);
+
+                    options.ConnectionString = azureBlobConnectionString;
                     options.ContainerName = "mysitemedia";
                 })
                 .ClearProviders()

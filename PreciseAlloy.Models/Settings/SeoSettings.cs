@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using EPiServer.Web;
+﻿using EPiServer.Web;
 using PreciseAlloy.Models.Constants;
 
 namespace PreciseAlloy.Models.Settings;

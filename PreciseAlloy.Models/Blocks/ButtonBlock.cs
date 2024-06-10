@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.DataAnnotations;
 using PreciseAlloy.Models.Interfaces;
 

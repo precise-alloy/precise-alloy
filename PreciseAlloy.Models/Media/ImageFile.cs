@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using EPiServer.Core;
 using PreciseAlloy.Models.Constants;
 using PreciseAlloy.Models.Interfaces;
