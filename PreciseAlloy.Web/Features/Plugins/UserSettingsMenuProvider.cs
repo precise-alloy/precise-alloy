@@ -5,9 +5,9 @@ namespace PreciseAlloy.Web.Features.Plugins;
 [MenuProvider]
 // ReSharper disable once UnusedMember.Global
 public class UserSettingsMenuProvider
-    : IMenuProvider
+    : BaseMenuProvider
 {
-    public IEnumerable<MenuItem> GetMenuItems()
+    public override IEnumerable<MenuItem> GetMenuItems()
     {
         var menuItems = new List<MenuItem>
         {

@@ -5,11 +5,11 @@ namespace PreciseAlloy.Web.Features.Plugins;
 [MenuProvider]
 // ReSharper disable once UnusedMember.Global
 public class GlobalSectionMenuProvider
-    : IMenuProvider
+    : BaseMenuProvider
 {
     const string MainMenuPath = MenuPaths.Global + "/customSection";
 
-    public IEnumerable<MenuItem> GetMenuItems()
+    public override IEnumerable<MenuItem> GetMenuItems()
     {
         var menuItems = new List<MenuItem>
         {
