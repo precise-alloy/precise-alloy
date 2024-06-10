@@ -3,7 +3,9 @@
 namespace PreciseAlloy.Web.Features.Plugins;
 
 [MenuProvider]
-public class GlobalSectionMenuProvider : IMenuProvider
+// ReSharper disable once UnusedMember.Global
+public class GlobalSectionMenuProvider
+    : IMenuProvider
 {
     const string MainMenuPath = MenuPaths.Global + "/customSection";
 
@@ -31,6 +33,11 @@ public class GlobalSectionMenuProvider : IMenuProvider
                 SortIndex = 3,
             }
         };
+
+        foreach (MenuItem menuItem in menuItems)
+        {
+            menuItem.IsAvailable = _ => true;
+        }
 
         return menuItems;
     }

@@ -33,6 +33,7 @@ public class CustomViewLocationExpander
         }
 
         yield return "/Features/Shared/{0}.cshtml";
+        yield return "/Features/Plugins/{1}/{0}.cshtml";
 
         foreach (var location in viewLocations)
         {

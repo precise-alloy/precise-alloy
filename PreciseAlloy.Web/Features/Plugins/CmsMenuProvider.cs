@@ -5,9 +5,12 @@ using EPiServer.Shell.Navigation;
 namespace PreciseAlloy.Web.Features.Plugins;
 
 [MenuProvider]
-public class CmsMenuProvider(ModuleTable modules) : IMenuProvider
+// ReSharper disable once UnusedMember.Global
+public class CmsMenuProvider(
+    ModuleTable modules)
+    : BaseMenuProvider
 {
-    public IEnumerable<MenuItem> GetMenuItems()
+    public override IEnumerable<MenuItem> GetMenuItems()
     {
         var menuItems = new List<MenuItem>
         {
@@ -16,6 +19,7 @@ public class CmsMenuProvider(ModuleTable modules) : IMenuProvider
                 MenuPaths.Global + "/cms" + "/cmsMenuItem",
                 Path.Combine(modules.FindModule("EPiServer.CMS.UI.Admin").ResourceBasePath, "default"))
             {
+                IsAvailable = HasAdminRole,
                 SortIndex = SortIndex.First + 25,
                 AuthorizationPolicy = CmsPolicyNames.CmsAdmin
             }

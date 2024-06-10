@@ -1,4 +1,5 @@
-@using EPiServer.Framework.Web.Mvc.Html
+﻿@using EPiServer.Framework.Web.Mvc.Html
+@using EPiServer.Shell.Navigation
 <!DOCTYPE html>
 <html lang="@ContentLanguage.PreferredCulture.TwoLetterISOLanguageName">
 
@@ -14,12 +15,19 @@
 
     <script type="module" src="@Html.GetWidgetAssetPath("react-loader")"></script>
     <link rel="modulepreload" href="@Html.GetWidgetAssetPath("vendor")">
+
+    <!-- Shell -->
+    @ClientResources.RenderResources("ShellCore")
+
+    <!-- LightTheme -->
+    @ClientResources.RenderResources("ShellCoreLightTheme")
 </head>
 
 <body>
-    @RenderBody()
-    @Html.RequiredClientResources("Footer")
-    @await Html.RenderEPiServerQuickNavigatorAsync()
+    @Html.CreatePlatformNavigationMenu()
+    <main @Html.ApplyPlatformNavigation()>
+        @RenderBody()
+    </main>
 </body>
 
 </html>

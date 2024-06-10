@@ -3,7 +3,9 @@
 namespace PreciseAlloy.Web.Features.Plugins;
 
 [MenuProvider]
-public class UserSettingsMenuProvider : IMenuProvider
+// ReSharper disable once UnusedMember.Global
+public class UserSettingsMenuProvider
+    : IMenuProvider
 {
     public IEnumerable<MenuItem> GetMenuItems()
     {
@@ -14,6 +16,7 @@ public class UserSettingsMenuProvider : IMenuProvider
                 MenuPaths.User + "/episerver2",
                 "https://world.episerver.com/documentation/")
             {
+                IsAvailable = _ => true,
                 SortIndex = SortIndex.Last + 10
             }
         };
