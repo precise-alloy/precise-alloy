@@ -22,21 +22,21 @@ public class DropdownMenuProvider
         menuItems.Add(userMenu);
 
         menuItems.Add(new UrlMenuItem("CMS", DropdownMenuPath + "/item1",
-            "https://world.episerver.com/blogs/?type=cmsblog&page=1")
+            "https://world.optimizely.com/blogs/?type=cmsblog&page=1")
         {
             IsAvailable = _ => true,
             SortIndex = 1,
         });
 
         menuItems.Add(new UrlMenuItem("Commerce", DropdownMenuPath + "/item2",
-            "https://world.episerver.com/blogs/?type=commerceblog&page=1")
+            "https://world.optimizely.com/blogs/?type=commerceblog&page=1")
         {
             IsAvailable = _ => true,
             SortIndex = 2,
         });
 
         menuItems.Add(new UrlMenuItem("Find", DropdownMenuPath + "/item3",
-            "https://world.episerver.com/blogs/?type=findblog&page=1")
+            "https://world.optimizely.com/blogs/?type=findblog&page=1")
         {
             IsAvailable = _ => true,
             SortIndex = 3,
