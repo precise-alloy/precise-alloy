@@ -7,8 +7,9 @@ namespace PreciseAlloy.Models.Blocks;
 [ContentType(
     DisplayName = "Button Block",
     GUID = "30906de0-0907-4dad-835e-59c2116501b9")]
+[ContentTypeIcon(FontAwesome.Navicon)]
 public class ButtonBlock
-    : BaseBlockData, IAtomBlock
+    : BaseBlockData, IChildBlock
 {
     [Display(
         Name = "Text",

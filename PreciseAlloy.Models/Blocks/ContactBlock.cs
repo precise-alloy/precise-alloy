@@ -10,6 +10,7 @@ namespace PreciseAlloy.Models.Blocks;
     DisplayName = "Contact Block",
     Description = "Contact Block",
     GUID = "DF23C879-B5D4-4147-95D6-EF87E73B17AB")]
+[ContentTypeIcon(FontAwesome.Users)]
 public class ContactBlock
     : BaseBlockData, IHasHeading
 {

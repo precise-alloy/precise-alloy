@@ -9,6 +9,7 @@ namespace PreciseAlloy.Models.Blocks;
     DisplayName = "Social Link Block",
     GroupName = TabNames.SiteSettings,
     GUID = "56174c38-7fb4-4734-96dd-9a7b13932ffe")]
+[ContentTypeIcon(FontAwesome.Share)]
 // ReSharper disable once UnusedMember.Global
 public class SocialLinkBlock : BaseBlockData
 {

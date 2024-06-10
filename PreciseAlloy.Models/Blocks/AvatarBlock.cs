@@ -2,6 +2,7 @@
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.Web;
+using PreciseAlloy.Models.Interfaces;
 
 namespace PreciseAlloy.Models.Blocks;
 
@@ -9,7 +10,9 @@ namespace PreciseAlloy.Models.Blocks;
     DisplayName = "Avatar Block",
     Description = "",
     GUID = "4c9c9654-6183-4f9f-b23a-0560bfdb9fb0")]
-public class AvatarBlock : BaseBlockData
+[ContentTypeIcon(FontAwesome.User)]
+public class AvatarBlock
+    : BaseBlockData, IChildBlock
 {
     [Display(
         Name = "Name",

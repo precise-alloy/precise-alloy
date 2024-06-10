@@ -19,7 +19,7 @@ public abstract class SitePageData
         Order = 10)]
     [AllowedTypes(
         [typeof(BaseBlockData), typeof(PdfFile)],
-        [typeof(IAtomBlock)])]
+        [typeof(IChildBlock)])]
     public virtual ContentArea? MainContentArea { get; set; }
 
     #region Metadata

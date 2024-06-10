@@ -9,6 +9,7 @@ namespace PreciseAlloy.Models.Blocks;
     DisplayName = "Hero Block",
     Description = "",
     GUID = "3b6e8aca-a9ff-4e06-b136-ecc10d40faa0")]
+[ContentTypeIcon(FontAwesome.Header)]
 public class HeroBlock
     : BaseBlockData, IHasHeading, IHasSubHeading
 {

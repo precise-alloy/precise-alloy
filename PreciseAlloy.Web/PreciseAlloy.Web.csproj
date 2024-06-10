@@ -31,6 +31,7 @@
     <PackageReference Include="EPiServer.Forms" Version="5.8.2" />
     <PackageReference Include="EPiServer.Framework" Version="12.21.5" />
     <PackageReference Include="EPiServer.ImageLibrary.ImageSharp" Version="2.0.3" />
+    <PackageReference Include="Geta.Optimizely.ContentTypeIcons" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.6" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
     <PackageReference Include="Serilog" Version="4.0.0" />

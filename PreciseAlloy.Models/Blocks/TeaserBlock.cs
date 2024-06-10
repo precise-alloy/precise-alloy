@@ -10,6 +10,7 @@ namespace PreciseAlloy.Models.Blocks;
     DisplayName = "Teaser Block",
     Description = "",
     GUID = "e8dcda7f-54d7-4a8c-95ad-51ab3c41a45a")]
+[ContentTypeIcon(FontAwesome.Header)]
 public class TeaserBlock
     : BaseBlockData, IHasHeading
 {

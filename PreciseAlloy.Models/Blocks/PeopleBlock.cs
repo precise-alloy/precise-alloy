@@ -9,6 +9,7 @@ namespace PreciseAlloy.Models.Blocks;
     DisplayName = "People Block",
     Description = "",
     GUID = "2f5cb180-6c82-49be-bfc7-80b013c23099")]
+[ContentTypeIcon(FontAwesome.Users)]
 public class PeopleBlock
     : BaseBlockData, IHasHeading, IHasSubHeading
 {
