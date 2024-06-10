@@ -1,5 +1,4 @@
-﻿using PreciseAlloy.Models.Constants;
-using ImageInfo = PreciseAlloy.Models.Media.ImageInfo;
+﻿using ImageInfo = PreciseAlloy.Models.Media.ImageInfo;
 
 namespace PreciseAlloy.Web.Features.Blocks.Image;
 
@@ -50,7 +49,7 @@ public class ImageViewModel
             .Where(w => Width > w)
             .Select(w => new ImageSource(
                 Url(imageInfo.Url, w, ResizeMode, imageInfo.CenterX, imageInfo.CenterY),
-                w / Frontend.RootElementWidth));
+                w));
     }
 
     private static string Url(

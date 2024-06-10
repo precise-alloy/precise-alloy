@@ -5,7 +5,7 @@
     <picture class="zzz-a-picture">
         @foreach (var imageSource in Model.ImageSources)
         {
-            <source media="max-width: @(imageSource.MediaMaxWidth)rem" srcset="@imageSource.Url" />
+            <source media="max-width: @(imageSource.MediaMaxWidth)px" srcset="@imageSource.Url" />
         }
         <img src="@Model.Src" alt="@Model.AltText" width="@Model.Width" height="@Model.Height" />
     </picture>
