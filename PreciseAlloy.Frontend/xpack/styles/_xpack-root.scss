@@ -13,7 +13,7 @@
   overflow: hidden;
   line-height: 1.5;
   padding: px2rem(10px);
-  font-size: px2rem(16px);
+  font-size: px2rem(14px);
   align-items: center;
 
   @include lg {
@@ -110,7 +110,7 @@
   }
 
   &__nav-message {
-    padding: px2rem(8px) px2rem(16px);
+    padding: px2rem(8px) px2rem(14px);
     font-weight: 700;
   }
 
@@ -132,7 +132,7 @@
     padding: px2rem(4px) px2rem(8px) px2rem(4px) px2rem(16px);
     display: block;
     color: $body-color;
-    font-size: px2rem(16px);
+    font-size: px2rem(14px);
     font-family: Arial, Helvetica, sans-serif;
 
     &--active {
@@ -197,9 +197,10 @@
   }
 
   &__actual-width {
+    margin-top: px2rem(8px);
     margin-right: px2rem(10px);
     text-align: center;
-    font-size: px2rem(16px);
+    font-size: px2rem(14px);
   }
 
   &__controls {

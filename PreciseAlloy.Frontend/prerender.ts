@@ -116,6 +116,15 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
   });
 };
 
+const removeStyleBase = ($: cheerio.CheerioAPI) => {
+  $('link[rel="stylesheet"]').each((_, el) => {
+    const href = $(el).attr('href');
+    if (href?.includes('style-base')) {
+      $(el).remove();
+    }
+  });
+};
+
 const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: string, paths: string[]) => {
   $(selector).each((_, el) => {
     if ($(el).attr('data-pl-inplace') === 'true') {
@@ -177,6 +186,9 @@ const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
     updateResourcePath($, 'link', 'href', addHash);
     updateResourcePath($, 'script', 'src', addHash);
     updateResourcePath($, 'img', 'src', addHash);
+    if (route.route === '/') {
+      removeStyleBase($);
+    }
 
     $('head title').text(route.name);
 
