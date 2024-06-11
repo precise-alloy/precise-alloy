@@ -2,26 +2,9 @@ import { createRef, MouseEvent, useState } from 'react';
 import { useRootContext } from './root-context';
 import { viteAbsoluteUrl } from '@helpers/functions';
 import { useOnClickOutside } from './useClickOutside';
+import StateAnimationHtml from './StateAnimationHtml';
 
-const StateAnimationHtml = (model: { keyExist: boolean }) =>
-  model.keyExist ? (
-    <></>
-  ) : (
-    <div className="pl-state-toggle__circles">
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-    </div>
-  );
-
-const ActiveItemOptions = () => {
+export default function ActiveItemOptions() {
   const { activeItem, isTopPanel } = useRootContext();
   const key = 'pl-show-state-selector';
   const keyExist = localStorage.getItem(key);
@@ -105,6 +88,4 @@ const ActiveItemOptions = () => {
   ) : (
     <></>
   );
-};
-
-export default ActiveItemOptions;
+}

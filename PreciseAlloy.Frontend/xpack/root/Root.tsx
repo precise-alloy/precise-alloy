@@ -6,7 +6,7 @@ import ActiveItemOptions from './ActiveItemOptions';
 import RootNav from './RootNav';
 import { viteAbsoluteUrl } from '@helpers/functions';
 
-const Root = ({ routes }: RootModel) => {
+export default function Root({ routes }: RootModel) {
   const [activeItem, setActiveItem] = useState<RootItemModel>();
   const [isTopPanel, setTopPanel] = useState<boolean>(localStorage.getItem('MSG_IS_TOP_PANEL') === 'true');
 
@@ -70,6 +70,4 @@ const Root = ({ routes }: RootModel) => {
   ) : (
     <></>
   );
-};
-
-export default Root;
+}

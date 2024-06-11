@@ -2,7 +2,7 @@ import { RootModel } from '@_types/types';
 import RequireJs from '@helpers/RequireJs';
 import ReactSection from '@helpers/ReactSection';
 
-const Template = (model: RootModel) => {
+export default function Template(model: RootModel) {
   return (
     <main className="xpack-t-root">
       {model && <ReactSection type="root" data={model} css={'root'} />}
@@ -19,6 +19,4 @@ const Template = (model: RootModel) => {
       </div>
     </main>
   );
-};
-
-export default Template;
+}

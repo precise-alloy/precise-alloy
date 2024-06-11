@@ -17,4 +17,6 @@ export const RootContext = createContext<RootData>({
   },
 });
 
-export const useRootContext = () => useContext(RootContext);
+export function useRootContext() {
+  return useContext(RootContext);
+}

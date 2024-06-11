@@ -4,32 +4,13 @@ import { createRef, MouseEvent, useCallback, useEffect, useState } from 'react';
 import { useRootContext } from './root-context';
 import { viteAbsoluteUrl } from '@helpers/functions';
 import { useOnClickOutside } from './useClickOutside';
+import RenderedItem from './RenderedItem';
 
 interface Props {
   routes: RootItemModel[];
 }
 
-const RenderedItem = (item: RootItemModel) => {
-  const { activeItem, setActiveItem } = useRootContext();
-
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault();
-    window.location.hash = item.path;
-    setActiveItem(item);
-
-    return false;
-  };
-
-  const activeClass = activeItem && activeItem.path === item.path ? ' xpack-o-root__nav-item--active' : '';
-
-  return (
-    <a className={'xpack-o-root__nav-item' + activeClass} href={viteAbsoluteUrl(item.path, true)} target="inner" onClick={handleClick}>
-      {item.name}
-    </a>
-  );
-};
-
-const RootNav = ({ routes: routesProp }: Props) => {
+export default function RootNav({ routes: routesProp }: Props) {
   const { activeItem } = useRootContext();
   const [show, setShow] = useState(false);
   const navItemRef = createRef<HTMLDivElement>();
@@ -123,6 +104,4 @@ const RootNav = ({ routes: routesProp }: Props) => {
       </div>
     </>
   );
-};
-
-export default RootNav;
+}
