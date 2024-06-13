@@ -14,7 +14,7 @@
     <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.21.5" />
     <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.21.5" />
     <PackageReference Include="EPiServer.CMS.Core" Version="12.21.5" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.29.1" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.30.0" />
     <PackageReference Include="EPiServer.Forms.Core" Version="5.8.2" />
     <PackageReference Include="EPiServer.Framework" Version="12.21.5" />
     <PackageReference Include="Geta.Optimizely.ContentTypeIcons" Version="2.1.0" />
