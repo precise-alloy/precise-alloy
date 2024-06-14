@@ -92,9 +92,10 @@
   }
 
   &__items {
+    padding: px2rem(8px) 0 px2rem(32px);
+    height: calc(100% - px2rem(42px));
     overflow-y: auto;
     overflow-x: hidden;
-    height: calc(100% - px2rem(42px));
   }
 
   &__search {
