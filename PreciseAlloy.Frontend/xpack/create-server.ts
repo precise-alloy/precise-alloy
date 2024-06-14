@@ -6,6 +6,7 @@ import { ViteDevServer, loadEnv } from 'vite';
 import { createViteDevServer } from './create-vite-dev-server.js';
 import { useRenderer } from './renderer.js';
 import chalk from 'chalk';
+import { IncomingMessage, Server, ServerResponse } from "http";
 
 interface Props {
   root: string;
@@ -48,11 +49,27 @@ const createServer = async ({ root, hmrPort, baseUrl, isTest }: Props) => {
 };
 
 const startServer = (props: Props) => {
-  createServer(props).then(({ app }) => {
-    app.listen(props.port, () => {
-      const xpackEnv = loadEnv(mode, props.root);
-      console.log('Running on ' + chalk.green('http://localhost:' + props.port + xpackEnv.VITE_BASE_URL));
-    });
+  createServer(props).then(async ({ app, viteDevServer }) => {
+    let server: Server<typeof IncomingMessage, typeof ServerResponse> | undefined;
+
+    try {
+      server = app.listen(props.port, () => {
+        const xpackEnv = loadEnv(mode, props.root);
+        console.log('Running on ' + chalk.green('http://localhost:' + props.port + xpackEnv.VITE_BASE_URL));
+      });
+    } catch (error: any) {
+      if (error.code === 'EADDRINUSE') {
+        console.log(chalk.green('\n--- Try to run on another port ---\n'));
+
+        server?.close();
+
+        await viteDevServer?.close();
+
+        const newPort = props.port + 2; // Skipping the next 2 port numbers since our application is using two consecutive numbers for the dev server and the hrm
+
+        startServer({ ...props, port: newPort, ...(props.hmrPort && { hmrPort: newPort + 1 }) });
+      }
+    }
   });
 };
 
