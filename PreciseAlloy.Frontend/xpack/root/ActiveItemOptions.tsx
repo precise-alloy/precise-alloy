@@ -51,7 +51,12 @@ export default function ActiveItemOptions() {
 
   return activeItem ? (
     <div>
-      <button ref={buttonRef} className={`xpack-o-root__control-button xpack-o-root__button-${show ? 'close' : 'setting'}`} onClick={handleClick}>
+      <button
+        ref={buttonRef}
+        className={`xpack-o-root__control-button xpack-o-root__button-${show ? 'close' : 'setting'}`}
+        onClick={handleClick}
+        aria-label={show ? 'Close' : 'Settings'}
+      >
         <svg viewBox="0 0 30 30" className="xpack-o-root__control-svg">
           <use xlinkHref={show ? `/assets/images/root.svg#close` : '/assets/images/root.svg#setting'}></use>
         </svg>

@@ -59,7 +59,7 @@ export default function RootNav({ routes: routesProp }: Props) {
   return (
     <>
       <a ref={buttonRef} className="xpack-o-root__button-close" onClick={handleClick}>
-        <button className="xpack-o-root__control-button xpack-o-root__button-close">
+        <button className="xpack-o-root__control-button xpack-o-root__button-close" aria-label={show ? 'Close' : 'Pages'}>
           <svg className="xpack-o-root__control-svg">
             <use xlinkHref={viteAbsoluteUrl('/assets/images/root.svg#' + (show ? 'close' : 'list'))}></use>
           </svg>

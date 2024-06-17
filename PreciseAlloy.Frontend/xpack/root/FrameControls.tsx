@@ -96,32 +96,32 @@ export default function FrameControls() {
     <div className="xpack-o-root__frame-control">
       <div id="root-actual-iframe-width" className="xpack-o-root__actual-width"></div>
       <div className="xpack-o-root__controls">
-        <button className="xpack-o-root__control-button" onClick={handleMobileClick}>
+        <button className="xpack-o-root__control-button" onClick={handleMobileClick} aria-label="Mobile View" title="Mobile View">
           <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
             <use xlinkHref="/assets/images/root.svg#phone"></use>
           </svg>
         </button>
-        <button className="xpack-o-root__control-button" onClick={handleTabletClick}>
+        <button className="xpack-o-root__control-button" onClick={handleTabletClick} aria-label="Tablet View" title="Tablet View">
           <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
             <use xlinkHref="/assets/images/root.svg#tablet"></use>
           </svg>
         </button>
-        <button className="xpack-o-root__control-button" onClick={handleDesktopClick}>
+        <button className="xpack-o-root__control-button" onClick={handleDesktopClick} aria-label="Desktop View" title="Desktop View">
           <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
             <use xlinkHref="/assets/images/root.svg#desktop"></use>
           </svg>
         </button>
-        <button className="xpack-o-root__control-button" onClick={handleFullClick}>
+        <button className="xpack-o-root__control-button" onClick={handleFullClick} aria-label="Full Width View" title="Full Width View">
           <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
             <use xlinkHref="/assets/images/root.svg#hay"></use>
           </svg>
         </button>
-        <button className="xpack-o-root__control-button" onClick={handleRandomClick}>
+        <button className="xpack-o-root__control-button" onClick={handleRandomClick} aria-label="Random Width View" title="Random Width View">
           <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
             <use xlinkHref="/assets/images/root.svg#random"></use>
           </svg>
         </button>
-        <button className="xpack-o-root__control-button" onClick={handleDiscoClick}>
+        <button className="xpack-o-root__control-button" onClick={handleDiscoClick} aria-label="Disco Mode View" title="Disco Mode View">
           <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
             <use xlinkHref="/assets/images/root.svg#disco-ball"></use>
           </svg>
