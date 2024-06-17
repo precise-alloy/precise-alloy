@@ -10,6 +10,11 @@
       &::before {
         font-size: 18px;
       }
+
+      // TODO: remove this temporary fix for the quote left icons
+      &.fa-ruote-left:before {
+        content: '\f10d';
+      }
     }
   }
 }
