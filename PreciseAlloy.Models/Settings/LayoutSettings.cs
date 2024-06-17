@@ -12,6 +12,7 @@ namespace PreciseAlloy.Models.Settings;
     DisplayName = "Layout Settings",
     Description = "",
     GUID = "eb7c042f-121f-464e-968a-6a433b45dc5f")]
+[ContentTypeIcon(FontAwesome.Gears)]
 public class LayoutSettings
     : SettingsBase
 {
