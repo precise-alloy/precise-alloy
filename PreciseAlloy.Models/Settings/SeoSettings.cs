@@ -7,6 +7,7 @@ namespace PreciseAlloy.Models.Settings;
     DisplayName = "SEO Settings",
     Description = "",
     GUID = "3217aa51-e3c8-4c2b-8106-00d57e44221e")]
+[ContentTypeIcon(FontAwesome.Search)]
 public class SeoSettings
     : SettingsBase
 {

@@ -8,6 +8,7 @@ namespace PreciseAlloy.Models.Media;
     DisplayName = "XML File",
     Description = "XML media file type. Supports .xml extension.")]
 [MediaDescriptor(ExtensionString = "xml")]
+[ContentTypeIcon(FontAwesome.Html5)]
 // ReSharper disable once UnusedMember.Global
 public class XmlFile : GenericMedia
 {

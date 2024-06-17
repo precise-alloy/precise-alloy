@@ -8,6 +8,7 @@ namespace PreciseAlloy.Models.Media;
     DisplayName = "PDF File",
     Description = "")]
 [MediaDescriptor(ExtensionString = "pdf")]
+[ContentTypeIcon(FontAwesome.FilePdfO)]
 public class PdfFile : GenericMedia
 {
 }

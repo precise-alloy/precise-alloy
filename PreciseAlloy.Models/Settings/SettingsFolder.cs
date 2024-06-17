@@ -9,8 +9,10 @@ namespace PreciseAlloy.Models.Settings;
 [ContentType(
     DisplayName = "Settings Folder",
     GUID = "c709627f-ca9f-4c77-b0fb-8563287ebd93")]
-[AvailableContentTypes(Include = new[] { typeof(SettingsBase), typeof(SettingsFolder) })]
-public class SettingsFolder : ContentFolder
+[AvailableContentTypes(Include = [typeof(SettingsBase), typeof(SettingsFolder)])]
+[ContentTypeIcon(FontAwesome.Folder)]
+public class SettingsFolder
+    : ContentFolder
 {
     public const string SettingsRootName = "SettingsRoot";
     public static readonly Guid SettingsRootGuid = new("79611ee5-7ddd-4ac8-b00e-5e8e8d2a57ee");

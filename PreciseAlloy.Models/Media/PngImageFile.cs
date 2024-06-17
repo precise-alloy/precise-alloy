@@ -8,6 +8,7 @@ namespace PreciseAlloy.Models.Media;
     DisplayName = "PNG File",
     Description = "PNG media file type. Supports .png, .webp extension.")]
 [MediaDescriptor(ExtensionString = "png,webp")]
+[ContentTypeIcon(FontAwesome.FileImageO)]
 // ReSharper disable once UnusedMember.Global
 public class PngImageFile : ImageFile
 {
