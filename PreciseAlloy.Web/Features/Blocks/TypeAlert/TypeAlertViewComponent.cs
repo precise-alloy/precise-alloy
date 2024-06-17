@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using EPiServer.PlugIn;
+using Geta.Optimizely.ContentTypeIcons.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using PreciseAlloy.Jobs;
@@ -60,6 +61,12 @@ public class TypeAlertViewComponent(IRequestContext requestContext) : ViewCompon
                 || string.IsNullOrWhiteSpace(contentType.GUID))
             {
                 messages.Add($"<strong>ContentType</strong> attribute with Display Name and unique GUID is required for {type.Namespace}.<strong>{type.Name}</strong>.");
+            }
+
+            var icon = type.GetCustomAttribute<ContentTypeIconAttribute>();
+            if (icon is null)
+            {
+                messages.Add($"<strong>ContentTypeIcon</strong> attribute is required for {type.Namespace}.<strong>{type.Name}</strong>.");
             }
         }
 

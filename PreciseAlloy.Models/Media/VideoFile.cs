@@ -12,6 +12,7 @@ namespace PreciseAlloy.Models.Media;
     DisplayName = "Video File",
     Description = "Video media file type. Supports .mp4, .mov extension.")]
 [MediaDescriptor(ExtensionString = "mp4,mov")]
+[ContentTypeIcon(FontAwesome.FileVideoO)]
 // ReSharper disable once UnusedMember.Global
 public class VideoFile : VideoData, IMediaInfo
 {
