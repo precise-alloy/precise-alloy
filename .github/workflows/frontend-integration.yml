@@ -1,0 +1,82 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Frontend Integration
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches:
+      - fe-release
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  FE_BASE_BRANCH: fe-develop
+  FE_RELEASE_BRANCH: fe-release
+  FE_PACKAGE_BRANCH: fe-release-inte-package
+  BE_BASE_BRANCH: develop
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    timeout-minutes: 5
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout Base 🛎️
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+          submodules: recursive
+          ref: ${{ env.FE_RELEASE_BRANCH }}
+
+      - name: Create git branch
+        run: |
+          git config --global user.email "build-service@eshn.dev"
+          git config --global user.name "Build Service"
+          git fetch origin $BE_BASE_BRANCH:$BE_BASE_BRANCH
+          git merge $BE_BASE_BRANCH
+
+      - name: Bun Setup 🛎️
+        uses: oven-sh/setup-bun@v1
+
+      - name: Bun Install and Inte 🛎️
+        run: |
+          bun install
+          bun run inte
+          git checkout -- .
+        working-directory: PreciseAlloy.Frontend
+
+      - name: Create release package
+        run: |
+          git add .
+          git commit -m "Create release package"
+          git push origin HEAD:$FE_PACKAGE_BRANCH -f
+
+      - name: PR to ${{ env.BE_BASE_BRANCH }}
+        run: |
+          echo $TOKEN | gh auth login --with-token
+          gh pr create -B $BE_BASE_BRANCH -H $FE_PACKAGE_BRANCH --title 'PR to ${{ env.BE_BASE_BRANCH }}' --body 'Created by Github action'
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: PR to ${{ env.FE_BASE_BRANCH }}
+        run: |
+          echo $TOKEN | gh auth login --with-token
+          gh pr create -B $FE_BASE_BRANCH -H $FE_PACKAGE_BRANCH --title 'PR to ${{ env.FE_BASE_BRANCH }}' --body 'Created by Github action'
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -8,6 +8,9 @@ namespace PreciseAlloy.Models.Media;
     DisplayName = "JPEG File",
     Description = "JPEG media file type. Supports .jpg, .jpeg extension.")]
 [MediaDescriptor(ExtensionString = "jpg,jpeg")]
-public class JpegImageFile : ImageFile
+[ContentTypeIcon(FontAwesome.FileImageO)]
+// ReSharper disable once UnusedMember.Global
+public class JpegImageFile
+    : ImageFile
 {
 }

@@ -8,6 +8,9 @@ namespace PreciseAlloy.Models.Media;
     DisplayName = "GIF File",
     Description = "")]
 [MediaDescriptor(ExtensionString = "gif")]
-public class GifImageFile : ImageFile
+[ContentTypeIcon(FontAwesome.FileImageO)]
+// ReSharper disable once UnusedMember.Global
+public class GifImageFile
+    : ImageFile
 {
 }
