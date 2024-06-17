@@ -8,7 +8,7 @@ namespace PreciseAlloy.Web.Features.Plugins.ExtendedAdmin;
 public class ExtendedAdminController
     : Controller
 {
-    [Route("[action]")]
+    [HttpGet("[action]")]
     public IActionResult Index()
     {
         return View();

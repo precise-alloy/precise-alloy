@@ -8,7 +8,7 @@ namespace PreciseAlloy.Web.Features.Plugins.EpiServerWorld;
 public class EpiServerWorldController
     : Controller
 {
-    [Route("[action]")]
+    [HttpGet("[action]")]
     public ActionResult Index()
     {
         return View();

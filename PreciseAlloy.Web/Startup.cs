@@ -82,15 +82,29 @@ public class Startup(
         // Add GroupingHeader
         // https://github.com/advanced-cms/grouping-header/
         services.AddGroupingHeader();
+
+        if (IsIntegrationOrLower())
+        {
+            services.AddSwaggerGen(options =>
+            {
+                // var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                // options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            });
+        }
     }
 
     public void Configure(
-        IApplicationBuilder app,
-        IWebHostEnvironment env)
+        IApplicationBuilder app)
     {
-        if (env.IsDevelopment())
+        if (webHostEnvironment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
+        }
+
+        if (IsIntegrationOrLower())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
 
         app.UseStaticFiles();
@@ -109,5 +123,11 @@ public class Startup(
             endpoints.MapRazorPages();
             endpoints.MapContent();
         });
+    }
+
+    private bool IsIntegrationOrLower()
+    {
+        return webHostEnvironment.IsDevelopment()
+               || webHostEnvironment.IsEnvironment("Integration");
     }
 }
