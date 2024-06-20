@@ -16,7 +16,7 @@ using PreciseAlloy.Web.Infrastructure;
 
 namespace PreciseAlloy.Web;
 
-public class Startup(
+public partial class Startup(
     IWebHostEnvironment webHostEnvironment,
     IConfiguration configuration)
 {
@@ -73,6 +73,8 @@ public class Startup(
                 o.SupportIriCharacters = true;
                 o.ValidCharacters = @"\p{L}0-9\-_~\.\$";
             });
+
+        ConfigureTinyMce(services);
 
         services.AddTransient<ContentAreaRenderer, CustomContentAreaRenderer>();
         services.AddSingleton<ISettingsService, SettingsService>();
