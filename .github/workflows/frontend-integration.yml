@@ -70,13 +70,47 @@ jobs:
       - name: PR to ${{ env.BE_BASE_BRANCH }}
         run: |
           echo $TOKEN | gh auth login --with-token
-          gh pr create -B $BE_BASE_BRANCH -H $FE_PACKAGE_BRANCH --title 'PR to ${{ env.BE_BASE_BRANCH }}' --body 'Created by Github action'
+
+          PR_COUNT=$(gh pr list \
+            --base $BE_BASE_BRANCH \
+            --head $FE_PACKAGE_BRANCH \
+            --state open \
+            --json title \
+            --jq length)
+
+          if [ "$PR_COUNT" -eq "0" ]; then
+            echo "Creating PR to $BE_BASE_BRANCH"
+            gh pr create \
+              --base $BE_BASE_BRANCH \
+              --head $FE_PACKAGE_BRANCH \
+              --title 'PR to ${{ env.BE_BASE_BRANCH }}' \
+              --body 'Created by Github action'
+          else
+            echo "PR already exists"
+          fi
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: PR to ${{ env.FE_BASE_BRANCH }}
         run: |
           echo $TOKEN | gh auth login --with-token
-          gh pr create -B $FE_BASE_BRANCH -H $FE_PACKAGE_BRANCH --title 'PR to ${{ env.FE_BASE_BRANCH }}' --body 'Created by Github action'
+
+          PR_COUNT=$(gh pr list \
+            --base $FE_BASE_BRANCH \
+            --head $FE_PACKAGE_BRANCH \
+            --state open \
+            --json title \
+            --jq length)
+
+          if [ "$PR_COUNT" -eq "0" ]; then
+            echo "Creating PR to $FE_BASE_BRANCH"
+            gh pr create \
+              --base $FE_BASE_BRANCH \
+              --head $FE_PACKAGE_BRANCH \
+              --title 'PR to ${{ env.FE_BASE_BRANCH }}' \
+              --body 'Created by Github action'
+          else
+            echo "PR already exists"
+          fi
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
