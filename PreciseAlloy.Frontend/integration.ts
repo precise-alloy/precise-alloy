@@ -21,7 +21,7 @@ const xpackEnv = loadEnv(mode, __dirname);
 const toAbsolute = (p: string) => slash(path.resolve(__dirname, p));
 const log = console.log.bind(console);
 
-const hashes: { [path: string]: string } = {};
+const hashes: Map<string, string> = new Map();
 const staticBasePath = toAbsolute('dist/static');
 const srcBasePath = toAbsolute('dist/static/assets');
 const destBasePath = toAbsolute(xpackEnv.VITE_INTE_ASSET_DIR);
@@ -77,14 +77,23 @@ hashItems.forEach((item) => {
       const sha1Hash = crypto.createHash('sha1');
       sha1Hash.update(content);
       const hash = sha1Hash.digest('base64url').substring(0, 10);
-      hashes[relativePath] = hash;
+      hashes.set(relativePath, hash);
     } else {
-      hashes[relativePath] = '';
+      hashes.set(relativePath, '');
     }
   });
 });
 
-fs.writeFileSync(path.join(destBasePath, 'hashes.json'), JSON.stringify(hashes, null, '  '));
+const sortedHashes = Array.from(hashes)
+  .sort((a, b) => a[0].localeCompare(b[0]))
+  .reduce(
+    (obj, [key, value]) => {
+      obj[key] = value;
+      return obj;
+    },
+    {} as { [key: string]: string }
+  );
+fs.writeFileSync(path.join(destBasePath, 'hashes.json'), JSON.stringify(sortedHashes, null, '  '));
 
 if (patternPath) {
   fs.mkdirSync(patternPath, { recursive: true });
