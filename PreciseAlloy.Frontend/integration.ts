@@ -104,7 +104,9 @@ if (patternPath) {
 
   glob.sync(slash(path.resolve(patternPath + '/**/*.{htm,html}'))).forEach((p) => {
     const text = fs.readFileSync(p, 'utf-8');
-    const newText = text.replaceAll(/react-loader\.\w+\.js/gi, 'react-loader.0x00000000.js').replaceAll(/\.svg\?v=[a-z0-9_-]+/gi, '.svg');
+    const newText = text
+      .replaceAll(/react-loader\.0x[a-z0-9_-]{8,12}\.js/gi, 'react-loader.0x00000000.js')
+      .replaceAll(/\.svg\?v=[a-z0-9_-]+/gi, '.svg');
     if (text !== newText) {
       fs.writeFileSync(p, newText);
     }
