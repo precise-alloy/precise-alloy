@@ -72,7 +72,7 @@ hashItems.forEach((item) => {
   files.forEach((file) => {
     const relativePath = slash(file.substring(staticBasePath.length));
 
-    if (!/\.0x[a-z0-9]{8}\.\w+$/gi.test(file)) {
+    if (!/\.0x[a-z0-9_-]{8,12}\.\w+$/gi.test(file)) {
       const content = fs.readFileSync(file);
       const sha1Hash = crypto.createHash('sha1');
       sha1Hash.update(content);
@@ -104,7 +104,9 @@ if (patternPath) {
 
   glob.sync(slash(path.resolve(patternPath + '/**/*.{htm,html}'))).forEach((p) => {
     const text = fs.readFileSync(p, 'utf-8');
-    const newText = text.replaceAll(/react-loader\.\w+\.js/gi, 'react-loader.0x00000000.js').replaceAll(/\.svg\?v=[a-z0-9_-]+/gi, '.svg');
+    const newText = text
+      .replaceAll(/react-loader\.0x[a-z0-9_-]{8,12}\.js/gi, 'react-loader.0x00000000.js')
+      .replaceAll(/\.svg\?v=[a-z0-9_-]+/gi, '.svg');
     if (text !== newText) {
       fs.writeFileSync(p, newText);
     }
