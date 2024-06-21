@@ -72,7 +72,7 @@ hashItems.forEach((item) => {
   files.forEach((file) => {
     const relativePath = slash(file.substring(staticBasePath.length));
 
-    if (!/\.0x[a-z0-9]{8}\.\w+$/gi.test(file)) {
+    if (!/\.0x[a-z0-9_-]{8,12}\.\w+$/gi.test(file)) {
       const content = fs.readFileSync(file);
       const sha1Hash = crypto.createHash('sha1');
       sha1Hash.update(content);
