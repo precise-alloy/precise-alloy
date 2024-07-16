@@ -17,7 +17,7 @@ pool:
 
 variables:
   npm_config_cache: $(Pipeline.Workspace)/.npm
-  CustomReviewId: 'ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2' # Check https://www.tuyen.xyz/optimizely-cms/frontend/integration/ for how to get this ID
+  CustomReviewId: 'ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2' # Check https://tuyen.blog/optimizely-cms/frontend/integration/ for how to get this ID
 
 steps:
   - checkout: self
