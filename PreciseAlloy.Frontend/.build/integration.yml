@@ -1,7 +1,14 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+# This YAML pipeline is configured to run on the 'fe-release' branch trigger.
+# It uses the latest Ubuntu virtual machine image.
+# The pipeline defines several variables, including npm cache location and a custom review ID.
+# The steps in the pipeline are as follows:
+# 1. Checkout the repository with a clean state, persist credentials, and fetch all history.
+# 2. Install 'bun' (a JavaScript runtime) and add it to the PATH.
+# 3. Configure git with a specific user email and name, fetch the 'develop' branch, and merge it.
+# 4. Run 'bun install' to install dependencies, execute a custom 'inte' script, and reset any changes in the working directory.
+#
+# NOTE: Consider pinpoint the version of Bun in you project to avoid breaking changes
+# See: https://bun.sh/docs/installation#installing
 
 resources:
   repositories:
@@ -37,6 +44,9 @@ steps:
       git fetch origin develop:develop
       git merge develop
     displayName: 'Create git branch'
+    env:
+      FE_COMMIT_USER_EMAIL: $(FE_COMMIT_USER_EMAIL)
+      FE_COMMIT_USER_NAME: $(FE_COMMIT_USER_NAME)
 
   - script: |
       bun install

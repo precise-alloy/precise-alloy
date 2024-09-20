@@ -1,7 +1,14 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+# This YAML pipeline is configured to run on the 'fe-develop' branch trigger.
+# It uses the latest Ubuntu virtual machine image.
+# The pipeline defines an npm cache location variable.
+# The steps in the pipeline are as follows:
+# 1. Checkout the repository without submodules.
+# 2. Install 'bun' (a JavaScript runtime) and add it to the PATH.
+# 3. Run 'bun install' to install node modules in the 'PreciseAlloy.Frontend' directory.
+# 4. Generate a static site using the 'bun run eshn' command.
+#
+# NOTE: consider pinpoint the version of Bun in you project to avoid breaking changes
+# See: https://bun.sh/docs/installation#installing
 
 resources:
   repositories:
