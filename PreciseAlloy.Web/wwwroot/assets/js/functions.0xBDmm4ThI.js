@@ -1,2 +1,2 @@
 const o=(e,r)=>{var t,i;const s=[r];return(t=e.globalModifier)==null||t.forEach(n=>s.push(n)),(i=e.styleModifier)==null||i.forEach(n=>s.push(r+"--"+n)),e.theme&&s.push("theme-"+e.theme),s.join(" ")},c=(e,r=!1)=>{if(/^https?:\/\//gi.test(e))return e;const s="/",t=(e!=null&&e.startsWith("/")?e:"/"+e)+(r&&!e.endsWith("/")?".html":"");if(!s.endsWith("/"))return s+t;const i=s.length;return s.substring(0,i-1)+t};export{o as g,c as v};
-//# sourceMappingURL=functions.0xed5XM7m0.js.map
+//# sourceMappingURL=functions.0xBDmm4ThI.js.map
