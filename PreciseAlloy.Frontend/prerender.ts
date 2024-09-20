@@ -104,8 +104,12 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
             newPath += '?v=' + hash;
           }
         } else {
-          // Log warning
-          log(chalk.yellow('Cannot find:', path));
+          if (path.endsWith('/mock-api.js')) {
+            // Do nothing
+          } else {
+            // Log warning
+            log(chalk.yellow('Cannot find:', path));
+          }
         }
       }
 
@@ -158,7 +162,7 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
 const viteAbsoluteUrl = (remain: string, addExtension = false): string => {
   const baseUrl = xpackEnv.VITE_BASE_URL;
   const normalizedRemain =
-    (remain?.startsWith('/') ? remain : '/' + remain) + (addExtension && !remain.endsWith('/') ? xpackEnv.VITE_PATH_EXTENSION ?? '' : '');
+    (remain?.startsWith('/') ? remain : '/' + remain) + (addExtension && !remain.endsWith('/') ? (xpackEnv.VITE_PATH_EXTENSION ?? '') : '');
   if (!baseUrl) {
     return normalizedRemain;
   }
