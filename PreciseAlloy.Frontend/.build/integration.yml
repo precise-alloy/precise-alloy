@@ -39,8 +39,8 @@ steps:
     workingDirectory: PreciseAlloy.Frontend
 
   - script: |
-      git config --global user.email "VanTuyen.Pham@episerver.com"
-      git config --global user.name "Tuyen Pham"
+      git config --global user.email "$FE_COMMIT_USER_EMAIL"
+      git config --global user.name "$FE_COMMIT_USER_NAME"
       git fetch origin develop:develop
       git merge develop
     displayName: 'Create git branch'
