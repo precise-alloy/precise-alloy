@@ -1,11 +1,13 @@
 button.FormSubmitButton {
   @include zzz-button;
 
-  background-color: $black;
-  color: $white;
-  width: 100%;
-  justify-content: center;
-  margin-top: px2rem(16px);
+  & {
+    background-color: $black;
+    color: $white;
+    width: 100%;
+    justify-content: center;
+    margin-top: px2rem(16px);
+  }
 
   &::before {
     background-color: $wave-black;

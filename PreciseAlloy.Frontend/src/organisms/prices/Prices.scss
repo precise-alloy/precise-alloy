@@ -32,6 +32,8 @@
   &__label {
     @include font-label;
 
-    color: $subtitle;
+    & {
+      color: $subtitle;
+    }
   }
 }

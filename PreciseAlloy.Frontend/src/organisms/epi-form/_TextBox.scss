@@ -7,7 +7,10 @@
 
     label {
       @include font-label;
-      font-weight: $regular;
+
+      & {
+        font-weight: $regular;
+      }
     }
 
     input[type='text'] {
@@ -21,13 +24,15 @@
 
     input,
     textarea {
-      color: $primary;
       @include font-label;
-      font-weight: $regular;
-      width: 100%;
-      background-color: rgb($primary, 0.05);
-      border: px2rem(1px) solid $primary;
-      border-radius: px2rem(5px);
+      & {
+        color: $primary;
+        font-weight: $regular;
+        width: 100%;
+        background-color: rgb($primary, 0.05);
+        border: px2rem(1px) solid $primary;
+        border-radius: px2rem(5px);
+      }
     }
 
     .Form__Element__ValidationError {
