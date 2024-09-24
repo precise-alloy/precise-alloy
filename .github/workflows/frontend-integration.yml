@@ -63,11 +63,16 @@ jobs:
 
       - name: Create release package
         run: |
-          git add .
-          git commit -m "Create release package"
-          git push origin HEAD:$FE_PACKAGE_BRANCH -f
+          if [[ -n $(git status --porcelain) ]];
+          then
+            git add .
+            git commit -m "Create release package"
+            git push origin HEAD:$FE_PACKAGE_BRANCH -f
+            echo "HAS_NEW_COMMIT=true" >> $GITHUB_ENV
+          fi
 
       - name: PR to ${{ env.BE_BASE_BRANCH }}
+        if: env.HAS_NEW_COMMIT == 'true'
         run: |
           echo $TOKEN | gh auth login --with-token
 
@@ -92,6 +97,7 @@ jobs:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: PR to ${{ env.FE_BASE_BRANCH }}
+        if: env.HAS_NEW_COMMIT == 'true'
         run: |
           echo $TOKEN | gh auth login --with-token
 
