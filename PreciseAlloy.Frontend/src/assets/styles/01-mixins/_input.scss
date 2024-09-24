@@ -1,9 +1,12 @@
 @mixin zzz-input {
   @include font-label;
-  font-weight: $regular;
-  width: 100%;
-  background-color: $secondary;
-  border: px2rem(1px) solid $primary;
-  border-radius: px2rem(5px);
-  padding: px2rem(10px) px2rem(15px);
+
+  & {
+    font-weight: $regular;
+    width: 100%;
+    background-color: $secondary;
+    border: px2rem(1px) solid $primary;
+    border-radius: px2rem(5px);
+    padding: px2rem(10px) px2rem(15px);
+  }
 }

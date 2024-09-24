@@ -1,72 +1,94 @@
 @mixin font-body {
-  font-family: $font-work-sans;
-  font-size: px2rem(15px);
-  line-height: 1.25;
+  & {
+    font-family: $font-work-sans;
+    font-size: px2rem(15px);
+    line-height: 1.25;
+  }
 }
 
 @mixin font-label {
-  font-family: $font-work-sans;
-  font-weight: $bold;
-  font-size: px2rem(16px);
-  line-height: 1.25;
+  & {
+    font-family: $font-work-sans;
+    font-weight: $bold;
+    font-size: px2rem(16px);
+    line-height: 1.25;
+  }
 }
 
 @mixin font-sub-heading {
-  font-family: $font-work-sans;
-  font-weight: $regular;
-  font-size: px2rem(20px);
-  line-height: 1.25rem;
+  & {
+    font-family: $font-work-sans;
+    font-weight: $regular;
+    font-size: px2rem(20px);
+    line-height: 1.25rem;
+  }
 }
 
 @mixin font-h1 {
-  font-family: $font-crimson-text;
-  font-weight: $bold;
-  font-size: px2rem(28px);
-  line-height: 1.25;
+  & {
+    font-family: $font-crimson-text;
+    font-weight: $bold;
+    font-size: px2rem(28px);
+    line-height: 1.25;
+  }
 
   @include desktop {
-    font-size: px2rem(40px);
+    & {
+      font-size: px2rem(40px);
+    }
   }
 }
 
 @mixin font-h1-no-change {
-  font-family: $font-crimson-text;
-  font-weight: $bold;
-  font-size: px2rem(40px);
-  line-height: 1.25;
+  & {
+    font-family: $font-crimson-text;
+    font-weight: $bold;
+    font-size: px2rem(40px);
+    line-height: 1.25;
+  }
 }
 
 @mixin font-h2 {
-  font-family: $font-crimson-text;
-  font-weight: $bold;
-  font-size: px2rem(32px);
-  line-height: 1.25;
+  & {
+    font-family: $font-crimson-text;
+    font-weight: $bold;
+    font-size: px2rem(32px);
+    line-height: 1.25;
+  }
 }
 
 @mixin font-h3 {
-  font-family: $font-crimson-text;
-  font-weight: $bold;
-  font-size: px2rem(28px);
-  line-height: 1.25;
+  & {
+    font-family: $font-crimson-text;
+    font-weight: $bold;
+    font-size: px2rem(28px);
+    line-height: 1.25;
+  }
 }
 
 @mixin font-h4 {
-  font-family: $font-crimson-text;
-  font-weight: $bold;
-  font-size: px2rem(24px);
-  line-height: 1.25;
+  & {
+    font-family: $font-crimson-text;
+    font-weight: $bold;
+    font-size: px2rem(24px);
+    line-height: 1.25;
+  }
 }
 
 @mixin font-h5 {
-  font-family: $font-crimson-text;
-  font-weight: $bold;
-  font-size: px2rem(20px);
-  line-height: 1.25;
+  & {
+    font-family: $font-crimson-text;
+    font-weight: $bold;
+    font-size: px2rem(20px);
+    line-height: 1.25;
+  }
 }
 
 @mixin font-h6 {
-  font-family: $font-crimson-text;
-  font-weight: $bold;
-  font-size: px2rem(16px);
-  line-height: 1.25;
+  & {
+    font-family: $font-crimson-text;
+    font-weight: $bold;
+    font-size: px2rem(16px);
+    line-height: 1.25;
+  }
 }

@@ -4,9 +4,6 @@
   --padding: #{px2rem(10px)} #{px2rem(40px)};
   --border-radius: #{px2rem(8px)};
   --bg-hover-color: #{$wave-white};
-
-  @include font-sub-heading;
-
   color: var(--button-color);
   background-color: var(--bg-color);
   padding: var(--padding);
@@ -16,6 +13,7 @@
   display: inline-flex;
   text-decoration: none;
   position: relative;
+  @include font-sub-heading;
 
   &::before {
     content: '';
