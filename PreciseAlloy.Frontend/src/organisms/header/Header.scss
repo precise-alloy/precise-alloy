@@ -17,7 +17,9 @@
   &__title {
     @include font-h1;
 
-    margin-right: auto;
+    & {
+      margin-right: auto;
+    }
   }
 
   &__nav-list {
@@ -52,7 +54,10 @@
 
     &__item {
       @include font-sub-heading;
-      background-color: transparent;
+
+      & {
+        background-color: transparent;
+      }
 
       a {
         display: block;

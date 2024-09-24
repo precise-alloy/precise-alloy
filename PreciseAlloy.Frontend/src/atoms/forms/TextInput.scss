@@ -1,10 +1,12 @@
 .zzz-a-text-input {
-
   label {
     @include font-label;
-    font-weight: $regular;
-    margin-bottom: px2rem(16px);
-    display: block
+
+    & {
+      font-weight: $regular;
+      margin-bottom: px2rem(16px);
+      display: block;
+    }
   }
 
   input {

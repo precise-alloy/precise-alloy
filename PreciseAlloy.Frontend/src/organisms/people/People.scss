@@ -8,10 +8,13 @@
   }
 
   &__sub-header {
-    margin-bottom: px2rem(16px);
     @include font-label;
-    text-transform: uppercase;
-    color: $subtitle;
+
+    & {
+      margin-bottom: px2rem(16px);
+      text-transform: uppercase;
+      color: $subtitle;
+    }
   }
 
   &__header {
