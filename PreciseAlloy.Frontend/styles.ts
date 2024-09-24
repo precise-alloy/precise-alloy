@@ -1,5 +1,5 @@
 import fs from 'fs';
-import chokidar from 'chokidar';
+import { watch } from 'chokidar';
 import * as sass from 'sass';
 import slash from 'slash';
 import debounce from 'debounce';
@@ -174,7 +174,9 @@ const sassCompile = (inputPath: string, isReady: boolean) => {
 };
 
 if (isWatch) {
-  const watcher = chokidar.watch(['src/**/*.scss', 'xpack/styles/**/*.scss']);
+  const watcher = watch(['src', 'xpack/styles'], {
+    ignored: (path, stats) => !!stats?.isFile() && !path.endsWith('.scss'),
+  });
   let isReady = false;
 
   watcher
