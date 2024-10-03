@@ -97,58 +97,6 @@
       "headers": {
         "X-Robots-Tag": "noindex, nofollow"
       }
-    },
-    {
-      "route": "/accessareapage",
-      "rewrite": "/pages/access-area-page"
-    },
-    {
-      "route": "/blogarticlepage",
-      "rewrite": "/pages/blog-article-page"
-    },
-    {
-      "route": "/bloglandingpage",
-      "rewrite": "/pages/blog-landing-page"
-    },
-    {
-      "route": "/changepassword",
-      "rewrite": "/pages/change-password"
-    },
-    {
-      "route": "/confirmchangepassword",
-      "rewrite": "/pages/confirm-change-password"
-    },
-    {
-      "route": "/confirmresetpassword",
-      "rewrite": "/pages/confirm-reset-password"
-    },
-    {
-      "route": "/eshopbusinesspartnerpopuppage",
-      "rewrite": "/pages/eshop-business-partner-popup-page"
-    },
-    {
-      "route": "/editprofile",
-      "rewrite": "/pages/edit-profile"
-    },
-    {
-      "route": "/forgotpassword",
-      "rewrite": "/pages/forgot-password"
-    },
-    {
-      "route": "/pages/architect-portal-downloadRequirement",
-      "rewrite": "/pages/architect-portal-download"
-    },
-    {
-      "route": "/home",
-      "rewrite": "/pages/home"
-    },
-    {
-      "route": "/login",
-      "rewrite": "/pages/login"
-    },
-    {
-      "route": "/signup",
-      "rewrite": "/pages/sign-up"
     }
   ],
   "responseOverrides": {
