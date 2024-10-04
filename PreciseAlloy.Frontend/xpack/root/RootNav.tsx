@@ -30,7 +30,7 @@ export default function RootNav({ routes: routesProp }: Props) {
     debounce((text: string) => {
       const tempRoutes: RootItemModel[] = [],
         tempRoutesSearch: RootItemModel[] = [];
-      const conditions: (item: RootItemModel) => boolean = (item: RootItemModel) => {
+      const isItemIncludedText: (item: RootItemModel) => boolean = (item: RootItemModel) => {
         if (item.type === 'single') {
           return text.trim()
             ? text
@@ -46,12 +46,12 @@ export default function RootNav({ routes: routesProp }: Props) {
               .trim()
               .toLocaleLowerCase()
               .split(/\s+/)
-              .some((s) => item.name.toLocaleLowerCase().includes(s) || (item as MultiplePageNode).items.some((x) => conditions(x)))
+              .some((s) => item.name.toLocaleLowerCase().includes(s) || (item as MultiplePageNode).items.some((x) => isItemIncludedText(x)))
           : false;
       };
 
       routesProp.forEach((item) => {
-        if (conditions(item)) {
+        if (isItemIncludedText(item)) {
           tempRoutesSearch.push(item);
         } else {
           tempRoutes.push(item);
