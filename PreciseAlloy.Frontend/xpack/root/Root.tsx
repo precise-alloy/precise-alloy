@@ -1,13 +1,13 @@
-import { RootItemModel, RootModel } from '@_types/types';
-import { useEffect, useState } from 'react';
+import { RootModel, SinglePageNode } from '@_types/types';
+import { useEffect, useMemo, useState } from 'react';
 import { RootContext, RootData } from './root-context';
 import FrameControls from './FrameControls';
 import ActiveItemOptions from './ActiveItemOptions';
 import RootNav from './RootNav';
 import { viteAbsoluteUrl } from '@helpers/functions';
 
-export default function Root({ routes }: RootModel) {
-  const [activeItem, setActiveItem] = useState<RootItemModel>();
+export default function Root(props: RootModel) {
+  const [activeItem, setActiveItem] = useState<SinglePageNode>();
   const [isTopPanel, setTopPanel] = useState<boolean>(localStorage.getItem('MSG_IS_TOP_PANEL') === 'true');
 
   useEffect(() => {
@@ -30,6 +30,28 @@ export default function Root({ routes }: RootModel) {
     isTopPanel,
     setTopPanel,
   };
+
+  const routes = useMemo(() => {
+    const result: SinglePageNode[] = [];
+    props.routes.forEach((route) => {
+      if (route.type === 'single') {
+        result.push({
+          path: route.path,
+          name: route.name,
+          type: 'single',
+        });
+        return;
+      }
+      route.items.forEach((item) => {
+        result.push({
+          path: item.path,
+          name: item.name,
+          type: 'single',
+        });
+      });
+    });
+    return result;
+  }, [props.routes]);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -62,7 +84,7 @@ export default function Root({ routes }: RootModel) {
   return routes ? (
     <RootContext.Provider value={rootData}>
       <div className={`xpack-o-root ${isTopPanel ? 'top-panel' : ''}`}>
-        <RootNav routes={routes} />
+        <RootNav routes={props.routes} />
         <FrameControls />
         <ActiveItemOptions />
       </div>

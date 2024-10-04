@@ -1,9 +1,9 @@
-import { RootItemModel } from '@_types/types';
+import { SinglePageNode } from '@_types/types';
 import { createContext, useContext } from 'react';
 
 export interface RootData {
-  activeItem?: RootItemModel;
-  setActiveItem: (item?: RootItemModel) => void;
+  activeItem?: SinglePageNode;
+  setActiveItem: (item?: SinglePageNode) => void;
   isTopPanel?: boolean;
   setTopPanel: (isTopPanel: boolean) => void;
 }
