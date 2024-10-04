@@ -13,6 +13,7 @@ Object.keys(pages).forEach((path) => {
   const match = path.match(/\.\/pages\/(.*)\.\w+$/);
   const name = match ? match[1] : '';
   const normalizedName = name.replaceAll(/^(\w+)/gi, (_p0, p1: string) => _.lowerCase(p1).replaceAll(' ', '-'));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const module = pages[path] as { [key: string]: any };
 
   if (!module.default.$$name) {
@@ -20,7 +21,6 @@ Object.keys(pages).forEach((path) => {
       type: 'single',
       name: _.startCase(_.lowerCase(name)),
       path: name === 'Root' ? '/' : `/pages/${normalizedName}`,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       component: module.default,
     } as SinglePageNode;
 

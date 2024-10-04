@@ -70,6 +70,7 @@ export default function RootNav({ routes: routesProp }: Props) {
 
   return (
     <>
+      {/*eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions*/}
       <a ref={buttonRef} className="xpack-o-root__button-close" onClick={handleClick}>
         <button className="xpack-o-root__control-button xpack-o-root__button-close" aria-label={show ? 'Close' : 'Pages'}>
           <svg className="xpack-o-root__control-svg">
@@ -107,12 +108,14 @@ export default function RootNav({ routes: routesProp }: Props) {
                           className="xpack-o-root__nav-item-collection"
                           key={index}
                           open={
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             !!(item as MultiplePageNode).items.find((x: any) => {
                               return window.location.hash.includes(x.path);
                             })
                           }
                         >
                           <summary>{item.name}</summary>
+                          {/*eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
                           {(item as MultiplePageNode).items.map((node: any, idx: number) => (
                             <RenderedItem key={idx} {...node} />
                           ))}
@@ -135,12 +138,14 @@ export default function RootNav({ routes: routesProp }: Props) {
                     className="xpack-o-root__nav-item-collection"
                     key={index}
                     open={
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       !!(item as MultiplePageNode).items.find((x: any) => {
                         return window.location.hash.includes(x.path);
                       })
                     }
                   >
                     <summary>{item.name}</summary>
+                    {/*eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
                     {(item as MultiplePageNode).items.map((node: any, idx: number) => (
                       <RenderedItem key={idx} {...node} />
                     ))}

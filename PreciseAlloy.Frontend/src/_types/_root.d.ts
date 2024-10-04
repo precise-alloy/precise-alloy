@@ -4,6 +4,7 @@ export interface SinglePageNode {
   type: 'single';
   name: string;
   path: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component?: FC<any>;
 }
 

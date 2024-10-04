@@ -19,6 +19,5 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/no-explicit-any': 'ignore',
   },
 };
