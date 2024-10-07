@@ -1,6 +1,7 @@
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { App } from './App';
+import { routesToPrerender } from './routes';
 
 interface RenderOutput {
   html: string;
@@ -27,3 +28,5 @@ export function render(url: string): RenderOutput {
 
   return renderOutput;
 }
+
+export { routesToPrerender };

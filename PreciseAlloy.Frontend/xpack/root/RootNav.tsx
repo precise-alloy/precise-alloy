@@ -1,6 +1,6 @@
-import { RootItemModel } from '@_types/types';
+import { MultiplePageNode, RootItemModel } from '@_types/types';
 import { debounce } from 'lodash';
-import { createRef, MouseEvent, useCallback, useEffect, useState } from 'react';
+import { createRef, useCallback, useEffect, useState } from 'react';
 import { useRootContext } from './root-context';
 import { viteAbsoluteUrl } from '@helpers/functions';
 import { useOnClickOutside } from './useClickOutside';
@@ -30,16 +30,28 @@ export default function RootNav({ routes: routesProp }: Props) {
     debounce((text: string) => {
       const tempRoutes: RootItemModel[] = [],
         tempRoutesSearch: RootItemModel[] = [];
+      const isItemIncludedText: (item: RootItemModel) => boolean = (item: RootItemModel) => {
+        if (item.type === 'single') {
+          return text.trim()
+            ? text
+                .trim()
+                .toLocaleLowerCase()
+                .split(/\s+/)
+                .some((s) => item.name.toLocaleLowerCase().includes(s))
+            : false;
+        }
+
+        return text.trim()
+          ? text
+              .trim()
+              .toLocaleLowerCase()
+              .split(/\s+/)
+              .some((s) => item.name.toLocaleLowerCase().includes(s) || (item as MultiplePageNode).items.some((x) => isItemIncludedText(x)))
+          : false;
+      };
 
       routesProp.forEach((item) => {
-        if (
-          text.trim() &&
-          text
-            .trim()
-            .toLocaleLowerCase()
-            .split(/\s+/)
-            .some((s) => item.name.toLocaleLowerCase().includes(s))
-        ) {
+        if (isItemIncludedText(item)) {
           tempRoutesSearch.push(item);
         } else {
           tempRoutes.push(item);
@@ -58,6 +70,7 @@ export default function RootNav({ routes: routesProp }: Props) {
 
   return (
     <>
+      {/*eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions*/}
       <a ref={buttonRef} className="xpack-o-root__button-close" onClick={handleClick}>
         <button className="xpack-o-root__control-button xpack-o-root__button-close" aria-label={show ? 'Close' : 'Pages'}>
           <svg className="xpack-o-root__control-svg">
@@ -87,7 +100,28 @@ export default function RootNav({ routes: routesProp }: Props) {
                 ? routesSearch
                     .filter((r) => r.path != '/' && r.path != '/index')
                     .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
-                    .map((item, index) => <RenderedItem key={index} {...item} />)
+                    .map((item, index) =>
+                      item.path ? (
+                        <RenderedItem key={index} {...item} />
+                      ) : (
+                        <details
+                          className="xpack-o-root__nav-item-collection"
+                          key={index}
+                          open={
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            !!(item as MultiplePageNode).items.find((x: any) => {
+                              return window.location.hash.includes(x.path);
+                            })
+                          }
+                        >
+                          <summary>{item.name}</summary>
+                          {/*eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
+                          {(item as MultiplePageNode).items.map((node: any, idx: number) => (
+                            <RenderedItem key={idx} {...node} />
+                          ))}
+                        </details>
+                      )
+                    )
                 : textSearch.trim() && <div className="xpack-o-root__nav-message ">No pattern matches</div>}
             </div>
           )}
@@ -96,9 +130,28 @@ export default function RootNav({ routes: routesProp }: Props) {
             {routes
               .filter((r) => r.path != '/' && r.path != '/index')
               .sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
-              .map((item, index) => (
-                <RenderedItem key={index} {...item} />
-              ))}
+              .map((item, index) =>
+                item.path ? (
+                  <RenderedItem key={index} {...item} />
+                ) : (
+                  <details
+                    className="xpack-o-root__nav-item-collection"
+                    key={index}
+                    open={
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                      !!(item as MultiplePageNode).items.find((x: any) => {
+                        return window.location.hash.includes(x.path);
+                      })
+                    }
+                  >
+                    <summary>{item.name}</summary>
+                    {/*eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
+                    {(item as MultiplePageNode).items.map((node: any, idx: number) => (
+                      <RenderedItem key={idx} {...node} />
+                    ))}
+                  </details>
+                )
+              )}
           </div>
         </div>
       </div>
