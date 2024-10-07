@@ -12,11 +12,6 @@ import _ from 'lodash';
 import { loadEnv } from 'vite';
 import chalk from 'chalk';
 
-interface Route {
-  name: string;
-  route: string;
-}
-
 interface RenderedPage {
   name: string;
   url: string;
@@ -34,7 +29,7 @@ const toAbsolute = (p: string) => path.resolve(__dirname, p);
 const log = console.log.bind(console);
 
 const template = fs.readFileSync(toAbsolute(process.env.VITE_TEMPLATE ?? 'dist/static/index.html'), 'utf-8');
-const { render } = await import(pathToFileURL(toAbsolute('./dist/server/entry-server.js')).href);
+const { render, routesToPrerender } = await import(pathToFileURL(toAbsolute('./dist/server/entry-server.js')).href);
 
 const beautifyOptions: HTMLBeautifyOptions | JSBeautifyOptions | CSSBeautifyOptions = {
   indent_size: 2,
@@ -58,23 +53,6 @@ const beautifyOptions: HTMLBeautifyOptions | JSBeautifyOptions | CSSBeautifyOpti
 };
 
 // determine routes to pre-render from src/pages
-const routesToPrerender = fs
-  .readdirSync(toAbsolute('src/pages'))
-  .map((file): Route => {
-    const name = path.parse(file).name;
-    const normalizedName = name.replaceAll(/^(\w+)/gi, (_p0, p1: string) => _.lowerCase(_.lowerCase(p1)).replaceAll(' ', '-'));
-
-    return {
-      name: _.startCase(_.lowerCase(name)),
-      route: name === 'Root' ? '/' : `/pages/${normalizedName}`,
-    };
-  })
-  .filter((r) => r.name != 'root');
-
-routesToPrerender.push({
-  name: 'Root',
-  route: '/',
-});
 
 const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string, addHash: boolean) => {
   $(tagName).each((_, el) => {
@@ -104,12 +82,8 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
             newPath += '?v=' + hash;
           }
         } else {
-          if (path.endsWith('/mock-api.js')) {
-            // Do nothing
-          } else {
-            // Log warning
-            log(chalk.yellow('Cannot find:', path));
-          }
+          // Log warning
+          log(chalk.yellow('Cannot find:', path));
         }
       }
 

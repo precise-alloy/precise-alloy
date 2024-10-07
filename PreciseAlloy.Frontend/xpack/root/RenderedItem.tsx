@@ -1,9 +1,9 @@
-import { RootItemModel } from '@_types/_root';
+import { SinglePageNode } from '@_types/_root';
 import { useRootContext } from './root-context';
 import { MouseEvent } from 'react';
 import { viteAbsoluteUrl } from '@helpers/functions';
 
-export default function RenderedItem(item: RootItemModel) {
+export default function RenderedItem(item: SinglePageNode) {
   const { activeItem, setActiveItem } = useRootContext();
 
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
