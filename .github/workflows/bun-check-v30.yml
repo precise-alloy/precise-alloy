@@ -32,10 +32,10 @@ jobs:
           submodules: recursive
           ref: fe-develop
 
-- name: Bun Install 🛎️
-  uses: oven-sh/setup-bun@v2
-  with:
-    bun-version: 1.30.0
+      - name: Bun Install 🛎️
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.30.0
 
       - name: Bun Build 🛎️
         run: |
