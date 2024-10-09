@@ -33,8 +33,9 @@ jobs:
           ref: fe-develop
 
       - name: Bun Install 🛎️
-        run: |
-          curl -fsSL https://bun.sh/install | bash -s "bun-v1.30.0"
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: v1.1.30
 
       - name: Bun Build 🛎️
         run: |
