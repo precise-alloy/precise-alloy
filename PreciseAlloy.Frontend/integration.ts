@@ -2,10 +2,10 @@ import fs from 'fs';
 import path, { resolve } from 'path';
 import { fileURLToPath } from 'url';
 import slash from 'slash';
-import _ from 'lodash';
 import { glob } from 'glob';
 import crypto from 'node:crypto';
 import { loadEnv } from 'vite';
+import nodeFs from 'node:fs';
 
 interface CopyItem {
   from: string;
@@ -98,8 +98,19 @@ fs.writeFileSync(path.join(destBasePath, 'hashes.json'), JSON.stringify(sortedHa
 if (patternPath) {
   fs.mkdirSync(patternPath, { recursive: true });
   glob.sync('./dist/static/{atoms,molecules,organisms,templates,pages}/**/*.*').forEach((p) => {
-    const basename = path.basename(slash(p).replaceAll(/(atoms|molecules|organisms|templates|pages)\/([\w._-]+)$/gi, '$1-$2'));
-    fs.copyFileSync(p, resolve(patternPath, basename));
+    let basename = '';
+    const segments = slash(p).split('/');
+    if (segments.length < 4) return;
+    switch (segments.length) {
+      case 4:
+        basename = path.basename(slash(p).replaceAll(/(atoms|molecules|organisms|templates|pages)\/([\w._-]+)$/gi, '$1-$2'));
+        fs.copyFileSync(p, resolve(patternPath, basename));
+        break;
+      default:
+        segments.splice(0, 2);
+        nodeFs.cpSync(p, resolve(patternPath, segments.join('-')), { recursive: true });
+        break;
+    }
   });
 
   glob.sync(slash(path.resolve(patternPath + '/**/*.{htm,html}'))).forEach((p) => {
