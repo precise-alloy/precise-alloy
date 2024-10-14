@@ -6,7 +6,6 @@ name: Frontend Integration
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-  push:
     branches:
       - master
     paths:
@@ -24,10 +23,8 @@ permissions:
   pull-requests: write
 
 env:
-  FE_BASE_BRANCH: fe-develop
-  FE_RELEASE_BRANCH: fe-release
-  FE_PACKAGE_BRANCH: fe-release-inte-package
-  BE_BASE_BRANCH: develop
+  BASE_BRANCH: master
+  RELEASE_BRANCH: fe-release
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -45,14 +42,12 @@ jobs:
           fetch-depth: 0
           persist-credentials: true
           submodules: recursive
-          ref: ${{ env.FE_RELEASE_BRANCH }}
+          ref: ${{ env.BASE_BRANCH }}
 
       - name: Create git branch
         run: |
           git config --global user.email "build-service@eshn.dev"
           git config --global user.name "Build Service"
-          git fetch origin $BE_BASE_BRANCH:$BE_BASE_BRANCH
-          git merge $BE_BASE_BRANCH
 
       - name: Bun Setup 🛎️
         uses: oven-sh/setup-bun@v2
@@ -70,53 +65,28 @@ jobs:
           then
             git add .
             git commit -m "Create release package"
-            git push origin HEAD:$FE_PACKAGE_BRANCH -f
+            git push origin HEAD:$RELEASE_BRANCH -f
             echo "HAS_NEW_COMMIT=true" >> $GITHUB_ENV
           fi
 
-      - name: PR to ${{ env.BE_BASE_BRANCH }}
+      - name: PR to ${{ env.BASE_BRANCH }}
         if: env.HAS_NEW_COMMIT == 'true'
         run: |
           echo $TOKEN | gh auth login --with-token
 
           PR_COUNT=$(gh pr list \
-            --base $BE_BASE_BRANCH \
-            --head $FE_PACKAGE_BRANCH \
+            --base $BASE_BRANCH \
+            --head $RELEASE_BRANCH \
             --state open \
             --json title \
             --jq length)
 
           if [ "$PR_COUNT" -eq "0" ]; then
-            echo "Creating PR to $BE_BASE_BRANCH"
+            echo "Creating PR to $BASE_BRANCH"
             gh pr create \
-              --base $BE_BASE_BRANCH \
-              --head $FE_PACKAGE_BRANCH \
-              --title 'PR to ${{ env.BE_BASE_BRANCH }}' \
-              --body 'Created by Github action'
-          else
-            echo "PR already exists"
-          fi
-        env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: PR to ${{ env.FE_BASE_BRANCH }}
-        if: env.HAS_NEW_COMMIT == 'true'
-        run: |
-          echo $TOKEN | gh auth login --with-token
-
-          PR_COUNT=$(gh pr list \
-            --base $FE_BASE_BRANCH \
-            --head $FE_PACKAGE_BRANCH \
-            --state open \
-            --json title \
-            --jq length)
-
-          if [ "$PR_COUNT" -eq "0" ]; then
-            echo "Creating PR to $FE_BASE_BRANCH"
-            gh pr create \
-              --base $FE_BASE_BRANCH \
-              --head $FE_PACKAGE_BRANCH \
-              --title 'PR to ${{ env.FE_BASE_BRANCH }}' \
+              --base $BASE_BRANCH \
+              --head $RELEASE_BRANCH \
+              --title 'PR to ${{ env.BASE_BRANCH }}' \
               --body 'Created by Github action'
           else
             echo "PR already exists"
