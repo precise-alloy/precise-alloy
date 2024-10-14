@@ -6,8 +6,11 @@ name: Frontend Integration
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
+  push:
     branches:
-      - fe-release
+      - master
+    paths:
+      - PreciseAlloy.Frontend/**
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -52,7 +55,7 @@ jobs:
           git merge $BE_BASE_BRANCH
 
       - name: Bun Setup 🛎️
-        uses: oven-sh/setup-bun@v1
+        uses: oven-sh/setup-bun@v2
 
       - name: Bun Install and Inte 🛎️
         run: |
