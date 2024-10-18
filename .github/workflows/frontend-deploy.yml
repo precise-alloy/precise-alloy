@@ -10,6 +10,7 @@ on:
       - master
     paths:
       - PreciseAlloy.Frontend/**
+      - .github/workflows/frontend-deploy.yml
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -32,7 +33,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-          ref: fe-develop
+          ref: master
 
       - name: Bun Install 🛎️
         uses: oven-sh/setup-bun@v2
