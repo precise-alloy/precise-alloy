@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Npm Check Rimaf
+name: Npm Check rimraf
 
 # Controls when the action will run.
 on:
@@ -37,4 +37,4 @@ jobs:
 
       - name: Npm Run 🛎️
         run: |
-          npx rimaf non-exist/*
+          npx rimraf non-exist/*
