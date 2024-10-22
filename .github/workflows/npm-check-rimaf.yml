@@ -34,9 +34,14 @@ jobs:
 
       - name: Npm Install 🛎️
         uses: actions/setup-node@v4
+        with:
+          node-version: '14'
 
       - name: Npm Run 🛎️
         run: |
-          npm install --save-dev rimraf
+          mkdir rimraf-test
+          cd rimraf-test
+
+          npm init -f -y
+          npm install --save-dev rimraf@3.0.2
           npm run rimraf:non-exist
-        working-directory: PreciseAlloy.Frontend

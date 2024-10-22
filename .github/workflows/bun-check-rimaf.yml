@@ -32,11 +32,20 @@ jobs:
           submodules: recursive
           ref: fe-develop
 
+      - name: Npm Install 🛎️
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
       - name: Bun Install 🛎️
         uses: oven-sh/setup-bun@v2
 
       - name: Bun Run 🛎️
         run: |
+          mkdir rimraf-test
+          cd rimraf-test
+
+          npm init -f -y
           bun install --save-dev rimraf
           bun run rimraf:non-exist
         working-directory: PreciseAlloy.Frontend
