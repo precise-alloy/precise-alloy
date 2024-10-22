@@ -37,5 +37,6 @@ jobs:
 
       - name: Bun Run 🛎️
         run: |
-          npm run rimraf:non-exist
+          bun install --save-dev rimraf
+          bun run rimraf:non-exist
         working-directory: PreciseAlloy.Frontend
