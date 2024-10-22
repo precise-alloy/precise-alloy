@@ -37,4 +37,5 @@ jobs:
 
       - name: Npm Run 🛎️
         run: |
-          npx rimraf non-exist/*
+          bun run rimraf:non-exist
+        working-directory: PreciseAlloy.Frontend

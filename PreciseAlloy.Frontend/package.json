@@ -25,7 +25,8 @@
     "format": "prettier --write .",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0 --fix",
     "cli:start": "vite build --c vite.cli.config.ts --watch",
-    "cli:build": "vite build --c vite.cli.config.ts"
+    "cli:build": "vite build --c vite.cli.config.ts",
+    "rimraf:non-exist": "rimraf non-exist/*"
   },
   "engines": {
     "node": ">=20.0.0"
