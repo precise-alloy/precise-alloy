@@ -168,6 +168,10 @@
       align-items: center;
       user-select: none;
 
+      @include dark {
+        color: #40e0d0;
+      }
+
       &::marker {
         content: none;
       }
@@ -183,6 +187,10 @@
         justify-content: center;
         color: rgba($color: #000000, $alpha: 0);
         font-size: px2rem(10px);
+
+        @include dark {
+          text-shadow: 0 0 #40e0d0;
+        }
       }
     }
 
