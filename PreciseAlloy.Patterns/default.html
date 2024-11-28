@@ -25,7 +25,7 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
   <meta name="description"
     content="This is the description for Precise Alloy page.">
-  <title>About Page - Default</title>
+  <title>Contact Page - Default</title>
   <meta name="twitter:image"
     content="/icons/apple-touch-icon.png">
   <meta name="og:image"
@@ -80,7 +80,16 @@
     crossorigin=""
     src="/assets/js/react-loader.0x00000000.js"></script>
   <link rel="stylesheet"
+    href="/assets/css/b-alert.css"
+    data-pl-require="true">
+  <link rel="stylesheet"
     href="/assets/css/b-header.css"
+    data-pl-require="true">
+  <link rel="stylesheet"
+    href="/assets/css/b-epi-form.css"
+    data-pl-require="true">
+  <link rel="stylesheet"
+    href="/assets/css/b-contact.css"
     data-pl-require="true">
   <link rel="stylesheet"
     href="/assets/css/b-footer.css"
@@ -92,19 +101,94 @@
 </head>
 
 <body>
+  <section class="zzz-o-alert">
+    <div class="zzz-container">
+      <h2 class="zzz-o-alert__heading h4">Sample Alert!</h2>
+      <p class="zzz-o-alert__item"><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Vivamus porta<strong>dui ac efficitur porta</strong>.</p>
+      <p class="zzz-o-alert__item"><strong>Phasellus congue erat in vehicula maximus</strong>. Duis vel nisl sit amet arcu maximus euismod. Integer eu lectus lorem. Cras ut risus nec lectus scelerisque imperdiet non in nisl. Interdum et malesuada <strong>fames ac ante ipsum primis in faucibus</strong>.</p>
+    </div>
+    <!-- <link rel="stylesheet" href="/assets/css/b-alert.css" data-pl-require="true"> -->
+  </section>
   <header class="zzz-o-header">
     <div class="zzz-container">
       <div class="zzz-o-header__header-container"><a href="#"><img class="zzz-o-header__logo"
             width="70"
             height="50"
             alt="Precise Alloy's logo"
-            src="/assets/images/logo.svg"></a><span class="zzz-o-header__title"></span></div>
+            src="/assets/images/logo.svg"></a><span class="zzz-o-header__title">Start</span>
+        <div class="zzz-o-header__nav-mobile">
+          <div class="zzz-o-header__nav-toggle"><span></span><span></span><span></span></div>
+        </div>
+        <ul class="zzz-o-header__nav-list">
+          <li class="zzz-o-header__nav-list__item"><a href="/pages/home">Home</a></li>
+          <li class="zzz-o-header__nav-list__item"><a href="/pages/portfolio">Portforlio</a></li>
+          <li class="zzz-o-header__nav-list__item"><a href="/pages/service">Services</a></li>
+          <li class="zzz-o-header__nav-list__item"><a href="/pages/contact">Contact Us</a></li>
+          <li class="theme-toggle"><a aria-label="Toggle Theme"><svg class="zzz-a-icon"
+                aria-hidden="true"
+                viewBox="0 0 19 19"
+                width="19"
+                height="19">
+                <use xlink:href="/assets/images/icons.svg#zzz-theme-light"></use>
+              </svg><svg class="zzz-a-icon"
+                aria-hidden="true"
+                viewBox="0 0 19 19"
+                width="19"
+                height="19">
+                <use xlink:href="/assets/images/icons.svg#zzz-theme-moon"></use>
+              </svg></a></li>
+        </ul>
+      </div>
     </div>
     <!-- <script type="module" defer="" src="/assets/js/header.js" data-pl-require="true"></script> -->
     <!-- <link rel="stylesheet" href="/assets/css/b-header.css" data-pl-require="true"> -->
   </header>
   <main>
-    <h1 class="zzz-container">About Page</h1>
+    <div class="zzz-o-contact section-margin-top">
+      <div class="zzz-container">
+        <div class="zzz-o-contact__info">
+          <div class="zzz-m-section-header">
+            <h1 class="zzz-m-section-header__heading">Contact Us</h1>
+          </div>
+          <div class="zzz-o-contact__description">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Test.</div>
+        </div>
+        <div class="zzz-o-contact__main">
+          <div class="zzz-o-contact__contact-form">
+            <form method="POST">
+              <div class="Form__Element FormTextbox"><label class="Form__Element__Caption"
+                  for="idName">Name</label><input class="FormTextbox__Input"
+                  required=""
+                  type="text"
+                  name="inputName"
+                  id="idName"
+                  autocomplete="off"><span class="Form__Element__ValidationError"> </span></div>
+              <div class="Form__Element FormTextbox"><label class="Form__Element__Caption"
+                  for="idEmail">Email</label><input class="FormTextbox__Input"
+                  required=""
+                  type="text"
+                  name="inputEmail"
+                  id="idEmail"
+                  autocomplete="off"><span class="Form__Element__ValidationError"> </span></div>
+              <div class="Form__Element FormTextbox"><label class="Form__Element__Caption"
+                  for="idMessage">Message</label><textarea class="FormTextbox__Input"
+                  required=""
+                  name="inputMessage"
+                  id="idMessage"
+                  autocomplete="off"></textarea><span class="Form__Element__ValidationError"> </span></div><button class="FormSubmitButton">Submit</button>
+            </form>
+            <!-- <link rel="stylesheet" href="/assets/css/b-epi-form.css" data-pl-require="true"> -->
+          </div>
+          <div class="zzz-o-contact__map">
+            <picture class="zzz-a-picture"><img src="/samples/01.svg"
+                alt="map"
+                loading="lazy"
+                width="585"
+                height="328"></picture>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <link rel="stylesheet" href="/assets/css/b-contact.css" data-pl-require="true"> -->
   </main>
   <footer class="zzz-o-footer section-margin-top-xl">
     <div class="zzz-container">
