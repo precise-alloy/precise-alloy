@@ -96,6 +96,43 @@
     height: calc(100% - px2rem(42px));
     overflow-y: auto;
     overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+      width: px2rem(5px);
+      height: px2rem(5px);
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-track-piece {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+
+    &:hover,
+    &:focus-visible {
+      scrollbar-width: thin;
+      scrollbar-color: $scrollbar-thumb-hover-bg $body-bg;
+
+      &::-webkit-scrollbar-thumb {
+        background: $scrollbar-thumb-bg;
+      }
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: $scrollbar-thumb-hover-bg;
+    }
+
+    &::-webkit-scrollbar-corner {
+      background-color: transparent;
+    }
   }
 
   &__search {

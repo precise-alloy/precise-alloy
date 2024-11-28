@@ -7,6 +7,11 @@ $link-color: var(--link-color);
 $link-hover-color: var(--link-hover-color);
 $border-color: var(--border-color);
 
+// scrollbar
+$scrollbar-track-bg: var(--scrollbar-track-bg);
+$scrollbar-thumb-bg: var(--scrollbar-thumb-bg);
+$scrollbar-thumb-hover-bg: var(--scrollbar-thumb-hover-bg);
+
 @mixin light {
   [data-theme='dark'] & {
     @content;
@@ -32,6 +37,11 @@ $border-color: var(--border-color);
   --link-hover-color: #0a58ca;
   --link-hover-color-rgb: 10, 88, 202;
   --border-color: #dee2e6;
+
+  // scrollbar
+  --scrollbar-track-bg: #e8e8e8;
+  --scrollbar-thumb-bg: #b9b9b9;
+  --scrollbar-thumb-hover-bg: #8b8b8b;
 }
 
 [data-theme='dark'] {
@@ -46,5 +56,10 @@ $border-color: var(--border-color);
     --link-color-rgb: 110, 168, 254;
     --link-hover-color-rgb: 139, 185, 254;
     --border-color: #495057;
+
+    // scrollbar
+    --scrollbar-track-bg: #35393c;
+    --scrollbar-thumb-bg: #5e6063;
+    --scrollbar-thumb-hover-bg: #86888a;
   }
 }
