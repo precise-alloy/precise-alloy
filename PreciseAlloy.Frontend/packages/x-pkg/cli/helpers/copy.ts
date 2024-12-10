@@ -38,10 +38,6 @@ const copy = async (src: string | string[], dest: string, { cwd }: CopyOption) =
 
   const destRelativeToCwd = path.resolve(dest);
 
-  await fs.mkdir(path.join(destRelativeToCwd, 'src/atoms'), { recursive: true });
-  await fs.mkdir(path.join(destRelativeToCwd, 'src/molecules'), { recursive: true });
-  await fs.mkdir(path.join(destRelativeToCwd, 'src/mocks/example'), { recursive: true });
-
   return Promise.all(
     sourceFiles.map(async (p) => {
       const dirname = path.dirname(p);
