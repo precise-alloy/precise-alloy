@@ -365,5 +365,11 @@ FodyWeavers.xsd
 
 # Optimizely
 modules/
+/modules/*
+!/modules/_protected/
+/modules/_protected/*
+!/modules/_protected/*.config
+!/modules/_protected/
 blobs/
 log-*.txt
+*license.config

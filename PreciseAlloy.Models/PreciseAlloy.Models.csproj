@@ -8,15 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="Advanced.CMS.GroupingHeader" Version="3.0.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.Core" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.31.2" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.Core" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.32.0" />
     <PackageReference Include="EPiServer.Forms.Core" Version="5.10.1" />
-    <PackageReference Include="EPiServer.Framework" Version="12.22.0" />
+    <PackageReference Include="EPiServer.Framework" Version="12.22.1" />
     <PackageReference Include="Geta.Optimizely.ContentTypeIcons" Version="2.1.0" />
     <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.4" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />

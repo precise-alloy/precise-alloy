@@ -7,18 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.Core" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.31.2" />
-    <PackageReference Include="EPiServer.Find" Version="16.3.0" />
-    <PackageReference Include="EPiServer.Find.Cms" Version="16.3.0" />
-    <PackageReference Include="EPiServer.Find.Framework" Version="16.3.0" />
-    <PackageReference Include="EPiServer.Framework" Version="12.22.0" />
-    <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.22.0" />
-    <PackageReference Include="EPiServer.Hosting" Version="12.22.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.Core" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.32.0" />
+    <PackageReference Include="EPiServer.Find" Version="16.3.1" />
+    <PackageReference Include="EPiServer.Find.Cms" Version="16.3.1" />
+    <PackageReference Include="EPiServer.Find.Framework" Version="16.3.1" />
+    <PackageReference Include="EPiServer.Framework" Version="12.22.1" />
+    <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.22.1" />
+    <PackageReference Include="EPiServer.Hosting" Version="12.22.1" />
   </ItemGroup>
 
   <ItemGroup>

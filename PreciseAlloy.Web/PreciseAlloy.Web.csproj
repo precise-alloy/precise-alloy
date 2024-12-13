@@ -16,20 +16,20 @@
   <ItemGroup>
     <PackageReference Include="Advanced.CMS.GroupingHeader" Version="3.0.0" />
     <PackageReference Include="Baaijte.Optimizely.ImageSharp.Web" Version="3.0.1" />
-    <PackageReference Include="EPiServer.CloudPlatform.Cms" Version="1.6.1" />
-    <PackageReference Include="EPiServer.CMS" Version="12.31.2" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.Core" Version="12.22.0" />
-    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.31.2" />
-    <PackageReference Include="EPiServer.CMS.UI" Version="12.31.2" />
-    <PackageReference Include="EPiServer.Find" Version="16.3.0" />
-    <PackageReference Include="EPiServer.Find.Cms" Version="16.3.0" />
+    <PackageReference Include="EPiServer.CloudPlatform.Cms" Version="1.6.3" />
+    <PackageReference Include="EPiServer.CMS" Version="12.32.0" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.Core" Version="12.22.1" />
+    <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.32.0" />
+    <PackageReference Include="EPiServer.CMS.UI" Version="12.32.0" />
+    <PackageReference Include="EPiServer.Find" Version="16.3.1" />
+    <PackageReference Include="EPiServer.Find.Cms" Version="16.3.1" />
     <PackageReference Include="EPiServer.Forms" Version="5.10.1" />
-    <PackageReference Include="EPiServer.Framework" Version="12.22.0" />
+    <PackageReference Include="EPiServer.Framework" Version="12.22.1" />
     <PackageReference Include="EPiServer.ImageLibrary.ImageSharp" Version="2.0.4" />
     <PackageReference Include="Geta.Optimizely.ContentTypeIcons" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.11" />
