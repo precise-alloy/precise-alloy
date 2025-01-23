@@ -81,6 +81,8 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
           if (addHash) {
             newPath += '?v=' + hash;
           }
+        } else if (path.endsWith('mock-api.js')) {
+          // Skip
         } else {
           // Log warning
           log(chalk.yellow('Cannot find:', path));
