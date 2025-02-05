@@ -1,4 +1,4 @@
-import { THEME_KEY, switchTheme } from "@helpers/handleTheme";
+import { THEME_KEY, switchTheme } from '@helpers/handleTheme';
 
 /**
  * Handle storage change
@@ -16,7 +16,7 @@ const handleToggleTheme = () => {
   switchTheme();
 };
 
-const themeToggle = document.querySelector('.theme-toggle');
+const themeToggle = document.querySelector('.zzz-o-header__theme-toggle');
 
 if (themeToggle) {
   themeToggle.addEventListener('click', () => {

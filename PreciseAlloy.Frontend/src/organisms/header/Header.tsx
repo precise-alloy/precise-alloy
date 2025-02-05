@@ -13,7 +13,7 @@ const Header = (model: HeaderModel) => {
     <header className={modifiers}>
       <div className="zzz-container">
         <div className="zzz-o-header__header-container">
-          <a href="#">
+          <a href="/pages/home.html">
             <img className="zzz-o-header__logo" width={70} height={50} alt="Precise Alloy's logo" src={logo?.src ?? defaultLogoUrl} />
           </a>
 
@@ -36,12 +36,12 @@ const Header = (model: HeaderModel) => {
                   </li>
                 ))}
 
-                <li className="theme-toggle">
-                  <a aria-label="Toggle Theme">
+                <li className="zzz-o-header__theme-toggle">
+                  <button aria-label="Toggle Theme">
                     <Icon iconPath={'#zzz-theme-light'} viewBoxWidth={19} viewBoxHeight={19} />
 
                     <Icon iconPath={'#zzz-theme-moon'} viewBoxWidth={19} viewBoxHeight={19} />
-                  </a>
+                  </button>
                 </li>
               </ul>
             </>
