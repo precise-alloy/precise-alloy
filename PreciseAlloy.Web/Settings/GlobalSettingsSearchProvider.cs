@@ -11,6 +11,7 @@ using PreciseAlloy.Services.Settings;
 namespace PreciseAlloy.Web.Settings;
 
 [SearchProvider]
+// ReSharper disable once ClassNeverInstantiated.Global
 public class GlobalSettingsSearchProvider(
     LocalizationService localizationService,
     ISiteDefinitionResolver siteDefinitionResolver,
@@ -23,7 +24,8 @@ public class GlobalSettingsSearchProvider(
     UIDescriptorRegistry uiDescriptorRegistry,
     IContentLoader contentLoader,
     ISettingsService settingsService)
-    : ContentSearchProviderBase<SettingsBase, ContentType>(localizationService: localizationService,
+    : ContentSearchProviderBase<SettingsBase, ContentType>(
+        localizationService: localizationService,
         siteDefinitionResolver: siteDefinitionResolver,
         contentTypeRepository: contentTypeRepository,
         editUrlResolver: editUrlResolver,
