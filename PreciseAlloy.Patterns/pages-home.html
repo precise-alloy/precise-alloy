@@ -104,9 +104,12 @@
 </head>
 
 <body>
+  <link rel="preload"
+    as="image"
+    href="/assets/images/logo.svg">
   <header class="zzz-o-header">
     <div class="zzz-container">
-      <div class="zzz-o-header__header-container"><a href="#"><img class="zzz-o-header__logo"
+      <div class="zzz-o-header__header-container"><a href="/pages/home.html"><img class="zzz-o-header__logo"
             width="70"
             height="50"
             alt="Precise Alloy's logo"
@@ -119,7 +122,7 @@
           <li class="zzz-o-header__nav-list__item"><a href="/pages/portfolio">Portforlio</a></li>
           <li class="zzz-o-header__nav-list__item"><a href="/pages/service">Services</a></li>
           <li class="zzz-o-header__nav-list__item"><a href="/pages/contact">Contact Us</a></li>
-          <li class="theme-toggle"><a aria-label="Toggle Theme"><svg class="zzz-a-icon"
+          <li class="zzz-o-header__theme-toggle"><button aria-label="Toggle Theme"><svg class="zzz-a-icon"
                 aria-hidden="true"
                 viewBox="0 0 19 19"
                 width="19"
@@ -131,7 +134,7 @@
                 width="19"
                 height="19">
                 <use xlink:href="/assets/images/icons.svg#zzz-theme-moon"></use>
-              </svg></a></li>
+              </svg></button></li>
         </ul>
       </div>
     </div>
