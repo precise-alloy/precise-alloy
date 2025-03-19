@@ -6,7 +6,7 @@ namespace PreciseAlloy.Models.Pages;
     GUID = "d81ac9da-a438-4f5d-ac1f-4359e3b7b707",
     Description = "")]
 [ContentTypeIcon(FontAwesome.Home)]
-public class HomePage
-    : SitePageData
+public class HomePage()
+    : SitePageData("home")
 {
 }

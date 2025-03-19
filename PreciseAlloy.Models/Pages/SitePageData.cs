@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
@@ -11,8 +12,16 @@ using PreciseAlloy.Models.Media;
 namespace PreciseAlloy.Models.Pages;
 
 public abstract class SitePageData
+    (string className)
     : PageData
 {
+    /// <summary>
+    /// This property outputs the class name to the UI, helping front-end developers customize based on page types.
+    /// </summary>
+    [Ignore]
+    [JsonIgnore]
+    public string ClassName => className;
+    
     [Display(
         Name = "Main Content Area",
         GroupName = SystemTabNames.Content,
