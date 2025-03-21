@@ -1,6 +1,7 @@
 @using EPiServer.Framework.Web.Mvc.Html
+@model PreciseAlloy.Models.Interfaces.IPageViewModel
 <!DOCTYPE html>
-<html lang="@ContentLanguage.PreferredCulture.TwoLetterISOLanguageName">
+<html lang="@ContentLanguage.PreferredCulture.TwoLetterISOLanguageName" class="page-@Model.ClassName">
 
 @* ReSharper disable once MissingTitleTag *@
 <head>
@@ -16,10 +17,10 @@
     <link rel="modulepreload" href="@Html.GetWidgetAssetPath("vendor")">
 </head>
 
-<body>
-    @RenderBody()
-    @Html.RequiredClientResources("Footer")
-    @await Html.RenderEPiServerQuickNavigatorAsync()
+<body class="page-@Model.ClassName">
+@RenderBody()
+@Html.RequiredClientResources("Footer")
+@await Html.RenderEPiServerQuickNavigatorAsync()
 </body>
 
 </html>
