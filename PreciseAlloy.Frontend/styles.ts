@@ -25,13 +25,14 @@ if (!fs.existsSync(outDir)) {
 // Something to use when events are received.
 const log = console.log.bind(console);
 
-const stringOptions = (srcFile: string): sass.StringOptionsWithoutImporter<'sync' | 'async'> => {
-  const options: sass.StringOptionsWithoutImporter<'sync' | 'async'> = {
+const stringOptions = (srcFile: string): sass.StringOptions<'sync' | 'async'> => {
+  const options: sass.StringOptions<'sync' | 'async'> = {
     sourceMap: true,
     sourceMapIncludeSources: true,
     syntax: 'scss',
     style: 'compressed',
     url: pathToFileURL(path.resolve(srcFile)),
+    silenceDeprecations: ['import', 'mixed-decls'],
   };
 
   return options;
@@ -94,14 +95,7 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
 };
 
 const postcssProcess = (result: sass.CompileResult, from: string, to: string) => {
-  const postcssOptions: ProcessOptions = {
-    from: pathToFileURL(from).href,
-    to,
-    map: {
-      prev: result.sourceMap,
-      absolute: false,
-    },
-  };
+  const postcssOptions: ProcessOptions = { from: pathToFileURL(from).href, to, map: { prev: result.sourceMap, absolute: false } };
 
   postcss([autoprefixer({ grid: true }), cssnano])
     .process(result.css, postcssOptions)
@@ -174,9 +168,7 @@ const sassCompile = (inputPath: string, isReady: boolean) => {
 };
 
 if (isWatch) {
-  const watcher = watch(['src', 'xpack/styles'], {
-    ignored: (path, stats) => !!stats?.isFile() && !path.endsWith('.scss'),
-  });
+  const watcher = watch(['src', 'xpack/styles'], { ignored: (path, stats) => !!stats?.isFile() && !path.endsWith('.scss') });
   let isReady = false;
 
   watcher
