@@ -37,7 +37,10 @@ export default [
     },
 
     rules: {
-      'react-refresh/only-export-components': 'warn',
+      'react-refresh/only-export-components': 'error',
+      'no-new': 'error',
+      complexity: ['error', 12],
+      'max-depth': ['error', 4],
     },
   },
 ];
