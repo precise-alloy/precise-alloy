@@ -43,11 +43,17 @@ jobs:
           submodules: recursive
           ref: master
 
-      - name: Bun Install 🛎️
+      - name: Setup Bun 🛎️
         uses: oven-sh/setup-bun@v2
 
-      - name: Bun Build 🛎️
-        run: |
-          bun install
-          bun run lint
-          bun run eshn
+      - name: Bun Install
+        run: bun install
+        working-directory: PreciseAlloy.Frontend
+
+      - name: Lint
+        run: bun run lint
+        working-directory: PreciseAlloy.Frontend
+
+      - name: ESHN check
+        run: bun run eshn
+        working-directory: PreciseAlloy.Frontend
