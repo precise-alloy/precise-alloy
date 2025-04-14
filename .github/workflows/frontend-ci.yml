@@ -4,14 +4,6 @@ name: Frontend CI
 
 # Controls when the action will run.
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches:
-      - master
-    paths:
-      - PreciseAlloy.Frontend/**
-      - .github/workflows/frontend-deploy.yml
-
   # Triggers the workflow on pull request events but only for the master branch
   pull_request:
     branches:
@@ -46,9 +38,6 @@ jobs:
     steps:
       - name: Checkout Base 🛎️
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
-          ref: master
 
       - name: Setup Bun 🛎️
         uses: oven-sh/setup-bun@v2
