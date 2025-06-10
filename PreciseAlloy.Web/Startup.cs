@@ -10,6 +10,7 @@ using EPiServer.Web.Routing;
 using Geta.Optimizely.ContentTypeIcons.Infrastructure.Configuration;
 using Geta.Optimizely.ContentTypeIcons.Infrastructure.Initialization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Net.Http.Headers;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
 using PreciseAlloy.Web.Infrastructure;
@@ -109,7 +110,22 @@ public partial class Startup(
             app.UseSwaggerUI();
         }
 
-        app.UseStaticFiles();
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            OnPrepareResponse = ctx =>
+            {
+                if (ctx.File.Name.EndsWith(".map"))
+                {
+                    // These files are being used by developers only, not end user, and should not be cached
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] = "no-store, no-cache";
+                }
+                else
+                {
+                    // Cache static files for 1 year
+                    ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public, max-age=31536000, immutable";
+                }
+            }
+        });
         app.UseRouting();
         app.UseCors();
         app.UseAuthentication();
@@ -120,7 +136,7 @@ public partial class Startup(
 
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapControllerRoute(name: "Default", pattern: "{controller}/{action}/{id?}");
+            endpoints.MapControllerRoute("Default", "{controller}/{action}/{id?}");
             endpoints.MapControllers();
             endpoints.MapRazorPages();
             endpoints.MapContent();
