@@ -7,7 +7,8 @@ namespace PreciseAlloy.Web.Features.Blocks.Hero;
 public class HeroBlockComponent
     : AsyncBlockComponent<HeroBlock>
 {
-    protected override async Task<IViewComponentResult> InvokeComponentAsync(HeroBlock currentContent)
+    protected override async Task<IViewComponentResult> InvokeComponentAsync(
+        HeroBlock currentContent)
     {
         var model = new HeroBlockViewModel(currentContent);
 

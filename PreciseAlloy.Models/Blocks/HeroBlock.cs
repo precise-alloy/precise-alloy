@@ -1,6 +1,7 @@
 ﻿using EPiServer;
 using EPiServer.Core;
 using EPiServer.DataAnnotations;
+using EPiServer.Web;
 using PreciseAlloy.Models.Interfaces;
 
 namespace PreciseAlloy.Models.Blocks;
@@ -47,6 +48,7 @@ public class HeroBlock
         Name = "Image",
         Order = 600)]
     [CultureSpecific]
+    [UIHint(UIHint.Image)]
     public virtual ContentReference? Image { get; set; }
 
     [Display(
