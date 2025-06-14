@@ -1,6 +1,7 @@
 ﻿using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
+using EPiServer.SpecializedProperties;
 using EPiServer.Web;
 using PreciseAlloy.Models.Interfaces;
 
@@ -51,5 +52,5 @@ public class TeaserBlock
         Description = "",
         GroupName = SystemTabNames.Content,
         Order = 500)]
-    public virtual ButtonBlock? CtaButton { get; set; }
+    public virtual LinkItem? CtaButton { get; set; }
 }

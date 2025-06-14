@@ -16,15 +16,19 @@
                 <div class="zzz-o-teaser__description">
                     @Html.PropertyFor(m => m.CurrentBlock.Text)
                 </div>
-                <div class="zzz-o-teaser__button"><a href="https://www.youtube.com/"
-                                                     class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black"
-                                                     target="_blank">Explore</a></div>
+                @if (Model.CurrentBlock.CtaButton != null)
+                {
+                    <div class="zzz-o-teaser__button">
+                        <a href="@Url.ContentUrl(Model.CurrentBlock.CtaButton.Href)" class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black" target="@Model.CurrentBlock.CtaButton.Target">@Model.CurrentBlock.CtaButton.Text</a>
+                    </div>
+                }
             </div>
-            <picture class="zzz-a-picture"><img src="/samples/image-2.svg?v=5d441f7d"
-                                                alt="teaser 2"
-                                                loading="lazy"
-                                                width="600"
-                                                height="432"></picture>
+            @if (Model.CurrentBlock.Image != null)
+            {
+                <picture class="zzz-a-picture">
+                    <img src="@Url.ContentUrl(Model.CurrentBlock.Image)" alt="teaser 2" loading="lazy" width="600" height="432">
+                </picture>
+            }
         </div>
     </div>
 </section>
