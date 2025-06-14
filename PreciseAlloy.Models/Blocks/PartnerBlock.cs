@@ -9,7 +9,7 @@ namespace PreciseAlloy.Models.Blocks;
     DisplayName = "Partner Block",
     Description = "",
     GUID = "9b74bc36-9346-4e67-a529-1b443bf1367b")]
-[ContentTypeIcon(FontAwesome.Users)]
+[ContentTypeIcon(FontAwesome.User)]
 public class PartnerBlock
     : BaseBlockData, IHasHeading, IHasSubHeading
 {
