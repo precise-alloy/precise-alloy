@@ -1,7 +1,7 @@
 import { contactFormFailed, contactFormSuccess } from '@data/contact';
 import { people } from '@data/people';
 import { handlers } from '@mocks/handlers';
-import { ContactFormBodyRequestModel } from '@organisms/contact/ContactForm';
+import { ContactFormBodyRequestModel } from '@organisms/contact/contact-form';
 import { HttpResponse, http } from 'msw';
 
 handlers.push(

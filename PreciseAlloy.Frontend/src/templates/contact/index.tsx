@@ -1,7 +1,7 @@
 import { AlertModel, ContactModel, FooterModel, HeaderModel } from '@_types/organisms';
 import Footer from '@organisms/footer';
 import Header from '@organisms/header';
-import Contact from '@organisms/contact/Contact';
+import Contact from '@organisms/contact';
 import Alert from '@organisms/alert';
 
 interface Props {

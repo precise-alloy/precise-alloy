@@ -9,6 +9,7 @@ export default function Template(model: RootModel) {
 
       <div id="root-iframe-wrapper" className="xpack-t-root__target-wrapper">
         <iframe
+          title="Pages"
           id="root-iframe"
           className="xpack-t-root__target"
           name="inner"
