@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import RootTemplate from '@xpack/root/Template';
+import RootTemplate from '@xpack/root/template';
 import { MultiplePageNode, RootItemModel, SinglePageNode } from '@_types/_root';
 
 // Auto generates routes from files under ./pages

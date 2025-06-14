@@ -1,6 +1,6 @@
 import { footer } from '@data/footer';
 import { prices } from '@data/prices';
-import ServiceTemplate from '@templates/service/Service';
+import ServiceTemplate from '@templates/service';
 import { header } from '@data/header';
 
 const Service = () => {

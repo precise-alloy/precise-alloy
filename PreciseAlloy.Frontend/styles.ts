@@ -8,7 +8,6 @@ import { glob } from 'glob';
 import postcss, { ProcessOptions } from 'postcss';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
-import _ from 'lodash';
 import { pathToFileURL } from 'url';
 
 const isWatch = process.argv.includes('--watch');
@@ -47,16 +46,10 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
     return;
   }
 
-  const outFile = `${options.prefix ?? ''}${path
-    .basename(srcFile)
-    .replaceAll(/^(\w+)/gi, (_p0, p1: string) =>
-      _.lowerCase(
-        p1.replaceAll(/(b2c|eshop)/gi, (_m0, m1: string) => {
-          return m1.toLowerCase();
-        })
-      ).replaceAll(' ', '-')
-    )
-    .replace(/\.scss$/gi, '.css')}`;
+  const name =
+    path.basename(srcFile) === 'index.scss' ? path.basename(path.dirname(srcFile)) + '.css' : path.basename(srcFile).replace(/\.scss$/gi, '.css');
+
+  const outFile = (options.prefix ?? '') + name;
 
   const srcCss: string[] = [
     slash(`@import '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/00-abstracts/abstracts'))}';`),

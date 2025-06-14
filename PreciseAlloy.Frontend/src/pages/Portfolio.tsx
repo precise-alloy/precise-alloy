@@ -1,6 +1,6 @@
 import { footer } from '@data/footer';
 import { portfolio } from '@data/portfolio';
-import PortfolioTemplate from '@templates/portfolio/Portfolio';
+import PortfolioTemplate from '@templates/portfolio';
 import { header } from '@data/header';
 
 const Portfolio = () => {

@@ -1,5 +1,5 @@
 import { ItemModel } from '@_types/molecules';
-import Icon from '@atoms/icons/Icon';
+import Icon from '@atoms/icons';
 import { getModifiers } from '@helpers/functions';
 
 const Item = (model: ItemModel) => {

@@ -1,10 +1,10 @@
-import Button from '@atoms/buttons/Button';
+import Button from '@atoms/buttons';
 import { getModifiers } from '@helpers/functions';
 import { ContactFormModel } from '@_types/organisms';
-import SectionHeader from '@molecules/section-header/SectionHeader';
+import SectionHeader from '@molecules/section-header';
 import { FormProvider, useForm } from 'react-hook-form';
-import TextInput, { FormValuesModel } from '@atoms/forms/TextInput';
-import Textarea from '@atoms/forms/Textarea';
+import TextInput, { FormValuesModel } from '@atoms/forms/text-input';
+import Textarea from '@atoms/forms/text-area';
 import { submitContactForm } from '@_api/contact-form';
 
 export interface ContactFormResponseModel {
