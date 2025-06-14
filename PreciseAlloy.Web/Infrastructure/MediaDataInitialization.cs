@@ -14,13 +14,9 @@ namespace PreciseAlloy.Web.Infrastructure;
 public class MediaDataInitialization
     : IInitializableModule
 {
-#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
-    private static readonly Injected<ILogger> Logger;
-#pragma warning restore CS0649 // Field is never assigned to, and will always have its default value
-
     public void Initialize(InitializationEngine context)
     {
-        var contentEvent = ServiceLocator.Current.GetInstance<IContentEvents>();
+        var contentEvent = context.Locate.Advanced.GetInstance<IContentEvents>();
         contentEvent.SavingContent += OnSavingContent;
     }
 
@@ -42,13 +38,19 @@ public class MediaDataInitialization
             return;
         }
 
+        if (mediaInfo is SvgImageFile)
+        {
+            return;
+        }
+
         try
         {
             FillImageInformation(imageFile);
         }
         catch (Exception e)
         {
-            Logger.Service.LogError(e, "Cannot update media information.");
+            var logger = ServiceLocator.Current.GetService<ILogger<MediaDataInitialization>>();
+            logger?.LogError(e, "Cannot update media information.");
             throw;
         }
     }
@@ -75,7 +77,8 @@ public class MediaDataInitialization
         }
         catch (Exception e)
         {
-            Logger.Service.LogError(e, "Cannot get image file size");
+            var logger = ServiceLocator.Current.GetService<ILogger<MediaDataInitialization>>();
+            logger?.LogError(e, "Cannot get image file size");
             return null;
         }
     }

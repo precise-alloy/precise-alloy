@@ -13,8 +13,6 @@ namespace PreciseAlloy.Utils.Extensions;
 // ReSharper disable once UnusedMember.Global
 public static class HtmlExtensions
 {
-    private static Injected<IWebHostEnvironment> HostingEnvironment { get; }
-    private static Injected<ILogger> Logger { get; }
     private static readonly IDictionary<string, string> CacheBusterValues;
 
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
@@ -27,7 +25,8 @@ public static class HtmlExtensions
     {
         try
         {
-            var webRootPath = HostingEnvironment.Service.WebRootPath;
+            var webHostEnvironment = ServiceLocator.Current.GetInstance<IWebHostEnvironment>();
+            var webRootPath = webHostEnvironment.WebRootPath;
             var hashesPath = Path.Combine(webRootPath, "assets", "hashes.json");
 
             if (!File.Exists(hashesPath))
@@ -44,7 +43,8 @@ public static class HtmlExtensions
         }
         catch (Exception ex)
         {
-            Logger.Service.LogError(ex, "Error when try get static hashes");
+            var logger = ServiceLocator.Current.GetInstance<ILogger>();
+            logger.LogError(ex, "Error when try get static hashes");
         }
         finally
         {
