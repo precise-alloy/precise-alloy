@@ -1,15 +1,16 @@
 ﻿using EPiServer.Core;
 using EPiServer.DataAnnotations;
+using EPiServer.Web;
 using PreciseAlloy.Models.Interfaces;
 
 namespace PreciseAlloy.Models.Blocks;
 
 [ContentType(
-    DisplayName = "Partners Block",
+    DisplayName = "Partner Block",
     Description = "",
-    GUID = "d52552a4-9e55-4da8-bdc8-871741f1e27d")]
+    GUID = "9b74bc36-9346-4e67-a529-1b443bf1367b")]
 [ContentTypeIcon(FontAwesome.Users)]
-public class PartnersBlock
+public class PartnerBlock
     : BaseBlockData, IHasHeading, IHasSubHeading
 {
     [Display(
@@ -25,15 +26,10 @@ public class PartnersBlock
     public virtual string? Heading { get; set; }
 
     [Display(
-        Name = "Description",
+        Name = "Image",
         Order = 300)]
     [CultureSpecific]
-    public virtual XhtmlString? Description { get; set; }
-
-    [Display(
-        Name = "Partners",
-        Order = 400)]
-    [CultureSpecific]
     [Required]
-    public virtual ContentArea Partners { get; set; } = null!;
+    [UIHint(UIHint.Image)]
+    public virtual ContentReference Image { get; set; } = null!;
 }

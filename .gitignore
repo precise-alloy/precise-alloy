@@ -373,3 +373,6 @@ modules/
 blobs/
 log-*.txt
 *license.config
+
+# Geta content type
+thumb_cache/

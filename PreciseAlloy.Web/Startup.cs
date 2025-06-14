@@ -54,7 +54,7 @@ public partial class Startup(
             x.BackgroundColor = "#a1331f";
             x.FontSize = 40;
             x.CustomFontPath = Path.Combine(webHostEnvironment.WebRootPath, "assets", "fonts");
-            x.CachePath = Path.Combine(webHostEnvironment.ContentRootPath, "App_Data", "thumb_cache");
+            x.CachePath = Path.Combine(webHostEnvironment.ContentRootPath, "App_Data", "thumb_cache", "thumb_cache_");
         });
 
         if (webHostEnvironment.IsDevelopment())
