@@ -1,5 +1,9 @@
 ﻿@model PreciseAlloy.Web.Features.Blocks.Footer.FooterViewModel
 
+@{
+    Html.RequireStyle("/assets/css/b-footer.css").AtHeader();
+}
+
 <footer class="zzz-o-footer section-margin-top-xl">
     <div class="zzz-container">
         <div class="zzz-o-footer__inner">
@@ -30,7 +34,3 @@
         </div>
     </div>
 </footer>
-
-@{
-    Html.RequireStyle("/assets/css/b-footer.css").AtHeader();
-}

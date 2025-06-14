@@ -1,5 +1,9 @@
 ﻿@model PreciseAlloy.Web.Features.Blocks.Hero.HeroBlockViewModel
 
+@{
+    Html.RequireStyle("/assets/css/b-hero.css").AtFooter();
+}
+
 <section class="zzz-o-hero">
     <div class="zzz-container">
         <div class="zzz-o-hero__inner">
@@ -29,7 +33,3 @@
         </div>
     </div>
 </section>
-
-@{
-    Html.RequireStyle("/assets/css/b-hero.css").AtFooter();
-}

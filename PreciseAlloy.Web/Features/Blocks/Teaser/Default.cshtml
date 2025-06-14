@@ -1,6 +1,8 @@
 ﻿@model PreciseAlloy.Web.Features.Blocks.Teaser.TeaserBlockViewModel
 
 @{
+    Html.RequireStyle("/assets/css/b-teaser.css").AtHeader();
+
     var imageClass = Model.CurrentBlock.ShowImageOnTheRight
         ? ""
         : "zzz-o-teaser--image-left";
@@ -32,7 +34,3 @@
         </div>
     </div>
 </section>
-
-@{
-    Html.RequireStyle("/assets/css/b-teaser.css").AtFooter();
-}

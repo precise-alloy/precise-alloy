@@ -1,5 +1,10 @@
 ﻿@model PreciseAlloy.Web.Features.Blocks.Contact.ContactBlockViewModel
 
+@{
+    Html.RequireStyle("/assets/css/b-epi-form.css").AtHeader();
+    Html.RequireStyle("/assets/css/b-contact.css").AtHeader();
+}
+
 <div class="zzz-o-contact section-margin-top">
     <div class="zzz-container">
         <div class="zzz-o-contact__info">
@@ -18,7 +23,3 @@
         </div>
     </div>
 </div>
-@{
-    Html.RequireStyle("/assets/css/b-epi-form.css").AtHeader();
-    Html.RequireStyle("/assets/css/b-contact.css").AtHeader();
-}

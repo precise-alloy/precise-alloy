@@ -1,5 +1,10 @@
 ﻿@model PreciseAlloy.Web.Features.Blocks.Header.HeaderViewModel
 
+@{
+    Html.RequireStyle("/assets/css/b-header.css").AtHeader();
+    Html.RequireScript("/assets/js/header.js").AtHeader();
+}
+
 <header class="zzz-o-header">
     <div class="zzz-container">
         <div class="zzz-o-header__header-container">
@@ -32,8 +37,3 @@
         </div>
     </div>
 </header>
-
-@{
-    Html.RequireStyle("/assets/css/b-header.css").AtHeader();
-    Html.RequireScript("/assets/js/header.js").AtFooter();
-}

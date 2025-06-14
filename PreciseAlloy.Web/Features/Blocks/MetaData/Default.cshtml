@@ -1,5 +1,17 @@
 ﻿@model PreciseAlloy.Models.Layout.MetaData
 
+@{
+    void RenderMetaTag(string property, string? content)
+    {
+        if (string.IsNullOrWhiteSpace(content))
+        {
+            return;
+        }
+
+        <meta property="@property" content="@content" />
+    }
+}
+
 <meta charset="UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,31 +19,22 @@
 <link rel="icon" href="~/favicon.svg" type="image/svg+xml"/>
 <link rel="manifest" href="~/site.webmanifest">
 
-@if (!string.IsNullOrWhiteSpace(Model.MetaKeywords))
-{
-    <meta name="keywords" content="@Model.MetaKeywords" />
-}
-@if (!string.IsNullOrWhiteSpace(Model.MetaRobots))
-{
-    <meta name="robots" content="@Model.MetaRobots">
+@{
+    RenderMetaTag("keywords", Model.MetaKeywords);
+    RenderMetaTag("robots", Model.MetaRobots);
+    RenderMetaTag("twitter:card", null);
+    RenderMetaTag("twitter:title", Model.PageTitle);
+    RenderMetaTag("twitter:site", Model.TwitterAlias);
+    RenderMetaTag("twitter:creator", Model.TwitterAlias);
+    RenderMetaTag("og:title", Model.PageTitle);
+    RenderMetaTag("og:type", "website");
+    RenderMetaTag("og:url", Model.AbsoluteUrl);
+    RenderMetaTag("og:description", Model.MetaDescription);
+    RenderMetaTag("og:site_name", Model.PageTitle);
+    RenderMetaTag("og:locale", Model.OpenGraphLocale);
+    RenderMetaTag("description", Model.MetaDescription);
 }
 
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="@Model.PageTitle" />
-<meta property="twitter:site" content="@Model.TwitterAlias" />
-<meta property="twitter:creator" content="@Model.TwitterAlias" />
-
-<meta property="og:title" content="@Model.PageTitle" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="@Model.AbsoluteUrl" />
-<meta property="og:description" content="@Model.MetaDescription" />
-<meta property="og:site_name" content="First Mile" />
-<meta property="og:locale" content="@Model.OpenGraphLocale" />
-
-@if (!string.IsNullOrWhiteSpace(Model.MetaDescription))
-{
-    <meta name="description" content="@Model.MetaDescription" />
-}
 <link rel="canonical" href="@Model.CanonicalUrl" />
 <link rel="shortcut icon" href="/assets/images/favicon@2x.png">
 <link rel="apple-touch-icon-precomposed" href="/assets/images/apple-touch-icon-precomposed.png">
