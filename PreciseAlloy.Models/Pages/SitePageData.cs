@@ -106,6 +106,13 @@ public abstract class SitePageData
 
     [CultureSpecific]
     [Display(
+        Name = "Hide Breadcrumb",
+        GroupName = TabNames.Settings,
+        Order = 1075)]
+    public virtual bool HideBreadcrumb { get; set; }
+
+    [CultureSpecific]
+    [Display(
         Name = "Hide Site Footer",
         GroupName = TabNames.Settings,
         Order = 1080)]
