@@ -1,47 +1,39 @@
-import css, { Declaration, Rule, Media, Supports } from 'css';
+import css from 'css';
 
-const updateCssRule = (rule: Rule) => {
-  if (!rule.type) {
-    return;
-  }
-
-  if (rule.type === 'font-face') {
-    // TODO: add logics
-  }
-
-  if (rule.type === 'media') {
-    (rule as Media).rules?.forEach((mediaRule: Rule) => updateCssRule(mediaRule));
-    return;
-  }
-
-  if (rule.type === 'supports') {
-    (rule as Supports).rules?.forEach((mediaRule: Rule) => updateCssRule(mediaRule));
-    return;
-  }
-
+const addImportantToCssRule = (rule: css.Rule) => {
   if (rule.declarations) {
-    [].forEach.call(rule.declarations, (declaration: Declaration) => {
-      if (!declaration.value) {
+    rule.declarations.forEach((declaration) => {
+      if (declaration.type !== 'declaration') {
         return;
       }
 
-      // Convert pixel to rem
-      declaration.value = declaration.value.replaceAll(/([0-9]+|[0-9]*(?:\.[0-9]+))px\b/gi, (_, p1) => {
-        const px = parseFloat(p1);
-        const rem = px / 16;
-        return rem + 'rem';
-      });
+      if (!declaration.value || declaration.value.indexOf('!important') >= 0) {
+        return;
+      }
 
-      // Add domain to absolute url
-      declaration.value = declaration.value.replaceAll(/\burl\((['"])?(\/[^('")]+)\1\)/gi, (p0, p1, p2) => {
-        if (process.env.VITE_DOMAIN) {
-          return `url(${p1}${process.env.VITE_DOMAIN}${p2}${p1})`;
-        }
+      if (declaration.property && declaration.property.startsWith('--')) {
+        return;
+      }
 
-        return p0;
-      });
+      declaration.value += '!important';
     });
   }
+
+  return;
+};
+
+const processRules = (rules: Array<css.Rule | css.Comment | css.AtRule>) => {
+  rules.forEach((rule) => {
+    if (rule.type === 'media' || rule.type === 'supports') {
+      if (rule.rules) {
+        processRules(rule.rules);
+      }
+    } else if (rule.type === 'rule') {
+      addImportantToCssRule(rule);
+    } else {
+      console.log(`Unknown rule type: ${rule.type}`);
+    }
+  });
 };
 
 const cssVip = (code: string): string => {
@@ -51,26 +43,11 @@ const cssVip = (code: string): string => {
     return code;
   }
 
-  if (!obj.stylesheet) {
-    return code;
-  }
+  processRules(rules);
 
-  obj.stylesheet.rules = obj.stylesheet.rules.filter((r: Rule) => {
-    if (r.type === 'font-face' || r.type === 'media' || r.type === 'supports') {
-      return true;
-    }
-
-    if (!r.selectors) {
-      return false;
-    }
-
-    r.selectors = r.selectors.filter((s) => !s.includes('data-styled.'));
-    return !!r.selectors.length;
+  return css.stringify(obj, {
+    compress: true,
   });
-
-  [].forEach.call(rules, (rule) => updateCssRule(rule));
-
-  return css.stringify(obj, { compress: true });
 };
 
 export default cssVip;
