@@ -49,9 +49,6 @@ const manualMigration = async () => {
 
   const manualSassMigrationFiles = await glob(
     [
-      'src/atoms/**/*.scss',
-      'src/molecules/**/*.scss',
-      'src/organisms/**/*.scss',
       'src/assets/styles/01-mixins/**/*.scss',
       'xpack/styles/**/*.scss',
       'src/assets/styles/02-base/**/*.scss',
