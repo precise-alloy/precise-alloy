@@ -8,7 +8,7 @@ import { glob } from 'glob';
 import postcss, { ProcessOptions } from 'postcss';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
-import { pathToFileURL } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const isWatch = process.argv.includes('--watch');
 const outDir = './public/assets/css';
@@ -24,6 +24,15 @@ if (!fs.existsSync(outDir)) {
 // Something to use when events are received.
 const log = console.log.bind(console);
 
+
+const prepareCssFileContent = (srcFile: string) => {
+  return [
+    slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/00-abstracts/abstracts'))}' as *;\n`),
+    slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/01-mixins/mixins'))}' as *;\n`),
+    fs.readFileSync(srcFile, 'utf-8'),
+  ];
+}
+
 const stringOptions = (srcFile: string): sass.StringOptions<'sync' | 'async'> => {
   const options: sass.StringOptions<'sync' | 'async'> = {
     sourceMap: true,
@@ -31,7 +40,46 @@ const stringOptions = (srcFile: string): sass.StringOptions<'sync' | 'async'> =>
     syntax: 'scss',
     style: 'compressed',
     url: pathToFileURL(path.resolve(srcFile)),
-    loadPaths: ['src/assets/styles', 'src/assets/styles/00-abstracts', 'src/assets/styles/01-mixins'],
+    importer: {
+      canonicalize(url) {
+        return new URL(url);
+      },
+      load(canonicalUrl: URL) {
+        let filePath = fileURLToPath(canonicalUrl);
+
+        if (!filePath.endsWith('.scss')) {
+          const parentDir = path.dirname(filePath);
+          const fileName = path.basename(filePath);
+          filePath = path.join(parentDir, fileName + '.scss');
+
+          if (!fs.existsSync(filePath)) {
+            filePath = path.join(parentDir, '_' + fileName + '.scss');
+          }
+        }
+
+        if (filePath.includes('assets') || filePath.includes('xpack')) return { contents: fs.readFileSync(filePath, 'utf-8'), syntax: 'scss' };
+
+        if (!fs.existsSync(filePath)) return null;
+
+        const segments = filePath.split(path.sep);
+        const isComponentFolder = ['atoms', 'molecules', 'organisms'].some(folder =>
+          segments.includes(folder));
+
+        if (isComponentFolder) {
+          const content = prepareCssFileContent(filePath);
+
+          return {
+            contents: content.join(''),
+            syntax: 'scss',
+          };
+        }
+
+        return {
+          contents: fs.readFileSync(filePath, 'utf-8'),
+          syntax: 'scss',
+        };
+      },
+    },
   };
 
   return options;
@@ -51,26 +99,24 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
 
   const outFile = (options.prefix ?? '') + name;
 
-  const srcCss: string[] = [`@use '00-abstracts/abstracts';`, `@use '01-mixins/mixins';`, fs.readFileSync(srcFile, 'utf-8')];
-  const baseDir = path.dirname(srcFile);
+  const cssStrings: string[] = prepareCssFileContent(srcFile);
 
   if (srcFile.includes('style-base') || srcFile.includes('style-all')) {
     glob.sync('./src/atoms/**/*.scss').forEach((atomPath) => {
       if (!path.basename(atomPath).startsWith('_')) {
-        srcCss.push(generateGlobalScssUseStatement(baseDir, atomPath, 'atoms'));
+        cssStrings.push(sass.compileString(prepareCssFileContent(atomPath).join(''), stringOptions(atomPath)).css);
       }
     });
 
-    // Molecules
     glob.sync('./src/molecules/**/*.scss').forEach((molPath) => {
       if (!path.basename(molPath).startsWith('_')) {
-        srcCss.push(generateGlobalScssUseStatement(baseDir, molPath, 'molecules'));
+        cssStrings.push(sass.compileString(prepareCssFileContent(molPath).join(''), stringOptions(molPath)).css);
       }
     });
   }
 
   sass
-    .compileStringAsync(srcCss.join(''), stringOptions(srcFile))
+    .compileStringAsync(cssStrings.join(''), stringOptions(srcFile))
     .then((result) => postcssProcess(result, srcFile, outFile))
     .catch((error) => {
       log(error);
@@ -89,21 +135,6 @@ const postcssProcess = (result: sass.CompileResult, from: string, to: string) =>
         fs.writeFileSync(path.join(outDir, to + '.map'), result.map.toString());
       }
     });
-};
-
-const generateGlobalScssUseStatement = (baseDir: string, filePath: string, category: string) => {
-  const rel = slash(path.relative(baseDir, filePath))
-    .replace(/\.scss$/i, '')
-    .replace(/\/index$/i, '');
-
-  const categoryPattern = new RegExp(`^(\\.\\.\\/)+${category}\\/`);
-
-  const namespace = rel
-    .replace(categoryPattern, '')
-    .replace(/\//g, '-')
-    .replace(/[^a-zA-Z0-9-_]/g, '');
-
-  return `@use '${rel}' as ${namespace}-${category};`;
 };
 
 const styleOrganisms = debounce((isReady: boolean) => {
