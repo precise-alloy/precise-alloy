@@ -1,8 +1,13 @@
+@use '../00-abstracts/abstracts' as *;
+
+@use "px2rem";
+@use "typography";
+
 @mixin zzz-button {
   --button-color: #{$black};
   --bg-color: #{$white};
-  --padding: #{px2rem(10px)} #{px2rem(40px)};
-  --border-radius: #{px2rem(8px)};
+  --padding: #{px2rem.px2rem(10px)} #{px2rem.px2rem(40px)};
+  --border-radius: #{px2rem.px2rem(8px)};
   --bg-hover-color: #{$wave-white};
   color: var(--button-color);
   background-color: var(--bg-color);
@@ -13,7 +18,7 @@
   display: inline-flex;
   text-decoration: none;
   position: relative;
-  @include font-sub-heading;
+  @include typography.font-sub-heading;
 
   &::before {
     content: '';

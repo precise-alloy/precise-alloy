@@ -1,3 +1,5 @@
+@use '../00-abstracts/abstracts' as *;
+
 @mixin firefox-only($include: true) {
   @if ($include) {
     @supports (color: -moz-dialog) {

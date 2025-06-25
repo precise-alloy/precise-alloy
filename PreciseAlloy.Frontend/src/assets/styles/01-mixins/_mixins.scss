@@ -1,13 +1,13 @@
-@import './px2rem';
+@forward 'px2rem';
 
-@import './breakpoints';
+@forward 'breakpoints';
 
-@import './browser-target';
+@forward 'browser-target';
 
-@import './typography';
+@forward 'typography';
 
-@import './buttons';
+@forward 'buttons';
 
-@import './input';
+@forward 'input';
 
-@import './theme';
+@forward 'theme';

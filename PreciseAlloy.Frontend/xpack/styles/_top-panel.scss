@@ -1,9 +1,15 @@
+@use '../../src/assets/styles/01-mixins/mixins' as *;
+
+@use "border";
+@use "breakpoint";
+@use "px2rem";
+
 .top-panel {
   &.xpack-o-root {
     border: none;
-    @include border-bottom;
+    @include border.border-bottom;
 
-    @include lg {
+    @include breakpoint.lg {
       --navbar-max-width: px2rem(240px);
       width: 100%;
       flex-direction: row;
@@ -14,19 +20,19 @@
 
   .xpack-o-root {
     &__nav-items {
-      height: calc(100vh - px2rem(35px));
+      height: calc(100vh - px2rem.px2rem(35px));
 
-      @include lg {
+      @include breakpoint.lg {
         position: fixed;
-        top: px2rem(35px);
+        top: px2rem.px2rem(35px);
         display: block;
-        padding-bottom: px2rem(8px);
+        padding-bottom: px2rem.px2rem(8px);
         transform: translateX(-100%);
       }
 
       &.show {
         display: block;
-        box-shadow: 0 px2rem(2px) px2rem(4px) #a6a6a6;
+        box-shadow: 0 px2rem.px2rem(2px) px2rem.px2rem(4px) #a6a6a6;
         transform: translateX(0);
         transition: transform 0.2s ease-out;
       }
@@ -38,13 +44,13 @@
 
     &__button-close,
     &__button-setting {
-      @include lg {
+      @include breakpoint.lg {
         display: flex;
       }
     }
 
     &__frame-control {
-      @include lg {
+      @include breakpoint.lg {
         margin-left: auto;
         margin-right: auto;
         display: flex;
@@ -53,29 +59,29 @@
     }
 
     &__active-item-options {
-      @include lg {
+      @include breakpoint.lg {
         display: block;
         position: fixed;
         transform: translateX(100%);
-        top: px2rem(31px);
+        top: px2rem.px2rem(31px);
       }
 
       &.show {
         display: block;
-        box-shadow: 0 px2rem(2px) px2rem(4px) #a6a6a6;
+        box-shadow: 0 px2rem.px2rem(2px) px2rem.px2rem(4px) #a6a6a6;
         transform: translateX(0);
         transition: transform 0.2s ease-out;
       }
     }
 
     &__actual-width {
-      @include lg {
-        margin-top: px2rem(4px);
+      @include breakpoint.lg {
+        margin-top: px2rem.px2rem(4px);
       }
     }
 
     &__controls {
-      @include lg {
+      @include breakpoint.lg {
         display: block;
       }
     }

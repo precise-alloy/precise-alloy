@@ -1,22 +1,31 @@
+@use '../../src/assets/styles/00-abstracts/abstracts' as *;
+@use '../../src/assets/styles/01-mixins/mixins' as *;
+
+@use "border";
+@use "breakpoint";
+@use "form";
+@use "px2rem";
+@use "theme";
+
 .xpack-o-root {
-  @include border-right;
+  @include border.border-right;
   height: min-content;
   display: flex;
   flex-direction: row;
-  gap: px2rem(1px);
+  gap: px2rem.px2rem(1px);
   overflow: hidden auto;
-  background-color: $body-bg;
+  background-color: theme.$body-bg;
   position: sticky;
   top: 0;
   left: 0;
   z-index: 100;
   overflow: hidden;
   line-height: 1.5;
-  padding: px2rem(10px);
-  font-size: px2rem(14px);
+  padding: px2rem.px2rem(10px);
+  font-size: px2rem.px2rem(14px);
   align-items: center;
 
-  @include lg {
+  @include breakpoint.lg {
     width: auto;
     flex-direction: column;
     height: 100vh;
@@ -32,76 +41,76 @@
     display: flex;
     align-items: center;
 
-    @include lg {
+    @include breakpoint.lg {
       display: none;
     }
   }
 
   &__button-close,
   &__button-setting {
-    width: px2rem(35px);
-    height: px2rem(35px);
+    width: px2rem.px2rem(35px);
+    height: px2rem.px2rem(35px);
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
-    color: $body-color;
+    color: theme.$body-color;
 
     svg.xpack-o-root__control-svg {
-      height: px2rem(35px);
-      width: px2rem(35px);
+      height: px2rem.px2rem(35px);
+      width: px2rem.px2rem(35px);
     }
 
     &:hover {
-      color: $link-hover-color;
+      color: theme.$link-hover-color;
     }
 
-    @include lg {
+    @include breakpoint.lg {
       display: none;
     }
   }
 
   &__button-setting {
-    padding: px2rem(2px);
+    padding: px2rem.px2rem(2px);
   }
 
   &__nav-items {
     flex-grow: 1;
     position: fixed;
-    top: px2rem(50px);
+    top: px2rem.px2rem(50px);
     left: 0;
-    height: calc(100vh - px2rem(275px));
+    height: calc(100vh - px2rem.px2rem(275px));
     max-width: var(--navbar-max-width);
     transform: translateX(-100%);
-    background-color: $body-bg;
-    border-bottom: px2rem(1px) solid $border-color;
+    background-color: theme.$body-bg;
+    border-bottom: px2rem.px2rem(1px) solid theme.$border-color;
 
     &.show {
       display: block;
-      box-shadow: 0 px2rem(2px) px2rem(4px) #a6a6a6;
+      box-shadow: 0 px2rem.px2rem(2px) px2rem.px2rem(4px) #a6a6a6;
       transform: translateX(0);
     }
 
-    @include lg {
+    @include breakpoint.lg {
       position: relative;
       top: 0;
       display: block;
-      padding-bottom: px2rem(8px);
+      padding-bottom: px2rem.px2rem(8px);
       transform: translateX(0);
     }
   }
 
   &__items {
-    padding: px2rem(8px) 0 px2rem(32px);
-    height: calc(100% - px2rem(42px));
+    padding: px2rem.px2rem(8px) 0 px2rem.px2rem(32px);
+    height: calc(100% - px2rem.px2rem(42px));
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
 
     &::-webkit-scrollbar {
-      width: px2rem(5px);
-      height: px2rem(5px);
+      width: px2rem.px2rem(5px);
+      height: px2rem.px2rem(5px);
     }
 
     &::-webkit-scrollbar-track {
@@ -119,15 +128,15 @@
     &:hover,
     &:focus-visible {
       scrollbar-width: thin;
-      scrollbar-color: $scrollbar-thumb-hover-bg $body-bg;
+      scrollbar-color: theme.$scrollbar-thumb-hover-bg theme.$body-bg;
 
       &::-webkit-scrollbar-thumb {
-        background: $scrollbar-thumb-bg;
+        background: theme.$scrollbar-thumb-bg;
       }
     }
 
     &::-webkit-scrollbar-thumb:hover {
-      background: $scrollbar-thumb-hover-bg;
+      background: theme.$scrollbar-thumb-hover-bg;
     }
 
     &::-webkit-scrollbar-corner {
@@ -136,24 +145,24 @@
   }
 
   &__search {
-    padding: px2rem(8px) px2rem(16px);
-    border-bottom: px2rem(1px) solid $border-color;
+    padding: px2rem.px2rem(8px) px2rem.px2rem(16px);
+    border-bottom: px2rem.px2rem(1px) solid theme.$border-color;
 
     input {
-      @include input;
+      @include form.input;
       width: 100%;
-      padding: px2rem(8px);
-      font-size: px2rem(16px);
+      padding: px2rem.px2rem(8px);
+      font-size: px2rem.px2rem(16px);
     }
   }
 
   &__nav-message {
-    padding: px2rem(8px) px2rem(14px);
+    padding: px2rem.px2rem(8px) px2rem.px2rem(14px);
     font-weight: 700;
   }
 
   &__search-matches {
-    border-bottom: px2rem(1px) solid $border-color;
+    border-bottom: px2rem.px2rem(1px) solid theme.$border-color;
 
     > * {
       font-weight: 700;
@@ -167,36 +176,36 @@
   }
 
   &__nav-item {
-    padding: px2rem(4px) px2rem(8px) px2rem(4px) px2rem(16px);
+    padding: px2rem.px2rem(4px) px2rem.px2rem(8px) px2rem.px2rem(4px) px2rem.px2rem(16px);
     display: block;
-    color: $body-color;
-    font-size: px2rem(14px);
+    color: theme.$body-color;
+    font-size: px2rem.px2rem(14px);
     font-family: Arial, Helvetica, sans-serif;
 
     &--active {
-      color: $link-hover-color;
-      background-color: rgba($body-color-rgb, 0.2);
+      color: theme.$link-hover-color;
+      background-color: rgba(theme.$body-color-rgb, 0.2);
     }
 
     &:hover {
-      color: $link-hover-color;
+      color: theme.$link-hover-color;
     }
 
     &.panel-position {
       display: none;
 
-      @include lg {
+      @include breakpoint.lg {
         display: flex;
       }
     }
 
     &--last {
-      margin-bottom: px2rem(20px);
+      margin-bottom: px2rem.px2rem(20px);
     }
   }
 
   &__nav-item-collection {
-    padding: px2rem(4px) px2rem(8px) px2rem(4px) px2rem(16px);
+    padding: px2rem.px2rem(4px) px2rem.px2rem(8px) px2rem.px2rem(4px) px2rem.px2rem(16px);
     & > summary {
       color: #9453d5;
       cursor: pointer;
@@ -205,7 +214,7 @@
       align-items: center;
       user-select: none;
 
-      @include dark {
+      @include theme.dark {
         color: #40e0d0;
       }
 
@@ -223,9 +232,9 @@
         align-items: center;
         justify-content: center;
         color: rgba($color: #000000, $alpha: 0);
-        font-size: px2rem(10px);
+        font-size: px2rem.px2rem(10px);
 
-        @include dark {
+        @include theme.dark {
           text-shadow: 0 0 #40e0d0;
         }
       }
@@ -241,8 +250,8 @@
   }
 
   &__nav-item-seperator {
-    @include border-top;
-    margin: px2rem(16px) 0 px2rem(8px);
+    @include border.border-top;
+    margin: px2rem.px2rem(16px) 0 px2rem.px2rem(8px);
   }
 
   &__frame-control {
@@ -250,7 +259,7 @@
     max-width: var(--navbar-max-width);
     margin-left: auto;
 
-    @include lg {
+    @include breakpoint.lg {
       margin-left: unset;
     }
   }
@@ -258,20 +267,20 @@
   &__active-item-options {
     display: block;
     max-width: var(--navbar-max-width);
-    background-color: $body-bg;
+    background-color: theme.$body-bg;
     position: fixed;
-    top: px2rem(50px);
+    top: px2rem.px2rem(50px);
     right: 0;
-    padding: px2rem(20px) 0 px2rem(8px);
+    padding: px2rem.px2rem(20px) 0 px2rem.px2rem(8px);
     transform: translateX(100%);
 
     &.show {
       display: block;
-      box-shadow: 0 px2rem(2px) px2rem(4px) #a6a6a6;
+      box-shadow: 0 px2rem.px2rem(2px) px2rem.px2rem(4px) #a6a6a6;
       transform: translateX(0);
     }
 
-    @include lg {
+    @include breakpoint.lg {
       display: block;
       position: relative;
       transform: translateX(0);
@@ -280,18 +289,18 @@
   }
 
   &__actual-width {
-    margin-top: px2rem(8px);
-    margin-right: px2rem(10px);
+    margin-top: px2rem.px2rem(8px);
+    margin-right: px2rem.px2rem(10px);
     text-align: center;
-    font-size: px2rem(14px);
+    font-size: px2rem.px2rem(14px);
   }
 
   &__controls {
-    margin-top: px2rem(10px);
+    margin-top: px2rem.px2rem(10px);
     text-align: center;
     display: none;
 
-    @include lg {
+    @include breakpoint.lg {
       display: block;
     }
   }
@@ -299,16 +308,16 @@
   &__control-button {
     border: none;
     background-color: transparent;
-    color: $body-color;
+    color: theme.$body-color;
     cursor: pointer;
 
     &:hover {
-      color: $link-hover-color;
+      color: theme.$link-hover-color;
     }
   }
 
   &__control-svg {
-    width: px2rem(18px);
-    height: px2rem(18px);
+    width: px2rem.px2rem(18px);
+    height: px2rem.px2rem(18px);
   }
 }

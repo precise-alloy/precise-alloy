@@ -16,7 +16,7 @@ import transfrom from './hooks/transform';
 // console.log('config');
 
 const additionalScssData = `
-@import "${srcRoot}/assets/styles/additional-data";
+@use "${srcRoot}/assets/styles/additional-data";
 `;
 
 const config = defineConfig({

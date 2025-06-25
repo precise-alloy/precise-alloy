@@ -31,7 +31,7 @@ const stringOptions = (srcFile: string): sass.StringOptions<'sync' | 'async'> =>
     syntax: 'scss',
     style: 'compressed',
     url: pathToFileURL(path.resolve(srcFile)),
-    silenceDeprecations: ['import', 'mixed-decls'],
+    loadPaths: ['src/assets/styles', 'src/assets/styles/00-abstracts', 'src/assets/styles/01-mixins'],
   };
 
   return options;
@@ -51,31 +51,21 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
 
   const outFile = (options.prefix ?? '') + name;
 
-  const srcCss: string[] = [
-    slash(`@import '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/00-abstracts/abstracts'))}';`),
-    slash(`@import '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/01-mixins/mixins'))}';`),
-    fs.readFileSync(srcFile, 'utf-8'),
-  ];
+  const srcCss: string[] = [`@use '00-abstracts/abstracts';`, `@use '01-mixins/mixins';`, fs.readFileSync(srcFile, 'utf-8')];
+  const baseDir = path.dirname(srcFile);
 
   if (srcFile.includes('style-base') || srcFile.includes('style-all')) {
-    glob.sync('./src/atoms/**/*.scss').forEach((a) => {
-      if (path.basename(a).startsWith('_')) {
-        return;
+    glob.sync('./src/atoms/**/*.scss').forEach((atomPath) => {
+      if (!path.basename(atomPath).startsWith('_')) {
+        srcCss.push(generateGlobalScssUseStatement(baseDir, atomPath, 'atoms'));
       }
-
-      const relativePath = slash(path.relative(path.dirname(srcFile), a)).replace(/\.scss$/i, '');
-
-      srcCss.push(`@import "${relativePath}";`);
     });
 
-    glob.sync('./src/molecules/**/*.scss').forEach((a) => {
-      if (path.basename(a).startsWith('_')) {
-        return;
+    // Molecules
+    glob.sync('./src/molecules/**/*.scss').forEach((molPath) => {
+      if (!path.basename(molPath).startsWith('_')) {
+        srcCss.push(generateGlobalScssUseStatement(baseDir, molPath, 'molecules'));
       }
-
-      const relativePath = slash(path.relative(path.dirname(srcFile), a)).replace(/\.scss$/i, '');
-
-      srcCss.push(`@import "${relativePath}";`);
     });
   }
 
@@ -99,6 +89,21 @@ const postcssProcess = (result: sass.CompileResult, from: string, to: string) =>
         fs.writeFileSync(path.join(outDir, to + '.map'), result.map.toString());
       }
     });
+};
+
+const generateGlobalScssUseStatement = (baseDir: string, filePath: string, category: string) => {
+  const rel = slash(path.relative(baseDir, filePath))
+    .replace(/\.scss$/i, '')
+    .replace(/\/index$/i, '');
+
+  const categoryPattern = new RegExp(`^(\\.\\.\\/)+${category}\\/`);
+
+  const namespace = rel
+    .replace(categoryPattern, '')
+    .replace(/\//g, '-')
+    .replace(/[^a-zA-Z0-9-_]/g, '');
+
+  return `@use '${rel}' as ${namespace}-${category};`;
 };
 
 const styleOrganisms = debounce((isReady: boolean) => {

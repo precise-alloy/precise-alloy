@@ -1,7 +1,12 @@
+@use '../00-abstracts/abstracts' as *;
+
+@use "breakpoints";
+@use "px2rem";
+
 @mixin font-body {
   & {
     font-family: $font-work-sans;
-    font-size: px2rem(15px);
+    font-size: px2rem.px2rem(15px);
     line-height: 1.25;
   }
 }
@@ -10,7 +15,7 @@
   & {
     font-family: $font-work-sans;
     font-weight: $bold;
-    font-size: px2rem(16px);
+    font-size: px2rem.px2rem(16px);
     line-height: 1.25;
   }
 }
@@ -19,7 +24,7 @@
   & {
     font-family: $font-work-sans;
     font-weight: $regular;
-    font-size: px2rem(20px);
+    font-size: px2rem.px2rem(20px);
     line-height: 1.25rem;
   }
 }
@@ -28,13 +33,13 @@
   & {
     font-family: $font-crimson-text;
     font-weight: $bold;
-    font-size: px2rem(28px);
+    font-size: px2rem.px2rem(28px);
     line-height: 1.25;
   }
 
-  @include desktop {
+  @include breakpoints.desktop {
     & {
-      font-size: px2rem(40px);
+      font-size: px2rem.px2rem(40px);
     }
   }
 }
@@ -43,7 +48,7 @@
   & {
     font-family: $font-crimson-text;
     font-weight: $bold;
-    font-size: px2rem(40px);
+    font-size: px2rem.px2rem(40px);
     line-height: 1.25;
   }
 }
@@ -52,7 +57,7 @@
   & {
     font-family: $font-crimson-text;
     font-weight: $bold;
-    font-size: px2rem(32px);
+    font-size: px2rem.px2rem(32px);
     line-height: 1.25;
   }
 }
@@ -61,7 +66,7 @@
   & {
     font-family: $font-crimson-text;
     font-weight: $bold;
-    font-size: px2rem(28px);
+    font-size: px2rem.px2rem(28px);
     line-height: 1.25;
   }
 }
@@ -70,7 +75,7 @@
   & {
     font-family: $font-crimson-text;
     font-weight: $bold;
-    font-size: px2rem(24px);
+    font-size: px2rem.px2rem(24px);
     line-height: 1.25;
   }
 }
@@ -79,7 +84,7 @@
   & {
     font-family: $font-crimson-text;
     font-weight: $bold;
-    font-size: px2rem(20px);
+    font-size: px2rem.px2rem(20px);
     line-height: 1.25;
   }
 }
@@ -88,7 +93,7 @@
   & {
     font-family: $font-crimson-text;
     font-weight: $bold;
-    font-size: px2rem(16px);
+    font-size: px2rem.px2rem(16px);
     line-height: 1.25;
   }
 }
