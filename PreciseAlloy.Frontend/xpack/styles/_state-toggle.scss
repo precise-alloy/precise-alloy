@@ -1,3 +1,6 @@
+@use '../../src/assets/styles/00-abstracts/abstracts' as *;
+@use '../../src/assets/styles/01-mixins/mixins' as *;
+
 $-time-ratio: 0.5;
 $-size-ratio: 0.5;
 $-begin-offset: -200px;

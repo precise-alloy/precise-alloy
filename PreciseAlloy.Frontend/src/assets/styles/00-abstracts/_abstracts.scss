@@ -1,7 +1,7 @@
-@import './colors';
+@forward 'colors';
 
-@import './typography';
+@forward 'typography';
 
-@import './variables';
+@forward 'variables';
 
-@import './breakpoints';
+@forward 'breakpoints';

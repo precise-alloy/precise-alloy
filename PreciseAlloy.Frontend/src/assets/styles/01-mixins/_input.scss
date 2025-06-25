@@ -1,12 +1,17 @@
+@use '../00-abstracts/abstracts' as *;
+
+@use "px2rem";
+@use "typography";
+
 @mixin zzz-input {
-  @include font-label;
+  @include typography.font-label;
 
   & {
     font-weight: $regular;
     width: 100%;
     background-color: $secondary;
-    border: px2rem(1px) solid $primary;
-    border-radius: px2rem(5px);
-    padding: px2rem(10px) px2rem(15px);
+    border: px2rem.px2rem(1px) solid $primary;
+    border-radius: px2rem.px2rem(5px);
+    padding: px2rem.px2rem(10px) px2rem.px2rem(15px);
   }
 }

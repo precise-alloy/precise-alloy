@@ -1,6 +1,6 @@
-@import './reset';
-@import './fonts';
-@import './typography';
-@import './style-base';
-@import './epi-fixes';
-@import './theme';
+@use 'reset';
+@use 'fonts';
+@use 'typography';
+@use 'style-base';
+@use 'epi-fixes';
+@use 'theme';

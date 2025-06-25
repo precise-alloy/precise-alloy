@@ -1,19 +1,25 @@
+@use '../../src/assets/styles/00-abstracts/abstracts' as *;
+@use '../../src/assets/styles/01-mixins/mixins' as *;
+
+@use "px2rem";
+@use "theme";
+
 @mixin border {
-  border: px2rem(1px) solid $border-color;
+  border: px2rem.px2rem(1px) solid theme.$border-color;
 }
 
 @mixin border-top {
-  border-top: px2rem(1px) solid $border-color;
+  border-top: px2rem.px2rem(1px) solid theme.$border-color;
 }
 
 @mixin border-bottom {
-  border-bottom: px2rem(1px) solid $border-color;
+  border-bottom: px2rem.px2rem(1px) solid theme.$border-color;
 }
 
 @mixin border-left {
-  border-left: px2rem(1px) solid $border-color;
+  border-left: px2rem.px2rem(1px) solid theme.$border-color;
 }
 
 @mixin border-right {
-  border-right: px2rem(1px) solid $border-color;
+  border-right: px2rem.px2rem(1px) solid theme.$border-color;
 }

@@ -1,3 +1,6 @@
+@use '../../src/assets/styles/00-abstracts/abstracts' as *;
+@use '../../src/assets/styles/01-mixins/mixins' as *;
+
 $body-color: var(--body-color);
 $body-strong-color: var(--body-strong-color);
 $body-color-rgb: var(--body-color-rgb);

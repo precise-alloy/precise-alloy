@@ -1,11 +1,15 @@
+@use '../00-abstracts/abstracts' as *;
+
+@use "px2rem";
+
 @mixin tablet {
-  @media (min-width: #{px2rem($tablet)}) {
+  @media (min-width: #{px2rem.px2rem($tablet)}) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media (min-width: #{px2rem($desktop)}) {
+  @media (min-width: #{px2rem.px2rem($desktop)}) {
     @content;
   }
 }

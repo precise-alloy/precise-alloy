@@ -1,3 +1,6 @@
+@use '../../src/assets/styles/00-abstracts/abstracts' as *;
+@use '../../src/assets/styles/01-mixins/mixins' as *;
+
 $-bold: 700;
 
 $-button-border: #aaa093;
