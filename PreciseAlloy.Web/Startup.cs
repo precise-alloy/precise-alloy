@@ -14,6 +14,7 @@ using Microsoft.Net.Http.Headers;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
 using PreciseAlloy.Web.Infrastructure;
+using PreciseAlloy.Web.Infrastructure.Middlewares;
 
 namespace PreciseAlloy.Web;
 
@@ -33,10 +34,7 @@ public partial class Startup(
             services.Configure<SchedulerOptions>(options => options.Enabled = false);
 
             // UI
-            services.Configure<ClientResourceOptions>(uiOptions =>
-            {
-                uiOptions.Debug = true;
-            });
+            services.Configure<ClientResourceOptions>(uiOptions => { uiOptions.Debug = true; });
         }
         else
         {
@@ -128,6 +126,8 @@ public partial class Startup(
         });
         app.UseRouting();
         app.UseCors();
+        app.UseMiddleware<RobotsHeaderMiddleware>();
+        app.UseMiddleware<LayoutTypeMiddleware>();
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseBaaijteOptimizelyImageSharp();

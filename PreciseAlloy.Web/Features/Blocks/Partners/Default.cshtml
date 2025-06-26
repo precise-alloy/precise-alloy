@@ -1,4 +1,4 @@
-﻿@model PreciseAlloy.Web.Features.Blocks.Partners.PartnersBlockViewModel
+﻿@model PreciseAlloy.Models.Blocks.Partner.PartnersBlockViewModel
 
 @{
     Html.RequireStyle("/assets/css/b-partner.css").AtHeader();
@@ -10,14 +10,14 @@
             <div class="zzz-o-partner__content">
                 @if (!string.IsNullOrWhiteSpace(Model.CurrentBlock.SubHeading))
                 {
-                    <div class="zzz-o-partner__label">@Html.PropertyFor(m=>m.CurrentBlock.SubHeading)</div>
+                    <div class="zzz-o-partner__label">@Html.PropertyFor(m => m.CurrentBlock.SubHeading)</div>
                 }
                 <div class="zzz-m-section-header">
-                    <h2 class="zzz-m-section-header__heading h1">@Html.PropertyFor(m=> Model.CurrentBlock.Heading)</h2>
+                    <h2 class="zzz-m-section-header__heading h1">@Html.PropertyFor(m => Model.CurrentBlock.Heading)</h2>
                 </div>
                 @if (Model.CurrentBlock.Description?.IsEmpty == false)
                 {
-                    <div class="zzz-o-partner__description">@Html.PropertyFor(m => m.CurrentBlock.Description)</div>   
+                    <div class="zzz-o-partner__description">@Html.PropertyFor(m => m.CurrentBlock.Description)</div>
                 }
             </div>
             @if (Model.Partners?.Count > 0)
@@ -32,7 +32,8 @@
             <div class="zzz-o-partner__button">
                 <a href="https://www.twitter.com/"
                    class="zzz-a-button zzz-a-button--btn zzz-a-button--btn-black"
-                   target="_blank">Learn More</a>
+                   target="_blank">Learn
+                    More</a>
             </div>
         </div>
     </div>

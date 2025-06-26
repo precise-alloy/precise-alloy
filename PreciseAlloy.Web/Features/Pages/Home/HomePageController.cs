@@ -1,6 +1,6 @@
 using EPiServer.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
-using PreciseAlloy.Models.Pages;
+using PreciseAlloy.Models.Pages.Home;
 
 namespace PreciseAlloy.Web.Features.Pages.Home;
 

@@ -6,6 +6,7 @@ using EPiServer.Web;
 using EPiServer.Web.Routing;
 
 namespace PreciseAlloy.Utils.Extensions;
+
 public static class UrlExtensions
 {
     public static Uri? ToUri(this string uri)
@@ -30,7 +31,6 @@ public static class UrlExtensions
                 {
                     culture = CultureInfo.GetCultureInfo(language);
                 }
-
             }
             catch
             {
@@ -45,18 +45,21 @@ public static class UrlExtensions
 
             var siteDefinition2 = siteDefinition?.Value ?? SiteDefinition.Current;
             var primaryHost = siteDefinition2.GetPrimaryHost(culture);
-            if (primaryHost == null || !Uri.TryCreate(siteDefinition2.SiteUrl.Scheme + "://" + primaryHost.Name, UriKind.Absolute, out var result))
+            if (primaryHost == null
+                || !Uri.TryCreate(siteDefinition2.SiteUrl.Scheme + "://" + primaryHost.Name, UriKind.Absolute, out var result))
             {
                 result = siteDefinition2.SiteUrl;
             }
 
-            text = result?.ToString() + text.TrimStart('/');
+            text = result + text?.TrimStart('/');
         }
 
         return text ?? string.Empty;
     }
 
-    public static string ToExternalFriendlyUrl(this Url internalUrl, string language = null)
+    public static string ToExternalFriendlyUrl(
+        this Url internalUrl,
+        string? language = null)
     {
         string? text = null;
         if (!internalUrl.IsEmpty())
@@ -67,7 +70,8 @@ public static class UrlExtensions
         return text ?? string.Empty;
     }
 
-    public static string ToFriendlyUrl(this Url internalUrl)
+    public static string ToFriendlyUrl(
+        this Url internalUrl)
     {
         if (internalUrl.IsEmpty())
         {
@@ -75,7 +79,9 @@ public static class UrlExtensions
         }
 
         var urlBuilderWithInternalUrl = new UrlBuilder(internalUrl);
-        return ServiceLocator.Current.GetInstance<IUrlResolver>().GetUrl(urlBuilderWithInternalUrl, ContextMode.Default) ?? string.Empty;
+        return ServiceLocator.Current.GetInstance<IUrlResolver>()
+                   .GetUrl(urlBuilderWithInternalUrl, ContextMode.Default)
+               ?? string.Empty;
     }
 
     public static string ToFriendlyUrl(this string link)

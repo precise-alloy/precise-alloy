@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
+using PreciseAlloy.Models.Blocks.Header;
 using PreciseAlloy.Models.Pages;
 using PreciseAlloy.Models.Settings;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
-using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Web.Features.Blocks.Header;
 
 public class HeaderViewComponent(
+    IContentLoader contentLoader,
     IRequestContext requestContext,
     ISettingsService settingsService)
     : ViewComponent
@@ -19,19 +20,20 @@ public class HeaderViewComponent(
         var layoutSettings = settingsService.GetSiteSettings<LayoutSettings>();
 
         if (requestContext.IsBlockPreviewMode
-            || currentPage?.HideSiteHeader == true)
+            || currentPage?.HideSiteHeader == true
+            || ContentReference.IsNullOrEmpty(layoutSettings?.Header))
         {
             return new ContentViewComponentResult(string.Empty);
         }
 
-        var model = new HeaderViewModel
-        {
-            CompanyName = layoutSettings?.CompanyName,
-            LogoUrl = layoutSettings?.HeaderLogoUrl?.GetUrl(),
-            LogoAlternativeText = layoutSettings?.HeaderLogoAlternativeText,
-            Menu = layoutSettings?.HeaderMenu
-        };
+        var header = contentLoader.Get<BaseHeaderBlock>(layoutSettings?.Header);
 
-        return await Task.FromResult(View(model));
+
+        if (header is not null)
+        {
+            return await Task.FromResult(View(header));
+        }
+
+        return new ContentViewComponentResult(string.Empty);
     }
 }

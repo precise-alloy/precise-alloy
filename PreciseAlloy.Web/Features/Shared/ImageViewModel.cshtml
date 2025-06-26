@@ -1,12 +1,12 @@
-﻿@model PreciseAlloy.Web.Features.Blocks.Image.ImageViewModel
+﻿@model PreciseAlloy.Models.Media.ImageViewModel
 
 @if (Model.HasImageData)
 {
     <picture class="zzz-a-picture">
         @foreach (var imageSource in Model.ImageSources)
         {
-            <source media="max-width: @(imageSource.MediaMaxWidth)px" srcset="@imageSource.Url" />
+            <source media="max-width: @(imageSource.MediaMaxWidth)px" srcset="@imageSource.Url"/>
         }
-        <img src="@Model.Src" alt="@Model.AltText" width="@Model.Width" height="@Model.Height" />
+        <img src="@Model.Src" alt="@Model.AltText" width="@Model.Width" height="@Model.Height"/>
     </picture>
 }

@@ -1,10 +1,12 @@
 ﻿using EPiServer.Core;
+using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
-using EPiServer.SpecializedProperties;
+using EPiServer.Shell.ObjectEditing;
 using EPiServer.Web;
-using PreciseAlloy.Models.Blocks;
+using PreciseAlloy.Models.Blocks.Footer;
+using PreciseAlloy.Models.Blocks.Header;
 using PreciseAlloy.Models.Constants;
-using PreciseAlloy.Models.Pages;
+using PreciseAlloy.Models.Factories;
 
 namespace PreciseAlloy.Models.Settings;
 
@@ -16,7 +18,17 @@ namespace PreciseAlloy.Models.Settings;
 public class LayoutSettings
     : SettingsBase
 {
+    #region Content
+
+    [Display(
+        Name = "Layout Type")]
+    [SelectOne(SelectionFactoryType = typeof(LayoutTypeSelectionFactory))]
+    public virtual string? LayoutType { get; set; }
+
+    #endregion
+
     #region Metadata
+
     [UIHint(UIHint.Image)]
     [CultureSpecific]
     [Display(
@@ -24,50 +36,37 @@ public class LayoutSettings
         GroupName = TabNames.SiteMetaData,
         Order = 100)]
     public virtual ContentReference? SocialShareImageUrl { get; set; }
+
     #endregion
 
     #region Header
+
     [Display(
-        Name = "Company Name",
+        Name = "Header",
         GroupName = TabNames.Header,
         Order = 100)]
+    [AllowedTypes(typeof(BaseHeaderBlock))]
     [CultureSpecific]
-    public virtual string? CompanyName { get; set; }
+    public virtual ContentReference? Header { get; set; }
 
-    [Display(
-        Name = "Logo URL",
-        GroupName = TabNames.Header,
-        Order = 200)]
-    [AllowedTypes(typeof(SitePageData))]
-    public virtual ContentReference? HeaderLogoUrl { get; set; }
-
-    [Display(
-        Name = "Logo Alternative Text",
-        GroupName = TabNames.Header,
-        Order = 300)]
-    [CultureSpecific]
-    public virtual string? HeaderLogoAlternativeText { get; set; }
-
-    [Display(
-        Name = "Header Menu",
-        GroupName = TabNames.Header,
-        Order = 400)]
-    public virtual LinkItemCollection? HeaderMenu { get; set; }
     #endregion Header
 
     #region Footer
-    [AllowedTypes(typeof(SocialLinkBlock))]
-    [Display(
-        Name = "Social Links",
-        GroupName = TabNames.Footer,
-        Order = 100)]
-    public virtual ContentArea? SocialLinks { get; set; }
 
     [Display(
-        Name = "Copyright Text",
+        Name = "Footer",
         GroupName = TabNames.Footer,
-        Order = 200)]
+        Order = 100)]
+    [AllowedTypes(typeof(BaseFooterBlock))]
     [CultureSpecific]
-    public virtual string? CopyrightText { get; set; }
+    public virtual ContentReference? Footer { get; set; }
+
     #endregion
+
+    public override void SetDefaultValues(ContentType contentType)
+    {
+        base.SetDefaultValues(contentType);
+
+        LayoutType = LayoutTypes.Default;
+    }
 }

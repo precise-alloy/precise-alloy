@@ -1,6 +1,6 @@
 #################################
 # The rules in this file are very strict, it is intentional.
-# Read the reason why it should be like this at https://www.tuyen.xyz/optimizely-cms/backend/coding-convention/
+# Read the reason why it should be like this at https://tuyen.blog/optimizely-cms/backend/coding-convention/
 #################################
 
 # Remove the line below if you want to inherit .editorconfig settings from higher directories
@@ -10,6 +10,7 @@ root = true
 dotnet_diagnostic.ENC0109.severity = error # Prefer using file-scoped namespace over block-scoped namespace.
 dotnet_diagnostic.CS8618.severity = error # Non-nullable variable must contain a non-null value when exiting constructor. Consider declaring it as nullable.
 dotnet_diagnostic.IDE0005.severity = error # Using directive is unnecessary.
+dotnet_diagnostic.CS1591.severity = none # Missing XML comment for publicly visible type or member 'Type_or_Member'
 
 #### Naming styles ####
 
@@ -39,15 +40,15 @@ dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
 
 dotnet_naming_symbols.interface.applicable_kinds = interface
 dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
-dotnet_naming_symbols.interface.required_modifiers = 
+dotnet_naming_symbols.interface.required_modifiers =
 
 dotnet_naming_symbols.types.applicable_kinds = class, struct, interface, enum
 dotnet_naming_symbols.types.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
-dotnet_naming_symbols.types.required_modifiers = 
+dotnet_naming_symbols.types.required_modifiers =
 
 dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, method
 dotnet_naming_symbols.non_field_members.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
-dotnet_naming_symbols.non_field_members.required_modifiers = 
+dotnet_naming_symbols.non_field_members.required_modifiers =
 
 dotnet_naming_symbols.static_readonly_field.applicable_kinds = field
 dotnet_naming_symbols.static_readonly_field.applicable_accessibilities = *
@@ -60,13 +61,13 @@ dotnet_naming_symbols.const_field.required_modifiers = const
 # Naming styles
 
 dotnet_naming_style.begins_with_i.required_prefix = I
-dotnet_naming_style.begins_with_i.required_suffix = 
-dotnet_naming_style.begins_with_i.word_separator = 
+dotnet_naming_style.begins_with_i.required_suffix =
+dotnet_naming_style.begins_with_i.word_separator =
 dotnet_naming_style.begins_with_i.capitalization = pascal_case
 
-dotnet_naming_style.pascal_case.required_prefix = 
-dotnet_naming_style.pascal_case.required_suffix = 
-dotnet_naming_style.pascal_case.word_separator = 
+dotnet_naming_style.pascal_case.required_prefix =
+dotnet_naming_style.pascal_case.required_suffix =
+dotnet_naming_style.pascal_case.word_separator =
 dotnet_naming_style.pascal_case.capitalization = pascal_case
 
 dotnet_style_coalesce_expression = true:suggestion
@@ -105,7 +106,8 @@ dotnet_style_qualification_for_method = false:silent
 dotnet_style_qualification_for_event = false:silent
 
 [*.cs]
-csharp_using_directive_placement = outside_namespace:silent
+csharp_using_directive_placement = outside_namespace:error
+dotnet_sort_system_directives_first = true:error
 csharp_prefer_simple_using_statement = true:suggestion
 csharp_prefer_braces = true:silent
 csharp_style_namespace_declarations = file_scoped:error
@@ -149,6 +151,43 @@ csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
 csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
 csharp_style_prefer_not_pattern = true:suggestion
 csharp_style_prefer_extended_property_pattern = true:suggestion
-csharp_style_var_when_type_is_apparent = false:silent
-csharp_style_var_for_built_in_types = false:silent
-csharp_style_var_elsewhere = false:silent
+csharp_style_var_when_type_is_apparent = true:silent
+csharp_style_var_for_built_in_types = true:silent
+csharp_style_var_elsewhere = true:silent
+
+resharper_class_with_virtual_members_never_inherited_global_highlighting = none
+resharper_csharp_sort_usings_with_system_first = true
+resharper_sort_usings_with_system_first = true
+resharper_csharp_place_attribute_on_same_line = false
+resharper_space_after_cast = false
+resharper_keep_user_linebreaks = true
+resharper_csharp_keep_user_linebreaks = true
+resharper_keep_existing_linebreaks = true
+resharper_csharp_keep_existing_linebreaks = true
+resharper_keep_existing_initializer_arrangement = true
+resharper_csharp_keep_existing_initializer_arrangement = true
+resharper_place_simple_initializer_on_single_line = false
+resharper_csharp_place_simple_initializer_on_single_line = false
+resharper_csharp_space_within_single_line_array_initializer_braces = true
+resharper_space_in_singleline_accessorholder = true
+resharper_csharp_space_in_singleline_accessorholder = true
+resharper_space_in_singleline_method = true
+resharper_csharp_space_in_singleline_method = true
+resharper_space_in_singleline_anonymous_method = true
+resharper_csharp_space_in_singleline_anonymous_method = true
+resharper_wrap_primary_constructor_parameters_style = chop_always
+resharper_csharp_wrap_primary_constructor_parameters_style = chop_always
+
+[*.js]
+tab_width = 2
+indent_size = 2
+end_of_line = lf
+
+[*.{xml,config}]
+tab_width = 2
+indent_size = 2
+end_of_line = lf
+
+[*.cshtml]
+ij_html_attribute_wrap = off
+max_line_length = 0

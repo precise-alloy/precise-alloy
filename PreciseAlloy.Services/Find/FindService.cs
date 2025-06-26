@@ -1,8 +1,8 @@
-using PreciseAlloy.Models.Pages;
 using EPiServer.Core;
 using EPiServer.Find;
 using EPiServer.Find.Cms;
 using Microsoft.Extensions.Logging;
+using PreciseAlloy.Models.Pages;
 using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Services.Find;
@@ -23,31 +23,18 @@ public class FindService : IFindService
         _logger.ExitConstructor();
     }
 
-    public IContentResult<T>? Search<T>(
+    public async Task<IContentResult<T>?> SearchAsync<T>(
         FindQuery query)
         where T : SitePageData
     {
         _logger.EnterMethod();
-        var pages = GetPages<T>(query);
+        var pages = await GetPagesAsync<T>(query);
 
         _logger.ExitMethod();
         return pages;
     }
 
-    public IContentResult<T>? Search<T>(
-        FindQuery query,
-        out int totalRows)
-        where T : SitePageData
-    {
-        _logger.EnterMethod();
-        var results = GetPages<T>(query);
-        totalRows = results?.TotalMatching ?? 0;
-
-        _logger.ExitMethod();
-        return results;
-    }
-
-    public IContentResult<T>? GetBlocks<T>(
+    public async Task<IContentResult<T>?> GetBlocksAsync<T>(
         FindQuery query)
         where T : BlockData
     {
@@ -64,7 +51,7 @@ public class FindService : IFindService
                 .FilterForVisitor();
 
             _logger.ExitMethod();
-            return search.Take(query.PageSize).GetContentResult();
+            return await search.Take(query.PageSize).GetContentResultAsync();
         }
         catch (Exception ex)
         {
@@ -73,7 +60,7 @@ public class FindService : IFindService
         }
     }
 
-    private IContentResult<T>? GetPages<T>(FindQuery query) where T : SitePageData
+    private async Task<IContentResult<T>?> GetPagesAsync<T>(FindQuery query) where T : SitePageData
     {
         try
         {
@@ -85,11 +72,11 @@ public class FindService : IFindService
             }
 
             search = search
-                    .ApplyBestBets()
-                    .CurrentlyPublished()
-                    .PublishedInCurrentLanguage()
-                    .ExcludeDeleted()
-                    .FilterForVisitor();
+                .ApplyBestBets()
+                .CurrentlyPublished()
+                .PublishedInCurrentLanguage()
+                .ExcludeDeleted()
+                .FilterForVisitor();
 
             var rootPageId = string.IsNullOrWhiteSpace(query.RootPageId)
                 ? ContentReference.StartPage.ID.ToString()
@@ -100,7 +87,7 @@ public class FindService : IFindService
                     .Ancestors()
                     .Match(rootPageId));
 
-            if (query is { IsNext: true, StartPublish: { } })
+            if (query is { IsNext: true, StartPublish: not null })
             {
                 search = search
                     .Filter(e => e
@@ -114,7 +101,7 @@ public class FindService : IFindService
                     .OrderByDescending(x => x.StartPublish);
             }
 
-            if (query is { IsPrevious: true, StartPublish: { } })
+            if (query is { IsPrevious: true, StartPublish: not null })
             {
                 search = search
                     .Filter(e => e
@@ -125,10 +112,10 @@ public class FindService : IFindService
             query.PageIndex = query.PageIndex <= 0 ? 1 : query.PageIndex;
 
             _logger.ExitMethod();
-            return search
+            return await search
                 .Skip((query.PageIndex - 1) * query.PageSize)
                 .Take(query.PageSize)
-                .GetContentResult();
+                .GetContentResultAsync();
         }
         catch (Exception ex)
         {

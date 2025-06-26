@@ -1,6 +1,6 @@
 ﻿using EPiServer.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
-using PreciseAlloy.Models.Blocks;
+using PreciseAlloy.Models.Blocks.People;
 
 namespace PreciseAlloy.Web.Features.Blocks.People;
 
@@ -9,7 +9,7 @@ public class PeopleBlockComponent
 {
     protected override async Task<IViewComponentResult> InvokeComponentAsync(PeopleBlock currentContent)
     {
-        var model = new PeopleBlockViewModel(currentContent);
+        PeopleBlockViewModel model = new(currentContent);
 
         return await Task.FromResult(View(model));
     }

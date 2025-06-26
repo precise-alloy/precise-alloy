@@ -25,21 +25,21 @@ public class GlobalSettingsSearchProvider(
     IContentLoader contentLoader,
     ISettingsService settingsService)
     : ContentSearchProviderBase<SettingsBase, ContentType>(
-        localizationService: localizationService,
-        siteDefinitionResolver: siteDefinitionResolver,
-        contentTypeRepository: contentTypeRepository,
-        editUrlResolver: editUrlResolver,
-        currentSiteDefinition: currentSiteDefinition,
-        languageResolver: contentLanguageAccessor,
-        urlResolver: urlResolver,
-        templateResolver: templateResolver,
-        uiDescriptorRegistry: uiDescriptorRegistry)
+        localizationService,
+        siteDefinitionResolver,
+        contentTypeRepository,
+        editUrlResolver,
+        currentSiteDefinition,
+        contentLanguageAccessor,
+        urlResolver,
+        templateResolver,
+        uiDescriptorRegistry)
 {
     internal const string SearchArea = "Settings/globalsettings";
 
     public override string Area => SearchArea;
 
-    public override string Category => localizationService.GetString("/episerver/cms/components/globalSettings/title", "Site Settings");
+    public override string Category => LocalizationService.GetString("/episerver/cms/components/globalSettings/title", "Site Settings");
 
     protected override string IconCssClass => "epi-iconSettings";
 
@@ -48,23 +48,23 @@ public class GlobalSettingsSearchProvider(
         if (string.IsNullOrWhiteSpace(query.SearchQuery)
             || query.SearchQuery.Trim().Length < 2)
         {
-            return Enumerable.Empty<SearchResult>();
+            return [];
         }
 
         var searchResultList = new List<SearchResult>();
         var str = query.SearchQuery.Trim();
 
         var globalSettings = contentLoader
-            .GetChildren<SettingsBase>(contentLink: settingsService.GlobalSettingsRoot);
+            .GetChildren<SettingsBase>(settingsService.GlobalSettingsRoot);
 
         foreach (var setting in globalSettings)
         {
-            if (setting.Name.IndexOf(value: str, comparisonType: StringComparison.OrdinalIgnoreCase) < 0)
+            if (setting.Name.IndexOf(str, StringComparison.OrdinalIgnoreCase) < 0)
             {
                 continue;
             }
 
-            searchResultList.Add(CreateSearchResult(contentData: setting));
+            searchResultList.Add(CreateSearchResult(setting));
 
             if (searchResultList.Count == query.MaxResults)
             {
@@ -78,7 +78,7 @@ public class GlobalSettingsSearchProvider(
     protected override string CreatePreviewText(IContentData? content)
     {
         return content == null
-            ? $"{(content as SettingsBase)?.Name} {localizationService.GetString("/contentRepositories/globalsettings/customSelectTitle", "Settings").ToLower()}"
+            ? $"{(content as SettingsBase)?.Name} {LocalizationService.GetString("/contentRepositories/globalsettings/customSelectTitle", "Settings").ToLower()}"
             : string.Empty;
     }
 
@@ -100,7 +100,7 @@ public class GlobalSettingsSearchProvider(
             : string.Empty;
 
         // ReSharper disable StringLiteralTypo
-        return $"/episerver/PreciseAlloy.Cms.Settings/settings#context=epi.cms.contentdata:///{contentLink.ID}&viewsetting=viewlanguage:///{language}";
+        return $"/episerver/YourTown.Cms.Settings/settings#context=epi.cms.contentdata:///{contentLink.ID}&viewsetting=viewlanguage:///{language}";
         // ReSharper restore StringLiteralTypo
     }
 }
