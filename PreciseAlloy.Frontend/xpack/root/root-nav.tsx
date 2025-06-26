@@ -15,13 +15,22 @@ export default function RootNav({ routes: routesProp }: Props) {
   const [show, setShow] = useState(false);
   const navItemRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLAnchorElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [routes, setRoutes] = useState(routesProp);
   const [routesSearch, setRoutesSearch] = useState<RootItemModel[]>([]);
   const [textSearch, setTextSearch] = useState('');
 
-  useOnClickOutside(navItemRef, () => setShow(false), [buttonRef]);
+  const closeMenu = () => {
+    setShow(false);
+    setTextSearch('');
+  };
+
+  useOnClickOutside(navItemRef, closeMenu, [buttonRef]);
 
   const handleClick = () => {
+    if (!show && inputRef.current) {
+      inputRef.current.focus();
+    }
     setShow(!show);
   };
 
@@ -85,6 +94,7 @@ export default function RootNav({ routes: routesProp }: Props) {
         <div className="xpack-o-root__search">
           <input
             type={'text'}
+            ref={inputRef}
             value={textSearch}
             placeholder="Find a pattern"
             onChange={(e) => {

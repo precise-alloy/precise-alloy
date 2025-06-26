@@ -2,7 +2,7 @@ import { RefObject, useEffect } from 'react';
 
 export function useOnClickOutside(
   ref: RefObject<HTMLElement | null>,
-  handler: (event: MouseEvent | TouchEvent) => void,
+  handler: (event?: MouseEvent | TouchEvent) => void,
   otherDependenceRef?: RefObject<HTMLElement | null>[]
 ) {
   useEffect(() => {
@@ -19,12 +19,19 @@ export function useOnClickOutside(
       handler(event);
     };
 
+    const handleWindowBlur = () => {
+      handler();
+    };
+
     document.addEventListener('mousedown', listener);
     document.addEventListener('touchstart', listener);
+    window.addEventListener('blur', handleWindowBlur);
 
+    // Cleanup the event listeners on component unmount
     return () => {
       document.removeEventListener('mousedown', listener);
       document.removeEventListener('touchstart', listener);
+      window.removeEventListener('blur', handleWindowBlur);
     };
   }, [ref, handler, otherDependenceRef]);
 }
