@@ -1,5 +1,3 @@
-@use '../01-mixins/mixins' as *;
-
 h1,
 .h1 {
   @include font-h1;

@@ -24,14 +24,23 @@ if (!fs.existsSync(outDir)) {
 // Something to use when events are received.
 const log = console.log.bind(console);
 
-
-const prepareCssFileContent = (srcFile: string) => {
+const prepareCssFileContent = ({
+  srcFile,
+  includeMixins = true,
+  includeAbstracts = true,
+}: {
+  srcFile: string;
+  includeMixins?: boolean;
+  includeAbstracts?: boolean;
+}) => {
   return [
-    slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/00-abstracts/abstracts'))}' as *;\n`),
-    slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/01-mixins/mixins'))}' as *;\n`),
+    includeAbstracts
+      ? slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/00-abstracts/abstracts'))}' as *;\n`)
+      : undefined,
+    includeMixins ? slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/01-mixins/mixins'))}' as *;\n`) : undefined,
     fs.readFileSync(srcFile, 'utf-8'),
-  ];
-}
+  ].filter(Boolean);
+};
 
 const stringOptions = (srcFile: string): sass.StringOptions<'sync' | 'async'> => {
   const options: sass.StringOptions<'sync' | 'async'> = {
@@ -57,25 +66,22 @@ const stringOptions = (srcFile: string): sass.StringOptions<'sync' | 'async'> =>
           }
         }
 
-        if (filePath.includes('assets') || filePath.includes('xpack')) return { contents: fs.readFileSync(filePath, 'utf-8'), syntax: 'scss' };
-
         if (!fs.existsSync(filePath)) return null;
 
-        const segments = filePath.split(path.sep);
-        const isComponentFolder = ['atoms', 'molecules', 'organisms'].some(folder =>
-          segments.includes(folder));
-
-        if (isComponentFolder) {
-          const content = prepareCssFileContent(filePath);
-
+        if (filePath.includes('abstracts') || filePath.includes('_mixins') || filePath.includes('_base'))
           return {
-            contents: content.join(''),
+            contents: fs.readFileSync(filePath, 'utf-8'),
             syntax: 'scss',
           };
+
+        let content = prepareCssFileContent({ srcFile: filePath });
+
+        if (filePath.includes('mixins')) {
+          content = prepareCssFileContent({ srcFile: filePath, includeMixins: false });
         }
 
         return {
-          contents: fs.readFileSync(filePath, 'utf-8'),
+          contents: content.join(''),
           syntax: 'scss',
         };
       },
@@ -99,18 +105,18 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
 
   const outFile = (options.prefix ?? '') + name;
 
-  const cssStrings: string[] = prepareCssFileContent(srcFile);
+  const cssStrings = prepareCssFileContent({srcFile});
 
   if (srcFile.includes('style-base') || srcFile.includes('style-all')) {
     glob.sync('./src/atoms/**/*.scss').forEach((atomPath) => {
       if (!path.basename(atomPath).startsWith('_')) {
-        cssStrings.push(sass.compileString(prepareCssFileContent(atomPath).join(''), stringOptions(atomPath)).css);
+        cssStrings.push(sass.compileString(prepareCssFileContent({srcFile: atomPath}).join(''), stringOptions(atomPath)).css);
       }
     });
 
     glob.sync('./src/molecules/**/*.scss').forEach((molPath) => {
       if (!path.basename(molPath).startsWith('_')) {
-        cssStrings.push(sass.compileString(prepareCssFileContent(molPath).join(''), stringOptions(molPath)).css);
+        cssStrings.push(sass.compileString(prepareCssFileContent({srcFile: molPath}).join(''), stringOptions(molPath)).css);
       }
     });
   }

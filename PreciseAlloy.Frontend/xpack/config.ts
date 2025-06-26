@@ -15,10 +15,6 @@ import transfrom from './hooks/transform';
 
 // console.log('config');
 
-const additionalScssData = `
-@use "${srcRoot}/assets/styles/additional-data";
-`;
-
 const config = defineConfig({
   base: xpackEnv.VITE_BASE_URL,
   plugins: [
@@ -51,7 +47,6 @@ const config = defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: additionalScssData,
       },
     },
   },
