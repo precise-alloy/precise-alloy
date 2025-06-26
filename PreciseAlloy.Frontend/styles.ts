@@ -68,7 +68,7 @@ const stringOptions = (srcFile: string): sass.StringOptions<'sync' | 'async'> =>
 
         if (!fs.existsSync(filePath)) return null;
 
-        if (filePath.includes('abstracts') || filePath.includes('_mixins') || filePath.includes('_base'))
+        if (filePath.includes('abstracts') || filePath.includes('_mixins') || filePath.includes('_base') || filePath.includes('xpack'))
           return {
             contents: fs.readFileSync(filePath, 'utf-8'),
             syntax: 'scss',
@@ -105,7 +105,7 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
 
   const outFile = (options.prefix ?? '') + name;
 
-  const cssStrings = prepareCssFileContent({srcFile});
+  const cssStrings = srcFile.includes('xpack') ? [fs.readFileSync(srcFile, 'utf-8')] :  prepareCssFileContent({srcFile});
 
   if (srcFile.includes('style-base') || srcFile.includes('style-all')) {
     glob.sync('./src/atoms/**/*.scss').forEach((atomPath) => {

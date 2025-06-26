@@ -1,22 +1,22 @@
-@use "px2rem";
-@use "theme";
+@use "px2rem" as *;
+@use "theme" as *;
 
 @mixin border {
-  border: px2rem.px2rem(1px) solid theme.$border-color;
+  border: px2rem(1px) solid $border-color;
 }
 
 @mixin border-top {
-  border-top: px2rem.px2rem(1px) solid theme.$border-color;
+  border-top: px2rem(1px) solid $border-color;
 }
 
 @mixin border-bottom {
-  border-bottom: px2rem.px2rem(1px) solid theme.$border-color;
+  border-bottom: px2rem(1px) solid $border-color;
 }
 
 @mixin border-left {
-  border-left: px2rem.px2rem(1px) solid theme.$border-color;
+  border-left: px2rem(1px) solid $border-color;
 }
 
 @mixin border-right {
-  border-right: px2rem.px2rem(1px) solid theme.$border-color;
+  border-right: px2rem(1px) solid $border-color;
 }

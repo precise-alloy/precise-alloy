@@ -6,6 +6,7 @@ $body-bg-rgb: var(--body-bg-rgb);
 $link-color: var(--link-color);
 $link-hover-color: var(--link-hover-color);
 $border-color: var(--border-color);
+$black: var(--black);
 
 // scrollbar
 $scrollbar-track-bg: var(--scrollbar-track-bg);
@@ -37,6 +38,7 @@ $scrollbar-thumb-hover-bg: var(--scrollbar-thumb-hover-bg);
   --link-hover-color: #0a58ca;
   --link-hover-color-rgb: 10, 88, 202;
   --border-color: #dee2e6;
+  --black: #000;
 
   // scrollbar
   --scrollbar-track-bg: #e8e8e8;
@@ -56,6 +58,7 @@ $scrollbar-thumb-hover-bg: var(--scrollbar-thumb-hover-bg);
     --link-color-rgb: 110, 168, 254;
     --link-hover-color-rgb: 139, 185, 254;
     --border-color: #495057;
+    --black: #000;
 
     // scrollbar
     --scrollbar-track-bg: #35393c;
