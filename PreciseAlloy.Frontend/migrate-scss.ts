@@ -39,4 +39,6 @@ const migration = async () => {
   }
 }
 
-migration();
+migration().catch((err) => {
+  console.error('An error occurred during migration:', (err as Error).message);
+});

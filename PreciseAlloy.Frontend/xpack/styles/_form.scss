@@ -1,23 +1,23 @@
-@use "px2rem";
-@use "theme";
+@use "px2rem" as *;
+@use "theme" as *;
 
 @mixin input {
-  border: px2rem.px2rem(1px) solid #bbb;
+  border: px2rem(1px) solid #bbb;
   background-color: #eee;
-  color: theme.$body-color;
-  border-radius: px2rem.px2rem(4px);
+  color: $body-color;
+  border-radius: px2rem(4px);
 
   &:focus-visible {
     border-color: $black;
-    background-color: theme.$body-bg;
+    background-color: $body-bg;
   }
 
-  @include theme.dark {
+  @include dark {
     background-color: #1b1f22;
     border-color: #555;
 
     &:focus-visible {
-      border-color: theme.$body-color;
+      border-color: $body-color;
     }
   }
 }

@@ -1,12 +1,12 @@
-@use 'px2rem';
-@use 'reset';
-@use 'breakpoint';
-@use 'theme';
-@use 'border';
-@use 'state-toggle';
-@use 'form';
-@use 'xpack-root';
-@use 'top-panel';
+@use 'px2rem' as *;
+@use 'reset' as *;
+@use 'breakpoint' as *;
+@use 'theme' as *;
+@use 'border' as *;
+@use 'state-toggle' as *;
+@use 'form' as *;
+@use 'xpack-root' as *;
+@use 'top-panel' as *;
 
 :root {
   --navbar-max-width: px2rem(240px);
@@ -30,10 +30,10 @@ body {
   height: 100vh !important;
   max-height: 100vh !important;
   overflow: hidden !important;
-  background-color: theme.$body-bg !important;
-  font-size: px2rem.px2rem(16px);
+  background-color: $body-bg !important;
+  font-size: px2rem(16px);
   font-family: Arial, Helvetica, sans-serif;
-  color: theme.$body-color;
+  color: $body-color;
 }
 
 .xpack-t-root {
@@ -42,12 +42,12 @@ body {
   display: grid;
   grid-template-rows: min-content 1fr;
 
-  @include breakpoint.lg {
-    grid-template-columns: px2rem.px2rem(300px) 1fr;
+  @include lg {
+    grid-template-columns: px2rem(300px) 1fr;
   }
 
   &.top-panel {
-    @include breakpoint.lg {
+    @include lg {
       grid-template-columns: 1fr;
       grid-template-rows: min-content 1fr;
     }
@@ -74,22 +74,22 @@ body {
       position: absolute;
       display: block;
       top: 0;
-      width: px2rem.px2rem(1px);
+      width: px2rem(1px);
       height: 100%;
-      background-color: theme.$body-color;
+      background-color: $body-color;
     }
 
     &::before {
-      left: -(px2rem.px2rem(1px));
+      left: -(px2rem(1px));
     }
 
     &::after {
-      right: -(px2rem.px2rem(1px));
+      right: -(px2rem(1px));
     }
   }
 
   &__target-resizer {
-    width: px2rem.px2rem(20px);
+    width: px2rem(20px);
     height: 100%;
     position: absolute;
     top: 0;
@@ -105,13 +105,13 @@ body {
       content: '';
       position: absolute;
       display: block;
-      width: px2rem.px2rem(5px);
-      height: px2rem.px2rem(50px);
+      width: px2rem(5px);
+      height: px2rem(50px);
       left: 50%;
       top: 50%;
-      border-width: 0 px2rem.px2rem(1px);
+      border-width: 0 px2rem(1px);
       border-style: solid;
-      border-color: theme.$border-color;
+      border-color: $border-color;
       transform: translate(-50%, -50%);
     }
   }
