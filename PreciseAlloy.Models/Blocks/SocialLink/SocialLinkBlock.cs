@@ -2,6 +2,7 @@
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using PreciseAlloy.Models.Constants;
+using PreciseAlloy.Models.Interfaces;
 
 namespace PreciseAlloy.Models.Blocks.SocialLink;
 
@@ -11,7 +12,7 @@ namespace PreciseAlloy.Models.Blocks.SocialLink;
     GUID = "56174c38-7fb4-4734-96dd-9a7b13932ffe")]
 [ContentTypeIcon(FontAwesome.Share)]
 // ReSharper disable once UnusedMember.Global
-public class SocialLinkBlock : BaseBlockData
+public class SocialLinkBlock : BaseBlockData, IChildBlock
 {
     [Display(
         Name = "Url",
@@ -23,16 +24,6 @@ public class SocialLinkBlock : BaseBlockData
         Name = "Icon",
         Order = 200)]
     public virtual string? Icon { get; set; }
-
-    [Display(
-        Name = "Icon Width",
-        Order = 300)]
-    public virtual int IconWidth { get; set; }
-
-    [Display(
-        Name = "Icon Height",
-        Order = 400)]
-    public virtual int IconHeight { get; set; }
 
     [Display(
         Name = "Alternative Text",

@@ -1,7 +1,11 @@
 ﻿@model PreciseAlloy.Models.Blocks.Footer.StandardFooterViewModel
 
 @{
+    // Styles
     Html.RequireStyle("/assets/css/b-footer.css").AtHeader();
+
+    // Icons
+    var iconPath = Html.GetCacheBusterPath("/assets/images/icons.svg");
 }
 
 <footer class="zzz-o-footer section-margin-top-xl">
@@ -16,12 +20,8 @@
                             <a class="zzz-a-link-with-icon"
                                href="@socialLink.Url?.ToString()"
                                aria-label="@socialLink.AlternativeText">
-                                <svg class="zzz-a-icon zzz-a-icon--md"
-                                     aria-hidden="true"
-                                     viewBox="0 0 @socialLink.IconWidth @socialLink.IconHeight"
-                                     width="@socialLink.IconWidth"
-                                     height="@socialLink.IconHeight">
-                                    <use xlink:href="/assets/images/icons.svg#@socialLink.Icon"></use>
+                                <svg class="zzz-a-icon zzz-a-icon--md" aria-hidden="true" viewBox="0 0 19 19" width="19" height="19">
+                                    <use xlink:href="@iconPath#@socialLink.Icon"></use>
                                 </svg>
                             </a>
                         </li>

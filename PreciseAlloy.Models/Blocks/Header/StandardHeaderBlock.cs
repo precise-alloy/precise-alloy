@@ -2,6 +2,7 @@
 using EPiServer.DataAnnotations;
 using EPiServer.SpecializedProperties;
 using EPiServer.Web;
+using PreciseAlloy.Models.Interfaces;
 using PreciseAlloy.Models.Pages;
 
 namespace PreciseAlloy.Models.Blocks.Header;
@@ -12,7 +13,7 @@ namespace PreciseAlloy.Models.Blocks.Header;
     GUID = "b921a1c2-82ef-4d95-bc59-dfa54d1c691a")]
 [ContentTypeIcon(FontAwesome.Header)]
 public class StandardHeaderBlock
-    : BaseHeaderBlock
+    : BaseHeaderBlock, IChildBlock
 {
     [Display(
         Name = "Company Name",
