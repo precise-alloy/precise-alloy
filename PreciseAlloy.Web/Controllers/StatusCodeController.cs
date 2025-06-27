@@ -32,4 +32,16 @@ public class StatusCodeController(
 
         return await Task.FromResult(View(model));
     }
+
+    [Route("500")]
+    public async Task<IActionResult> ServerError()
+    {
+        return await Task.FromResult(View());
+    }
+
+    [Route("check")]
+    public async Task<IActionResult> ErrorCheck()
+    {
+        throw new NotImplementedException();
+    }
 }
