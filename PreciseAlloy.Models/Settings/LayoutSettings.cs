@@ -1,12 +1,12 @@
 ﻿using EPiServer.Core;
 using EPiServer.DataAbstraction;
-using EPiServer.DataAnnotations;
 using EPiServer.Shell.ObjectEditing;
 using EPiServer.Web;
 using PreciseAlloy.Models.Blocks.Footer;
 using PreciseAlloy.Models.Blocks.Header;
 using PreciseAlloy.Models.Constants;
 using PreciseAlloy.Models.Factories;
+using PreciseAlloy.Models.Pages.NotFound;
 
 namespace PreciseAlloy.Models.Settings;
 
@@ -60,6 +60,18 @@ public class LayoutSettings
     [AllowedTypes(typeof(BaseFooterBlock))]
     [CultureSpecific]
     public virtual ContentReference? Footer { get; set; }
+
+    #endregion
+
+    #region References
+
+    [Display(
+        Name = "Not Found page",
+        GroupName = TabNames.ContentReferences,
+        Order = 20)]
+    [AllowedTypes(typeof(NotFoundPage))]
+    [CultureSpecific]
+    public virtual ContentReference? NotFound { get; set; }
 
     #endregion
 

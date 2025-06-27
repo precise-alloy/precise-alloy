@@ -1,6 +1,5 @@
 ﻿using EPiServer.Core;
 using EPiServer.DataAbstraction;
-using EPiServer.DataAnnotations;
 using PreciseAlloy.Models.Blocks.Avatar;
 using PreciseAlloy.Models.Interfaces;
 

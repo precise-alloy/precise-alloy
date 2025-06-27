@@ -1,5 +1,4 @@
 ﻿using EPiServer;
-using EPiServer.DataAnnotations;
 using PreciseAlloy.Models.Interfaces;
 
 namespace PreciseAlloy.Models.Blocks.Button;

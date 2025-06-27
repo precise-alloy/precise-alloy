@@ -1,27 +1,27 @@
 using System.Text.Json.Serialization;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
-using EPiServer.DataAnnotations;
 using EPiServer.Web;
 using PreciseAlloy.Models.Blocks;
 using PreciseAlloy.Models.Constants;
 using PreciseAlloy.Models.Interfaces;
 using PreciseAlloy.Models.Media;
+
 // ReSharper disable UnusedMember.Global
 
 namespace PreciseAlloy.Models.Pages;
 
-public abstract class SitePageData
-    (string className)
+public abstract class SitePageData(
+    string className)
     : PageData
 {
     /// <summary>
-    /// This property outputs the class name to the UI, helping front-end developers customize based on page types.
+    ///     This property outputs the class name to the UI, helping front-end developers customize based on page types.
     /// </summary>
     [Ignore]
     [JsonIgnore]
     public string ClassName => className;
-    
+
     [Display(
         Name = "Main Content Area",
         GroupName = SystemTabNames.Content,
@@ -32,6 +32,7 @@ public abstract class SitePageData
     public virtual ContentArea? MainContentArea { get; set; }
 
     #region Metadata
+
     [CultureSpecific]
     [Display(
         Name = "Meta Title",
@@ -45,10 +46,7 @@ public abstract class SitePageData
             return !string.IsNullOrWhiteSpace(metaTitle) ? metaTitle : PageName;
         }
 
-        set
-        {
-            this.SetPropertyValue(p => p.MetaTitle, value);
-        }
+        set => this.SetPropertyValue(p => p.MetaTitle, value);
     }
 
     [CultureSpecific]
@@ -95,6 +93,7 @@ public abstract class SitePageData
         GroupName = TabNames.MetaData,
         Order = 1060)]
     public virtual ContentReference? SocialMediaImage { get; set; }
+
     #endregion
 
     [CultureSpecific]

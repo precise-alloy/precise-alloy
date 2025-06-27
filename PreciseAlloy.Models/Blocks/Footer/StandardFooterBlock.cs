@@ -1,5 +1,4 @@
 ﻿using EPiServer.Core;
-using EPiServer.DataAnnotations;
 using PreciseAlloy.Models.Blocks.SocialLink;
 using PreciseAlloy.Models.Interfaces;
 

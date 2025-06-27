@@ -1,5 +1,4 @@
 using EPiServer.DataAbstraction;
-using EPiServer.DataAnnotations;
 
 namespace PreciseAlloy.Models.Constants;
 
@@ -24,7 +23,10 @@ internal static class TabNames
     [Display(Order = 1700, Name = "Site SEO")]
     public const string SiteMetaData = "SiteMetaData";
 
-    [Display(Order = 1800, Name = "Site Settings")]
+    [Display(Order = 1800, Name = "Content References")]
+    public const string ContentReferences = "Content References";
+
+    [Display(Order = 1900, Name = "Site Settings")]
     public const string SiteSettings = "SiteSettings";
 
     [Display(Order = 2000, Name = "Navigation")]

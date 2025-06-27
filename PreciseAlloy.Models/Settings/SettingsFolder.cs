@@ -1,6 +1,5 @@
 ﻿using EPiServer.Core;
 using EPiServer.DataAbstraction;
-using EPiServer.DataAnnotations;
 using EPiServer.Framework.Localization;
 using EPiServer.ServiceLocation;
 

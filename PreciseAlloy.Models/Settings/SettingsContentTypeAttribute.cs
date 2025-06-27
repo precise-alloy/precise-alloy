@@ -1,10 +1,8 @@
-﻿using EPiServer.DataAnnotations;
-using PreciseAlloy.Models.Constants;
+﻿using PreciseAlloy.Models.Constants;
 
 namespace PreciseAlloy.Models.Settings;
 
-[AttributeUsage(validOn: AttributeTargets.Class)]
-
+[AttributeUsage(AttributeTargets.Class)]
 public sealed class SettingsContentTypeAttribute
     : ContentTypeAttribute
 {

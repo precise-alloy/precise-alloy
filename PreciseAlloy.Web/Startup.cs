@@ -138,6 +138,7 @@ public partial class Startup(
             }
         });
 
+        app.UseStatusCodePagesWithReExecute("/status-code/{0}");
         app.UseNotFoundHandler();
         app.UseOptimizelyNotFoundHandler();
 

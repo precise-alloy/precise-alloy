@@ -1,4 +1,3 @@
-using EPiServer.DataAnnotations;
 using EPiServer.Framework.DataAnnotations;
 
 namespace PreciseAlloy.Models.Media;

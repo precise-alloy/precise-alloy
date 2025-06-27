@@ -23,8 +23,8 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  npm_config_cache: $(Pipeline.Workspace)/.npm
-  CustomReviewId: 'ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2' # Check https://tuyen.blog/optimizely-cms/frontend/integration/ for how to get this ID
+  CUSTOM_REVIEWER_ID: 'ae28c67f-731c-48ab-a8b1-6e3bd2ea71a2' # Check https://tuyen.blog/optimizely-cms/frontend/integration/ for how to get this ID
+  CUSTOM_BUN_VERSION: bun-v1.2.4
 
 steps:
   - checkout: self
@@ -72,7 +72,7 @@ steps:
       CUSTOM_REPOSITORY_NAME: $(Build.Repository.Name)
       CUSTOM_SOURCE_BRANCH: 'fe-release-inte-package'
       CUSTOM_TARGET_BRANCH: 'develop'
-      CUSTOM_REVIEWER_ID: $(CustomReviewId)
+      CUSTOM_REVIEWER_ID: $(CUSTOM_REVIEWER_ID)
 
   - task: PowerShell@2
     displayName: 'PR to fe-develop'
@@ -85,4 +85,4 @@ steps:
       CUSTOM_REPOSITORY_NAME: $(Build.Repository.Name)
       CUSTOM_SOURCE_BRANCH: 'fe-release-inte-package'
       CUSTOM_TARGET_BRANCH: 'fe-develop'
-      CUSTOM_REVIEWER_ID: $(CustomReviewId)
+      CUSTOM_REVIEWER_ID: $(CUSTOM_REVIEWER_ID)
