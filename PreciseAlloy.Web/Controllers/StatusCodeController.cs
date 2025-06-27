@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using PreciseAlloy.Models.Pages.NotFound;
 using PreciseAlloy.Models.Settings;
 using PreciseAlloy.Services.Settings;
@@ -26,7 +27,7 @@ public class StatusCodeController(
             return Content("404 page is configured with incorrect content page type, it has to be ");
         }
 
-        HttpContext.Response.StatusCode = 404;
+        HttpContext.Response.StatusCode = (int)HttpStatusCode.NotFound;
 
         var model = new NotFoundPageViewModel(page);
 
@@ -36,6 +37,8 @@ public class StatusCodeController(
     [Route("500")]
     public async Task<IActionResult> ServerError()
     {
+        HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
         return await Task.FromResult(View());
     }
 
