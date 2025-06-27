@@ -7,6 +7,8 @@ using EPiServer.Scheduler;
 using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
+using Geta.NotFoundHandler.Infrastructure.Initialization;
+using Geta.NotFoundHandler.Optimizely.Infrastructure.Initialization;
 using Geta.Optimizely.ContentTypeIcons.Infrastructure.Configuration;
 using Geta.Optimizely.ContentTypeIcons.Infrastructure.Initialization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -135,6 +137,10 @@ public partial class Startup(
                 }
             }
         });
+
+        app.UseNotFoundHandler();
+        app.UseOptimizelyNotFoundHandler();
+
         app.UseRouting();
         app.UseCors();
         app.UseMiddleware<RobotsHeaderMiddleware>();
