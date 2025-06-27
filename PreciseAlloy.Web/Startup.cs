@@ -14,7 +14,9 @@ using Microsoft.Net.Http.Headers;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
 using PreciseAlloy.Web.Infrastructure;
+using PreciseAlloy.Web.Infrastructure.DependencyInjection;
 using PreciseAlloy.Web.Infrastructure.Middlewares;
+using PreciseAlloy.Web.Infrastructure.Models;
 
 namespace PreciseAlloy.Web;
 
@@ -41,6 +43,8 @@ public partial class Startup(
             services.AddCmsCloudPlatformSupport(configuration);
         }
 
+        services.Configure<SeoOptions>(configuration.GetSection("SeoOptions"));
+
         var mvcBuilder = services
             .AddMvc(o => o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
             .AddRazorOptions(x => { x.ViewLocationExpanders.Add(new CustomViewLocationExpander()); });
@@ -64,6 +68,8 @@ public partial class Startup(
             .AddCmsAspNetIdentity<ApplicationUser>()
             .AddCms()
             .AddFind()
+            .AddGetaNotFoundHandler(configuration)
+            .AddGetaSitemaps()
             .AddAdminUserRegistration()
             .AddEmbeddedLocalization<Startup>()
             .ConfigureImageResizing(configuration, webHostEnvironment)
@@ -100,6 +106,11 @@ public partial class Startup(
         if (webHostEnvironment.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
+            app.UseCors(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+        }
+        else
+        {
+            app.UseHsts();
         }
 
         if (IsIntegrationOrLower())
