@@ -1,6 +1,6 @@
-@use 'reset';
-@use 'fonts';
-@use 'typography';
-@use 'style-base';
-@use 'epi-fixes';
-@use 'theme';
+@forward 'reset';
+@forward 'fonts';
+@forward 'typography';
+@forward 'style-base';
+@forward 'epi-fixes';
+@forward 'theme';
