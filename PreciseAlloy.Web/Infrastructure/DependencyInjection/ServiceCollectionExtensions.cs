@@ -2,6 +2,7 @@
 using Geta.NotFoundHandler.Infrastructure.Configuration;
 using Geta.NotFoundHandler.Optimizely.Infrastructure.Configuration;
 using Geta.Optimizely.Sitemaps;
+using Stott.Optimizely.RobotsHandler.Configuration;
 
 namespace PreciseAlloy.Web.Infrastructure.DependencyInjection;
 
@@ -36,6 +37,7 @@ public static class ServiceCollectionExtensions
         }, builder => { builder.RequireRole(Roles.WebAdmins); });
 
         services.AddOptimizelyNotFoundHandler(o => { o.AutomaticRedirectsEnabled = true; });
+        services.AddRobotsHandler();
 
         return services;
     }
