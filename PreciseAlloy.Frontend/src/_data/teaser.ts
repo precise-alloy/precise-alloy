@@ -1,11 +1,12 @@
-import { TeaserModel } from "@_types/types"
+import { TeaserModel } from '@_types/types';
 
 const teaser: TeaserModel = {
   globalModifier: ['section-margin-top-xl'],
   header: {
-    heading: 'Lorem Ipsum Dolor Sit Amet Consectetur.'
+    heading: 'Lorem Ipsum Dolor Sit Amet Consectetur.',
   },
-  description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.',
+  description:
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.',
   button: {
     text: 'Explore',
     styleModifier: ['btn', 'btn-black'],
@@ -17,9 +18,9 @@ const teaser: TeaserModel = {
     src: '/samples/image-3.svg',
     width: '600',
     height: '432',
-    alt: 'teaser 3'
-  }
-}
+    alt: 'teaser 3',
+  },
+};
 
 const teaserImageLeft: TeaserModel = {
   ...teaser,
@@ -28,7 +29,7 @@ const teaserImageLeft: TeaserModel = {
     src: '/samples/image-2.svg',
     width: '600',
     height: '432',
-    alt: 'teaser 2'
+    alt: 'teaser 2',
   },
   button: {
     text: 'Explore',
@@ -37,6 +38,6 @@ const teaserImageLeft: TeaserModel = {
     href: 'https://www.youtube.com/',
     target: '_blank',
   },
-}
+};
 
-export { teaser, teaserImageLeft }
+export { teaser, teaserImageLeft };

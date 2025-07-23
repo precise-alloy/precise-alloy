@@ -1,10 +1,10 @@
-import { glob } from 'glob';
+/* eslint-disable no-console */
 import { execSync } from 'child_process';
 
+import { glob } from 'glob';
+
 const migration = async () => {
-  const usableFiles = [
-    './xpack/styles/root.scss',
-  ];
+  const usableFiles = ['./xpack/styles/root.scss'];
 
   const forwardableFiles = [
     './src/assets/styles/style-base.scss',
@@ -13,7 +13,6 @@ const migration = async () => {
     './src/assets/styles/01-mixins/_mixins.scss',
     './src/assets/styles/02-base/_base.scss',
   ];
-
 
   for (const file of forwardableFiles) {
     try {
@@ -36,8 +35,7 @@ const migration = async () => {
       console.error((err as Error).message);
     }
   }
-
-}
+};
 
 migration().catch((err) => {
   console.error('An error occurred during migration:', (err as Error).message);

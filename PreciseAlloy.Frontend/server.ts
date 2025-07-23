@@ -1,7 +1,10 @@
+/* eslint-disable no-console */
 import { fileURLToPath } from 'node:url';
 import path from 'path';
-import { startServer } from './xpack/create-server.js';
+
 import { loadEnv } from 'vite';
+
+import { startServer } from './xpack/create-server.js';
 
 console.log('[INIT] server');
 

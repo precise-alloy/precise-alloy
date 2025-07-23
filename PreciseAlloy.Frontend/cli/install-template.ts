@@ -1,9 +1,12 @@
+/* eslint-disable no-console */
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { copy } from './helpers/copy.js';
 import os from 'os';
+
 import chalk from 'chalk';
+
+import { copy } from './helpers/copy.js';
 import { install } from './helpers/install.js';
 import { formatFiles } from './helpers/format-files.js';
 
@@ -19,6 +22,7 @@ const { cyan } = chalk;
 
 const installTemplate = async (model: Props) => {
   const { appName, root } = model;
+
   console.log('\nInitializing project');
   const copySource = ['**'];
 
@@ -42,11 +46,12 @@ const installTemplate = async (model: Props) => {
       }
     });
 
-  packageJson.dependencies && Object.keys(packageJson.dependencies).map(dependency => {
-    if (!dependency.startsWith('react')) {
-      delete packageJson.dependencies[dependency];
-    }
-  });
+  packageJson.dependencies &&
+    Object.keys(packageJson.dependencies).map((dependency) => {
+      if (!dependency.startsWith('react')) {
+        delete packageJson.dependencies[dependency];
+      }
+    });
 
   const devDeps = Object.keys(packageJson.devDependencies).length;
 

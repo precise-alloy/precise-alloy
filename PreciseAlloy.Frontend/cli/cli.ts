@@ -1,11 +1,15 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
+
+import path from 'path';
 
 import { Command } from 'commander';
-import packageJson from '../package.json';
 import chalk from 'chalk';
 import fetch from 'node-fetch';
 import prompts from 'prompts';
-import path from 'path';
+
+import packageJson from '../package.json';
+
 import { createApp } from './create-app.js';
 import { validateNpmName } from './helpers/validate-pkg.js';
 
@@ -91,10 +95,10 @@ const run = async () => {
   if (!projectPath) {
     console.log(
       '\nPlease specify the project directory:\n' +
-      `  ${cyan(program.name())} ${green('<project-directory>')}\n` +
-      'For example:\n' +
-      `  ${cyan(program.name())} ${green('my-app')}\n\n` +
-      `Run ${cyan(`${program.name()} --help`)} to see all options.`
+        `  ${cyan(program.name())} ${green('<project-directory>')}\n` +
+        'For example:\n' +
+        `  ${cyan(program.name())} ${green('my-app')}\n\n` +
+        `Run ${cyan(`${program.name()} --help`)} to see all options.`
     );
     process.exit(1);
   }

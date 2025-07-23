@@ -1,12 +1,14 @@
+/* eslint-disable no-console */
 // Pre-render the app into static HTML.
 // run `npm run generate` and then `dist/static` can be served as a static site.
 
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
+import crypto from 'node:crypto';
+
 import jsBeautify, { CSSBeautifyOptions, HTMLBeautifyOptions, JSBeautifyOptions } from 'js-beautify';
 import * as cheerio from 'cheerio';
-import crypto from 'node:crypto';
 import slash from 'slash';
 import _ from 'lodash';
 import { loadEnv } from 'vite';
@@ -72,9 +74,11 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
         !/\.0x[a-z0-9]{8}\.\w+$/gi.test(href)
       ) {
         const path = toAbsolute('dist/static/' + href.substring(xpackEnv.VITE_BASE_URL.length));
+
         if (fs.existsSync(path)) {
           const content = fs.readFileSync(path);
           const sha1Hash = crypto.createHash('sha1');
+
           sha1Hash.update(content);
           const hash = sha1Hash.digest('base64url').substring(0, 10);
 
@@ -99,6 +103,7 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
 const removeStyleBase = ($: cheerio.CheerioAPI) => {
   $('link[rel="stylesheet"]').each((_, el) => {
     const href = $(el).attr('href');
+
     if (href?.includes('style-base')) {
       $(el).remove();
     }
@@ -112,6 +117,7 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
     }
 
     const path = $(el).attr(attr);
+
     if (!path) {
       return;
     }
@@ -119,6 +125,7 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
     const index = $(el).index();
     const parent = $(el).parent().clone();
     const child = parent.children()[index];
+
     parent.empty();
     parent.append(child);
     const html = parent.html();
@@ -127,6 +134,7 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
 
     if (paths.includes(path)) {
       $(el).remove();
+
       return;
     }
 
@@ -139,6 +147,7 @@ const viteAbsoluteUrl = (remain: string, addExtension = false): string => {
   const baseUrl = xpackEnv.VITE_BASE_URL;
   const normalizedRemain =
     (remain?.startsWith('/') ? remain : '/' + remain) + (addExtension && !remain.endsWith('/') ? (xpackEnv.VITE_PATH_EXTENSION ?? '') : '');
+
   if (!baseUrl) {
     return normalizedRemain;
   }
@@ -148,6 +157,7 @@ const viteAbsoluteUrl = (remain: string, addExtension = false): string => {
   }
 
   const len = baseUrl.length;
+
   return baseUrl.substring(0, len - 1) + normalizedRemain;
 };
 
@@ -161,6 +171,7 @@ const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
     let html = template.replace(`<!--app-html-->`, output.html ?? '').replace('@style.scss', '/assets/css/' + route.name + '.css');
     const $ = cheerio.load(html);
     const paths: string[] = [];
+
     removeDuplicateAssets($, 'link[data-pl-require][href]', 'href', paths);
     removeDuplicateAssets($, 'script[data-pl-require][src]', 'src', paths);
     updateResourcePath($, 'link', 'href', addHash);
@@ -200,6 +211,7 @@ const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
   const pool: Promise<unknown>[] = [];
 
   const addHash = !!process.argv.includes('--add-hash');
+
   pool.push(renderPage(renderedPages, addHash));
 
   await Promise.all(pool);

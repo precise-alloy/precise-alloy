@@ -22,13 +22,13 @@ const Contact = (model: ContactModel) => {
           <div className="zzz-o-contact__main">
             {form && (
               <div className="zzz-o-contact__contact-form">
-                <EpiForm {...form}></EpiForm>
+                <EpiForm {...form} />
               </div>
             )}
 
             {map && (
               <div className={`zzz-o-contact__map`}>
-                <Picture {...map}></Picture>
+                <Picture {...map} />
               </div>
             )}
           </div>

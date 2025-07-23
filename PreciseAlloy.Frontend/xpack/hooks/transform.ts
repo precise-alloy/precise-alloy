@@ -1,8 +1,10 @@
 import path from 'path';
 import fs from 'fs';
 import crypto from 'node:crypto';
+
 import MagicString, { SourceMapOptions } from 'magic-string';
 import { PluginOption } from 'vite';
+
 import { root, xpackEnv } from '../paths';
 
 const transfrom = (): PluginOption => {
@@ -11,7 +13,9 @@ const transfrom = (): PluginOption => {
 
   const getHash = (content: Buffer | string) => {
     const sha1Hash = crypto.createHash('sha1');
+
     sha1Hash.update(content);
+
     return sha1Hash.digest('base64url').substring(0, 10);
   };
 
@@ -23,6 +27,7 @@ const transfrom = (): PluginOption => {
       // console.log('transform');
 
       const magicString = new MagicString(code);
+
       magicString.replaceAll('VITE_EXTENSION_UNIQUE_ID', xpackEnv.VITE_EXTENSION_UNIQUE_ID).replaceAll(/\/assets\/[a-z0-9./_-]+\.svg\b\??/gi, (s) => {
         if (s.includes('?')) {
           // If the path already has a query string, return the original path
@@ -35,11 +40,14 @@ const transfrom = (): PluginOption => {
         }
 
         const svgPath = path.resolve(root, 'public' + s);
+
         if (fs.existsSync(svgPath)) {
           // If the file exists, calculate the hash and return the hash
           const content = fs.readFileSync(svgPath);
           const hash = getHash(content);
+
           hashes[s] = hash;
+
           return s + '?v=' + hash;
         }
 
@@ -50,6 +58,7 @@ const transfrom = (): PluginOption => {
       const sourcemapOptions: SourceMapOptions = { source: id, file: id + '.map', includeContent: false, hires: true };
       const newCode = magicString.toString();
       const map = magicString.generateMap(sourcemapOptions);
+
       return newCode !== code
         ? {
             code: newCode,

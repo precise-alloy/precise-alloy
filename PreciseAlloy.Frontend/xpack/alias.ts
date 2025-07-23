@@ -1,4 +1,5 @@
 import path from 'path';
+
 import { root, srcRoot } from './paths';
 
 const alias = [

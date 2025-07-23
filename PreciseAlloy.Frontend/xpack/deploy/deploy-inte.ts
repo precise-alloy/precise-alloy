@@ -1,4 +1,3 @@
-const deployInte = () => {
-}
+const deployInte = () => {};
 
 export { deployInte };

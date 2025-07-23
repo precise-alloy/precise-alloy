@@ -1,8 +1,8 @@
-@use "border" as *;
-@use "breakpoint" as *;
-@use "form" as *;
-@use "px2rem" as *;
-@use "theme" as *;
+@use 'border' as *;
+@use 'breakpoint' as *;
+@use 'form' as *;
+@use 'px2rem' as *;
+@use 'theme' as *;
 
 .xpack-o-root {
   @include border-right;
@@ -176,8 +176,12 @@
     padding: px2rem(4px) px2rem(8px) px2rem(4px) px2rem(16px);
     display: block;
     color: $body-color;
+    background-color: transparent;
+    border: none;
     font-size: px2rem(14px);
     font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    cursor: pointer;
 
     &--active {
       color: $link-hover-color;

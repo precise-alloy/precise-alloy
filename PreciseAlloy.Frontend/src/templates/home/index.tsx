@@ -28,7 +28,7 @@ const Home = (model: Props) => {
         {partner && <Partner {...partner} />}
         {teaserImageLeft && <Teaser {...teaserImageLeft} />}
         {teaser && <Teaser {...teaser} />}
-        {people && <ReactSection type="people" data={people} css={'b-people'} />}
+        {people && <ReactSection css={'b-people'} data={people} type="people" />}
       </main>
       <Footer {...footer} />
     </>

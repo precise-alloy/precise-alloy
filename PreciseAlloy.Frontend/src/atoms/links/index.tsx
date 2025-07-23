@@ -7,7 +7,7 @@ const LinkWithIcon = (model: LinkWithIconModel) => {
   const { url, icon, target, text, ariaLabel } = model;
 
   return (
-    <a className={styleModifiers} href={url} target={target} aria-label={ariaLabel}>
+    <a aria-label={ariaLabel} className={styleModifiers} href={url} target={target}>
       {icon && <Icon {...icon} />} {text && <span>{text}</span>}
     </a>
   );

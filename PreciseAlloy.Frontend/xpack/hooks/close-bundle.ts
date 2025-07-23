@@ -1,4 +1,5 @@
 import { PluginOption } from 'vite';
+
 import { deployInte } from '../deploy/deploy-inte';
 
 const closeBundle = (): PluginOption => {

@@ -4,9 +4,10 @@ const hero: HeroModel = {
   label: 'WELCOME',
   header: {
     heading: 'Lorem Ipsum Dolor Sit Amet Consectetur.',
-    headingLevel: 'h1'
+    headingLevel: 'h1',
   },
-  description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.',
+  description:
+    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam aliquam est exercitationem quo reiciendis asperiores veritatis placeat porro earum? Libero tempora impedit rerum quae aspernatur nostrum quod fuga quasi.',
   button: {
     text: 'Explore',
     styleModifier: ['btn'],
@@ -19,8 +20,8 @@ const hero: HeroModel = {
     width: '590',
     height: '347',
     alt: 'hero',
-    lazy: false
-  }
+    lazy: false,
+  },
 };
 
 export { hero };

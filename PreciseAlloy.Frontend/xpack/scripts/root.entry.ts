@@ -1,6 +1,6 @@
 const BORDER_SIZE = 20;
 const MIN_FRAME_SIZE = 350;
-const MSG_IFRAME_SIZE = 'MSG_IFRAME_SIZE'
+const MSG_IFRAME_SIZE = 'MSG_IFRAME_SIZE';
 
 let orgWidth: number;
 let pos: number;
@@ -29,6 +29,7 @@ const resize = (e: globalThis.MouseEvent) => {
   const dx = (e.x - pos) * 2;
 
   const size = Math.max(MIN_FRAME_SIZE, orgWidth + dx);
+
   setIFrameWidth(size);
   iframeSize = size + '';
 
@@ -42,7 +43,7 @@ const mouseUp = () => {
 
   wrapper.style.removeProperty('transition');
   frame.style.removeProperty('pointer-events');
-  iframeSize && sessionStorage.setItem(MSG_IFRAME_SIZE, iframeSize)
+  iframeSize && sessionStorage.setItem(MSG_IFRAME_SIZE, iframeSize);
 
   document.removeEventListener('mousemove', resize, false);
 };
@@ -74,22 +75,21 @@ const initTopPanel = () => {
 
 const handleStoreModified = (event: StorageEvent) => {
   switch (event.key) {
-    case 'MSG_IS_TOP_PANEL':
-      {
-        const isTopPanel = event.newValue === 'true';
-        const rootEl = document.querySelector('.xpack-t-root');
+    case 'MSG_IS_TOP_PANEL': {
+      const isTopPanel = event.newValue === 'true';
+      const rootEl = document.querySelector('.xpack-t-root');
 
-        if (!rootEl) {
-          return;
-        }
-
-        if (isTopPanel) {
-          rootEl.classList.add('top-panel');
-        } else {
-          rootEl.classList.remove('top-panel');
-        }
-        break;
+      if (!rootEl) {
+        return;
       }
+
+      if (isTopPanel) {
+        rootEl.classList.add('top-panel');
+      } else {
+        rootEl.classList.remove('top-panel');
+      }
+      break;
+    }
   }
 };
 
@@ -103,10 +103,11 @@ const setup = () => {
   }
 
   resizer.onmousedown = handleResizerMouseDown;
-  setIFrameWidth(iframeSize ? parseInt(iframeSize) : undefined)
+  setIFrameWidth(iframeSize ? parseInt(iframeSize) : undefined);
 
   const getIFrameActualWidth = () => {
     const el = document.getElementById('root-actual-iframe-width');
+
     if (el) {
       el.textContent = Math.ceil(parseInt(getComputedStyle(frame).width)) + 'px';
     }
@@ -131,4 +132,4 @@ const setup = () => {
 
 setup();
 
-export { };
+export {};

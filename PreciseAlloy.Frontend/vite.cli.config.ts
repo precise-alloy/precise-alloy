@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite';
 
 const entryFileNames = () => {
   return '[name].js';
@@ -6,7 +6,7 @@ const entryFileNames = () => {
 
 const bannerFileNames = () => {
   return '#!/usr/bin/env node';
-}
+};
 
 export default defineConfig({
   base: '/',
@@ -17,13 +17,11 @@ export default defineConfig({
     sourcemap: false,
     ssr: true,
     rollupOptions: {
-      input: [
-        'cli/cli.ts',
-      ],
+      input: ['cli/cli.ts'],
       output: {
         entryFileNames,
-        banner: bannerFileNames
-      }
-    }
+        banner: bannerFileNames,
+      },
+    },
   },
 });

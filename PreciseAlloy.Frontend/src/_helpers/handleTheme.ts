@@ -7,7 +7,7 @@ const getTheme = (isLight: boolean) => {
 const setTheme = (theme: string) => {
   localStorage.setItem(THEME_KEY, theme);
   document.documentElement.setAttribute('data-theme', theme);
-}
+};
 
 const getCurrentTheme = () => {
   const theme = localStorage.getItem(THEME_KEY);
@@ -20,6 +20,6 @@ const switchTheme = () => {
   const newTheme = getTheme(currentTheme !== 'light');
 
   setTheme(newTheme);
-}
+};
 
 export { THEME_KEY, getCurrentTheme, switchTheme, getTheme, setTheme };

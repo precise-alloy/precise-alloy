@@ -4,7 +4,7 @@ import ServiceTemplate from '@templates/service';
 import { header } from '@data/header';
 
 const Service = () => {
-  return <ServiceTemplate header={header} footer={footer} prices={prices} />;
+  return <ServiceTemplate footer={footer} header={header} prices={prices} />;
 };
 
 export default Service;

@@ -1,4 +1,4 @@
-import { viteAbsoluteUrl } from "./functions";
+import { viteAbsoluteUrl } from './functions';
 
 interface Props {
   path: string;
@@ -17,7 +17,7 @@ const RequireJs = ({ path, async, defer, inplace, type }: Props) => {
       ? viteAbsoluteUrl('/assets/') + path + '.js'
       : viteAbsoluteUrl('/assets/js/' + path + '.js');
 
-  return <script type={type ?? 'module'} async={async} defer={defer} src={normalizedPath} data-pl-require data-pl-inplace={inplace}></script>;
+  return <script data-pl-require async={async} data-pl-inplace={inplace} defer={defer} src={normalizedPath} type={type ?? 'module'} />;
 };
 
 export { RequireJs };

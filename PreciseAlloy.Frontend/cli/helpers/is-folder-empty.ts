@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs';
 
 const isFolderEmpty = (root: string): boolean => {
   const validFiles = [
@@ -34,7 +34,7 @@ const isFolderEmpty = (root: string): boolean => {
     return false;
   }
 
-  return true
-}
+  return true;
+};
 
 export { isFolderEmpty };

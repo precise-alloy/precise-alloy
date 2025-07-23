@@ -1,6 +1,7 @@
 import { getModifiers } from '@helpers/functions';
 import { TextareaModel } from '@_types/atoms';
 import { useFormContext } from 'react-hook-form';
+
 import { FormValuesModel } from './text-input';
 import ErrorMessage from './error-message';
 
@@ -21,8 +22,8 @@ const Textarea = (model: TextareaModel) => {
           {...register(name || '', {
             required: required && requiredMessage,
           })}
-          placeholder={placeHolder}
           id={id}
+          placeholder={placeHolder}
         />
       </div>
 

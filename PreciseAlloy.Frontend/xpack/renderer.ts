@@ -1,15 +1,11 @@
+/* eslint-disable no-console */
 import fs from 'fs';
+import path from 'path';
+
 import { Express } from 'express';
 import { ViteDevServer } from 'vite';
 import * as cheerio from 'cheerio';
 import jsBeautify, { CSSBeautifyOptions, HTMLBeautifyOptions, JSBeautifyOptions } from 'js-beautify';
-import path from 'path';
-import { fileURLToPath } from 'node:url';
-import _ from 'lodash';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const toAbsolute = (p: string) => path.resolve(__dirname, p);
-const addHash = true;
 
 interface Props {
   app: Express;
@@ -38,7 +34,7 @@ const beautifyOptions: HTMLBeautifyOptions | JSBeautifyOptions | CSSBeautifyOpti
   wrap_attributes: 'force',
 };
 
-const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string, addHash: boolean) => {
+const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string) => {
   $(tagName).each((_, el) => {
     const href = $(el).attr(attr);
 
@@ -72,6 +68,7 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
     }
 
     const path = $(el).attr(attr);
+
     if (!path) {
       return;
     }
@@ -79,6 +76,7 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
     const index = $(el).index();
     const parent = $(el).parent().clone();
     const child = parent.children()[index];
+
     parent.empty();
     parent.append(child);
     const html = parent.html();
@@ -87,6 +85,7 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
 
     if (paths.includes(path)) {
       $(el).remove();
+
       return;
     }
 
@@ -95,10 +94,11 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
   });
 };
 
-const useRenderer = ({ app, indexProd, isProd, viteDevServer, resolve }: Props) => {
+export const _useRenderer = ({ app, indexProd, isProd, viteDevServer, resolve }: Props) => {
   app.use('*', async (req, res) => {
     try {
       let template, render;
+
       if (!isProd) {
         // always read fresh template in dev
         template = fs.readFileSync(resolve('index.html'), 'utf-8');
@@ -121,11 +121,12 @@ const useRenderer = ({ app, indexProd, isProd, viteDevServer, resolve }: Props) 
       const html = template.replace(`<!--app-html-->`, output.html);
       const $ = cheerio.load(html);
       const paths: string[] = [];
+
       removeDuplicateAssets($, 'link[data-pl-require][href]', 'href', paths);
       removeDuplicateAssets($, 'script[data-pl-require][src]', 'src', paths);
-      updateResourcePath($, 'link', 'href', addHash);
-      updateResourcePath($, 'script', 'src', addHash);
-      updateResourcePath($, 'img', 'src', addHash);
+      updateResourcePath($, 'link', 'href');
+      updateResourcePath($, 'script', 'src');
+      updateResourcePath($, 'img', 'src');
 
       res
         .status(200)
@@ -138,5 +139,3 @@ const useRenderer = ({ app, indexProd, isProd, viteDevServer, resolve }: Props) 
     }
   });
 };
-
-export { useRenderer };

@@ -12,13 +12,13 @@ const TextField = (model: EpiFormTextFieldModel) => {
       </label>
 
       <input
+        autoComplete="off"
         className="FormTextbox__Input"
+        id={id ?? name}
+        name={name}
+        placeholder={placeHolder}
         required={required}
         type={'text'}
-        name={name}
-        id={id ?? name}
-        placeholder={placeHolder}
-        autoComplete="off"
       />
 
       <span className="Form__Element__ValidationError"> {errorMessage}</span>

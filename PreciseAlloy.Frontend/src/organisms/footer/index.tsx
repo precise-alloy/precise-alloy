@@ -13,7 +13,7 @@ const Footer = (model: FooterModel) => {
         <div className="zzz-o-footer__inner">
           {linkList && <LinkListWithIcon {...linkList} />}
 
-          {copyright && <div className="zzz-o-footer__copyright" dangerouslySetInnerHTML={{ __html: copyright }}></div>}
+          {copyright && <div dangerouslySetInnerHTML={{ __html: copyright }} className="zzz-o-footer__copyright" />}
         </div>
       </div>
       <RequireCss path="b-footer" />

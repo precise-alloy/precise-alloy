@@ -5,18 +5,18 @@ import ReactSection from '@helpers/ReactSection';
 export default function Template(model: RootModel) {
   return (
     <main className="xpack-t-root">
-      {model && <ReactSection type="root" data={model} css={'root'} />}
+      {model && <ReactSection css={'root'} data={model} type="root" />}
 
-      <div id="root-iframe-wrapper" className="xpack-t-root__target-wrapper">
+      <div className="xpack-t-root__target-wrapper" id="root-iframe-wrapper">
         <iframe
-          title="Pages"
-          id="root-iframe"
           className="xpack-t-root__target"
+          id="root-iframe"
           name="inner"
           sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-downloads allow-popups-to-escape-sandbox allow-presentation allow-top-navigation"
+          title="Pages"
         />
-        <div id="root-iframe-resizer" className="xpack-t-root__target-resizer"></div>
-        <RequireJs path="root" defer />
+        <div className="xpack-t-root__target-resizer" id="root-iframe-resizer" />
+        <RequireJs defer path="root" />
       </div>
     </main>
   );

@@ -1,7 +1,8 @@
 import { SinglePageNode } from '@_types/_root';
-import { useRootContext } from './root-context';
 import { MouseEvent } from 'react';
 import { viteAbsoluteUrl } from '@helpers/functions';
+
+import { useRootContext } from './root-context';
 
 export default function RenderedItem(item: SinglePageNode) {
   const { activeItem, setActiveItem } = useRootContext();

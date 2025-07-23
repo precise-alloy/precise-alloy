@@ -1,11 +1,11 @@
-import { PortfolioModel } from "@_types/types"
+import { PortfolioModel } from '@_types/types';
 
 const portfolio: PortfolioModel = {
   globalModifier: ['section-margin-top'],
   label: 'PORTFOLIO',
   header: {
     heading: 'Lorem Ipsum Dolor Sit Amet Consectetur.',
-    headingLevel: 'h1'
+    headingLevel: 'h1',
   },
   description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, porro?',
   images: [
@@ -56,14 +56,14 @@ const portfolio: PortfolioModel = {
       width: '570',
       height: '335',
       alt: 'portfolio 8',
-    }
+    },
   ],
   button: {
     text: 'Learn more',
     styleModifier: ['btn', 'btn-black'],
     link: true,
-    href: 'https://www.office.com/'
-  }
-}
+    href: 'https://www.office.com/',
+  },
+};
 
-export { portfolio }
+export { portfolio };

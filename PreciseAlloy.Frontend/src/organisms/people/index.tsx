@@ -13,6 +13,7 @@ const People = (model: PeopleModel) => {
       .then((data: AvatarModel[]) => {
         setItems(data);
       })
+      // eslint-disable-next-line no-console
       .catch(console.error);
   }, []);
 
@@ -21,7 +22,7 @@ const People = (model: PeopleModel) => {
       <div className="zzz-o-people__content">
         {subHeader && <h3 className="zzz-o-people__sub-header">{subHeader}</h3>}
         {header && <h2 className="zzz-o-people__header h1">{header}</h2>}
-        {text && <div className="zzz-o-people__text" dangerouslySetInnerHTML={{ __html: text }}></div>}
+        {text && <div dangerouslySetInnerHTML={{ __html: text }} className="zzz-o-people__text" />}
       </div>
 
       {items && items.length && (
@@ -32,7 +33,7 @@ const People = (model: PeopleModel) => {
         </div>
       )}
 
-      {button && <Button {...button}></Button>}
+      {button && <Button {...button} />}
     </section>
   );
 };

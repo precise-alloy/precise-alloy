@@ -43,8 +43,8 @@ const sendAsync = async (remain: string, method: Method, params?: RequestParams,
     return skipResponseBody ? fetch(url, requestInit) : fetch(url, requestInit).then((res) => res.json());
   } catch (error) {
     return Promise.reject({
-      error: error
-    })
+      error: error,
+    });
   }
 };
 

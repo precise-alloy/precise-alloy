@@ -11,7 +11,7 @@ const TextArea = (model: EpiFormTextAreaModel) => {
         {label}
       </label>
 
-      <textarea className="FormTextbox__Input" required={required} name={name} id={id ?? name} placeholder={placeHolder} autoComplete="off" />
+      <textarea autoComplete="off" className="FormTextbox__Input" id={id ?? name} name={name} placeholder={placeHolder} required={required} />
 
       <span className="Form__Element__ValidationError"> {errorMessage}</span>
     </div>

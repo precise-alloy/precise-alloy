@@ -13,6 +13,7 @@ export default function FrameControls() {
 
   const setIFrameWidth = (width?: number) => {
     const wrapper = document.getElementById('root-iframe-wrapper');
+
     if (!wrapper) {
       return;
     }
@@ -31,6 +32,7 @@ export default function FrameControls() {
     }
 
     const width = randomIntFromInterval(MIN_FRAME_SIZE, 768);
+
     setIFrameWidth(width);
   };
 
@@ -40,6 +42,7 @@ export default function FrameControls() {
     }
 
     const width = randomIntFromInterval(768, 1024);
+
     setIFrameWidth(width);
   };
 
@@ -51,6 +54,7 @@ export default function FrameControls() {
     const maxWidth = document.body.clientWidth - 300;
 
     const width = randomIntFromInterval(1024, Math.max(1024, maxWidth));
+
     setIFrameWidth(width);
   };
 
@@ -71,6 +75,7 @@ export default function FrameControls() {
     const maxWidth = document.body.clientWidth - 300;
 
     const width = randomIntFromInterval(MIN_FRAME_SIZE, Math.max(MIN_FRAME_SIZE, maxWidth));
+
     setIFrameWidth(width);
     sessionStorage.setItem(MSG_IFRAME_SIZE, width + '');
   };
@@ -78,6 +83,7 @@ export default function FrameControls() {
   const handleDiscoClick = () => {
     if (discoTimer) {
       clearInterval(discoTimer);
+
       return;
     }
 
@@ -85,6 +91,7 @@ export default function FrameControls() {
       const maxWidth = document.body.clientWidth - 300;
 
       const width = randomIntFromInterval(MIN_FRAME_SIZE, Math.max(MIN_FRAME_SIZE, maxWidth));
+
       setIFrameWidth(width);
       sessionStorage.setItem(MSG_IFRAME_SIZE, width + '');
     }, 2000);
@@ -94,36 +101,36 @@ export default function FrameControls() {
 
   return (
     <div className="xpack-o-root__frame-control">
-      <div id="root-actual-iframe-width" className="xpack-o-root__actual-width"></div>
+      <div className="xpack-o-root__actual-width" id="root-actual-iframe-width" />
       <div className="xpack-o-root__controls">
-        <button className="xpack-o-root__control-button" onClick={handleMobileClick} aria-label="Mobile View" title="Mobile View">
-          <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
-            <use xlinkHref="/assets/images/root.svg#phone"></use>
+        <button aria-label="Mobile View" className="xpack-o-root__control-button" title="Mobile View" onClick={handleMobileClick}>
+          <svg className="xpack-o-root__control-svg" viewBox="0 0 24 24">
+            <use xlinkHref="/assets/images/root.svg#phone" />
           </svg>
         </button>
-        <button className="xpack-o-root__control-button" onClick={handleTabletClick} aria-label="Tablet View" title="Tablet View">
-          <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
-            <use xlinkHref="/assets/images/root.svg#tablet"></use>
+        <button aria-label="Tablet View" className="xpack-o-root__control-button" title="Tablet View" onClick={handleTabletClick}>
+          <svg className="xpack-o-root__control-svg" viewBox="0 0 24 24">
+            <use xlinkHref="/assets/images/root.svg#tablet" />
           </svg>
         </button>
-        <button className="xpack-o-root__control-button" onClick={handleDesktopClick} aria-label="Desktop View" title="Desktop View">
-          <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
-            <use xlinkHref="/assets/images/root.svg#desktop"></use>
+        <button aria-label="Desktop View" className="xpack-o-root__control-button" title="Desktop View" onClick={handleDesktopClick}>
+          <svg className="xpack-o-root__control-svg" viewBox="0 0 24 24">
+            <use xlinkHref="/assets/images/root.svg#desktop" />
           </svg>
         </button>
-        <button className="xpack-o-root__control-button" onClick={handleFullClick} aria-label="Full Width View" title="Full Width View">
-          <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
-            <use xlinkHref="/assets/images/root.svg#hay"></use>
+        <button aria-label="Full Width View" className="xpack-o-root__control-button" title="Full Width View" onClick={handleFullClick}>
+          <svg className="xpack-o-root__control-svg" viewBox="0 0 24 24">
+            <use xlinkHref="/assets/images/root.svg#hay" />
           </svg>
         </button>
-        <button className="xpack-o-root__control-button" onClick={handleRandomClick} aria-label="Random Width View" title="Random Width View">
-          <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
-            <use xlinkHref="/assets/images/root.svg#random"></use>
+        <button aria-label="Random Width View" className="xpack-o-root__control-button" title="Random Width View" onClick={handleRandomClick}>
+          <svg className="xpack-o-root__control-svg" viewBox="0 0 24 24">
+            <use xlinkHref="/assets/images/root.svg#random" />
           </svg>
         </button>
-        <button className="xpack-o-root__control-button" onClick={handleDiscoClick} aria-label="Disco Mode View" title="Disco Mode View">
-          <svg viewBox="0 0 24 24" className="xpack-o-root__control-svg">
-            <use xlinkHref="/assets/images/root.svg#disco-ball"></use>
+        <button aria-label="Disco Mode View" className="xpack-o-root__control-button" title="Disco Mode View" onClick={handleDiscoClick}>
+          <svg className="xpack-o-root__control-svg" viewBox="0 0 24 24">
+            <use xlinkHref="/assets/images/root.svg#disco-ball" />
           </svg>
         </button>
       </div>

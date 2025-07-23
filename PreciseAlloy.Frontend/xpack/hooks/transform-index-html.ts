@@ -1,4 +1,4 @@
-import { PluginOption } from "vite"
+import { PluginOption } from 'vite';
 
 const transformIndexHtml = (baseUrl: string): PluginOption => {
   // console.log('[INIT] transformIndexHtml');
@@ -11,8 +11,8 @@ const transformIndexHtml = (baseUrl: string): PluginOption => {
       // console.log('transformIndexHtml');
 
       return html.replaceAll('#__BASE_URL__/', baseUrl);
-    }
-  }
-}
+    },
+  };
+};
 
 export default transformIndexHtml;

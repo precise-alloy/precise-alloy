@@ -1,7 +1,9 @@
-import chokidar from 'chokidar';
+/* eslint-disable no-console */
 import fs from 'fs';
-import { glob } from 'glob';
 import path from 'path';
+
+import chokidar from 'chokidar';
+import { glob } from 'glob';
 import slash from 'slash';
 import { transformWithEsbuild } from 'vite';
 
@@ -11,10 +13,16 @@ const scriptCompile = async (inputPath: string) => {
   console.log('compile:', slash(inputPath));
 
   const code = fs.readFileSync(inputPath, 'utf8');
-  return transformWithEsbuild(code, inputPath, { minify: true, format: 'esm', sourcemap: path.basename(inputPath).includes('critical') ? false : 'external' })
+
+  return transformWithEsbuild(code, inputPath, {
+    minify: true,
+    format: 'esm',
+    sourcemap: path.basename(inputPath).includes('critical') ? false : 'external',
+  })
     .then((result) => {
       const savePath = path.resolve('public/assets/js/' + path.parse(inputPath).name + '.js');
       const saveDir = path.dirname(savePath);
+
       if (!fs.existsSync(saveDir)) {
         fs.mkdirSync(saveDir);
       }
@@ -37,9 +45,7 @@ const run = async () => {
   } else {
     const pool: Promise<any>[] = [];
 
-    glob
-      .sync('src/assets/scripts/**/*.{js,jsx,ts,tsx}')
-      .forEach((p) => pool.push(scriptCompile(p)));
+    glob.sync('src/assets/scripts/**/*.{js,jsx,ts,tsx}').forEach((p) => pool.push(scriptCompile(p)));
 
     await Promise.all(pool);
   }
@@ -47,4 +53,4 @@ const run = async () => {
 
 await run();
 
-export { };
+export {};

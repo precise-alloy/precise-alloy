@@ -1,4 +1,6 @@
-import { exec } from "node:child_process";
+/* eslint-disable no-console */
+import { exec } from 'node:child_process';
+
 import chalk from 'chalk';
 
 const { red } = chalk;
@@ -6,7 +8,7 @@ const { red } = chalk;
 const install = async () => {
   return new Promise((resolve, reject) => {
     exec('npm install', (error, stdout) => {
-      if(error) {
+      if (error) {
         reject(error);
 
         console.log(`${red(error)}`);

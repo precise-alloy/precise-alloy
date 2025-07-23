@@ -1,10 +1,11 @@
 import { RootModel, SinglePageNode } from '@_types/types';
 import { useEffect, useMemo, useState } from 'react';
+import { viteAbsoluteUrl } from '@helpers/functions';
+
 import { RootContext, RootData } from './root-context';
 import FrameControls from './frame-controls';
 import ActiveItemOptions from './cctive-item-options';
 import RootNav from './root-nav';
-import { viteAbsoluteUrl } from '@helpers/functions';
 
 export default function Root(props: RootModel) {
   const [activeItem, setActiveItem] = useState<SinglePageNode>();
@@ -16,6 +17,7 @@ export default function Root(props: RootModel) {
     }
 
     const frame = document.querySelector<HTMLIFrameElement>('#root-iframe');
+
     if (!frame) {
       return;
     }
@@ -33,6 +35,7 @@ export default function Root(props: RootModel) {
 
   const routes = useMemo(() => {
     const result: SinglePageNode[] = [];
+
     props.routes.forEach((route) => {
       if (route.type === 'single') {
         result.push({
@@ -40,6 +43,7 @@ export default function Root(props: RootModel) {
           name: route.name,
           type: 'single',
         });
+
         return;
       }
       route.items.forEach((item) => {
@@ -50,6 +54,7 @@ export default function Root(props: RootModel) {
         });
       });
     });
+
     return result;
   }, [props.routes]);
 
@@ -57,10 +62,12 @@ export default function Root(props: RootModel) {
     const hash = window.location.hash;
     const activePath = hash && hash.startsWith('#/') ? hash.substring(1) : '/pages/home';
     const activeIndex = routes.findIndex((r) => r.path === activePath);
+
     if (activeIndex >= 0) {
       setActiveItem(routes[activeIndex]);
     } else {
       const homeIndex = routes.findIndex((r) => r.path === '/pages/home');
+
       setActiveItem(routes[homeIndex]);
     }
   }, [routes]);

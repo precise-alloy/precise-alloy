@@ -14,7 +14,7 @@ const Header = (model: HeaderModel) => {
       <div className="zzz-container">
         <div className="zzz-o-header__header-container">
           <a href="/pages/home.html">
-            <img className="zzz-o-header__logo" width={70} height={50} alt="Precise Alloy's logo" src={logo?.src ?? defaultLogoUrl} />
+            <img alt="Precise Alloy's logo" className="zzz-o-header__logo" height={50} src={logo?.src ?? defaultLogoUrl} width={70} />
           </a>
 
           <span className="zzz-o-header__title">{title}</span>
@@ -23,9 +23,9 @@ const Header = (model: HeaderModel) => {
             <>
               <div className="zzz-o-header__nav-mobile">
                 <div className={`zzz-o-header__nav-toggle`}>
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                  <span />
+                  <span />
+                  <span />
                 </div>
               </div>
 
@@ -38,9 +38,9 @@ const Header = (model: HeaderModel) => {
 
                 <li className="zzz-o-header__theme-toggle">
                   <button aria-label="Toggle Theme">
-                    <Icon iconPath={'#zzz-theme-light'} viewBoxWidth={19} viewBoxHeight={19} />
+                    <Icon iconPath={'#zzz-theme-light'} viewBoxHeight={19} viewBoxWidth={19} />
 
-                    <Icon iconPath={'#zzz-theme-moon'} viewBoxWidth={19} viewBoxHeight={19} />
+                    <Icon iconPath={'#zzz-theme-moon'} viewBoxHeight={19} viewBoxWidth={19} />
                   </button>
                 </li>
               </ul>
@@ -49,7 +49,7 @@ const Header = (model: HeaderModel) => {
         </div>
       </div>
 
-      <RequireJs path="header" defer />
+      <RequireJs defer path="header" />
       <RequireCss path="b-header" />
     </header>
   );

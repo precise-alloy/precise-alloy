@@ -11,14 +11,14 @@ const setupHeader = () => {
   button.addEventListener('click', () => {
     button.classList.toggle('active');
     navList.classList.toggle('active');
-  })
+  });
 
   navList.onOutsideClick(() => {
     button.classList.remove('active');
     navList.classList.remove('active');
-  }, [button])
-}
+  }, [button]);
+};
 
 setupHeader();
 
-export { }
+export {};

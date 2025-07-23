@@ -6,11 +6,11 @@ const Button = (model: ButtonModel) => {
   const styleModifiers = getModifiers(model, 'zzz-a-button');
 
   return link ? (
-    <a href={href} className={styleModifiers} target={target}>
+    <a className={styleModifiers} href={href} target={target}>
       {text}
     </a>
   ) : (
-    <button type={type} className={styleModifiers}>
+    <button className={styleModifiers} type={type}>
       {text}
     </button>
   );

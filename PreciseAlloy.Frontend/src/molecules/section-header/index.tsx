@@ -8,9 +8,9 @@ const SectionHeader = (model: SectionHeaderModel) => {
   return (
     <div className={styleModifiers}>
       {headingLevel === 'h1' ? (
-        <h1 className="zzz-m-section-header__heading" dangerouslySetInnerHTML={{ __html: heading }}></h1>
+        <h1 dangerouslySetInnerHTML={{ __html: heading }} className="zzz-m-section-header__heading" />
       ) : (
-        <h2 className="zzz-m-section-header__heading h1" dangerouslySetInnerHTML={{ __html: heading }}></h2>
+        <h2 dangerouslySetInnerHTML={{ __html: heading }} className="zzz-m-section-header__heading h1" />
       )}
     </div>
   );

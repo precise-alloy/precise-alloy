@@ -1,5 +1,6 @@
 import RequireCss from '@helpers/RequireCss';
 import { EpiFormModel } from '@_types/organisms';
+
 import { Button } from './button';
 import { TextArea } from './text-area';
 import { TextField } from './text-field';
@@ -16,7 +17,7 @@ const EpiForm = (model: EpiFormModel) => {
 
         <TextArea {...message} />
 
-        <Button {...submitButton}></Button>
+        <Button {...submitButton} />
       </form>
       <RequireCss path="b-epi-form" />
     </>

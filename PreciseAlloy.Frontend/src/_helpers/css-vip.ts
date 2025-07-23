@@ -31,6 +31,7 @@ const processRules = (rules: Array<css.Rule | css.Comment | css.AtRule>) => {
     } else if (rule.type === 'rule') {
       addImportantToCssRule(rule);
     } else {
+      // eslint-disable-next-line no-console
       console.log(`Unknown rule type: ${rule.type}`);
     }
   });
@@ -39,6 +40,7 @@ const processRules = (rules: Array<css.Rule | css.Comment | css.AtRule>) => {
 const cssVip = (code: string): string => {
   const obj = css.parse(code);
   const rules = obj.stylesheet?.rules;
+
   if (!rules) {
     return code;
   }

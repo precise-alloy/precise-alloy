@@ -62,6 +62,7 @@ export function splitWords(s: string) {
   const re = /([A-Za-z]?)([a-z]+)/g;
 
   let match = re.exec(s);
+
   while (match) {
     output.push([match[1].toUpperCase(), match[2]].join(''));
     match = re.exec(s);
@@ -81,7 +82,9 @@ export const viteAbsoluteUrl = (path: string, addExtension = false): string => {
     return path;
   }
   const baseUrl = import.meta.env.BASE_URL;
-  const normalizedRemain = (path?.startsWith('/') ? path : '/' + path) + (addExtension && !path.endsWith('/') ? import.meta.env.VITE_PATH_EXTENSION : '');
+  const normalizedRemain =
+    (path?.startsWith('/') ? path : '/' + path) + (addExtension && !path.endsWith('/') ? import.meta.env.VITE_PATH_EXTENSION : '');
+
   if (!baseUrl) {
     return normalizedRemain;
   }
@@ -91,5 +94,6 @@ export const viteAbsoluteUrl = (path: string, addExtension = false): string => {
   }
 
   const len = baseUrl.length;
+
   return baseUrl.substring(0, len - 1) + normalizedRemain;
-}
+};

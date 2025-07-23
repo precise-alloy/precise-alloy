@@ -28,6 +28,6 @@ const createViteDevServer = ({ root, baseUrl, hmrPort, isTest }: Props): Promise
   });
 
   return server;
-}
+};
 
 export { createViteDevServer };

@@ -8,13 +8,13 @@ const Icon = (model: IconModel) => {
 
   return (
     <svg
-      className={styleModifiers}
       aria-hidden="true"
+      className={styleModifiers}
+      height={height || viewBoxHeight}
       viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
       width={width || viewBoxWidth}
-      height={height || viewBoxHeight}
     >
-      <use xlinkHref={href}></use>
+      <use xlinkHref={href} />
     </svg>
   );
 };

@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const blocks: { [name: string]: any } = {
   root: lazy(() => import('../xpack/root')),
   people: lazy(() => import('./organisms/people')),
@@ -17,13 +16,16 @@ const loadComponent = (scriptSection: HTMLScriptElement) => {
   }
 
   const Component = blocks[blockType];
+
   if (Component) {
     scriptSection.textContent = null;
     const section = document.createElement(scriptSection.getAttribute('data-tag') ?? 'section');
+
     section.className = scriptSection.getAttribute('data-class') ?? '';
     scriptSection.replaceWith(section);
 
     const props = JSON.parse(data);
+
     ReactDOM.createRoot(section).render(<Component {...props} />);
   } else {
     return <></>;

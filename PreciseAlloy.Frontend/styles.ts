@@ -1,14 +1,16 @@
+/* eslint-disable no-console */
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+
 import { watch } from 'chokidar';
 import * as sass from 'sass';
 import slash from 'slash';
 import debounce from 'debounce';
-import path from 'path';
 import { glob } from 'glob';
 import postcss, { ProcessOptions } from 'postcss';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
-import { fileURLToPath, pathToFileURL } from 'url';
 
 const isWatch = process.argv.includes('--watch');
 const outDir = './public/assets/css';
@@ -59,6 +61,7 @@ const stringOptions = (srcFile: string): sass.StringOptions<'sync' | 'async'> =>
         if (!filePath.endsWith('.scss')) {
           const parentDir = path.dirname(filePath);
           const fileName = path.basename(filePath);
+
           filePath = path.join(parentDir, fileName + '.scss');
 
           if (!fs.existsSync(filePath)) {
@@ -105,18 +108,18 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
 
   const outFile = (options.prefix ?? '') + name;
 
-  const cssStrings = srcFile.includes('xpack') ? [fs.readFileSync(srcFile, 'utf-8')] :  prepareCssFileContent({srcFile});
+  const cssStrings = srcFile.includes('xpack') ? [fs.readFileSync(srcFile, 'utf-8')] : prepareCssFileContent({ srcFile });
 
   if (srcFile.includes('style-base') || srcFile.includes('style-all')) {
     glob.sync('./src/atoms/**/*.scss').forEach((atomPath) => {
       if (!path.basename(atomPath).startsWith('_')) {
-        cssStrings.push(sass.compileString(prepareCssFileContent({srcFile: atomPath}).join(''), stringOptions(atomPath)).css);
+        cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: atomPath }).join(''), stringOptions(atomPath)).css);
       }
     });
 
     glob.sync('./src/molecules/**/*.scss').forEach((molPath) => {
       if (!path.basename(molPath).startsWith('_')) {
-        cssStrings.push(sass.compileString(prepareCssFileContent({srcFile: molPath}).join(''), stringOptions(molPath)).css);
+        cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: molPath }).join(''), stringOptions(molPath)).css);
       }
     });
   }
@@ -145,11 +148,13 @@ const postcssProcess = (result: sass.CompileResult, from: string, to: string) =>
 
 const styleOrganisms = debounce((isReady: boolean) => {
   const paths = glob.sync('src/organisms/**/*.scss', { nodir: true });
+
   [].forEach.call(paths, (p: string) => styleOrganism(p, isReady));
 }, 200);
 
 const styleTemplates = debounce((isReady: boolean) => {
   const paths = glob.sync('src/templates/**/*.scss', { nodir: true });
+
   [].forEach.call(paths, (p: string) => styleTemplate(p, isReady));
 }, 200);
 

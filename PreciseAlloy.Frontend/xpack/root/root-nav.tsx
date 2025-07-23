@@ -1,8 +1,9 @@
 import { MultiplePageNode, RootItemModel } from '@_types/types';
 import { debounce } from 'lodash';
 import { useRef, useCallback, useEffect, useState } from 'react';
-import { useRootContext } from './root-context';
 import { viteAbsoluteUrl } from '@helpers/functions';
+
+import { useRootContext } from './root-context';
 import { useOnClickOutside } from './use-click-outside';
 import RenderedItem from './rendered-item';
 
@@ -34,7 +35,6 @@ export default function RootNav({ routes: routesProp }: Props) {
     setShow(!show);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChange = useCallback(
     debounce((text: string) => {
       const tempRoutes: RootItemModel[] = [],
@@ -81,9 +81,9 @@ export default function RootNav({ routes: routesProp }: Props) {
     <>
       {/*eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions*/}
       <a ref={buttonRef} className="xpack-o-root__button-close" onClick={handleClick}>
-        <button className="xpack-o-root__control-button xpack-o-root__button-close" aria-label={show ? 'Close' : 'Pages'}>
+        <button aria-label={show ? 'Close' : 'Pages'} className="xpack-o-root__control-button xpack-o-root__button-close">
           <svg className="xpack-o-root__control-svg">
-            <use xlinkHref={viteAbsoluteUrl('/assets/images/root.svg#' + (show ? 'close' : 'list'))}></use>
+            <use xlinkHref={viteAbsoluteUrl('/assets/images/root.svg#' + (show ? 'close' : 'list'))} />
           </svg>
         </button>
       </a>
@@ -93,14 +93,14 @@ export default function RootNav({ routes: routesProp }: Props) {
       <div ref={navItemRef} className={`xpack-o-root__nav-items ${show ? 'show' : ''}`}>
         <div className="xpack-o-root__search">
           <input
-            type={'text'}
             ref={inputRef}
-            value={textSearch}
             placeholder="Find a pattern"
+            type={'text'}
+            value={textSearch}
             onChange={(e) => {
               setTextSearch(e.target.value);
             }}
-          ></input>
+          />
         </div>
 
         <div className="xpack-o-root__items">
@@ -115,17 +115,16 @@ export default function RootNav({ routes: routesProp }: Props) {
                         <RenderedItem key={index} {...item} />
                       ) : (
                         <details
-                          className="xpack-o-root__nav-item-collection"
                           key={index}
+                          className="xpack-o-root__nav-item-collection"
                           open={
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             !!(item as MultiplePageNode).items.find((x: any) => {
                               return window.location.hash.includes(x.path);
                             })
                           }
                         >
                           <summary>{item.name}</summary>
-                          {/*eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
+                          {}
                           {(item as MultiplePageNode).items.map((node: any, idx: number) => (
                             <RenderedItem key={idx} {...node} />
                           ))}
@@ -145,17 +144,16 @@ export default function RootNav({ routes: routesProp }: Props) {
                   <RenderedItem key={index} {...item} />
                 ) : (
                   <details
-                    className="xpack-o-root__nav-item-collection"
                     key={index}
+                    className="xpack-o-root__nav-item-collection"
                     open={
-                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       !!(item as MultiplePageNode).items.find((x: any) => {
                         return window.location.hash.includes(x.path);
                       })
                     }
                   >
                     <summary>{item.name}</summary>
-                    {/*eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
+                    {}
                     {(item as MultiplePageNode).items.map((node: any, idx: number) => (
                       <RenderedItem key={idx} {...node} />
                     ))}

@@ -9,7 +9,7 @@ const Picture = (model: PictureModel) => {
       {sources?.map((s, index) => (
         <source key={index} media={s.media} srcSet={s.srcSet} />
       ))}
-      <img src={src} alt={alt} loading={lazy ? 'lazy' : undefined} width={width} height={height} />
+      <img alt={alt} height={height} loading={lazy ? 'lazy' : undefined} src={src} width={width} />
     </picture>
   );
 };

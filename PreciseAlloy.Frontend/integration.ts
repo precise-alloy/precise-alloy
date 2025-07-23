@@ -1,12 +1,14 @@
+/* eslint-disable no-console */
 import fs from 'fs';
 import path, { resolve } from 'path';
 import { fileURLToPath } from 'url';
+import crypto from 'node:crypto';
+import nodeFs from 'node:fs';
+
 import slash from 'slash';
 import { glob } from 'glob';
-import crypto from 'node:crypto';
 import { loadEnv } from 'vite';
 import chalk from 'chalk';
-import nodeFs from 'node:fs';
 
 interface CopyItem {
   from: string;
@@ -71,6 +73,7 @@ copyItems.forEach((item) => {
     fs.cpSync(srcPath, destPath, { recursive: true, force: true });
   } else {
     const destDirPath = path.dirname(destPath);
+
     if (!fs.existsSync(destDirPath)) {
       fs.mkdirSync(destDirPath);
     }
@@ -82,14 +85,17 @@ copyItems.forEach((item) => {
 hashItems.forEach((item) => {
   const srcPath = slash(path.join(srcBasePath, item));
   const files = glob.sync(srcPath + '/**/*.{css,js,svg}');
+
   files.forEach((file) => {
     const relativePath = slash(file.substring(staticBasePath.length));
 
     if (!/\.0x[a-z0-9_-]{8,12}\.\w+$/gi.test(file)) {
       const content = fs.readFileSync(file);
       const sha1Hash = crypto.createHash('sha1');
+
       sha1Hash.update(content);
       const hash = sha1Hash.digest('base64url').substring(0, 10);
+
       hashes.set(relativePath, hash);
     } else {
       hashes.set(relativePath, '');
@@ -102,10 +108,12 @@ const sortedHashes = Array.from(hashes)
   .reduce(
     (obj, [key, value]) => {
       obj[key] = value;
+
       return obj;
     },
     {} as { [key: string]: string }
   );
+
 fs.writeFileSync(path.join(destBasePath, 'hashes.json'), JSON.stringify(sortedHashes, null, '  '));
 
 if (patternPath) {
@@ -113,6 +121,7 @@ if (patternPath) {
   glob.sync('./dist/static/{atoms,molecules,organisms,templates,pages}/**/*.*').forEach((p) => {
     let basename = '';
     const segments = slash(p).split('/');
+
     if (segments.length < 4) return;
     switch (segments.length) {
       case 4:
@@ -131,6 +140,7 @@ if (patternPath) {
     const newText = text
       .replaceAll(/react-loader\.0x[a-z0-9_-]{8,12}\.js/gi, 'react-loader.0x00000000.js')
       .replaceAll(/\.svg\?v=[a-z0-9_-]+/gi, '.svg');
+
     if (text !== newText) {
       fs.writeFileSync(p, newText);
     }
@@ -143,9 +153,11 @@ const checkExistFileList: FileExistCheck[] = [
   { fileName: 'main.js', folder: 'js' },
 ];
 let isAllExist = true;
+
 checkExistFileList.forEach((file) => {
   if (typeof file.fileName === 'string') {
     const destPath = slash(path.join(destBasePath, file.folder ?? '', file.fileName.toString()));
+
     if (!fs.existsSync(destPath)) {
       log(chalk.yellow(`Cannot find: ${destPath}`));
       isAllExist = false;
@@ -155,6 +167,7 @@ checkExistFileList.forEach((file) => {
     const folderFiles = slash(path.join(destBasePath, file.folder ?? ''));
     const files = fs.readdirSync(folderFiles);
     const found = files.find((f) => fileName.test(f));
+
     if (!found) {
       log(chalk.yellow(`Cannot find: ${slash(path.join(folderFiles, fileName.toString()))}`));
       isAllExist = false;

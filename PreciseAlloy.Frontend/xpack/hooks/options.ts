@@ -1,7 +1,9 @@
 import path from 'path';
+
 import { glob } from 'glob';
 import { PluginOption } from 'vite';
-import { srcRoot, root, mode } from '../paths';
+
+import { root, mode } from '../paths';
 const scriptOnly = process.env.scriptOnly;
 
 const options = (): PluginOption => {
@@ -9,6 +11,7 @@ const options = (): PluginOption => {
 
   const getSiteInputs = () => {
     const inputs: { [name: string]: string } = {};
+
     if (!scriptOnly) {
       inputs['index'] = `${root}/index.html`;
     }
@@ -25,6 +28,7 @@ const options = (): PluginOption => {
 
       if (entryName != fileName) {
         inputs[entryName] = filePath;
+
         return;
       }
     });

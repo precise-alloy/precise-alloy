@@ -3,16 +3,16 @@ export default function StateAnimationHtml(model: { keyExist: boolean }) {
     <></>
   ) : (
     <div className="pl-state-toggle__circles">
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
-      <div className="pl-state-toggle__circle"></div>
+      <div className="pl-state-toggle__circle" />
+      <div className="pl-state-toggle__circle" />
+      <div className="pl-state-toggle__circle" />
+      <div className="pl-state-toggle__circle" />
+      <div className="pl-state-toggle__circle" />
+      <div className="pl-state-toggle__circle" />
+      <div className="pl-state-toggle__circle" />
+      <div className="pl-state-toggle__circle" />
+      <div className="pl-state-toggle__circle" />
+      <div className="pl-state-toggle__circle" />
     </div>
   );
 }

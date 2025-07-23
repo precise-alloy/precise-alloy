@@ -13,7 +13,7 @@ Object.keys(pages).forEach((path) => {
   const match = path.match(/\.\/pages\/(.*)\.\w+$/);
   const name = match ? match[1] : '';
   const normalizedName = name.replaceAll(/^(\w+)/gi, (_p0, p1: string) => _.lowerCase(p1).replaceAll(' ', '-'));
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const module = pages[path] as { [key: string]: any };
 
   if (!module.default.$$name) {
@@ -26,6 +26,7 @@ Object.keys(pages).forEach((path) => {
 
     nodes.push(node);
     routesToPrerender.push({ route: node.path, name: normalizedName });
+
     return;
   }
 
@@ -44,6 +45,7 @@ Object.keys(pages).forEach((path) => {
       name: module[key].name,
       component: module[key].render,
     };
+
     node.items.push(item);
     routesToPrerender.push({ route: item.path, name: item.name });
   });

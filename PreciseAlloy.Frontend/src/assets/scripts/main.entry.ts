@@ -1,7 +1,9 @@
-window.setState = window.setState || function (key: string, value: string) {
-  window.localStorage.setItem(key, value);
-  window.dispatchEvent(new StorageEvent('storage', { key, newValue: value }));
-};
+window.setState =
+  window.setState ||
+  function (key: string, value: string) {
+    window.localStorage.setItem(key, value);
+    window.dispatchEvent(new StorageEvent('storage', { key, newValue: value }));
+  };
 
 Element.prototype.observeResize =
   Element.prototype.observeResize ||
@@ -17,6 +19,7 @@ Element.prototype.observeResize =
 
       setInterval(() => {
         const rect = this.getBoundingClientRect();
+
         if (Math.floor(rect.width) != Math.floor(lastRect.width) || Math.floor(rect.height) != Math.floor(lastRect.height)) {
           lastRect = rect;
           callback();
@@ -43,4 +46,4 @@ HTMLElement.prototype.onOutsideClick =
 
     document.addEventListener('mousedown', listener);
     document.addEventListener('touchstart', listener);
-  }
+  };

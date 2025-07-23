@@ -1,4 +1,4 @@
-import { viteAbsoluteUrl } from "./functions";
+import { viteAbsoluteUrl } from './functions';
 
 interface Props {
   path: string;
@@ -12,7 +12,7 @@ const RequireCss = ({ path, rel }: Props) => {
       ? viteAbsoluteUrl('/assets/' + path + '.css')
       : viteAbsoluteUrl('/assets/css/' + path + '.css');
 
-  return <link rel={rel ?? 'stylesheet'} href={normalizedPath} data-pl-require />;
+  return <link data-pl-require href={normalizedPath} rel={rel ?? 'stylesheet'} />;
 };
 
 export { RequireCss };

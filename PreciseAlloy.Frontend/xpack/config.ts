@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
-import alias from './alias';
 import react from '@vitejs/plugin-react';
+
+import alias from './alias';
 import { getAssetFileName, getChunkFileName, getEntryFileName } from './filename';
 import { getManualChunk } from './manual-chunk';
-import { outDir, srcRoot, xpackEnv } from './paths';
+import { outDir, xpackEnv } from './paths';
 import buildStart from './hooks/build-start';
 import writeBundle from './hooks/write-bundle';
 import closeBundle from './hooks/close-bundle';
@@ -46,8 +47,7 @@ const config = defineConfig({
 
   css: {
     preprocessorOptions: {
-      scss: {
-      },
+      scss: {},
     },
   },
 

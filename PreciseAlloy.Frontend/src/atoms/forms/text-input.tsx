@@ -1,6 +1,7 @@
 import { getModifiers } from '@helpers/functions';
 import { TextInputModel } from '@_types/atoms';
 import { useFormContext } from 'react-hook-form';
+
 import ErrorMessage from './error-message';
 
 export interface FormValuesModel {
@@ -24,8 +25,8 @@ const TextInput = (model: TextInputModel) => {
           {...register(name || '', {
             required: required && requiredMessage,
           })}
-          placeholder={placeHolder}
           id={id}
+          placeholder={placeHolder}
           type={type || 'text'}
         />
       </div>

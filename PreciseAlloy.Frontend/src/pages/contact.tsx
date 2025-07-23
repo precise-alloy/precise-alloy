@@ -14,6 +14,6 @@ export const About: Story = {
   name: 'Contact Page - Default',
   path: 'default',
   render: () => {
-    return <ContactTemplate header={header} footer={footer} contact={contact} alert={alert} />;
+    return <ContactTemplate alert={alert} contact={contact} footer={footer} header={header} />;
   },
 };

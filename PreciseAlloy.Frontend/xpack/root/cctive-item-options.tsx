@@ -1,6 +1,7 @@
 import { createRef, MouseEvent, useState } from 'react';
-import { useRootContext } from './root-context';
 import { viteAbsoluteUrl } from '@helpers/functions';
+
+import { useRootContext } from './root-context';
 import { useOnClickOutside } from './use-click-outside';
 import StateAnimationHtml from './state-animation-html';
 
@@ -13,7 +14,7 @@ export default function ActiveItemOptions() {
 
   useOnClickOutside(optionItemsRef, () => setShow(false), [buttonRef]);
 
-  const handleStateToggle = (event: MouseEvent<HTMLAnchorElement>) => {
+  const handleStateToggle = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -24,6 +25,7 @@ export default function ActiveItemOptions() {
     }
 
     location.reload();
+
     return false;
   };
 
@@ -53,39 +55,39 @@ export default function ActiveItemOptions() {
     <div>
       <button
         ref={buttonRef}
+        aria-label={show ? 'Close' : 'Settings'}
         className={`xpack-o-root__control-button xpack-o-root__button-${show ? 'close' : 'setting'}`}
         onClick={handleClick}
-        aria-label={show ? 'Close' : 'Settings'}
       >
-        <svg viewBox="0 0 30 30" className="xpack-o-root__control-svg">
-          <use xlinkHref={show ? `/assets/images/root.svg#close` : '/assets/images/root.svg#setting'}></use>
+        <svg className="xpack-o-root__control-svg" viewBox="0 0 30 30">
+          <use xlinkHref={show ? `/assets/images/root.svg#close` : '/assets/images/root.svg#setting'} />
         </svg>
       </button>
 
       <div ref={optionItemsRef} className={`xpack-o-root__active-item-options ${show ? 'show' : ''}`}>
-        <a className="xpack-o-root__nav-item pl-state-toggle" href="#" onClick={handleStateToggle}>
+        <button className="xpack-o-root__nav-item pl-state-toggle" onClick={handleStateToggle}>
           <StateAnimationHtml keyExist={!!keyExist} />
           {toggleCtaText}
-        </a>
+        </button>
 
-        <a className="xpack-o-root__nav-item pl-state-toggle" href="#" onClick={handleThemeToggle}>
+        <button className="xpack-o-root__nav-item pl-state-toggle" onClick={handleThemeToggle}>
           Change theme
-        </a>
+        </button>
 
-        <a className="xpack-o-root__nav-item panel-position" href="#" onClick={handleChangePanelPosition}>
+        <button className="xpack-o-root__nav-item panel-position" onClick={handleChangePanelPosition}>
           {isTopPanel ? 'Set left panel' : 'Set top panel'}
-        </a>
+        </button>
 
-        <a className="xpack-o-root__nav-item" href={viteAbsoluteUrl(activeItem.path, true)} target="_blank">
+        <a className="xpack-o-root__nav-item" href={viteAbsoluteUrl(activeItem.path, true)} rel="noreferrer" target="_blank">
           Open in new tab
         </a>
 
-        <div className="xpack-o-root__nav-item-seperator"></div>
+        <div className="xpack-o-root__nav-item-seperator" />
 
-        <a className="xpack-o-root__nav-item" href="https://tuyen.blog/optimizely-cms/frontend/get-started/" target="_blank">
+        <a className="xpack-o-root__nav-item" href="https://tuyen.blog/optimizely-cms/frontend/get-started/" rel="noreferrer" target="_blank">
           About this library
-          <svg viewBox="0 0 30 30" className="xpack-o-root__control-svg">
-            <use xlinkHref="/assets/images/root.svg#external"></use>
+          <svg className="xpack-o-root__control-svg" viewBox="0 0 30 30">
+            <use xlinkHref="/assets/images/root.svg#external" />
           </svg>
         </a>
       </div>

@@ -79,9 +79,11 @@ const createSelect = (state: State, classList: DOMTokenList) => {
   const type = state.multiple ? 'checkbox' : 'radio';
 
   let optionsHtml = '';
+
   options.forEach((option: StateOption) => {
     const selectedHtml = classList.contains(option.value) ? 'checked' : '';
     const id = newId();
+
     optionsHtml +=
       `<input name="${name}" class="pl-state-bar__input" type="${type}" id="${id}" data-name="${option.name}" value="${option.value}" ${selectedHtml}/>` +
       `<label class="pl-state-bar__label" for="${id}"><span>${option.name}</span></label>`;
@@ -99,6 +101,7 @@ const createSelect = (state: State, classList: DOMTokenList) => {
 
 const deactiveStateButtons = () => {
   const stateButtons = [...document.querySelectorAll('.pl-state__button')];
+
   stateButtons.forEach((stateButton) => stateButton.classList.remove('active'));
 };
 
@@ -113,21 +116,26 @@ const stateButtonClickHandler = (item: HTMLElement, stateButton: HTMLElement, pl
   deactiveStateButtons();
 
   const stateBar: HTMLElement | null = document.querySelector('.pl-state-bar');
+
   if (!stateBar) {
     return;
   }
 
   if (stateButton.classList.contains('active')) {
     closeButtonClickHandler(stateBar);
+
     return;
   }
 
   const stateBarContent = stateBar.querySelector('.pl-state-bar__content');
+
   if (stateBarContent) {
     let stateBarContentHtml = '';
     let index = 0;
+
     plState.states.forEach((state) => {
       const combinedState = state.name === 'Theme' && !state.options ? { ...state, options: themes } : state;
+
       stateBarContentHtml += createSelect(combinedState, item.classList);
 
       index++;
@@ -139,14 +147,17 @@ const stateButtonClickHandler = (item: HTMLElement, stateButton: HTMLElement, pl
     stateBarContent.innerHTML = stateBarContentHtml;
 
     const closeButton = stateBarContent.querySelector('.pl-state-bar__close-button');
+
     if (closeButton) {
       closeButton.addEventListener('click', () => closeButtonClickHandler(stateBar));
     }
 
     const stateBarGroups = [...stateBarContent.querySelectorAll('.pl-state-bar__group')];
+
     stateBarGroups.forEach((stateBarGroup) => {
       const stateBarGroupHeader = stateBarGroup.querySelector('.pl-state-bar__group-header');
       const checkboxGroup = stateBarGroup.querySelector('.pl-state-bar__checkbox-group');
+
       if (!stateBarGroupHeader || !checkboxGroup) {
         return;
       }
@@ -169,6 +180,7 @@ const stateButtonClickHandler = (item: HTMLElement, stateButton: HTMLElement, pl
       }
 
       const checkboxes = stateBarGroup.querySelectorAll("input[type='checkbox']");
+
       [].forEach.call(checkboxes, (checkbox: HTMLInputElement) => {
         checkbox.addEventListener('change', () => {
           if (!checkbox.value) {
@@ -185,6 +197,7 @@ const stateButtonClickHandler = (item: HTMLElement, stateButton: HTMLElement, pl
       });
 
       const radios = stateBarGroup.querySelectorAll("input[type='radio']");
+
       [].forEach.call(radios, (radio: HTMLInputElement) => {
         radio.addEventListener('change', () => {
           [].forEach.call(radios, (r: HTMLInputElement) => {
@@ -201,6 +214,7 @@ const stateButtonClickHandler = (item: HTMLElement, stateButton: HTMLElement, pl
       });
 
       const radioLabels = [...stateBarGroup.querySelectorAll("input[type='radio'] + label")];
+
       radioLabels.forEach((radioLabel) => {
         radioLabel.addEventListener('click', () => {
           checkboxGroup.classList.remove('expand');
@@ -223,11 +237,13 @@ const appendButtons = (states: ComponentState[]) => {
 
   document.body.insertAdjacentHTML('beforeend', stateBarHtml);
   const stateBar: HTMLElement | null = document.querySelector('.pl-state-bar');
+
   if (!stateBar) {
     return;
   }
 
   const closeButton = stateBar.querySelector('.pl-state-bar__close-button');
+
   if (closeButton) {
     closeButton.addEventListener('click', () => closeButtonClickHandler(stateBar));
   }
@@ -242,6 +258,7 @@ const appendButtons = (states: ComponentState[]) => {
     const buttonZIndex = plState.button?.zIndex ? `style="z-index: ${plState.button.zIndex};"` : '';
 
     const items = document.querySelectorAll(plState.selector);
+
     [].forEach.call(items, (item: HTMLElement) => {
       const html =
         `<div class="pl-state ${buttonModifier}" ${buttonZIndex}>` +
@@ -251,17 +268,20 @@ const appendButtons = (states: ComponentState[]) => {
         `</button></div></div>`;
 
       const stateButtonParent = plState.button?.parentSelector ? item.querySelector(plState.button.parentSelector) : item;
+
       if (!stateButtonParent) {
         return;
       }
       stateButtonParent.insertAdjacentHTML('beforeend', html);
 
       const stateContainer: HTMLElement | null = stateButtonParent.querySelector(':scope > .pl-state');
+
       if (!stateContainer) {
         return;
       }
 
       const stateButton: HTMLElement | null = stateContainer.querySelector('.pl-state__button');
+
       if (stateButton) {
         stateButton.addEventListener('click', () => {
           stateButtonClickHandler(item, stateButton, plState);
@@ -272,11 +292,13 @@ const appendButtons = (states: ComponentState[]) => {
 
   addEventListener('resize', function () {
     const stateBar = document.querySelector('.pl-state-bar');
+
     if (!stateBar) {
       return;
     }
 
     const stateBarRect = stateBar.getBoundingClientRect();
+
     document.documentElement.style.setProperty('--pl-state-bar-height', Math.ceil(stateBarRect.height) + 'px');
   });
 };

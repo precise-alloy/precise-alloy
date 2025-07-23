@@ -1,6 +1,7 @@
-import { globby } from 'globby';
 import path from 'path';
 import fs from 'fs/promises';
+
+import { globby } from 'globby';
 
 interface CopyOption {
   cwd: string;
@@ -24,7 +25,7 @@ const excludeFiles = [
   'src/pages/!(Root|Home).tsx',
   'src/templates/!(root|home)/*',
   '!cli',
-  '!vite.cli.config.ts'
+  '!vite.cli.config.ts',
 ];
 
 const copy = async (src: string | string[], dest: string, { cwd }: CopyOption) => {

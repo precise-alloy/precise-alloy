@@ -5,6 +5,7 @@ const isWriteable = async (directory: string): Promise<boolean> => {
     await fs.promises.access(directory, fs.constants.W_OK);
 
     return true;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     return false;
   }

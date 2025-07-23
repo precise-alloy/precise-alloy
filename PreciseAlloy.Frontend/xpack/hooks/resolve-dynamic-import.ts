@@ -10,7 +10,6 @@ const resolveDynamicImport = (): PluginOption => {
 
     resolveDynamicImport(_specifier: string | AcornNode, _importer: string) {
       // console.log('resolveDynamicImport');
-
       // console.log(_specifier, _importer);
     },
   };

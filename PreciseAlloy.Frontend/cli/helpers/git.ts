@@ -1,59 +1,77 @@
-import { execSync } from 'child_process'
-import path from 'path'
-import fs from 'fs'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { execSync } from 'child_process';
+import path from 'path';
+import fs from 'fs';
 
 function isInGitRepository(): boolean {
   try {
-    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' })
-    return true
-  } catch (_) { /* empty */ }
-  return false
+    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' });
+
+    return true;
+  } catch (_) {
+    /* empty */
+  }
+
+  return false;
 }
 
 function isInMercurialRepository(): boolean {
   try {
-    execSync('hg --cwd . root', { stdio: 'ignore' })
-    return true
-  } catch (_) { /* empty */ }
-  return false
+    execSync('hg --cwd . root', { stdio: 'ignore' });
+
+    return true;
+  } catch (_) {
+    /* empty */
+  }
+
+  return false;
 }
 
 function isDefaultBranchSet(): boolean {
   try {
-    execSync('git config init.defaultBranch', { stdio: 'ignore' })
-    return true
-  } catch (_) { /* empty */ }
-  return false
+    execSync('git config init.defaultBranch', { stdio: 'ignore' });
+
+    return true;
+  } catch (_) {
+    /* empty */
+  }
+
+  return false;
 }
 
 const tryGitInit = (root: string): boolean => {
-  let didInit = false
+  let didInit = false;
+
   try {
-    execSync('git --version', { stdio: 'ignore' })
+    execSync('git --version', { stdio: 'ignore' });
     if (isInGitRepository() || isInMercurialRepository()) {
-      return false
+      return false;
     }
 
-    execSync('git init', { stdio: 'ignore' })
-    didInit = true
+    execSync('git init', { stdio: 'ignore' });
+    didInit = true;
 
     if (!isDefaultBranchSet()) {
-      execSync('git checkout -b main', { stdio: 'ignore' })
+      execSync('git checkout -b main', { stdio: 'ignore' });
     }
 
-    execSync('git add -A', { stdio: 'ignore' })
+    execSync('git add -A', { stdio: 'ignore' });
     execSync('git commit -m "Initial commit from Create App"', {
       stdio: 'ignore',
-    })
-    return true
+    });
+
+    return true;
   } catch (e) {
     if (didInit) {
       try {
-        fs.rmSync(path.join(root, '.git'), { recursive: true, force: true })
-      } catch (_) { /* empty */ }
+        fs.rmSync(path.join(root, '.git'), { recursive: true, force: true });
+      } catch (_) {
+        /* empty */
+      }
     }
-    return false
+
+    return false;
   }
-}
+};
 
 export { tryGitInit };

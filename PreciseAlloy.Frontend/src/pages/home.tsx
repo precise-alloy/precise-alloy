@@ -7,7 +7,7 @@ import { teaser, teaserImageLeft } from '@data/teaser';
 import Template from '@templates/home';
 
 const Home = () => {
-  return <Template people={people} partner={partner} teaser={teaser} teaserImageLeft={teaserImageLeft} hero={hero} footer={footer} header={header} />;
+  return <Template footer={footer} header={header} hero={hero} partner={partner} people={people} teaser={teaser} teaserImageLeft={teaserImageLeft} />;
 };
 
 export default Home;

@@ -62,7 +62,7 @@ const ContactForm = (model: ContactFormModel) => {
 
             {message && <Textarea {...message} />}
 
-            {submitButton && <Button type="submit" {...submitButton}></Button>}
+            {submitButton && <Button type="submit" {...submitButton} />}
           </form>
         </FormProvider>
       </div>
