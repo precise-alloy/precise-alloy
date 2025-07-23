@@ -4,7 +4,7 @@ import { viteAbsoluteUrl } from '@helpers/functions';
 
 import { RootContext, RootData } from './root-context';
 import FrameControls from './frame-controls';
-import ActiveItemOptions from './cctive-item-options';
+import ActiveItemOptions from './active-item-options';
 import RootNav from './root-nav';
 
 export default function Root(props: RootModel) {
