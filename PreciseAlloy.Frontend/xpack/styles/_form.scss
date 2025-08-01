@@ -1,5 +1,5 @@
-@use "px2rem" as *;
-@use "theme" as *;
+@use 'px2rem' as *;
+@use 'theme' as *;
 
 @mixin input {
   border: px2rem(1px) solid #bbb;

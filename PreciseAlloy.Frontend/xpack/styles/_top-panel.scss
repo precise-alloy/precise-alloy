@@ -1,6 +1,6 @@
-@use "border" as *;
-@use "breakpoint" as *;
-@use "px2rem" as *;
+@use 'border' as *;
+@use 'breakpoint' as *;
+@use 'px2rem' as *;
 
 .top-panel {
   &.xpack-o-root {
