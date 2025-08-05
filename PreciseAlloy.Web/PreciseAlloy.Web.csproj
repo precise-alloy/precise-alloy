@@ -17,33 +17,34 @@
         <!-- <PackageReference Include="A2Z.OrphanedProperties" Version="1.5.0" /> -->
         <PackageReference Include="Advanced.CMS.GroupingHeader" Version="3.0.0" />
         <PackageReference Include="Baaijte.Optimizely.ImageSharp.Web" Version="3.0.1" />
-        <PackageReference Include="EPiServer.CloudPlatform.Cms" Version="1.7.1" />
-        <PackageReference Include="EPiServer.CMS" Version="12.33.1" />
-        <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.22.7" />
-        <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.22.7" />
-        <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.22.7" />
-        <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.22.7" />
-        <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.22.7" />
-        <PackageReference Include="EPiServer.CMS.Core" Version="12.22.7" />
-        <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.33.1" />
-        <PackageReference Include="EPiServer.CMS.UI" Version="12.33.1" />
-        <PackageReference Include="EPiServer.Find" Version="16.5.0" />
-        <PackageReference Include="EPiServer.Find.Cms" Version="16.5.0" />
-        <PackageReference Include="EPiServer.Find.Framework" Version="16.5.0" />
+        <PackageReference Include="EPiServer.CloudPlatform.Cms" Version="1.7.2" />
+        <PackageReference Include="EPiServer.CMS" Version="12.33.2" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.22.8" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.22.8" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.22.8" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.22.8" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.22.8" />
+        <PackageReference Include="EPiServer.CMS.Core" Version="12.22.8" />
+        <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.33.2" />
+        <PackageReference Include="EPiServer.CMS.UI" Version="12.33.2" />
+        <PackageReference Include="EPiServer.Find" Version="16.6.0" />
+        <PackageReference Include="EPiServer.Find.Cms" Version="16.6.0" />
+        <PackageReference Include="EPiServer.Find.Framework" Version="16.6.0" />
         <PackageReference Include="EPiServer.Forms" Version="5.10.4" />
-        <PackageReference Include="EPiServer.Framework" Version="12.22.7" />
+        <PackageReference Include="EPiServer.Framework" Version="12.22.8" />
+        <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.22.8" />
         <PackageReference Include="EPiServer.ImageLibrary.ImageSharp" Version="2.0.5" />
         <PackageReference Include="Geta.NotFoundHandler.Optimizely" Version="5.1.0" />
         <PackageReference Include="Geta.Optimizely.ContentTypeIcons" Version="2.1.0" />
         <PackageReference Include="Geta.Optimizely.Sitemaps" Version="3.1.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.16" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.19" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
         <PackageReference Include="Serilog" Version="4.3.0" />
         <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
         <PackageReference Include="Stott.Optimizely.RobotsHandler" Version="4.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.4" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
     </ItemGroup>
 
     <ItemGroup>
