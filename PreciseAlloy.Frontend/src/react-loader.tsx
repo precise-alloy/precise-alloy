@@ -7,7 +7,7 @@ const blocks: { [name: string]: any } = {
   header: lazy(() => import('./organisms/header')),
 };
 
-const loadComponent = (scriptSection: HTMLScriptElement) => {
+const renderComponent = (scriptSection: HTMLScriptElement) => {
   const blockType = scriptSection.getAttribute('data-rct');
   const data = scriptSection.textContent ? scriptSection.textContent : '{}';
 
@@ -32,12 +32,13 @@ const loadComponent = (scriptSection: HTMLScriptElement) => {
   }
 };
 
-const loadComponents = () => {
+const renderComponents = () => {
   // rct stands for 'react component type'
   const scriptSections = document.querySelectorAll('script[data-rct]');
 
-  [].forEach.call(scriptSections, loadComponent);
+  [].forEach.call(scriptSections, renderComponent);
 };
 
-loadComponents();
-window.addEventListener('load', () => loadComponents());
+window.renderComponents = renderComponents;
+renderComponents();
+window.addEventListener('load', () => renderComponents());

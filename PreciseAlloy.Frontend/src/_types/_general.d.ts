@@ -19,6 +19,7 @@ declare global {
     setFavoriteCount: (count: string | number) => void;
     setCartCount: (count: string | number) => void;
     setState: (name: string, value: string) => void;
+    renderComponents: () => void;
   }
 
   interface Element {
