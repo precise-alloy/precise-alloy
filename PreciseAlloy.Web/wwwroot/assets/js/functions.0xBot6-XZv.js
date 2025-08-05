@@ -1,0 +1,2 @@
+const n=(t,r)=>{const e=[r];return t.globalModifier?.forEach(s=>e.push(s)),t.styleModifier?.forEach(s=>e.push(r+"--"+s)),t.theme&&e.push("theme-"+t.theme),e.join(" ")},o=(t,r=!1)=>{if(/^https?:\/\//gi.test(t))return t;const e="/",s=(t?.startsWith("/")?t:"/"+t)+(r&&!t.endsWith("/")?".html":"");if(!e.endsWith("/"))return e+s;const i=e.length;return e.substring(0,i-1)+s};export{n as g,o as v};
+//# sourceMappingURL=functions.0xBot6-XZv.js.map
