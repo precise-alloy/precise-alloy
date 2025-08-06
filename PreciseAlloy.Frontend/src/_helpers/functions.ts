@@ -57,26 +57,6 @@ const roundNumber = (num: number | boolean | undefined | string | null, numberDe
 
 export { getModifiers, getCookie, generatePagingData, roundNumber };
 
-export function splitWords(s: string) {
-  const output = [];
-  const re = /([A-Za-z]?)([a-z]+)/g;
-
-  let match = re.exec(s);
-
-  while (match) {
-    output.push([match[1].toUpperCase(), match[2]].join(''));
-    match = re.exec(s);
-  }
-
-  return output;
-}
-
-export const pascalToString = (s: string) => {
-  const stringSplit = splitWords(s);
-
-  return stringSplit.join(' ');
-};
-
 export const viteAbsoluteUrl = (path: string, addExtension = false): string => {
   if (/^https?:\/\//gi.test(path)) {
     return path;

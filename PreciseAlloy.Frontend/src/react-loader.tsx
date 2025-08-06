@@ -42,3 +42,16 @@ const renderComponents = () => {
 window.renderComponents = renderComponents;
 renderComponents();
 window.addEventListener('load', () => renderComponents());
+
+// Post a custom event to notify that the renderComponents function is ready to be used
+// Usage:
+// if (window.renderComponents) {
+//   window.renderComponents();
+// } else {
+//   window.addEventListener('react-loaded', () => {
+//     window.renderComponents();
+//   });
+// }
+const event = new CustomEvent('react-loaded');
+
+window.dispatchEvent(event);
