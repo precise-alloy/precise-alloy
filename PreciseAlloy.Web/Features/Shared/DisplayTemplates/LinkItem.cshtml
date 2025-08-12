@@ -1,10 +1,8 @@
 ﻿@model EPiServer.SpecializedProperties.LinkItem?
 
-@{
-    if(Model != null && ViewData["CssClass"] != null)
-    {
-        Model.Attributes["class"] = ViewData["CssClass"]?.ToString();
-    }
+@if (Model != null && ViewData["CssClass"] is string cssClass)
+{
+    Model.Attributes["class"] = cssClass;
 }
 
 @Html.ContentLink(Model)
