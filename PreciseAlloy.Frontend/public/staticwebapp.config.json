@@ -31,6 +31,17 @@
       }
     },
     {
+      "route": "/api/avatar",
+      "rewrite": "/json/avatar.json",
+      "allowedRoles": [
+        "anonymous"
+      ],
+      "headers": {
+        "X-Robots-Tag": "noindex, nofollow",
+        "Content-Type": "application/json"
+      }
+    },
+    {
       "route": "/api",
       "allowedRoles": [
         "anonymous"
