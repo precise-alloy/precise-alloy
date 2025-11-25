@@ -1,0 +1,11 @@
+* text=auto
+*.cs eol=lf
+*.sh eol=lf
+*.ps1 eol=lf
+*.json eol=lf
+*.ts eol=lf
+*.tsx eol=lf
+*.js eol=lf
+*.js.map eol=lf
+*.css eol=lf
+*.css.map eol=lf

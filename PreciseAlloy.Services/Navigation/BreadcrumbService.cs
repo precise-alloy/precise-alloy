@@ -22,14 +22,15 @@ public class BreadcrumbService(
         var currentPage = contentLoader.Get<SitePageData>(contentReference);
         if (currentPage is not IHaveBreadcrumb || currentPage.HideBreadcrumb)
         {
-            return Enumerable.Empty<BreadcrumbItem>();
+            return [];
         }
+
         var cacheKey = string.Format(CacheKey, currentPage.ContentLink.ID, currentPage.Language.Name);
 
         //Get breadcrumbs
-        if (cache.Get(cacheKey) is List<BreadcrumbItem> breadcrumbs)
+        if (cache.Get(cacheKey) is List<BreadcrumbItem> cachedBreadcrumbs)
         {
-            return breadcrumbs;
+            return cachedBreadcrumbs;
         }
 
         var currentLanguage = currentPage.Language;
@@ -42,11 +43,19 @@ public class BreadcrumbService(
             .Where(content => content != null)
             .Reverse();
 
-        breadcrumbs = ancestors.Select(item => new BreadcrumbItem()
+        var breadcrumbs = new List<BreadcrumbItem>();
+        var dependentCacheKeys = new List<string>();
+
+        foreach (var ancestor in ancestors)
         {
-            Name = item.Name,
-            Url = item.ContentLink.ToFriendlyUrl()
-        }).ToList();
+            breadcrumbs.Add(new BreadcrumbItem
+            {
+                Name = ancestor.Name,
+                Url = ancestor.ContentLink.ToFriendlyUrl()
+            });
+
+            dependentCacheKeys.Add(contentCacheKeyCreator.CreateLanguageCacheKey(ancestor.ContentLink, currentLanguage.Name));
+        }
 
         //Add current page to breadcrumbs
         breadcrumbs.Add(new BreadcrumbItem
@@ -54,10 +63,6 @@ public class BreadcrumbService(
             Name = currentPage.Name,
             Url = currentPage.ContentLink.ToFriendlyUrl()
         });
-
-        var dependentCacheKeys = ancestors.Select(
-                x => contentCacheKeyCreator.CreateLanguageCacheKey(x.ContentLink, currentLanguage.Name))
-            .ToList();
 
         //Add current page to dependent cache keys
         dependentCacheKeys.Add(contentCacheKeyCreator.CreateLanguageCacheKey(currentPage.ContentLink, currentLanguage.Name));

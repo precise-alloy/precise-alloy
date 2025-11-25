@@ -1,31 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
     <ItemGroup>
-        <PackageReference Include="EPiServer.CMS.AspNetCore" Version="12.22.8" />
-        <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" Version="12.22.8" />
-        <PackageReference Include="EPiServer.CMS.Core" Version="12.22.8" />
-        <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.22.8" />
-        <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.22.8" />
-        <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" Version="12.22.8" />
-        <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.22.8" />
-        <PackageReference Include="EPiServer.CMS.UI.Core" Version="12.33.2" />
-        <PackageReference Include="EPiServer.Find" Version="16.6.0" />
-        <PackageReference Include="EPiServer.Find.Cms" Version="16.6.0" />
-        <PackageReference Include="EPiServer.Find.Framework" Version="16.6.0" />
-        <PackageReference Include="EPiServer.Framework" Version="12.22.8" />
-        <PackageReference Include="EPiServer.Framework.AspNetCore" Version="12.22.8" />
-        <PackageReference Include="EPiServer.Hosting" Version="12.22.8" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.Templating" />
+        <PackageReference Include="EPiServer.CMS.Core" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.Mvc" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.HtmlHelpers" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" />
+        <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" />
+        <PackageReference Include="EPiServer.CMS.UI.Core" />
+        <PackageReference Include="EPiServer.Find" />
+        <PackageReference Include="EPiServer.Find.Cms" />
+        <PackageReference Include="EPiServer.Find.Framework" />
+        <PackageReference Include="EPiServer.Framework" />
+        <PackageReference Include="EPiServer.Framework.AspNetCore" />
+        <PackageReference Include="EPiServer.Hosting" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\PreciseAlloy.Models\PreciseAlloy.Models.csproj" />
         <ProjectReference Include="..\PreciseAlloy.Utils\PreciseAlloy.Utils.csproj" />
     </ItemGroup>
-
 </Project>

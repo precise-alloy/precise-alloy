@@ -43,7 +43,7 @@ public class StatusCodeController(
     }
 
     [Route("check")]
-    public async Task<IActionResult> ErrorCheck()
+    public Task<IActionResult> ErrorCheck()
     {
         throw new NotImplementedException();
     }

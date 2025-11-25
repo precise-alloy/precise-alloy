@@ -39,6 +39,8 @@ public partial class Startup(
 
             // UI
             services.Configure<ClientResourceOptions>(uiOptions => { uiOptions.Debug = true; });
+            
+            services.AddRazorPages().AddRazorRuntimeCompilation();
         }
         else
         {
