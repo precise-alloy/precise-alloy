@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="PreciseAlloy.Jobs/PreciseAlloy.Jobs.csproj" />
+  <Project Path="PreciseAlloy.Models/PreciseAlloy.Models.csproj" />
+  <Project Path="PreciseAlloy.Services.Tests/PreciseAlloy.Services.Tests.csproj" />
+  <Project Path="PreciseAlloy.Services/PreciseAlloy.Services.csproj" />
+  <Project Path="PreciseAlloy.Utils/PreciseAlloy.Utils.csproj" />
+  <Project Path="PreciseAlloy.Web/PreciseAlloy.Web.csproj" />
+</Solution>
