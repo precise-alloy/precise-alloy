@@ -168,7 +168,7 @@ const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
 
     const destLocalizedFolderPath = toAbsolute('dist/static');
 
-    let html = template.replace(`<!--app-html-->`, output.html ?? '').replace('@style.scss', '/assets/css/' + route.name + '.css');
+    let html = template.replace('<!--app-html-->', output.html ?? '').replace('@style.scss', '/assets/css/' + route.name + '.css');
     const $ = cheerio.load(html);
     const paths: string[] = [];
 

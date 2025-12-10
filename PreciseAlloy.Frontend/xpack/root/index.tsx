@@ -1,5 +1,5 @@
 import { RootModel, SinglePageNode } from '@_types/types';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { viteAbsoluteUrl } from '@helpers/functions';
 
 import { RootContext, RootData } from './root-context';
@@ -58,7 +58,7 @@ export default function Root(props: RootModel) {
     return result;
   }, [props.routes]);
 
-  useEffect(() => {
+  useCallback(() => {
     const hash = window.location.hash;
     const activePath = hash && hash.startsWith('#/') ? hash.substring(1) : '/pages/home';
     const activeIndex = routes.findIndex((r) => r.path === activePath);

@@ -1,6 +1,6 @@
 import { MultiplePageNode, RootItemModel } from '@_types/types';
 import { debounce } from 'lodash';
-import { useRef, useCallback, useEffect, useState } from 'react';
+import { useRef, useCallback, useEffect, useState, useMemo } from 'react';
 import { viteAbsoluteUrl } from '@helpers/functions';
 
 import { useRootContext } from './root-context';
@@ -36,46 +36,40 @@ export default function RootNav({ routes: routesProp }: Props) {
   };
 
   const handleChange = useCallback(
-    debounce((text: string) => {
-      const tempRoutes: RootItemModel[] = [],
-        tempRoutesSearch: RootItemModel[] = [];
+    (text: string) => {
+      const searchTerms = text.trim().toLocaleLowerCase().split(/\s+/);
+      const isSearchActive = searchTerms.length > 0 && text.trim();
+
       const isItemIncludedText: (item: RootItemModel) => boolean = (item: RootItemModel) => {
+        if (!isSearchActive) return false;
+
         if (item.type === 'single') {
-          return text.trim()
-            ? text
-                .trim()
-                .toLocaleLowerCase()
-                .split(/\s+/)
-                .some((s) => item.name.toLocaleLowerCase().includes(s))
-            : false;
+          return searchTerms.some((s) => item.name.toLocaleLowerCase().includes(s));
         }
 
-        return text.trim()
-          ? text
-              .trim()
-              .toLocaleLowerCase()
-              .split(/\s+/)
-              .some((s) => item.name.toLocaleLowerCase().includes(s) || (item as MultiplePageNode).items.some((x) => isItemIncludedText(x)))
-          : false;
+        return searchTerms.some(
+          (s) => item.name.toLocaleLowerCase().includes(s) || (item as MultiplePageNode).items.some((x) => isItemIncludedText(x))
+        );
       };
 
+      const tempRoutesSearch: RootItemModel[] = [];
+      const tempRoutes: RootItemModel[] = [];
+
       routesProp.forEach((item) => {
-        if (isItemIncludedText(item)) {
-          tempRoutesSearch.push(item);
-        } else {
-          tempRoutes.push(item);
-        }
+        (isItemIncludedText(item) ? tempRoutesSearch : tempRoutes).push(item);
       });
 
       setRoutesSearch(tempRoutesSearch);
       setRoutes(tempRoutes);
-    }, 500),
-    []
+    },
+    [routesProp]
   );
 
+  const debouncedHandleChange = useMemo(() => debounce(handleChange, 500), [handleChange]);
+
   useEffect(() => {
-    handleChange(textSearch);
-  }, [handleChange, textSearch]);
+    debouncedHandleChange(textSearch);
+  }, [debouncedHandleChange, textSearch]);
 
   return (
     <>

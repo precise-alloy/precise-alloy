@@ -22,14 +22,14 @@ const Header = (model: HeaderModel) => {
           {navlinks?.links && (
             <>
               <div className="zzz-o-header__nav-mobile">
-                <div className={`zzz-o-header__nav-toggle`}>
+                <div className={'zzz-o-header__nav-toggle'}>
                   <span />
                   <span />
                   <span />
                 </div>
               </div>
 
-              <ul className={`zzz-o-header__nav-list`}>
+              <ul className={'zzz-o-header__nav-list'}>
                 {navlinks.links.map((link) => (
                   <li key={link.text} className="zzz-o-header__nav-list__item">
                     <a href={link.url}>{link.text}</a>

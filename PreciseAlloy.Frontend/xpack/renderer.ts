@@ -118,7 +118,7 @@ export const _useRenderer = ({ app, indexProd, isProd, viteDevServer, resolve }:
         return res.redirect(301, context.url);
       }
 
-      const html = template.replace(`<!--app-html-->`, output.html);
+      const html = template.replace('<!--app-html-->', output.html);
       const $ = cheerio.load(html);
       const paths: string[] = [];
 

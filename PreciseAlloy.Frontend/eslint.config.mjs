@@ -6,6 +6,7 @@ import _import from 'eslint-plugin-import';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import jsxA11Y from 'eslint-plugin-jsx-a11y';
 import prettier from 'eslint-plugin-prettier';
+import nextPlugin from '@next/eslint-plugin-next';
 import globals from 'globals';
 import tsParser from '@typescript-eslint/parser';
 import path from 'node:path';
@@ -58,6 +59,7 @@ export default defineConfig([
       'react-refresh': reactRefresh,
       'jsx-a11y': fixupPluginRules(jsxA11Y),
       prettier: fixupPluginRules(prettier),
+      '@next/next': fixupPluginRules(nextPlugin),
     },
 
     languageOptions: {
@@ -158,6 +160,23 @@ export default defineConfig([
           next: ['const', 'let', 'var'],
         },
       ],
+
+      quotes: [
+        'warn',
+        'single',
+        {
+          avoidEscape: true,
+        },
+      ],
+    },
+  },
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    plugins: {
+      '@next/next': fixupPluginRules(nextPlugin),
+    },
+    rules: {
+      '@next/next/no-img-element': 'off',
     },
   },
 ]);

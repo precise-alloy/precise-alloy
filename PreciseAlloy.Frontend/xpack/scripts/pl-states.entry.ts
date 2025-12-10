@@ -90,11 +90,11 @@ const createSelect = (state: State, classList: DOMTokenList) => {
   });
 
   const html =
-    `<div class="pl-state-bar__group">` +
+    '<div class="pl-state-bar__group">' +
     `<div>${state.name}:</div>` +
     `<div class="pl-state-bar__group-header">${header}</div>` +
     `<div class="pl-state-bar__checkbox-group">${optionsHtml}</div>` +
-    `</div>`;
+    '</div>';
 
   return html;
 };
@@ -229,7 +229,7 @@ const stateButtonClickHandler = (item: HTMLElement, stateButton: HTMLElement, pl
   }
 };
 const stateBarCloseButtonHtml = () => {
-  return `<div class="pl-state-bar__buttons"><a class="pl-state-bar__close-button"></a></div>`;
+  return '<div class="pl-state-bar__buttons"><a class="pl-state-bar__close-button"></a></div>';
 };
 
 const appendButtons = (states: ComponentState[]) => {
@@ -262,10 +262,10 @@ const appendButtons = (states: ComponentState[]) => {
     [].forEach.call(items, (item: HTMLElement) => {
       const html =
         `<div class="pl-state ${buttonModifier}" ${buttonZIndex}>` +
-        `<div class="pl-state__controls">` +
+        '<div class="pl-state__controls">' +
         `<button class="pl-state__button" ${buttonTitle}>` +
         `<img src="${import.meta.env.BASE_URL}pl-states.svg" loading="async">` +
-        `</button></div></div>`;
+        '</button></div></div>';
 
       const stateButtonParent = plState.button?.parentSelector ? item.querySelector(plState.button.parentSelector) : item;
 

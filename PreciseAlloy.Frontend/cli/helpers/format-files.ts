@@ -7,7 +7,7 @@ const formatFiles = async (root: string) => {
 
   // mock handler file
   filePath = path.join(root, 'src/mocks/handlers.ts');
-  data = `import { handlers } from './consts';\n\nexport { handlers };`;
+  data = "import { handlers } from './consts';\n\nexport { handlers };";
 
   await fs.writeFile(filePath, data + os.EOL);
 
@@ -31,7 +31,7 @@ const formatFiles = async (root: string) => {
   data = await fs.readFile(filePath, 'utf8');
   data = data.replace(
     /const blocks((?!};).)*};/s,
-    `const blocks: { [name: string]: any } = {\n\troot: lazy(() => import('./organisms/root/Root')),\n};`
+    "const blocks: { [name: string]: any } = {\n\troot: lazy(() => import('./organisms/root/Root')),\n};"
   );
 
   await fs.writeFile(filePath, data);

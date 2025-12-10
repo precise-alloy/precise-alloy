@@ -27,7 +27,7 @@ const Contact = (model: ContactModel) => {
             )}
 
             {map && (
-              <div className={`zzz-o-contact__map`}>
+              <div className={'zzz-o-contact__map'}>
                 <Picture {...map} />
               </div>
             )}

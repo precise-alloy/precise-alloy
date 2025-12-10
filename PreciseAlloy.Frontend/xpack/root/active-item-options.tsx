@@ -12,6 +12,8 @@ export default function ActiveItemOptions() {
   const optionItemsRef = createRef<HTMLDivElement>();
   const buttonRef = createRef<HTMLButtonElement>();
 
+  const [show, setShow] = useState(false);
+
   useOnClickOutside(optionItemsRef, () => setShow(false), [buttonRef]);
 
   const handleStateToggle = (event: MouseEvent<HTMLButtonElement>) => {
@@ -34,8 +36,6 @@ export default function ActiveItemOptions() {
   };
 
   const toggleCtaText = keyExist ? 'Hide state selector' : 'Show state selector';
-
-  const [show, setShow] = useState(false);
 
   const handleClick = () => {
     setShow(!show);
@@ -60,7 +60,7 @@ export default function ActiveItemOptions() {
         onClick={handleClick}
       >
         <svg className="xpack-o-root__control-svg" viewBox="0 0 30 30">
-          <use xlinkHref={show ? `/assets/images/root.svg#close` : '/assets/images/root.svg#setting'} />
+          <use xlinkHref={show ? '/assets/images/root.svg#close' : '/assets/images/root.svg#setting'} />
         </svg>
       </button>
 
