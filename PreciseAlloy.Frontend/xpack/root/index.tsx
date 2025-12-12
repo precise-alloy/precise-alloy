@@ -1,5 +1,5 @@
 import { RootModel, SinglePageNode } from '@_types/types';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { viteAbsoluteUrl } from '@helpers/functions';
 
 import { RootContext, RootData } from './root-context';
@@ -58,12 +58,13 @@ export default function Root(props: RootModel) {
     return result;
   }, [props.routes]);
 
-  useCallback(() => {
+  useEffect(() => {
     const hash = window.location.hash;
     const activePath = hash && hash.startsWith('#/') ? hash.substring(1) : '/pages/home';
     const activeIndex = routes.findIndex((r) => r.path === activePath);
 
     if (activeIndex >= 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setActiveItem(routes[activeIndex]);
     } else {
       const homeIndex = routes.findIndex((r) => r.path === '/pages/home');
