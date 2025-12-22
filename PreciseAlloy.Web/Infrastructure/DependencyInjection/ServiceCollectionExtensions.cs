@@ -13,7 +13,6 @@ public static class ServiceCollectionExtensions
     {
         services.AddSitemaps(x =>
         {
-            x.EnableLanguageDropDownInAdmin = false;
             x.EnableRealtimeCaching = true;
             x.EnableRealtimeSitemap = false;
         }, p => p.RequireRole(Roles.WebAdmins));
