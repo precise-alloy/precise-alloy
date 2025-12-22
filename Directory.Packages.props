@@ -8,7 +8,7 @@
     <PackageVersion Include="Advanced.CMS.GroupingHeader" Version="3.0.0" />
     <PackageVersion Include="Baaijte.Optimizely.ImageSharp.Web" Version="3.0.1" />
     <PackageVersion Include="Castle.Core" Version="5.2.1" />
-    <PackageVersion Include="EPiServer.CloudPlatform.Cms" Version="1.7.2" />
+    <PackageVersion Include="EPiServer.CloudPlatform.Cms" Version="1.7.3" />
     <PackageVersion Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.22.8" />
     <PackageVersion Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.22.8" />
     <PackageVersion Include="EPiServer.CMS.AspNetCore.Routing" Version="12.22.8" />
@@ -22,8 +22,8 @@
     <PackageVersion Include="EPiServer.Find.Cms" Version="16.6.0" />
     <PackageVersion Include="EPiServer.Find.Framework" Version="16.6.0" />
     <PackageVersion Include="EPiServer.Find" Version="16.6.0" />
-    <PackageVersion Include="EPiServer.Forms.Core" Version="5.10.4" />
-    <PackageVersion Include="EPiServer.Forms" Version="5.10.4" />
+    <PackageVersion Include="EPiServer.Forms.Core" Version="5.10.6" />
+    <PackageVersion Include="EPiServer.Forms" Version="5.10.6" />
     <PackageVersion Include="EPiServer.Framework.AspNetCore" Version="12.22.8" />
     <PackageVersion Include="EPiServer.Framework" Version="12.22.8" />
     <PackageVersion Include="EPiServer.Hosting" Version="12.22.8" />
