@@ -124,6 +124,11 @@ export default defineConfig([
               group: 'external',
               position: 'after',
             },
+            {
+              pattern: '@/**',
+              group: 'internal',
+              position: 'after',
+            },
           ],
 
           'newlines-between': 'always',
