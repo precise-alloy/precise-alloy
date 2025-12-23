@@ -139,6 +139,17 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
     }
 
     paths.push(path);
+
+    $(el).removeAttr('data-pl-require');
+
+    if ($(el).attr('type') === 'module') {
+      const deferValue = $(el).attr('defer');
+
+      if ($(el).attr('defer') === '' || deferValue === 'defer' || deferValue === 'true') {
+        $(el).removeAttr('defer');
+      }
+    }
+
     $('head').append(el);
   });
 };
