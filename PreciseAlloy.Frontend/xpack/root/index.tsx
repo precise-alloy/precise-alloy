@@ -9,7 +9,9 @@ import RootNav from './root-nav';
 
 export default function Root(props: RootModel) {
   const [activeItem, setActiveItem] = useState<SinglePageNode>();
-  const [isTopPanel, setTopPanel] = useState<boolean>(localStorage.getItem('MSG_IS_TOP_PANEL') === 'true');
+  const [isTopPanel, setTopPanel] = useState<boolean>(() =>
+    typeof localStorage !== 'undefined' ? localStorage.getItem('MSG_IS_TOP_PANEL') === 'true' : false
+  );
 
   useEffect(() => {
     if (!activeItem) {
