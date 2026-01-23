@@ -8,7 +8,7 @@ namespace PreciseAlloy.Jobs;
 /// <summary>
 /// The base class for scheduled jobs.
 /// </summary>
-public abstract class ScheduledJobBase
+public abstract class SiteScheduledJobBase
     : EPiServer.Scheduler.ScheduledJobBase
 {
     private DateTime _lastNotificationTime = DateTime.UtcNow;
@@ -16,7 +16,7 @@ public abstract class ScheduledJobBase
     /// <summary>
     /// The logger.
     /// </summary>
-    protected readonly ILogger<ScheduledJobBase> Logger;
+    protected readonly ILogger<SiteScheduledJobBase> Logger;
 
     /// <summary>
     /// The flag to indicate if the job is waiting to be stopped.
@@ -49,11 +49,11 @@ public abstract class ScheduledJobBase
     protected string? CurrentItem { get; set; }
 
     /// <summary>
-    /// Initialize a new instance of the <see cref="ScheduledJobBase"/> class.
+    /// Initialize a new instance of the <see cref="SiteScheduledJobBase"/> class.
     /// </summary>
     /// <param name="logger"></param>
-    protected ScheduledJobBase(
-        ILogger<ScheduledJobBase> logger)
+    protected SiteScheduledJobBase(
+        ILogger<SiteScheduledJobBase> logger)
     {
         Logger = logger;
         Logger.EnterConstructor();

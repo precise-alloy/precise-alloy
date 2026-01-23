@@ -19,7 +19,7 @@ public class TypeAlertViewComponent(IRequestContext requestContext) : ViewCompon
     static TypeAlertViewComponent()
     {
         var typesForAssemblyScanning = new[] {
-            typeof(ScheduledJobBase),   // PreciseAlloy.Jobs
+            typeof(SiteScheduledJobBase),   // PreciseAlloy.Jobs
             typeof(BaseBlockData),      // PreciseAlloy.Models
             typeof(ISettingsService),   // PreciseAlloy.Services
             typeof(HtmlExtensions),     // PreciseAlloy.Utils
@@ -72,7 +72,7 @@ public class TypeAlertViewComponent(IRequestContext requestContext) : ViewCompon
 
         var scheduleJobs = assemblies
             .Where(myType => myType is { IsClass: true, IsAbstract: false }
-                             && myType.IsSubclassOf(typeof(ScheduledJobBase)));
+                             && myType.IsSubclassOf(typeof(SiteScheduledJobBase)));
 
         foreach (Type scheduleJob in scheduleJobs)
         {

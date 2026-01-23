@@ -9,13 +9,13 @@
     <PackageVersion Include="Baaijte.Optimizely.ImageSharp.Web" Version="3.0.1" />
     <PackageVersion Include="Castle.Core" Version="5.2.1" />
     <PackageVersion Include="EPiServer.CloudPlatform.Cms" Version="1.7.3" />
-    <PackageVersion Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.23.0" />
-    <PackageVersion Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.23.0" />
-    <PackageVersion Include="EPiServer.CMS.AspNetCore.Routing" Version="12.23.0" />
-    <PackageVersion Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.23.0" />
-    <PackageVersion Include="EPiServer.CMS.AspNetCore.Templating" Version="12.23.0" />
-    <PackageVersion Include="EPiServer.CMS.AspNetCore" Version="12.23.0" />
-    <PackageVersion Include="EPiServer.CMS.Core" Version="12.23.0" />
+    <PackageVersion Include="EPiServer.CMS.AspNetCore.HtmlHelpers" Version="12.23.1" />
+    <PackageVersion Include="EPiServer.CMS.AspNetCore.Mvc" Version="12.23.1" />
+    <PackageVersion Include="EPiServer.CMS.AspNetCore.Routing" Version="12.23.1" />
+    <PackageVersion Include="EPiServer.CMS.AspNetCore.TagHelpers" Version="12.23.1" />
+    <PackageVersion Include="EPiServer.CMS.AspNetCore.Templating" Version="12.23.1" />
+    <PackageVersion Include="EPiServer.CMS.AspNetCore" Version="12.23.1" />
+    <PackageVersion Include="EPiServer.CMS.Core" Version="12.23.1" />
     <PackageVersion Include="EPiServer.CMS.UI.Core" Version="12.34.1" />
     <PackageVersion Include="EPiServer.CMS.UI" Version="12.34.1" />
     <PackageVersion Include="EPiServer.CMS" Version="12.34.1" />
@@ -24,9 +24,9 @@
     <PackageVersion Include="EPiServer.Find" Version="16.7.0" />
     <PackageVersion Include="EPiServer.Forms.Core" Version="5.10.6" />
     <PackageVersion Include="EPiServer.Forms" Version="5.10.6" />
-    <PackageVersion Include="EPiServer.Framework.AspNetCore" Version="12.23.0" />
-    <PackageVersion Include="EPiServer.Framework" Version="12.23.0" />
-    <PackageVersion Include="EPiServer.Hosting" Version="12.23.0" />
+    <PackageVersion Include="EPiServer.Framework.AspNetCore" Version="12.23.1" />
+    <PackageVersion Include="EPiServer.Framework" Version="12.23.1" />
+    <PackageVersion Include="EPiServer.Hosting" Version="12.23.1" />
     <PackageVersion Include="EPiServer.ImageLibrary.ImageSharp" Version="2.0.5" />
     <PackageVersion Include="Geta.NotFoundHandler.Optimizely" Version="6.0.0" />
     <PackageVersion Include="Geta.Optimizely.ContentTypeIcons" Version="2.1.0" />
