@@ -4,5 +4,5 @@ module.exports = {
   proseWrap: 'never',
   printWidth: 150,
   singleQuote: true,
-  semi: true
-}
+  semi: true,
+};

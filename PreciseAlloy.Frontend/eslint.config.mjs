@@ -46,10 +46,18 @@ export default defineConfig([
     '!**/react-shim.js',
     '!**/tsup.config.ts',
   ]),
+  ...fixupConfigRules(
+    compat.extends('plugin:react/recommended', 'plugin:prettier/recommended', 'plugin:react-hooks/recommended', 'plugin:jsx-a11y/recommended')
+  ),
   {
-    extends: fixupConfigRules(
-      compat.extends('plugin:react/recommended', 'plugin:prettier/recommended', 'plugin:react-hooks/recommended', 'plugin:jsx-a11y/recommended')
-    ),
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+  },
+  {
+    files: ['**/*.ts', '**/*.tsx'],
 
     plugins: {
       react: fixupPluginRules(react),
@@ -64,7 +72,7 @@ export default defineConfig([
 
     languageOptions: {
       globals: {
-        ...Object.fromEntries(Object.entries(globals.browser).map(([key]) => [key, 'off'])),
+        ...globals.browser,
         ...globals.node,
       },
 
@@ -78,14 +86,6 @@ export default defineConfig([
         },
       },
     },
-
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
-
-    files: ['**/*.ts', '**/*.tsx'],
 
     rules: {
       'no-console': 'warn',
