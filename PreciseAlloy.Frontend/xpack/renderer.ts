@@ -95,7 +95,7 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
 };
 
 export const _useRenderer = ({ app, indexProd, isProd, viteDevServer, resolve }: Props) => {
-  app.use('*', async (req, res) => {
+  app.use(async (req, res) => {
     try {
       let template, render;
 
