@@ -29,6 +29,7 @@ public abstract class SitePageData(
     [AllowedTypes(
         [typeof(BaseBlockData), typeof(PdfFile)],
         [typeof(IChildBlock)])]
+    [CultureSpecific]
     public virtual ContentArea? MainContentArea { get; set; }
 
     #region Metadata

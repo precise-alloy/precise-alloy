@@ -32,6 +32,7 @@
         <PackageReference Include="EPiServer.Framework" />
         <PackageReference Include="EPiServer.Framework.AspNetCore" />
         <PackageReference Include="EPiServer.ImageLibrary.ImageSharp" />
+        <PackageReference Include="EPiServer.Labs.LanguageManager" />
         <PackageReference Include="Geta.NotFoundHandler.Optimizely" />
         <PackageReference Include="Geta.Optimizely.ContentTypeIcons" />
         <PackageReference Include="Geta.Optimizely.Sitemaps" />

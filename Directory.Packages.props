@@ -28,6 +28,7 @@
     <PackageVersion Include="EPiServer.Framework" Version="12.23.1" />
     <PackageVersion Include="EPiServer.Hosting" Version="12.23.1" />
     <PackageVersion Include="EPiServer.ImageLibrary.ImageSharp" Version="2.0.5" />
+    <PackageVersion Include="EPiServer.Labs.LanguageManager" Version="5.5.3" />
     <PackageVersion Include="Geta.NotFoundHandler.Optimizely" Version="6.0.0" />
     <PackageVersion Include="Geta.Optimizely.ContentTypeIcons" Version="2.1.0" />
     <PackageVersion Include="Geta.Optimizely.Sitemaps" Version="3.2.1" />
