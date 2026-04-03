@@ -25,9 +25,6 @@
         <PackageReference Include="EPiServer.CMS.Core" />
         <PackageReference Include="EPiServer.CMS.UI.Core" />
         <PackageReference Include="EPiServer.CMS.UI" />
-        <PackageReference Include="EPiServer.Find" />
-        <PackageReference Include="EPiServer.Find.Cms" />
-        <PackageReference Include="EPiServer.Find.Framework" />
         <PackageReference Include="EPiServer.Forms" />
         <PackageReference Include="EPiServer.Framework" />
         <PackageReference Include="EPiServer.Framework.AspNetCore" />

@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PreciseAlloy.Utils.Extensions;
 
@@ -15,10 +15,11 @@ public static class HtmlExtensions
 {
     private static readonly IDictionary<string, string> CacheBusterValues;
 
-    private static readonly JsonSerializerSettings JsonSerializerSettings = new()
+    private static readonly JsonSerializerOptions JsonSerializerOptions = new()
     {
-        ContractResolver = new CamelCasePropertyNamesContractResolver(),
-        NullValueHandling = NullValueHandling.Ignore
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+        WriteIndented = true
     };
 
     static HtmlExtensions()
@@ -35,7 +36,7 @@ public static class HtmlExtensions
             }
 
             var hashes = File.ReadAllText(hashesPath);
-            var cacheBusterValues = JsonConvert.DeserializeObject<Dictionary<string, string>>(hashes);
+            var cacheBusterValues = JsonSerializer.Deserialize<Dictionary<string, string>>(hashes);
             if (cacheBusterValues != null)
             {
                 CacheBusterValues = cacheBusterValues;
@@ -139,7 +140,7 @@ public static class HtmlExtensions
         var resource = new ClientResource
         {
             ResourceType = ClientResourceType.Script,
-            InlineContent = JsonConvert.SerializeObject(data, Formatting.Indented, JsonSerializerSettings),
+            InlineContent = JsonSerializer.Serialize(data, JsonSerializerOptions),
             Attributes =
             {
                 ["data-rct"] = reactType,

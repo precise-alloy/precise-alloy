@@ -1,10 +1,10 @@
-﻿using EPiServer.Core;
+﻿using EPiServer;
+using EPiServer.Applications;
+using EPiServer.Core;
 using EPiServer.Filters;
 using EPiServer.Framework.Web;
-using EPiServer.Web.Routing;
-using EPiServer.Web;
-using EPiServer;
 using EPiServer.ServiceLocation;
+using EPiServer.Web.Routing;
 
 namespace PreciseAlloy.Utils.Extensions;
 
@@ -82,12 +82,11 @@ public static class ContentExtensions
             return string.Empty;
         }
 
-        var siteDefinition = new Lazy<SiteDefinition>(() => ServiceLocator.Current
-            .GetInstance<ISiteDefinitionResolver>()
+        var siteDefinition = new Lazy<Application?>(() => ServiceLocator.Current
+            .GetInstance<IApplicationResolver>()
             .GetByContent(
                 contentReference,
-                fallbackToWildcard: false,
-                fallbackToEmpty: false));
+                true));
 
         return contentReference
             .ToFriendlyUrl(language)

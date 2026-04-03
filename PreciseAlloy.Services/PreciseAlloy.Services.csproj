@@ -8,9 +8,6 @@
         <PackageReference Include="EPiServer.CMS.AspNetCore.Routing" />
         <PackageReference Include="EPiServer.CMS.AspNetCore.TagHelpers" />
         <PackageReference Include="EPiServer.CMS.UI.Core" />
-        <PackageReference Include="EPiServer.Find" />
-        <PackageReference Include="EPiServer.Find.Cms" />
-        <PackageReference Include="EPiServer.Find.Framework" />
         <PackageReference Include="EPiServer.Framework" />
         <PackageReference Include="EPiServer.Framework.AspNetCore" />
         <PackageReference Include="EPiServer.Hosting" />

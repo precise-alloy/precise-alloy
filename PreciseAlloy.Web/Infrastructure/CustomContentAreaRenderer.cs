@@ -24,7 +24,7 @@ public class CustomContentAreaRenderer
             return;
         }
 
-        IDictionary<string, object> renderSettings = new Dictionary<string, object>();
+        IDictionary<string, string> renderSettings = new Dictionary<string, string>();
         if (contentAreaItem.RenderSettings != null)
         {
             renderSettings = contentAreaItem.RenderSettings;

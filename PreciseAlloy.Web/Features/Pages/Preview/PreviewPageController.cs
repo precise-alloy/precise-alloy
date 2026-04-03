@@ -24,7 +24,7 @@ public class PreviewPageController(
 {
     public ActionResult Index(IContent currentContent)
     {
-        var startPage = contentLoader.Get<SitePageData>(SiteDefinition.Current.StartPage);
+        var startPage = contentLoader.Get<SitePageData>(ContentReference.StartPage);
 
         requestContext.SetPageSubstitute(startPage);
         requestContext.IsBlockPreviewMode = true;

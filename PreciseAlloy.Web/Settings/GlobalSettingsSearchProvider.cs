@@ -1,9 +1,8 @@
-﻿using EPiServer.Cms.Shell.Search;
+﻿using EPiServer.Applications;
+using EPiServer.Cms.Shell.Search;
 using EPiServer.Framework.Localization;
-using EPiServer.ServiceLocation;
 using EPiServer.Shell;
 using EPiServer.Shell.Search;
-using EPiServer.Web;
 using EPiServer.Web.Routing;
 using PreciseAlloy.Models.Settings;
 using PreciseAlloy.Services.Settings;
@@ -14,13 +13,11 @@ namespace PreciseAlloy.Web.Settings;
 // ReSharper disable once ClassNeverInstantiated.Global
 public class GlobalSettingsSearchProvider(
     LocalizationService localizationService,
-    ISiteDefinitionResolver siteDefinitionResolver,
-    IContentTypeRepository<ContentType> contentTypeRepository,
+    IApplicationResolver siteDefinitionResolver,
+    IContentTypeRepository contentTypeRepository,
     EditUrlResolver editUrlResolver,
-    ServiceAccessor<SiteDefinition> currentSiteDefinition,
     IContentLanguageAccessor contentLanguageAccessor,
     IUrlResolver urlResolver,
-    ITemplateResolver templateResolver,
     UIDescriptorRegistry uiDescriptorRegistry,
     IContentLoader contentLoader,
     ISettingsService settingsService)
@@ -29,10 +26,8 @@ public class GlobalSettingsSearchProvider(
         siteDefinitionResolver,
         contentTypeRepository,
         editUrlResolver,
-        currentSiteDefinition,
         contentLanguageAccessor,
         urlResolver,
-        templateResolver,
         uiDescriptorRegistry)
 {
     internal const string SearchArea = "Settings/globalsettings";
@@ -100,7 +95,7 @@ public class GlobalSettingsSearchProvider(
             : string.Empty;
 
         // ReSharper disable StringLiteralTypo
-        return $"/episerver/YourTown.Cms.Settings/settings#context=epi.cms.contentdata:///{contentLink.ID}&viewsetting=viewlanguage:///{language}";
+        return $"/episerver/PreciseAlloy.Cms.Settings/settings#context=epi.cms.contentdata:///{contentLink.ID}&viewsetting=viewlanguage:///{language}";
         // ReSharper restore StringLiteralTypo
     }
 }

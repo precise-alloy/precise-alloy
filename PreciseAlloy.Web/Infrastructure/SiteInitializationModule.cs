@@ -1,8 +1,7 @@
-﻿using EPiServer.Framework.Initialization;
-using EPiServer.Framework;
+﻿using EPiServer.Framework;
+using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using PreciseAlloy.Services.Find;
 using PreciseAlloy.Services.Navigation;
 
 namespace PreciseAlloy.Web.Infrastructure;
@@ -13,7 +12,6 @@ public class SiteInitializationModule : IConfigurableModule
 {
     public void ConfigureContainer(ServiceConfigurationContext context)
     {
-        context.Services.TryAddSingleton<IFindService, FindService>();
         context.Services.TryAddSingleton<IBreadcrumbService, BreadcrumbService>();
     }
 

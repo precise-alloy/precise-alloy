@@ -1,7 +1,7 @@
 using Advanced.CMS.GroupingHeader;
 using Baaijte.Optimizely.ImageSharp.Web;
-using EPiServer.Cms.Shell;
-using EPiServer.Cms.UI.AspNetIdentity;
+using EPiServer.Applications;
+using EPiServer.DependencyInjection;
 using EPiServer.Framework.Web.Resources;
 using EPiServer.Scheduler;
 using EPiServer.Web;
@@ -12,6 +12,7 @@ using Geta.NotFoundHandler.Optimizely.Infrastructure.Initialization;
 using Geta.Optimizely.ContentTypeIcons.Infrastructure.Configuration;
 using Geta.Optimizely.ContentTypeIcons.Infrastructure.Initialization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Net.Http.Headers;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
@@ -69,9 +70,7 @@ public partial class Startup(
         }
 
         services
-            .AddCmsAspNetIdentity<ApplicationUser>()
             .AddCms()
-            .AddFind()
             .AddGetaNotFoundHandler(configuration)
             .AddGetaSitemaps()
             .AddAdminUserRegistration()
@@ -82,6 +81,9 @@ public partial class Startup(
                 o.SupportIriCharacters = true;
                 o.ValidCharacters = @"\p{L}0-9\-_~\.\$";
             });
+
+        services.TryAddSingleton<ApplicationEventSubscriber>();
+        services.AddCmsEventSubscriber<ApplicationEvent, ApplicationEventSubscriber>();
 
         ConfigureTinyMce(services);
 

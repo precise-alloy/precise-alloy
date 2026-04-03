@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using EPiServer;
+using EPiServer.Applications;
 using EPiServer.Globalization;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
@@ -17,7 +18,7 @@ public static class UrlExtensions
 
     public static string ToHostSpecificUri(
         this Uri? relativeUri,
-        Lazy<SiteDefinition>? siteDefinition = null,
+        Lazy<Application?>? siteDefinition = null,
         string? language = null)
     {
         var text = relativeUri?.ToString();
@@ -43,15 +44,15 @@ public static class UrlExtensions
                 culture = ContentLanguage.PreferredCulture;
             }
 
-            var siteDefinition2 = siteDefinition?.Value ?? SiteDefinition.Current;
-            var primaryHost = siteDefinition2.GetPrimaryHost(culture);
-            if (primaryHost == null
-                || !Uri.TryCreate(siteDefinition2.SiteUrl.Scheme + "://" + primaryHost.Name, UriKind.Absolute, out var result))
-            {
-                result = siteDefinition2.SiteUrl;
-            }
+            var siteDefinition2 = siteDefinition?.Value as Website;
+            var primaryHost = siteDefinition2?.GetPrimaryHost(culture);
+            //if (primaryHost == null
+            //    || !Uri.TryCreate(siteDefinition2.GetPrimaryHost().Scheme + "://" + primaryHost.Url.Host, UriKind.Absolute, out var result))
+            //{
+            //    result = siteDefinition2.Url;
+            //}
 
-            text = result + text?.TrimStart('/');
+            //text = result + text?.TrimStart('/');
         }
 
         return text ?? string.Empty;
