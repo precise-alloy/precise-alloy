@@ -1,4 +1,3 @@
-import { FooterModel, HeaderModel, PortfolioModel } from '@_types/organisms';
 import Footer from '@organisms/footer';
 import Header from '@organisms/header';
 import Portfolio from '@organisms/portfolio';

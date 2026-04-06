@@ -1,4 +1,3 @@
-import { Story, StoryCollectionMeta } from '@_types/story';
 import { footer } from '@data/footer';
 import Template from '@templates/about';
 

@@ -1,5 +1,4 @@
 import RequireCss from '@helpers/RequireCss';
-import { EpiFormModel } from '@_types/organisms';
 
 import { Button } from './button';
 import { TextArea } from './text-area';

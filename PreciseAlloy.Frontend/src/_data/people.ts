@@ -1,5 +1,3 @@
-import { PeopleModel } from '@_types/organisms';
-
 export const people: PeopleModel = {
   subHeader: 'Team',
   header: 'Our Talents',

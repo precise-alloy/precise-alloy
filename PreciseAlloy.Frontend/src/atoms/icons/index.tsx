@@ -1,5 +1,4 @@
 import { getModifiers } from '@helpers/functions';
-import { IconModel } from '@_types/types';
 
 const Icon = (model: IconModel) => {
   const { height, iconPath, viewBoxHeight, viewBoxWidth, width } = model;

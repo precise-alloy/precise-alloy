@@ -1,4 +1,3 @@
-import { RootModel } from '@_types/types';
 import RequireJs from '@helpers/RequireJs';
 import ReactSection from '@helpers/ReactSection';
 

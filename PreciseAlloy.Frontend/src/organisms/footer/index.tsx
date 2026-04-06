@@ -1,4 +1,3 @@
-import { FooterModel } from '@_types/types';
 import RequireCss from '@helpers/RequireCss';
 import { getModifiers } from '@helpers/functions';
 import LinkListWithIcon from '@molecules/links';

@@ -1,5 +1,3 @@
-import { PortfolioModel } from '@_types/types';
-
 const portfolio: PortfolioModel = {
   globalModifier: ['section-margin-top'],
   label: 'PORTFOLIO',

@@ -1,4 +1,3 @@
-import { AlertModel } from '@_types/organisms';
 import RequireCss from '@helpers/RequireCss';
 
 const Alert = (model: AlertModel) => {

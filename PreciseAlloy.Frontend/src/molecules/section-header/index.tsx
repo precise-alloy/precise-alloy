@@ -1,5 +1,4 @@
 import { getModifiers } from '@helpers/functions';
-import { SectionHeaderModel } from '@_types/types';
 
 const SectionHeader = (model: SectionHeaderModel) => {
   const { heading, headingLevel } = model;

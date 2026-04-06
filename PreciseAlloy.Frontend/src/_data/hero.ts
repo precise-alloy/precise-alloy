@@ -1,5 +1,3 @@
-import { HeroModel } from '@_types/types';
-
 const hero: HeroModel = {
   label: 'WELCOME',
   header: {

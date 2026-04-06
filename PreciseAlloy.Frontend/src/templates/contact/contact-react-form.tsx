@@ -1,4 +1,3 @@
-import { ContactFormModel, FooterModel, HeaderModel } from '@_types/organisms';
 import Footer from '@organisms/footer';
 import Header from '@organisms/header';
 

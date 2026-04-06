@@ -1,4 +1,3 @@
-import { FooterModel } from '@_types/organisms';
 import Footer from '@organisms/footer';
 import Header from '@organisms/header';
 

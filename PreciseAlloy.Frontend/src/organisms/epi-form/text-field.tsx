@@ -1,5 +1,4 @@
 import { getModifiers } from '@helpers/functions';
-import { EpiFormTextFieldModel } from '@_types/organisms';
 
 const TextField = (model: EpiFormTextFieldModel) => {
   const { label, name, placeHolder, id, required, errorMessage } = model;

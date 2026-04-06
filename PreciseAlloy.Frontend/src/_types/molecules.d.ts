@@ -1,16 +1,13 @@
-import { ButtonModel, IconModel, LinkWithIconModel } from './atoms';
-import { BasedAtomicModel } from './_general';
-
-export interface LinkListWithIconModel extends BasedAtomicModel {
+type LinkListWithIconModel = BasedAtomicModel & {
   items: LinkWithIconModel[];
-}
+};
 
-export interface SectionHeaderModel extends BasedAtomicModel {
+type SectionHeaderModel = BasedAtomicModel & {
   heading: string;
   headingLevel?: string;
-}
+};
 
-export interface PriceModel extends BasedAtomicModel {
+type PriceModel = BasedAtomicModel & {
   tag?: string;
   price?: {
     value?: string;
@@ -19,13 +16,13 @@ export interface PriceModel extends BasedAtomicModel {
   info?: string;
   button?: ButtonModel;
   list?: ListModel;
-}
+};
 
-export interface ItemModel extends BasedAtomicModel {
+type ItemModel = BasedAtomicModel & {
   text?: string;
   icon?: IconModel;
-}
+};
 
-export interface ListModel extends BasedAtomicModel {
+type ListModel = BasedAtomicModel & {
   items?: ItemModel[];
-}
+};

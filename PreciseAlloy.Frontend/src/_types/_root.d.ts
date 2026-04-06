@@ -1,22 +1,20 @@
-import { FC } from 'react';
-
-export interface SinglePageNode {
+type SinglePageNode = {
   type: 'single';
   name: string;
   path: string;
 
-  component?: FC<any>;
-}
+  component?: import('react').FC<any>;
+};
 
-export interface MultiplePageNode {
+type MultiplePageNode = {
   type: 'collection';
   name: string;
   items: SinglePageNode[];
   path: undefined;
-}
+};
 
-export type RootItemModel = SinglePageNode | MultiplePageNode;
+type RootItemModel = SinglePageNode | MultiplePageNode;
 
-export interface RootModel {
+type RootModel = {
   routes: RootItemModel[];
-}
+};

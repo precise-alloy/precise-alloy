@@ -1,5 +1,4 @@
 import { getModifiers } from '@helpers/functions';
-import { ErrorMessageModel } from '@_types/atoms';
 
 const ErrorMessage = (model: ErrorMessageModel) => {
   const { error } = model;

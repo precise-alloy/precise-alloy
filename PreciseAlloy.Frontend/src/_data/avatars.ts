@@ -1,5 +1,3 @@
-import { AvatarModel } from '@_types/organisms';
-
 const avatars: AvatarModel[] = [
   {
     name: 'Peg Legge',

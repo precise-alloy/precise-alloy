@@ -1,6 +1,4 @@
-import { BasedAtomicModel } from './_general';
-
-export interface ButtonModel extends BasedAtomicModel {
+type ButtonModel = BasedAtomicModel & {
   disabled?: boolean;
   href?: string;
   link?: boolean;
@@ -8,9 +6,9 @@ export interface ButtonModel extends BasedAtomicModel {
   text: string;
   type?: 'button' | 'submit';
   target?: string;
-}
+};
 
-export interface PictureModel extends BasedAtomicModel {
+type PictureModel = BasedAtomicModel & {
   sources?: {
     media?: string;
     srcSet?: string;
@@ -20,25 +18,25 @@ export interface PictureModel extends BasedAtomicModel {
   lazy?: boolean;
   width?: string;
   height?: string;
-}
+};
 
-export interface IconModel extends BasedAtomicModel {
+type IconModel = BasedAtomicModel & {
   iconPath: string;
   viewBoxWidth: number;
   viewBoxHeight: number;
   width?: number;
   height?: number;
-}
+};
 
-export interface LinkWithIconModel extends BasedAtomicModel {
+type LinkWithIconModel = BasedAtomicModel & {
   url: string;
   icon: IconModel;
   target?: string;
   ariaLabel?: string;
   text?: string;
-}
+};
 
-export interface TextInputModel extends BasedAtomicModel {
+type TextInputModel = BasedAtomicModel & {
   id?: string;
   name?: string;
   label?: string;
@@ -46,17 +44,17 @@ export interface TextInputModel extends BasedAtomicModel {
   required?: boolean;
   requiredMessage?: string;
   type?: 'text' | 'email' | 'password';
-}
+};
 
-export interface TextareaModel extends BasedAtomicModel {
+type TextareaModel = BasedAtomicModel & {
   id?: string;
   name?: string;
   label?: string;
   placeHolder?: string;
   required?: boolean;
   requiredMessage?: string;
-}
+};
 
-export interface ErrorMessageModel extends BasedAtomicModel {
+type ErrorMessageModel = BasedAtomicModel & {
   error?: string;
-}
+};

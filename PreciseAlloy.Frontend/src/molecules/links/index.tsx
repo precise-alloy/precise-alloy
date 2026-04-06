@@ -1,5 +1,4 @@
 import { getModifiers } from '@helpers/functions';
-import { LinkListWithIconModel } from '@_types/types';
 import LinkWithIcon from '@atoms/links';
 
 const LinkListWithIcon = (model: LinkListWithIconModel) => {

@@ -1,13 +1,11 @@
-import { FC } from 'react';
-
-export interface StoryCollectionMeta {
+type StoryCollectionMeta = {
   $$name: string;
   $$path: string;
-}
+};
 
-export interface Story {
+type Story = {
   name: string;
   path: string;
 
-  render: FC<any>;
-}
+  render: import('react').FC<any>;
+};

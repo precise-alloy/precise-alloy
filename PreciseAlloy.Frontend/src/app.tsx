@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { viteAbsoluteUrl } from '@helpers/functions';
 import { createElement, ReactElement } from 'react';
-import { MultiplePageNode, SinglePageNode } from '@_types/_root';
 
 import { nodes } from './routes';
 

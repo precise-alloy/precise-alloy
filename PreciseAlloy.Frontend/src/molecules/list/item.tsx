@@ -1,4 +1,3 @@
-import { ItemModel } from '@_types/molecules';
 import Icon from '@atoms/icons';
 import { getModifiers } from '@helpers/functions';
 

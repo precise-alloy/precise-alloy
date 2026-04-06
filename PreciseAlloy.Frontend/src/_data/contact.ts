@@ -1,4 +1,3 @@
-import { ContactFormModel, ContactModel } from '@_types/organisms';
 import { ContactFormResponseModel } from '@organisms/contact/contact-form';
 
 const contact: ContactModel = {

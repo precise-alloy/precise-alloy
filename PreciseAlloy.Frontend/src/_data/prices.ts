@@ -1,5 +1,3 @@
-import { PricesModel } from '@_types/organisms';
-
 const prices: PricesModel = {
   globalModifier: ['section-margin-top'],
   label: 'SERVICES',

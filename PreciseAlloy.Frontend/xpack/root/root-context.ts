@@ -1,4 +1,3 @@
-import { SinglePageNode } from '@_types/types';
 import { createContext, useContext } from 'react';
 
 export interface RootData {

@@ -3,7 +3,6 @@ import { getModifiers } from '@helpers/functions';
 import RequireCss from '@helpers/RequireCss';
 import SectionHeader from '@molecules/section-header';
 import { EpiForm } from '@organisms/epi-form/epi-form';
-import { ContactModel } from '@_types/organisms';
 
 const Contact = (model: ContactModel) => {
   const modifiers = getModifiers(model, 'zzz-o-contact');

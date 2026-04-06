@@ -1,7 +1,6 @@
 import { getModifiers } from '@helpers/functions';
 import RequireCss from '@helpers/RequireCss';
 import RequireJs from '@helpers/RequireJs';
-import { HeaderModel } from '@_types/organisms';
 import Icon from '@atoms/icons';
 
 const Header = (model: HeaderModel) => {

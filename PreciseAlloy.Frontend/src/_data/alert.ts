@@ -1,5 +1,3 @@
-import { AlertModel } from '@_types/organisms';
-
 export const alert: AlertModel = {
   heading: 'Sample Alert!',
   items: [

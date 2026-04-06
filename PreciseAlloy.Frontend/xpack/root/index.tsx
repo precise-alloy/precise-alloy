@@ -1,6 +1,5 @@
 'use client';
 
-import { RootModel, SinglePageNode } from '@_types/types';
 import { useEffect, useMemo, useState } from 'react';
 import { viteAbsoluteUrl } from '@helpers/functions';
 

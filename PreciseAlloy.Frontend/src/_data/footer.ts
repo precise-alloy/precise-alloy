@@ -1,5 +1,3 @@
-import { FooterModel } from '@_types/types';
-
 const footer: FooterModel = {
   globalModifier: ['section-margin-top-xl'],
   linkList: {

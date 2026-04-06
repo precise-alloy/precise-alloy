@@ -1,5 +1,4 @@
 import { getModifiers } from '@helpers/functions';
-import { PictureModel } from '@_types/types';
 
 const Picture = (model: PictureModel) => {
   const { sources, src, alt, width, height, lazy = true } = model;

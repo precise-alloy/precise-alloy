@@ -1,4 +1,3 @@
-import { PricesModel } from '@_types/organisms';
 import RequireCss from '@helpers/RequireCss';
 import { getModifiers } from '@helpers/functions';
 import Price from '@molecules/prices';

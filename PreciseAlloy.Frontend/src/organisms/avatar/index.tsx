@@ -1,4 +1,3 @@
-import { AvatarModel } from '@_types/organisms';
 import Picture from '@atoms/pictures';
 import RequireCss from '@helpers/RequireCss';
 

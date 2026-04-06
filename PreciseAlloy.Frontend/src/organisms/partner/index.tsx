@@ -1,4 +1,3 @@
-import { PartnerModel } from '@_types/types';
 import Button from '@atoms/buttons';
 import Picture from '@atoms/pictures';
 import RequireCss from '@helpers/RequireCss';

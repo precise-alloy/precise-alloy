@@ -1,5 +1,3 @@
-import { TeaserModel } from '@_types/types';
-
 const teaser: TeaserModel = {
   globalModifier: ['section-margin-top-xl'],
   header: {

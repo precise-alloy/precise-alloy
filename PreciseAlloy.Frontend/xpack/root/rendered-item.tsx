@@ -1,4 +1,3 @@
-import { SinglePageNode } from '@_types/_root';
 import { MouseEvent } from 'react';
 import { viteAbsoluteUrl } from '@helpers/functions';
 

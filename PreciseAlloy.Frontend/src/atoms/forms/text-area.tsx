@@ -1,5 +1,4 @@
 import { getModifiers } from '@helpers/functions';
-import { TextareaModel } from '@_types/atoms';
 import { useFormContext } from 'react-hook-form';
 
 import { FormValuesModel } from './text-input';

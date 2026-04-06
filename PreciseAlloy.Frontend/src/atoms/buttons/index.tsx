@@ -1,5 +1,4 @@
 import { getModifiers } from '@helpers/functions';
-import { ButtonModel } from '@_types/types';
 
 const Button = (model: ButtonModel) => {
   const { href, link, text, type, target } = model;

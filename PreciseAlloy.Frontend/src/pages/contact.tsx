@@ -1,4 +1,3 @@
-import { Story, StoryCollectionMeta } from '@_types/story';
 import { alert } from '@data/alert';
 import { contact } from '@data/contact';
 import { footer } from '@data/footer';
@@ -10,7 +9,7 @@ export default {
   $$path: 'contact',
 } as StoryCollectionMeta;
 
-export const About: Story = {
+export const Contact: Story = {
   name: 'Contact Page - Default',
   path: 'default',
   render: () => {

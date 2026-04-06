@@ -1,4 +1,3 @@
-import { HeroModel, PartnerModel, PeopleModel, TeaserModel, FooterModel, HeaderModel } from '@_types/organisms';
 import Partner from '@organisms/partner';
 import Footer from '@organisms/footer';
 import Hero from '@organisms/hero';

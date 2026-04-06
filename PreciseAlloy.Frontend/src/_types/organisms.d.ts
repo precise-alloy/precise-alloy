@@ -1,51 +1,47 @@
-import { BasedAtomicModel } from './_general';
-import { ButtonModel, PictureModel, TextInputModel } from './atoms';
-import { PriceModel, SectionHeaderModel } from './molecules';
-
-export interface AvatarModel extends BasedAtomicModel {
+type AvatarModel = BasedAtomicModel & {
   image: PictureModel;
   name: string;
   jobTitle: string;
-}
+};
 
-export interface PeopleModel extends BasedAtomicModel {
+type PeopleModel = BasedAtomicModel & {
   subHeader?: string;
   header?: string;
   text?: string;
   items?: AvatarModel[];
   button?: ButtonModel;
-}
+};
 
-interface PartnerModel extends BasedAtomicModel {
+type PartnerModel = BasedAtomicModel & {
   button?: ButtonModel;
   label?: string;
   header?: SectionHeaderModel;
   description?: string;
   images?: PictureModel[];
-}
+};
 
-interface TeaserModel extends BasedAtomicModel {
+type TeaserModel = BasedAtomicModel & {
   styleModifier?: 'image-left'[];
   button?: ButtonModel;
   header?: SectionHeaderModel;
   description?: string;
   image?: PictureModel;
-}
+};
 
-interface HeroModel extends BasedAtomicModel {
+type HeroModel = BasedAtomicModel & {
   button?: ButtonModel;
   label?: string;
   header?: SectionHeaderModel;
   description?: string;
   image?: PictureModel;
-}
+};
 
-interface FooterModel extends BasedAtomicModel {
+type FooterModel = BasedAtomicModel & {
   linkList?: LinkListWithIconModel;
   copyright?: string;
-}
+};
 
-interface HeaderModel extends BasedAtomicModel {
+type HeaderModel = BasedAtomicModel & {
   logo?: {
     src: string;
   };
@@ -56,58 +52,58 @@ interface HeaderModel extends BasedAtomicModel {
       url?: string;
     }[];
   };
-}
+};
 
-interface PortfolioModel extends BasedAtomicModel {
+type PortfolioModel = BasedAtomicModel & {
   label?: string;
   header?: SectionHeaderModel;
   description?: string;
   images?: PictureModel[];
   button?: ButtonModel;
-}
+};
 
-interface PricesModel extends BasedAtomicModel {
+type PricesModel = BasedAtomicModel & {
   label?: string;
   header?: SectionHeaderModel;
   description?: string;
   items?: PriceModel[];
-}
+};
 
-interface ContactFormModel extends BasedAtomicModel {
+type ContactFormModel = BasedAtomicModel & {
   header?: SectionHeaderModel;
   name?: TextInputModel;
   email?: TextInputModel;
   message?: TextInputModel;
   submitButton?: ButtonModel;
-}
+};
 
-interface ContactModel extends BasedAtomicModel {
+type ContactModel = BasedAtomicModel & {
   header?: SectionHeaderModel;
   description?: string;
   form?: ContactFormModel;
   map?: PictureModel;
-}
+};
 
-interface AlertModel extends BasedAtomicModel {
+type AlertModel = BasedAtomicModel & {
   heading?: string;
   items?: string[];
-}
+};
 
-interface EpiFormTextFieldModel extends BasedAtomicModel {
+type EpiFormTextFieldModel = BasedAtomicModel & {
   id?: string;
   name?: string;
   label?: string;
   placeHolder?: string;
   required?: boolean;
   errorMessage?: string;
-}
+};
 
 type EpiFormTextAreaModel = EpiFormTextFieldModel;
 
-interface EpiFormModel extends BasedAtomicModel {
+type EpiFormModel = BasedAtomicModel & {
   name?: EpiFormTextFieldModel;
   email?: EpiFormTextFieldModel;
   message?: EpiFormTextAreaModel;
   action?: string;
   submitButton: ButtonModel;
-}
+};

@@ -1,5 +1,3 @@
-import { HeaderModel } from '@_types/organisms';
-
 const header: HeaderModel = {
   title: 'Start',
   navlinks: {

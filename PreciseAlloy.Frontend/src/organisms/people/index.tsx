@@ -1,4 +1,3 @@
-import { AvatarModel, PeopleModel } from '@_types/organisms';
 import Avatar from '@organisms/avatar';
 import Button from '@atoms/buttons';
 import { useEffect, useState } from 'react';

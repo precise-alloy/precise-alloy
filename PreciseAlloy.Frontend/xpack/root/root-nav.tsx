@@ -1,4 +1,3 @@
-import { MultiplePageNode, RootItemModel } from '@_types/types';
 import { debounce } from 'lodash';
 import { useRef, useCallback, useEffect, useState, useMemo } from 'react';
 import { viteAbsoluteUrl } from '@helpers/functions';

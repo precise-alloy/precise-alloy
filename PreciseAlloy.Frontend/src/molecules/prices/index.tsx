@@ -1,4 +1,3 @@
-import { PriceModel } from '@_types/types';
 import Button from '@atoms/buttons';
 import { getModifiers } from '@helpers/functions';
 import List from '@molecules/list';

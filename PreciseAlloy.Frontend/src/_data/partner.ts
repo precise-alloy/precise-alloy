@@ -1,5 +1,3 @@
-import { PartnerModel } from '@_types/types';
-
 const partner: PartnerModel = {
   globalModifier: ['section-margin-top'],
   label: 'PARTNERS',

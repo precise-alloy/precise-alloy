@@ -1,6 +1,5 @@
 import Button from '@atoms/buttons';
 import { getModifiers } from '@helpers/functions';
-import { ContactFormModel } from '@_types/organisms';
 import SectionHeader from '@molecules/section-header';
 import { FormProvider, useForm } from 'react-hook-form';
 import TextInput, { FormValuesModel } from '@atoms/forms/text-input';

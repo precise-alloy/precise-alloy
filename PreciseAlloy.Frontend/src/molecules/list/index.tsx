@@ -1,4 +1,3 @@
-import { ListModel } from '@_types/types';
 import { getModifiers } from '@helpers/functions';
 
 import Item from './item';

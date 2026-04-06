@@ -1,5 +1,4 @@
 import { getModifiers } from '@helpers/functions';
-import { TextInputModel } from '@_types/atoms';
 import { useFormContext } from 'react-hook-form';
 
 import ErrorMessage from './error-message';
