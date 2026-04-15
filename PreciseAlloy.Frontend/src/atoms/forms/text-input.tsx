@@ -1,4 +1,3 @@
-import { getModifiers } from '@helpers/functions';
 import { useFormContext } from 'react-hook-form';
 
 import ErrorMessage from './error-message';

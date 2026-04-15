@@ -1,5 +1,4 @@
 import RequireCss from '@helpers/RequireCss';
-import { getModifiers } from '@helpers/functions';
 import Price from '@molecules/prices';
 import SectionHeader from '@molecules/section-header';
 

@@ -1,5 +1,14 @@
-window.appApi =
-  window.appApi ||
+type RuntimeGlobal = typeof globalThis & { window?: Window & typeof globalThis };
+
+const runtimeGlobal = globalThis as RuntimeGlobal;
+const runtimeWindow = (typeof window !== 'undefined' ? window : runtimeGlobal) as Window & typeof globalThis;
+
+if (typeof window === 'undefined') {
+  runtimeGlobal.window = runtimeWindow;
+}
+
+runtimeWindow.appApi =
+  runtimeWindow.appApi ||
   (() => {
     const METHODS = {
       GET: 'GET',
@@ -12,7 +21,8 @@ window.appApi =
     type Method = (typeof METHODS)[keyof typeof METHODS];
 
     const getApiUrl = (remain: string, params?: RequestParams) => {
-      const baseApiUrl = import.meta.env.VITE_APP_API_URL ?? window.location.origin;
+      const fallbackOrigin = typeof location !== 'undefined' ? location.origin : 'http://localhost';
+      const baseApiUrl = import.meta.env.VITE_APP_API_URL ?? fallbackOrigin;
       const url = new URL(remain, baseApiUrl);
 
       if (params) {

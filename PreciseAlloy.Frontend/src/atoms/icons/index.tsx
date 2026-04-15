@@ -1,5 +1,3 @@
-import { getModifiers } from '@helpers/functions';
-
 const Icon = (model: IconModel) => {
   const { height, iconPath, viewBoxHeight, viewBoxWidth, width } = model;
   const styleModifiers = getModifiers(model, 'zzz-a-icon');

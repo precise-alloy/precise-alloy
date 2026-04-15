@@ -1,5 +1,4 @@
 import Picture from '@atoms/pictures';
-import { getModifiers } from '@helpers/functions';
 import RequireCss from '@helpers/RequireCss';
 import SectionHeader from '@molecules/section-header';
 import { EpiForm } from '@organisms/epi-form/epi-form';

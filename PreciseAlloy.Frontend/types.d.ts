@@ -58,6 +58,9 @@ interface Window {
   setCartCount: (count: string | number) => void;
   setState: (name: string, value: string) => void;
   renderComponents: () => void;
+  getCookie: (name: string) => string | undefined;
+  generatePagingData: (numberPages: number, currentPage: number, range?: number) => number[];
+  roundNumber: (num: number | boolean | undefined | string | null, numberDecimalDigit?: number) => string;
 
   appApi: {
     getAsync: <T>(remain: string, params?: RequestParams) => Promise<T>;
@@ -67,6 +70,9 @@ interface Window {
     deleteAsync: <T>(remain: string, params?: RequestParams, body?: unknown, skipResponseBody?: boolean) => Promise<T>;
   };
 }
+
+declare const viteAbsoluteUrl: (path: string, addExtension?: boolean) => string;
+declare const getModifiers: (model: BasedAtomicModel, baseClass: string) => string;
 
 interface Element {
   observeResize: (callback: () => void) => void;

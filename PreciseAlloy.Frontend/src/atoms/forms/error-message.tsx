@@ -1,5 +1,3 @@
-import { getModifiers } from '@helpers/functions';
-
 const ErrorMessage = (model: ErrorMessageModel) => {
   const { error } = model;
   const modifiers = getModifiers(model, 'zzz-a-error-message');

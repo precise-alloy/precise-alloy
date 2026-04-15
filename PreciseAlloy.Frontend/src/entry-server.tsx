@@ -1,7 +1,10 @@
 /* eslint-disable no-console */
+
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
+import './assets/scripts/main/functions';
+import './assets/scripts/main/api';
 import { routesToPrerender } from './routes';
 import { App } from './app';
 

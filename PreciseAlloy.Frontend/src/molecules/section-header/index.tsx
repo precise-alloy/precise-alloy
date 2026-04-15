@@ -1,5 +1,3 @@
-import { getModifiers } from '@helpers/functions';
-
 const SectionHeader = (model: SectionHeaderModel) => {
   const { heading, headingLevel } = model;
   const styleModifiers = getModifiers(model, 'zzz-m-section-header');

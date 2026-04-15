@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import { viteAbsoluteUrl } from '@helpers/functions';
 import { createElement, ReactElement } from 'react';
 
 import { nodes } from './routes';

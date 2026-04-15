@@ -74,7 +74,7 @@ type ContactFormModel = BasedAtomicModel & {
   name?: TextInputModel;
   email?: TextInputModel;
   message?: TextInputModel;
-  submitButton?: ButtonModel;
+  submitButton: ButtonModel;
 };
 
 type ContactModel = BasedAtomicModel & {

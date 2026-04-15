@@ -1,7 +1,6 @@
 import Button from '@atoms/buttons';
 import Picture from '@atoms/pictures';
 import RequireCss from '@helpers/RequireCss';
-import { getModifiers } from '@helpers/functions';
 import SectionHeader from '@molecules/section-header';
 
 const Partner = (model: PartnerModel) => {

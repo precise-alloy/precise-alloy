@@ -14,7 +14,6 @@ export const root = slash(path.resolve(__dirname, '..'));
 export const xpackEnv = loadEnv(mode, root);
 
 export const srcRoot = slash(path.resolve(root, 'src'));
-export const typesRoot = slash(path.resolve(srcRoot, '_types'));
 export const viteSharedRoot = slash(path.resolve(root, 'xpack/shared'));
 export const outDir = slash(path.resolve(root, 'dist'));
 

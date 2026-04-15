@@ -1,5 +1,4 @@
 import Button from '@atoms/buttons';
-import { getModifiers } from '@helpers/functions';
 import List from '@molecules/list';
 
 const Price = (model: PriceModel) => {

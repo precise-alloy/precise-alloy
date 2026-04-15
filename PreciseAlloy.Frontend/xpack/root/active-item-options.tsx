@@ -1,5 +1,4 @@
 import { createRef, MouseEvent, useState } from 'react';
-import { viteAbsoluteUrl } from '@helpers/functions';
 
 import { useRootContext } from './root-context';
 import { useOnClickOutside } from './use-click-outside';

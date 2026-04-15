@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { viteAbsoluteUrl } from '@helpers/functions';
 
 import { RootContext, RootData } from './root-context';
 import FrameControls from './frame-controls';

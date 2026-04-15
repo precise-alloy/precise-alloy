@@ -1,5 +1,3 @@
-import { viteAbsoluteUrl } from './functions';
-
 interface Props {
   path: string;
   rel?: 'stylesheet' | 'modulepreload';

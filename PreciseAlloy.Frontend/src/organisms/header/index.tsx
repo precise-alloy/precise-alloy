@@ -1,4 +1,3 @@
-import { getModifiers } from '@helpers/functions';
 import RequireCss from '@helpers/RequireCss';
 import RequireJs from '@helpers/RequireJs';
 import Icon from '@atoms/icons';

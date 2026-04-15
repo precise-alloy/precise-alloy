@@ -21,9 +21,6 @@
     "jsx": "react-jsx",
     "sourceMap": true,
     "paths": {
-      "@_types/*": [
-        "./src/_types/*"
-      ],
       "@helpers/*": [
         "./src/_helpers/*"
       ],

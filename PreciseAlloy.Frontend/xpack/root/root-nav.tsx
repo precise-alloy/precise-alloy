@@ -1,6 +1,5 @@
 import { debounce } from 'lodash';
 import { useRef, useCallback, useEffect, useState, useMemo } from 'react';
-import { viteAbsoluteUrl } from '@helpers/functions';
 
 import { useRootContext } from './root-context';
 import { useOnClickOutside } from './use-click-outside';

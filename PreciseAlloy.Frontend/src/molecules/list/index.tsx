@@ -1,5 +1,3 @@
-import { getModifiers } from '@helpers/functions';
-
 import Item from './item';
 
 const List = (model: ListModel) => {

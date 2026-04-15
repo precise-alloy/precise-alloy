@@ -1,5 +1,4 @@
 import RequireCss from '@helpers/RequireCss';
-import { getModifiers } from '@helpers/functions';
 import LinkListWithIcon from '@molecules/links';
 
 const Footer = (model: FooterModel) => {

@@ -1,5 +1,3 @@
-import { getModifiers } from '@helpers/functions';
-
 const TextField = (model: EpiFormTextFieldModel) => {
   const { label, name, placeHolder, id, required, errorMessage } = model;
   const modifiers = getModifiers(model, 'Form__Element FormTextbox');

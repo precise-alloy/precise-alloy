@@ -1,5 +1,4 @@
 import Icon from '@atoms/icons';
-import { getModifiers } from '@helpers/functions';
 
 const Item = (model: ItemModel) => {
   const styleModifiers = getModifiers(model, 'zzz-m-item');
