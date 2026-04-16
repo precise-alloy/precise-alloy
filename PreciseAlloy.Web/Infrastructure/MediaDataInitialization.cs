@@ -16,7 +16,7 @@ public class MediaDataInitialization
 {
     public void Initialize(InitializationEngine context)
     {
-        var contentEvent = context.Locate.Advanced.GetInstance<IContentEvents>();
+        var contentEvent = context.Services.GetInstance<IContentEvents>();
         contentEvent.SavingContent += OnSavingContent;
     }
 

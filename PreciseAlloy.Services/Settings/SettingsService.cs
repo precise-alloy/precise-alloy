@@ -1,8 +1,10 @@
 ﻿using EPiServer;
+using EPiServer.Applications;
 using EPiServer.Cms.Shell;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAccess;
+using EPiServer.Events;
 using EPiServer.Framework.Cache;
 using EPiServer.Framework.TypeScanner;
 using EPiServer.Globalization;
@@ -19,8 +21,8 @@ namespace PreciseAlloy.Services.Settings;
 public partial class SettingsService
     : ISettingsService
 {
-    public const string SettingServicesMasterCacheKey = "PreciseAlloy-SiteSettings";
-    public const string LanguageSettingsCacheKey = "PreciseAlloy-SiteSettings-LanguageSettings";
+    private const string SettingServicesMasterCacheKey = "PreciseAlloy-SiteSettings";
+    private const string LanguageSettingsCacheKey = "PreciseAlloy-SiteSettings-LanguageSettings";
 
     private readonly IContentEvents _contentEvents;
     private readonly IContentLanguageSettingsHandler _contentLanguageSettingsHandler;
@@ -30,9 +32,7 @@ public partial class SettingsService
     private readonly IContextModeResolver _contextModeResolver;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<SettingsService> _logger;
-    private readonly ISiteDefinitionEvents _siteDefinitionEvents;
-    private readonly ISiteDefinitionRepository _siteDefinitionRepository;
-    private readonly ISiteDefinitionResolver _siteDefinitionResolver;
+    private readonly IApplicationRepository _applicationRepository;
     private readonly ISynchronizedObjectInstanceCache _cacheManager;
     private readonly ITypeScannerLookup _typeScannerLookup;
     private readonly ContentRootService _contentRootService;
@@ -47,9 +47,7 @@ public partial class SettingsService
         IContextModeResolver contextModeResolver,
         IHttpContextAccessor httpContextAccessor,
         ILogger<SettingsService> logger,
-        ISiteDefinitionEvents siteDefinitionEvents,
-        ISiteDefinitionRepository siteDefinitionRepository,
-        ISiteDefinitionResolver siteDefinitionResolver,
+        IApplicationRepository applicationRepository,
         ISynchronizedObjectInstanceCache cacheManager,
         ITypeScannerLookup typeScannerLookup,
         ContentRootService contentRootService)
@@ -62,9 +60,7 @@ public partial class SettingsService
         _contextModeResolver = contextModeResolver;
         _httpContextAccessor = httpContextAccessor;
         _logger = logger;
-        _siteDefinitionEvents = siteDefinitionEvents;
-        _siteDefinitionRepository = siteDefinitionRepository;
-        _siteDefinitionResolver = siteDefinitionResolver;
+        _applicationRepository = applicationRepository;
         _cacheManager = cacheManager;
         _typeScannerLookup = typeScannerLookup;
         _contentRootService = contentRootService;
@@ -80,7 +76,7 @@ public partial class SettingsService
         }
         catch (NotSupportedException notSupportedException)
         {
-            _logger.LogError(notSupportedException, $"[Settings] {notSupportedException.Message}");
+            _logger.LogError(notSupportedException, "[Settings] {message}", notSupportedException.Message);
             throw;
         }
 
@@ -90,9 +86,6 @@ public partial class SettingsService
         _contentEvents.SavedContent += SavedContent;
         _contentEvents.MovedContent += MovedContent;
         _contentEvents.DeletedContentLanguage += DeletedContentLanguage;
-        _siteDefinitionEvents.SiteCreated += SiteCreated;
-        _siteDefinitionEvents.SiteUpdated += SiteUpdated;
-        _siteDefinitionEvents.SiteDeleted += SiteDeleted;
     }
 
     public void UpdateSettings()
@@ -110,7 +103,7 @@ public partial class SettingsService
 
         GlobalSettingsRoot = root.ContentLink;
         var children = _contentRepository.GetChildren<SettingsFolder>(GlobalSettingsRoot).ToList();
-        foreach (var site in _siteDefinitionRepository.List())
+        foreach (var site in _applicationRepository.List())
         {
             var folder = children.Find(x => x.Name.Equals(site.Name, StringComparison.InvariantCultureIgnoreCase));
             if (folder != null)
@@ -128,7 +121,7 @@ public partial class SettingsService
                     {
                         settingsTypes.Add(settingType);
                     }
-                    RepopulateCacheForAllLanguage(site.Id, child);
+                    RepopulateCacheForAllLanguage(site.Name, child);
                 }
             }
             else
@@ -139,7 +132,7 @@ public partial class SettingsService
     }
 
     public T? GetSiteSettings<T>(
-        Guid? siteId = null,
+        string? siteId = null,
         string? language = null)
         where T : SettingsBase
     {
@@ -150,10 +143,10 @@ public partial class SettingsService
             contentType = registerType.GetType();
         }
         var contentLanguage = language ?? ContentLanguage.PreferredCulture.Name;
-        if (!siteId.HasValue)
+        if (siteId is null)
         {
             siteId = ResolveSiteId();
-            if (siteId == Guid.Empty)
+            if (siteId is null)
             {
                 return default;
             }
@@ -161,7 +154,7 @@ public partial class SettingsService
         try
         {
             var settings = GetSettingFromCache(
-                siteId.Value, contentType,
+                siteId, contentType,
                 _contextModeResolver.CurrentMode == ContextMode.Edit);
 
             if (settings.FirstOrDefault() is not { Value: { } } setting)
@@ -206,7 +199,7 @@ public partial class SettingsService
         UpdateSettings();
     }
 
-    private Dictionary<string, SettingsBase?> GetSettingFromCache(Guid siteId, Type type, bool isEditMod)
+    private Dictionary<string, SettingsBase?> GetSettingFromCache(string siteId, Type type, bool isEditMod)
     {
         //If cache cleared
         if (_cacheManager.Get(CreateCacheKey(siteId, type, isEditMod)) is Dictionary<string, SettingsBase?>
@@ -227,7 +220,7 @@ public partial class SettingsService
 
     }
 
-    private bool RepopulateCacheForAllLanguage(Guid siteId, Type type)
+    private bool RepopulateCacheForAllLanguage(string siteId, Type type)
     {
         var root = _contentRepository.GetItems(_contentRootService.List(), new LoaderOptions())
             .FirstOrDefault(x => x.ContentGuid == SettingsFolder.SettingsRootGuid)
@@ -238,7 +231,7 @@ public partial class SettingsService
             return false;
         }
 
-        var site = _siteDefinitionRepository.Get(siteId);
+        var site = _applicationRepository.Get(siteId);
         if (site == null)
         {
             return false;
@@ -270,7 +263,7 @@ public partial class SettingsService
     }
 
     // ReSharper disable once SuggestBaseTypeForParameter
-    private void RepopulateCacheForAllLanguage(Guid siteId, SettingsBase settings)
+    private void RepopulateCacheForAllLanguage(string siteId, SettingsBase settings)
     {
         var publishedSettings = new Dictionary<string, SettingsBase?>();
         var draftSettings = new Dictionary<string, SettingsBase?>();
@@ -297,7 +290,7 @@ public partial class SettingsService
     }
 
     private void InsertSettingToCache(
-        Guid siteId,
+        string siteId,
         Type type,
         bool isEditMode,
         Dictionary<string, SettingsBase?> settingOfType)
@@ -314,7 +307,7 @@ public partial class SettingsService
 
     /// <remarks>Remove cache so ISynchronizedObjectInstanceCache will remove cache from all CDN server, cache</remarks>
     private void RemoveCache<T>(
-        Guid siteId,
+        string siteId,
         T? settings)
         where T : SettingsBase
     {
@@ -363,8 +356,9 @@ public partial class SettingsService
             : [];
     }
 
-    private void CreateSiteFolder(SiteDefinition siteDefinition)
+    private void CreateSiteFolder(Application siteDefinition)
     {
+        var site = siteDefinition as Website;
         var folder = _contentRepository.GetDefault<SettingsFolder>(GlobalSettingsRoot);
         folder.Name = siteDefinition.Name;
         var reference = _contentRepository.Save(folder, SaveAction.Publish, AccessLevel.NoAccess);
@@ -388,7 +382,7 @@ public partial class SettingsService
             _contentRepository.Save(newSettings, SaveAction.Publish, AccessLevel.NoAccess);
 
             InsertSettingToCache(
-                siteDefinition.Id,
+                siteDefinition.Name,
                 newSettings.GetOriginalType(),
                 false,
                 new Dictionary<string, SettingsBase?>
@@ -397,7 +391,7 @@ public partial class SettingsService
                 });
 
             InsertSettingToCache(
-                siteDefinition.Id,
+                siteDefinition.Name,
                 newSettings.GetOriginalType(),
                 true,
                 new Dictionary<string, SettingsBase?>
@@ -407,7 +401,7 @@ public partial class SettingsService
         }
     }
 
-    private static string CreateCacheKey(Guid siteId, Type type, bool isEditMode)
+    private static string CreateCacheKey(string siteId, Type type, bool isEditMode)
     {
         return isEditMode
             ? $"{SettingServicesMasterCacheKey}-{siteId}-common-draft-{type.FullName}"

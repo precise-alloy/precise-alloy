@@ -24,7 +24,7 @@ internal static class TabNames
     public const string SiteMetaData = "SiteMetaData";
 
     [Display(Order = 1800, Name = "Content References")]
-    public const string ContentReferences = "Content References";
+    public const string ContentReferences = "ContentReferences";
 
     [Display(Order = 1900, Name = "Site Settings")]
     public const string SiteSettings = "SiteSettings";

@@ -15,8 +15,7 @@ public class RequestContext
     private readonly IContentLoader _contentLoader;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly ILogger<RequestContext> _logger;
-    private readonly IPageRouteHelper _pageRouteHelper;
-    private readonly ISettingsService _settingsService;
+    private readonly IContentRouteHelper _pageRouteHelper;
     private const string CurrentPageContext = "Context::CurrentPage";
     private const string CurrentLayoutSettingsContext = "Context::CurrentLayoutSettings";
     private const string CurrentDigitalDataContext = "Context::CurrentDigitalData";
@@ -25,7 +24,7 @@ public class RequestContext
         IContentLoader contentLoader,
         IHttpContextAccessor httpContextAccessor,
         ILogger<RequestContext> logger,
-        IPageRouteHelper pageRouteHelper,
+        IContentRouteHelper pageRouteHelper,
         ISettingsService settingsService)
     {
         _logger = logger;
@@ -33,7 +32,6 @@ public class RequestContext
         _contentLoader = contentLoader;
         _httpContextAccessor = httpContextAccessor;
         _pageRouteHelper = pageRouteHelper;
-        _settingsService = settingsService;
         _logger.ExitConstructor();
     }
 
@@ -52,14 +50,16 @@ public class RequestContext
     private PageData? GetCurrentPage()
     {
         // Replicating CMS 11 behavior - returning Start Page, if current page is not defined
-        var pageLink = _pageRouteHelper.PageLink;
-        pageLink = !ContentReference.IsNullOrEmpty(pageLink)
-            ? pageLink
-            : ContentReference.StartPage;
+        if (_pageRouteHelper.Content is PageData pageData)
+        {
+            return pageData;
+        }
 
-        return _contentLoader.TryGet<PageData>(pageLink, out var result)
-            ? result
-            : _pageRouteHelper.Page;
+        return _contentLoader.TryGet<PageData>(
+            ContentReference.StartPage,
+            out var startPageData)
+            ? startPageData
+            : null;
     }
 
     public void SetPageSubstitute(PageData page)
@@ -88,7 +88,9 @@ public class RequestContext
         _logger.ExitMethod();
     }
 
-    private TEntity? ForceGet<TEntity>(string key, Func<TEntity?> getEntity)
+    private TEntity? ForceGet<TEntity>(
+        string key,
+        Func<TEntity?> getEntity)
         where TEntity : class
     {
         _logger.EnterMethod();
@@ -111,10 +113,7 @@ public class RequestContext
         }
 
         var result = getEntity();
-        if (items != null)
-        {
-            items[key] = result ?? NullObject;
-        }
+        items?[key] = result ?? NullObject;
 
         _logger.ExitMethod();
         return result;

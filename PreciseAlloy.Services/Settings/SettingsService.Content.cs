@@ -1,7 +1,6 @@
 ﻿using EPiServer;
 using EPiServer.Cms.Shell;
 using EPiServer.Core;
-using EPiServer.Web;
 using PreciseAlloy.Models.Settings;
 
 namespace PreciseAlloy.Services.Settings;
@@ -23,13 +22,13 @@ public partial class SettingsService
         }
 
         var id = ResolveSiteId();
-        if (id == Guid.Empty)
+        if (id is null)
         {
             return;
         }
 
-        //Only need to update one cached draft settings when saving content (draft)
-        //Only update locally since save happens very often and don't really need to update draft change on other server in CDN
+        // Only need to update one cached draft settings when saving content (draft)
+        // Only update locally since save happens very often and don't really need to update draft change on other server in CDN
         var type = settings.GetOriginalType();
         var settingsOfType = GetSettingFromCache(id, type, true);
         settingsOfType[settings.LanguageBranch()] = settings;
@@ -51,19 +50,19 @@ public partial class SettingsService
         }
 
         var parent = _contentRepository.Get<IContent>(e.Content.ParentLink);
-        var site = _siteDefinitionRepository.Get(parent.Name);
+        var site = _applicationRepository.Get(parent.Name);
 
-        var id = site?.Id;
-        if (id == null || id == Guid.Empty)
+        var id = site?.Name;
+        if (id is null)
         {
             return;
         }
 
-        //Repopulate for all language: master lang update => other cached read from master will need to be changed,
-        //fall back language change might lead to dependent language contents change
-        //Also cached draft settings might need to be changed
+        // Repopulate for all language: master lang update => other cached read from master will need to be changed,
+        // fall back language change might lead to dependent language contents change
+        // Also cached draft settings might need to be changed
         // So just to be safe, just repopulate everything, instead of checking for every possible cases above
-        RemoveCache(id.Value, settings);
+        RemoveCache(id, settings);
     }
 
     private void DeletedContentLanguage(
@@ -81,15 +80,15 @@ public partial class SettingsService
         }
 
         var parent = _contentRepository.Get<IContent>(e.Content.ParentLink);
-        var site = _siteDefinitionRepository.Get(parent.Name);
+        var site = _applicationRepository.Get(parent.Name);
 
-        var id = site?.Id;
-        if (id == null || id == Guid.Empty)
+        var id = site?.Name;
+        if (id is null)
         {
             return;
         }
 
-        RemoveCache(id.Value, settings);
+        RemoveCache(id, settings);
     }
 
     private void MovedContent(

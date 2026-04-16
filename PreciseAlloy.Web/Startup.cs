@@ -1,17 +1,18 @@
 using Advanced.CMS.GroupingHeader;
 using Baaijte.Optimizely.ImageSharp.Web;
-using EPiServer.Cms.Shell;
+using EPiServer.Applications;
 using EPiServer.Cms.UI.AspNetIdentity;
+using EPiServer.DataAbstraction.RuntimeModel;
+using EPiServer.DependencyInjection;
 using EPiServer.Framework.Web.Resources;
 using EPiServer.Scheduler;
 using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
-using Geta.NotFoundHandler.Infrastructure.Initialization;
-using Geta.NotFoundHandler.Optimizely.Infrastructure.Initialization;
 using Geta.Optimizely.ContentTypeIcons.Infrastructure.Configuration;
 using Geta.Optimizely.ContentTypeIcons.Infrastructure.Initialization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Net.Http.Headers;
 using PreciseAlloy.Services.Request;
 using PreciseAlloy.Services.Settings;
@@ -53,15 +54,16 @@ public partial class Startup(
             .AddMvc(o => o.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
             .AddRazorOptions(x => { x.ViewLocationExpanders.Add(new CustomViewLocationExpander()); });
 
-        services.AddContentTypeIcons(x =>
-        {
-            x.EnableTreeIcons = true;
-            x.ForegroundColor = "#ffffff";
-            x.BackgroundColor = "#a1331f";
-            x.FontSize = 40;
-            x.CustomFontPath = Path.Combine(webHostEnvironment.WebRootPath, "assets", "fonts");
-            x.CachePath = Path.Combine(webHostEnvironment.ContentRootPath, "App_Data", "thumb_cache", "thumb_cache_");
-        });
+        // TODO: Uncomment after upgrading to 13.10.0 or later
+        //services.AddContentTypeIcons(x =>
+        //{
+        //    x.EnableTreeIcons = true;
+        //    x.ForegroundColor = "#ffffff";
+        //    x.BackgroundColor = "#a1331f";
+        //    x.FontSize = 40;
+        //    x.CustomFontPath = Path.Combine(webHostEnvironment.WebRootPath, "assets", "fonts");
+        //    x.CachePath = Path.Combine(webHostEnvironment.ContentRootPath, "App_Data", "thumb_cache", "thumb_cache_");
+        //});
 
         if (webHostEnvironment.IsDevelopment())
         {
@@ -71,10 +73,10 @@ public partial class Startup(
         services
             .AddCmsAspNetIdentity<ApplicationUser>()
             .AddCms()
-            .AddFind()
-            .AddGetaNotFoundHandler(configuration)
-            .AddGetaSitemaps()
-            .AddAdminUserRegistration()
+            .AddForms()
+            //.AddGetaNotFoundHandler(configuration)
+            //.AddGetaSitemaps()
+            //.AddAdminUserRegistration()
             .AddEmbeddedLocalization<Startup>()
             .ConfigureImageResizing(configuration, webHostEnvironment)
             .Configure<UrlSegmentOptions>(o =>
@@ -82,6 +84,13 @@ public partial class Startup(
                 o.SupportIriCharacters = true;
                 o.ValidCharacters = @"\p{L}0-9\-_~\.\$";
             });
+
+        services.TryAddSingleton<ApplicationEventSubscriber>();
+        services.AddCmsEventSubscriber<ApplicationEvent, ApplicationEventSubscriber>();
+
+        // Register custom content type base for Settings
+        services.TryAddEnumerable(
+            ServiceDescriptor.Singleton<IContentTypeBaseProvider, SettingsContentTypeBaseProvider>());
 
         ConfigureTinyMce(services);
 
@@ -141,8 +150,9 @@ public partial class Startup(
         });
 
         app.UseStatusCodePagesWithReExecute("/status-code/{0}");
-        app.UseNotFoundHandler();
-        app.UseOptimizelyNotFoundHandler();
+        // TODO: Geta.NotFoundHandler.Optimizely v6.0.0 is not compatible with CMS 13. Re-add when updated.
+        // app.UseNotFoundHandler();
+        // app.UseOptimizelyNotFoundHandler();
 
         app.UseRouting();
         app.UseCors();
@@ -152,7 +162,8 @@ public partial class Startup(
         app.UseAuthorization();
         app.UseBaaijteOptimizelyImageSharp();
 
-        app.UseContentTypeIcons();
+        // TODO: Re-enable after upgrading Geta.Optimizely.ContentTypeIcons to a CMS 13-compatible version.
+        // app.UseContentTypeIcons();
 
         app.UseEndpoints(endpoints =>
         {

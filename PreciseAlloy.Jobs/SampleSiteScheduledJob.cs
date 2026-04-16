@@ -1,10 +1,10 @@
-﻿using EPiServer.PlugIn;
+﻿using EPiServer.Scheduler;
 using Microsoft.Extensions.Logging;
 using PreciseAlloy.Utils.Extensions;
 
 namespace PreciseAlloy.Jobs;
 
-[ScheduledPlugIn(
+[ScheduledJob(
     DisplayName = "Sample Scheduled Job",
     Description = "A sample schedule job.",
     GUID = "7747300c-34f5-4319-86f7-2107aa8479df")]

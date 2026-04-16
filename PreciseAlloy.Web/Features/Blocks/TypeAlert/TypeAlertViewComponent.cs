@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using EPiServer.PlugIn;
+using EPiServer.Scheduler;
 using Geta.Optimizely.ContentTypeIcons.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
@@ -76,7 +76,7 @@ public class TypeAlertViewComponent(IRequestContext requestContext) : ViewCompon
 
         foreach (Type scheduleJob in scheduleJobs)
         {
-            var scheduledPlugInAttribute = scheduleJob.GetCustomAttribute<ScheduledPlugInAttribute>();
+            var scheduledPlugInAttribute = scheduleJob.GetCustomAttribute<ScheduledJobAttribute>();
             if (scheduledPlugInAttribute == null
                 || string.IsNullOrWhiteSpace(scheduledPlugInAttribute.DisplayName)
                 || string.IsNullOrWhiteSpace(scheduledPlugInAttribute.GUID))

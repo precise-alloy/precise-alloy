@@ -10,14 +10,22 @@ public class CmsMenuProvider(
     ModuleTable modules)
     : BaseMenuProvider
 {
+    private const string AdminModuleName = "EPiServer.Cms.UI.Admin";
+
     public override IEnumerable<MenuItem> GetMenuItems()
     {
+        var adminModule = modules.FindModule(AdminModuleName);
+        if (adminModule == null || string.IsNullOrWhiteSpace(adminModule.ResourceBasePath))
+        {
+            return [];
+        }
+
         var menuItems = new List<MenuItem>
         {
             new UrlMenuItem(
                 "Another link to Admin",
                 MenuPaths.Global + "/cms" + "/cmsMenuItem",
-                Path.Combine(modules.FindModule("EPiServer.CMS.UI.Admin").ResourceBasePath, "default"))
+                Path.Combine(adminModule.ResourceBasePath, "default"))
             {
                 IsAvailable = HasAdminRole,
                 SortIndex = SortIndex.First + 25,

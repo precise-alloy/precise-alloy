@@ -1,7 +1,8 @@
-﻿using EPiServer.Core;
+﻿using EPiServer.Applications;
+using EPiServer.Core;
 using EPiServer.DataAccess;
 using EPiServer.Security;
-using EPiServer.Web;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PreciseAlloy.Models.Settings;
 
@@ -9,21 +10,17 @@ namespace PreciseAlloy.Services.Settings;
 
 public partial class SettingsService
 {
-    private Guid ResolveSiteId()
+    private string? ResolveSiteId()
     {
-        var request = _httpContextAccessor.HttpContext?.Request;
-        if (request == null)
-        {
-            return SiteDefinition.Current.Id;
-        }
+        var request = _httpContextAccessor.HttpContext?.RequestServices
+            .GetRequiredService<IApplicationResolver>();
 
-        var site = _siteDefinitionResolver.GetByHostname(request.Host.Host, true);
-        return site?.Id ?? SiteDefinition.Current.Id;
+        return request?.GetByContext()?.Name;
     }
 
-    private void SiteCreated(
+    public void SiteCreated(
         object? sender,
-        SiteDefinitionEventArgs e)
+        ApplicationCreatedEvent e)
     {
         if (sender == null)
         {
@@ -32,15 +29,15 @@ public partial class SettingsService
 
         if (!_contentRepository
                 .GetChildren<SettingsFolder>(GlobalSettingsRoot)
-                .Any(x => x.Name.Equals(e.Site.Name, StringComparison.InvariantCultureIgnoreCase)))
+                .Any(x => x.Name.Equals(e.Application.Name, StringComparison.InvariantCultureIgnoreCase)))
         {
-            CreateSiteFolder(e.Site);
+            CreateSiteFolder(e.Application);
         }
     }
 
-    private void SiteDeleted(
+    public void SiteDeleted(
         object? sender,
-        SiteDefinitionEventArgs e)
+        ApplicationDeletedEvent e)
     {
         if (sender == null)
         {
@@ -49,7 +46,7 @@ public partial class SettingsService
 
         var folder = _contentRepository
             .GetChildren<SettingsFolder>(GlobalSettingsRoot)
-            .FirstOrDefault(x => x.Name.Equals(e.Site.Name, StringComparison.InvariantCultureIgnoreCase));
+            .FirstOrDefault(x => x.Name.Equals(e.Application.Name, StringComparison.InvariantCultureIgnoreCase));
 
         if (folder == null)
         {
@@ -60,23 +57,23 @@ public partial class SettingsService
         ClearCache();
     }
 
-    private void SiteUpdated(
+    public void SiteUpdated(
         object? sender,
-        SiteDefinitionEventArgs e)
+        ApplicationUpdatedEvent e)
     {
         if (sender == null)
         {
             return;
         }
 
-        if (e is not SiteDefinitionUpdatedEventArgs updatedArgs)
+        if (e is not ApplicationUpdatedEvent updatedArgs)
         {
             _logger.LogError("SiteUpdated fail as SiteDefinitionEventArgs is not of type SiteDefinitionUpdatedEventArgs");
             return;
         }
 
-        var prevSite = updatedArgs.PreviousSite;
-        var updatedSite = updatedArgs.Site;
+        var prevSite = updatedArgs.PreviousApplication;
+        var updatedSite = updatedArgs.Application;
         var settingsRoot = GlobalSettingsRoot;
 
         if (_contentRepository
@@ -89,7 +86,7 @@ public partial class SettingsService
         }
         else
         {
-            CreateSiteFolder(e.Site);
+            CreateSiteFolder(e.Application);
         }
     }
 }

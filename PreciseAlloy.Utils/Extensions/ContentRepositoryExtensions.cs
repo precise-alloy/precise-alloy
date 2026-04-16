@@ -1,6 +1,9 @@
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Filters;
+using EPiServer.ServiceLocation;
+using EPiServer.Web;
+using Microsoft.Extensions.DependencyInjection;
 // ReSharper disable UnusedMember.Global
 
 namespace PreciseAlloy.Utils.Extensions;
@@ -14,8 +17,9 @@ public static class ContentRepositoryExtensions
         ContentArea? contentArea)
         where T : class, IContentData
     {
+        var filter = ServiceLocator.Current.GetRequiredService<IContentAreaItemsRenderingFilter>();
         var items = contentArea
-            ?.FilteredItems
+            ?.Items
             ?.Select(x => contentRepository.GetPublishedOrNull<T>(x.ContentLink));
 
         if (items == null)
