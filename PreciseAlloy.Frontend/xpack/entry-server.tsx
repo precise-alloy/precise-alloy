@@ -3,9 +3,10 @@
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
-import './assets/scripts/main/functions';
-import './assets/scripts/main/api';
-import { routesToPrerender } from './routes';
+import '../src/assets/scripts/main/functions';
+import '../src/assets/scripts/main/api';
+import { routesToPrerender } from '../src/routes';
+
 import { App } from './app';
 
 interface RenderOutput {

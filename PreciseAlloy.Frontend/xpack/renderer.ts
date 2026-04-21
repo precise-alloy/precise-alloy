@@ -103,7 +103,7 @@ export const _useRenderer = ({ app, indexProd, isProd, viteDevServer, resolve }:
         // always read fresh template in dev
         template = fs.readFileSync(resolve('index.html'), 'utf-8');
         template = await viteDevServer!.transformIndexHtml(req.originalUrl, template);
-        render = (await viteDevServer!.ssrLoadModule(resolve('src/entry-server.tsx'))).render;
+        render = (await viteDevServer!.ssrLoadModule(resolve('xpack/entry-server.tsx'))).render;
       } else {
         template = indexProd;
         // @ts-ignore

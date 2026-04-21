@@ -1,10 +1,11 @@
 import { lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 
-const blocks: { [name: string]: any } = {
-  root: lazy(() => import('../xpack/root')),
-  people: lazy(() => import('./organisms/people')),
-  header: lazy(() => import('./organisms/header')),
+import { clientComponents } from '../src/client-components';
+
+const blocks: Record<string, React.LazyExoticComponent<React.ComponentType<any>>> = {
+  root: lazy(() => import('./root')),
+  ...clientComponents,
 };
 
 const renderComponent = (scriptSection: HTMLScriptElement) => {

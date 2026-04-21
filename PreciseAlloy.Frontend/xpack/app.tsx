@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import { createElement, ReactElement } from 'react';
 
-import { nodes } from './routes';
+import { nodes } from '../src/routes';
 
 const App = () => {
   const renderRoutes = () => {

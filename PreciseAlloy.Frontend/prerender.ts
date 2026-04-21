@@ -71,7 +71,7 @@ const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string
         href.startsWith(xpackEnv.VITE_BASE_URL) &&
         !href.startsWith(xpackEnv.VITE_BASE_URL + 'assets/vendors/') &&
         ['.css', '.ico', '.js', '.webmanifest', '.svg'].includes(path.extname(href).toLowerCase()) &&
-        !/\.0x[a-z0-9]{8}\.\w+$/gi.test(href)
+        !/\.0x[a-z0-9_-]{8,12}\.\w+$/gi.test(href)
       ) {
         const path = toAbsolute('dist/static/' + href.substring(xpackEnv.VITE_BASE_URL.length));
 
