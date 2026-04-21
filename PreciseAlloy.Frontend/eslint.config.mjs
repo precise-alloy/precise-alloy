@@ -1,27 +1,15 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
-import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
-import react from 'eslint-plugin-react';
-import unusedImports from 'eslint-plugin-unused-imports';
-import _import from 'eslint-plugin-import';
+import tsParser from '@typescript-eslint/parser';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import jsxA11Y from 'eslint-plugin-jsx-a11y';
-import prettier from 'eslint-plugin-prettier';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import importPlugin from 'eslint-plugin-import';
+import unusedImports from 'eslint-plugin-unused-imports';
+import prettierRecommended from 'eslint-plugin-prettier/recommended';
 import nextPlugin from '@next/eslint-plugin-next';
 import globals from 'globals';
-import tsParser from '@typescript-eslint/parser';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
-import reactRefresh from 'eslint-plugin-react-refresh';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
 
 export default defineConfig([
   globalIgnores([
@@ -46,33 +34,27 @@ export default defineConfig([
     '!**/react-shim.js',
     '!**/tsup.config.ts',
   ]),
-  ...fixupConfigRules(
-    compat.extends('plugin:react/recommended', 'plugin:prettier/recommended', 'plugin:react-hooks/recommended', 'plugin:jsx-a11y/recommended')
-  ),
   {
-    settings: {
-      react: {
-        version: 'detect',
-      },
-    },
-  },
-  {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      react.configs.flat.recommended,
+      react.configs.flat['jsx-runtime'],
+      reactHooks.configs.flat['recommended-latest'],
+      jsxA11y.flatConfigs.recommended,
+      nextPlugin.configs.recommended,
+      prettierRecommended,
+    ],
 
     plugins: {
-      react: fixupPluginRules(react),
-      'unused-imports': unusedImports,
-      import: fixupPluginRules(_import),
       '@typescript-eslint': typescriptEslint,
+      'unused-imports': unusedImports,
       'react-refresh': reactRefresh,
-      'jsx-a11y': fixupPluginRules(jsxA11Y),
-      prettier: fixupPluginRules(prettier),
-      '@next/next': fixupPluginRules(nextPlugin),
+      import: importPlugin,
     },
 
     languageOptions: {
       globals: {
-        ...globals.browser,
+        ...Object.fromEntries(Object.entries(globals.browser).map(([key]) => [key, 'off'])),
         ...globals.node,
       },
 
@@ -84,6 +66,12 @@ export default defineConfig([
         ecmaFeatures: {
           jsx: true,
         },
+      },
+    },
+
+    settings: {
+      react: {
+        version: 'detect',
       },
     },
 
@@ -101,6 +89,7 @@ export default defineConfig([
       'unused-imports/no-unused-imports': 'warn',
       'react-refresh/only-export-components': 'error',
       'no-new': 'error',
+      '@next/next/no-img-element': 'off',
       complexity: ['error', 15],
       'max-depth': ['error', 4],
 
@@ -173,15 +162,6 @@ export default defineConfig([
           avoidEscape: true,
         },
       ],
-    },
-  },
-  {
-    files: ['**/*.ts', '**/*.tsx'],
-    plugins: {
-      '@next/next': fixupPluginRules(nextPlugin),
-    },
-    rules: {
-      '@next/next/no-img-element': 'off',
     },
   },
 ]);

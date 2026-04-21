@@ -13,14 +13,14 @@ Object.keys(pages).forEach((path) => {
   const name = match ? match[1] : '';
   const normalizedName = name.replaceAll(/^(\w+)/gi, (_p0, p1: string) => _.lowerCase(p1).replaceAll(' ', '-'));
 
-  const module = pages[path] as { [key: string]: any };
+  const page = pages[path] as { [key: string]: any };
 
-  if (!module.default.$$name) {
+  if (!page.default.$$name) {
     const node = {
       type: 'single',
       name: _.startCase(_.lowerCase(name)),
       path: name === 'Root' ? '/' : `/pages/${normalizedName}`,
-      component: module.default,
+      component: page.default,
     } as SinglePageNode;
 
     nodes.push(node);
@@ -31,18 +31,18 @@ Object.keys(pages).forEach((path) => {
 
   const node: MultiplePageNode = {
     type: 'collection',
-    name: module.default.$$name,
+    name: page.default.$$name,
     items: [],
     path: undefined,
   };
 
-  Object.keys(module).forEach((key) => {
+  Object.keys(page).forEach((key) => {
     if (key === 'default') return;
     const item: SinglePageNode = {
       type: 'single',
-      path: `/pages/${module.default.$$path}${module[key].path ? `/${module[key].path}` : ''}`,
-      name: module[key].name,
-      component: module[key].render,
+      path: `/pages/${page.default.$$path}${page[key].path ? `/${page[key].path}` : ''}`,
+      name: page[key].name,
+      component: page[key].render,
     };
 
     node.items.push(item);
