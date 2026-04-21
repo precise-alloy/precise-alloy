@@ -5,8 +5,7 @@ import { StaticRouter } from 'react-router-dom';
 
 import '../src/assets/scripts/main/functions';
 import '../src/assets/scripts/main/api';
-import { routesToPrerender } from '../src/routes';
-
+import { routesToPrerender } from './routes';
 import { App } from './app';
 
 interface RenderOutput {

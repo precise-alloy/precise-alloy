@@ -1,15 +1,15 @@
 import _ from 'lodash';
 import RootTemplate from '@xpack/root/template';
 
-// Auto generates routes from files under ./pages
+// Auto generates routes from files under ../src/pages
 // https://vitejs.dev/guide/features.html#glob-import
-const pages = import.meta.glob('./pages/*.tsx', { eager: true });
+const pages = import.meta.glob('../src/pages/*.tsx', { eager: true });
 
 const nodes: RootItemModel[] = [];
 const routesToPrerender: { route: string; name: string }[] = [];
 
 Object.keys(pages).forEach((path) => {
-  const match = path.match(/\.\/pages\/(.*)\.\w+$/);
+  const match = path.match(/\.\.\/src\/pages\/(.*)\.\w+$/);
   const name = match ? match[1] : '';
   const normalizedName = name.replaceAll(/^(\w+)/gi, (_p0, p1: string) => _.lowerCase(p1).replaceAll(' ', '-'));
 
