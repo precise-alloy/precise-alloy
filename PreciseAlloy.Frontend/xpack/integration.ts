@@ -26,8 +26,9 @@ const mode =
     ? process.argv[argvModeIndex + 1]
     : 'production';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const xpackEnv = loadEnv(mode, __dirname);
-const toAbsolute = (p: string) => slash(path.resolve(__dirname, p));
+const projectRoot = path.resolve(__dirname, '..');
+const xpackEnv = loadEnv(mode, projectRoot);
+const toAbsolute = (p: string) => slash(path.resolve(projectRoot, p));
 const log = console.log.bind(console);
 
 const hashes: Map<string, string> = new Map();

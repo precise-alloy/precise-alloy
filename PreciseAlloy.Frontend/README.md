@@ -28,5 +28,5 @@ npx x-pkg <project-directory>
 ## SCSS Migration
 To replace deprecated `@import` statements in base assets with `@use` and `@forward`, run this command in the frontend root folder:
 ```
-bun migrate-scss.ts
+bun xpack/migrate-scss.ts
 ```
