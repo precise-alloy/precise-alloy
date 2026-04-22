@@ -9,3 +9,10 @@
 *.js.map eol=lf
 *.css eol=lf
 *.css.map eol=lf
+PreciseAlloy.Patterns/* linguist-vendored
+PreciseAlloy.Web/wwwroot/assets/css/* linguist-vendored
+PreciseAlloy.Web/wwwroot/assets/fonts/* linguist-vendored
+PreciseAlloy.Web/wwwroot/assets/images/* linguist-vendored
+PreciseAlloy.Web/wwwroot/assets/js/* linguist-vendored
+PreciseAlloy.Web/wwwroot/assets/vendors/* linguist-vendored
+PreciseAlloy.Web/wwwroot/assets/hashes.json linguist-vendored
