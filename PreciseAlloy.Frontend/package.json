@@ -6,14 +6,13 @@
     "x-pkg": "./bin/cli.js"
   },
   "scripts": {
+    "prestart": "bun upgrade",
     "start": "bun run dev",
-    "predev": "bun upgrade",
+    "serve": "bun run dev",
     "dev": "concurrently --kill-others \"bun xpack/styles.ts --watch\" \"bun xpack/states.ts --watch\" \"cross-env scriptOnly=true vite build --mode development --watch\" \"bun xpack/server.ts --mode development\"",
-    "serve": "bun xpack/server.ts",
     "watch": "bun xpack/server.ts",
     "build": "bun run build:static && bun run build:server",
     "build:eshn": "bun run build:static:eshn && bun run build:server:eshn",
-    "preview": "vite preview",
     "build:server": "vite build --ssr xpack/entry-server.tsx --outDir dist/server",
     "build:server:eshn": "vite build --ssr xpack/entry-server.tsx --outDir dist/server --mode eshn",
     "build:static": "vite build --outDir dist/static",
@@ -22,10 +21,7 @@
     "eshn": "bun xpack/states.ts && bun run styles && bun run build:eshn && bun xpack/prerender.ts --add-hash --mode eshn",
     "inte": "bun run styles && bun run build && bun xpack/prerender.ts && bun xpack/integration.ts",
     "styles": "bun xpack/styles.ts",
-    "format": "prettier --write .",
-    "lint": "eslint --fix",
-    "cli:start": "vite build --c vite.cli.config.ts --watch",
-    "cli:build": "vite build --c vite.cli.config.ts"
+    "lint": "eslint --fix"
   },
   "engines": {
     "node": ">=20.0.0"
