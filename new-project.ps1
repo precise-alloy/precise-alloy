@@ -1,3 +1,40 @@
+<#
+.SYNOPSIS
+Initializes a new repository from this template by applying the built-in naming replacements.
+
+.DESCRIPTION
+This script is intended to be run once from the root of a freshly copied template repository.
+It walks the current directory tree, renames files and folders whose names contain known
+template identifiers, and rewrites eligible file contents using the same replacement table.
+
+The replacement map is defined in the $replaces collection in this file. Each entry contains
+the template value to search for and the default replacement value that should be written into
+the new solution.
+
+The script only performs its update pass when the current directory contains template-root.keep,
+which is used as a safety marker to indicate that the working directory is the template root.
+
+During execution the script:
+- skips folders listed in $ignoredFolders
+- skips files with extensions listed in $ignoredFileExtensions
+- skips files ignored by Git when processing file contents
+- renames files before updating their contents
+- renames directories and then continues recursion from the new path
+- removes new-project.ps1 after the initialization pass completes
+
+Because the script mutates names and file contents in place, it should be run only against a
+new project copy that has not already been customized.
+
+.NOTES
+Run this script from the repository root. Review the values in $replaces before execution if
+the default target names do not match the project you want to create.
+
+.EXAMPLE
+PS> ./new-project.ps1
+
+Runs the template initialization in the current directory, updates matching names and content,
+and removes the setup script when finished.
+#>
 $ErrorActionPreference = 'Stop'
 
 $replaces = @(
