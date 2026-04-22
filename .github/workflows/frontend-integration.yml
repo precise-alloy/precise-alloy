@@ -64,7 +64,7 @@ jobs:
           if [[ -n $(git status --porcelain) ]];
           then
             git add .
-            git commit -m "Create release package"
+            git commit -m "chore(assets): create frontend release package"
             git push origin HEAD:$RELEASE_BRANCH -f
             echo "HAS_NEW_COMMIT=true" >> $GITHUB_ENV
           fi
@@ -86,7 +86,7 @@ jobs:
             gh pr create \
               --base $BASE_BRANCH \
               --head $RELEASE_BRANCH \
-              --title 'PR to ${{ env.BASE_BRANCH }}' \
+              --title 'chore(assets): create frontend release package' \
               --body 'Created by Github action'
           else
             echo "PR already exists"
