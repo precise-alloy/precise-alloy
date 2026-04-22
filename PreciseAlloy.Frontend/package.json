@@ -28,14 +28,10 @@
   },
   "dependencies": {
     "chalk": "^5.5.0",
-    "commander": "^14.0.3",
-    "node-fetch": "^3.3.2",
-    "prompts": "^2.4.2",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.72.1",
-    "react-router-dom": "^7.13.1",
-    "validate-npm-package-name": "^7.0.0"
+    "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^16.2.4",
@@ -46,10 +42,8 @@
     "@types/lodash": "^4.17.24",
     "@types/node": "^24.11.0",
     "@types/prettier": "^3.0.0",
-    "@types/prompts": "^2.4.9",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.1.7",
-    "@types/validate-npm-package-name": "^4.0.2",
     "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.58.2",
     "@vitejs/plugin-react": "^5.1.4",
@@ -79,7 +73,6 @@
     "magic-string": "^0.30.17",
     "msw": "^2.12.10",
     "postcss": "^8.5.8",
-    "postcss-scss": "^4.0.9",
     "prettier": "^3.6.2",
     "rollup": "^4.59.0",
     "sass": "^1.89.2",
