@@ -47,6 +47,7 @@ const mouseUp = () => {
   iframeSize && sessionStorage.setItem(MSG_IFRAME_SIZE, iframeSize);
 
   document.removeEventListener('mousemove', resize, false);
+  document.removeEventListener('mouseup', mouseUp, false);
 };
 
 const handleResizerMouseDown = (e: MouseEvent) => {
