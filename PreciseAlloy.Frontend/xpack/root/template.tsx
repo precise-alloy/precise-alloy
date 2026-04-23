@@ -7,13 +7,16 @@ export default function Template(model: RootModel) {
       {model && <ReactSection css={'root'} data={model} type="root" />}
 
       <div className="xpack-t-root__target-wrapper" id="root-iframe-wrapper">
-        <iframe
-          className="xpack-t-root__target"
-          id="root-iframe"
-          name="inner"
-          sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-downloads allow-popups-to-escape-sandbox allow-presentation allow-top-navigation"
-          title="Pages"
-        />
+        <div className="xpack-t-root__target-container">
+          <iframe
+            className="xpack-t-root__target"
+            id="root-iframe"
+            name="inner"
+            sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-downloads allow-popups-to-escape-sandbox allow-presentation allow-top-navigation"
+            title="Pages"
+          />
+          <div className="xpack-t-root__target-backdrop" id="root-iframe-backdrop" />
+        </div>
         <div className="xpack-t-root__target-resizer" id="root-iframe-resizer" />
         <RequireJs defer path="root" />
       </div>
