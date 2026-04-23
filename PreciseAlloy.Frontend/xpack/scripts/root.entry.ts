@@ -7,6 +7,7 @@ let pos: number;
 
 const wrapper = document.getElementById('root-iframe-wrapper');
 const frame = document.getElementById('root-iframe');
+const frameBackdrop = document.getElementById('root-iframe-backdrop');
 const resizer = document.getElementById('root-iframe-resizer');
 
 let iframeSize = sessionStorage.getItem(MSG_IFRAME_SIZE);
@@ -37,24 +38,24 @@ const resize = (e: globalThis.MouseEvent) => {
 };
 
 const mouseUp = () => {
-  if (!wrapper || !frame) {
+  if (!wrapper || !frame || !frameBackdrop) {
     return;
   }
 
   wrapper.style.removeProperty('transition');
-  frame.style.removeProperty('pointer-events');
+  frameBackdrop.style.removeProperty('display');
   iframeSize && sessionStorage.setItem(MSG_IFRAME_SIZE, iframeSize);
 
   document.removeEventListener('mousemove', resize, false);
 };
 
 const handleResizerMouseDown = (e: MouseEvent) => {
-  if (!wrapper || !frame || e.offsetX >= BORDER_SIZE) {
+  if (!wrapper || !frame || !frameBackdrop || e.offsetX >= BORDER_SIZE) {
     return;
   }
 
   wrapper.style.transition = 'none';
-  frame.style.pointerEvents = 'none';
+  frameBackdrop.style.display = 'block';
   pos = e.x;
   orgWidth = parseInt(getComputedStyle(wrapper, '').width);
   document.addEventListener('mousemove', resize, false);
