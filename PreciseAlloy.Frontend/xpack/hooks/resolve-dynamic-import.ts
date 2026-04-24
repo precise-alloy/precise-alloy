@@ -7,7 +7,7 @@ const resolveDynamicImport = (): PluginOption => {
     name: 'xpack-transform',
     enforce: 'post',
 
-    resolveDynamicImport(_specifier, _importer) {
+    resolveDynamicImport(_specifier: unknown, _importer: unknown) {
       // console.log('resolveDynamicImport');
       // console.log(_specifier, _importer);
     },
