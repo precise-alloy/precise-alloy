@@ -63,8 +63,8 @@ const getCssSourceContent = (srcFile: string, mode: 'importer' | 'compile'): str
   return prepareCssFileContent({ srcFile });
 };
 
-const stringOptions = (srcFile: string): sass.StringOptions<'async'> => {
-  const options: sass.StringOptions<'async'> = {
+const getStringOptions = <Sync extends 'sync' | 'async'>(srcFile: string): sass.StringOptions<Sync> => {
+  const options: sass.StringOptions<Sync> = {
     sourceMap: true,
     sourceMapIncludeSources: true,
     syntax: 'scss',
@@ -120,19 +120,19 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
   if (srcFile.includes('style-base') || srcFile.includes('style-all')) {
     glob.sync('./src/atoms/**/*.scss').forEach((atomPath) => {
       if (!path.basename(atomPath).startsWith('_')) {
-        cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: atomPath }).join(''), stringOptions(atomPath)).css);
+        cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: atomPath }).join(''), getStringOptions<'sync'>(atomPath)).css);
       }
     });
 
     glob.sync('./src/molecules/**/*.scss').forEach((molPath) => {
       if (!path.basename(molPath).startsWith('_')) {
-        cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: molPath }).join(''), stringOptions(molPath)).css);
+        cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: molPath }).join(''), getStringOptions<'sync'>(molPath)).css);
       }
     });
   }
 
   sass
-    .compileStringAsync(cssStrings.join(''), stringOptions(srcFile))
+    .compileStringAsync(cssStrings.join(''), getStringOptions<'async'>(srcFile))
     .then((result) => postcssProcess(result, srcFile, outFile))
     .catch((error) => {
       log(error);

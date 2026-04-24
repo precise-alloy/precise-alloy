@@ -139,7 +139,7 @@ const setup = () => {
 
   const wrapper = getWrapper();
   if (wrapper) {
-    window.onload = () => wrapper.classList.add('initialized');
+    window.addEventListener('load', () => wrapper.classList.add('initialized'));
   }
 };
 
