@@ -56,6 +56,23 @@ The repo coverage rollout was designed around these requirements:
 - Covered `xpack/filename.ts`
 - Covered `xpack/manual-chunk.ts`
 
+### xpack Hook Core Coverage
+
+- Extracted and covered `xpack/hooks/transform-core.ts` (from `xpack/hooks/transform.ts`)
+- Extracted and covered `xpack/hooks/options-core.ts` (from `xpack/hooks/options.ts`)
+- Covered `xpack/hooks/transform-index-html.ts`
+- Covered `xpack/hooks/handle-hot-update.ts`
+
+### xpack Utility & Component Coverage
+
+- Covered `xpack/paths.ts`
+- Covered `xpack/root/root-context.ts`
+- Covered `xpack/root/use-click-outside.ts`
+
+### CSS Helper Coverage
+
+- Covered `src/_helpers/css-vip.ts`
+
 ### Workflow Gates
 
 - Updated `.github/workflows/frontend-ci.yml`
@@ -71,18 +88,19 @@ Latest implemented validation target:
 
 Latest validated outcome at implementation time:
 
-- `15` test files passed
-- `72` tests passed
+- `23` test files passed
+- `131` tests passed
 - enforced coverage scope passed with approximately:
-  - `96.6%` statements
-  - `96.6%` lines
-  - `91.05%` branches
+  - `97.1%` statements
+  - `97.1%` lines
+  - `92.25%` branches
   - `100%` functions
 
 ## Current Enforced Module Set
 
 - `src/_api/avatar.ts`
 - `src/_api/contact-form.ts`
+- `src/_helpers/css-vip.ts`
 - `src/_helpers/handleTheme.ts`
 - `src/_helpers/ReactSection.tsx`
 - `src/_helpers/RequireCss.tsx`
@@ -91,9 +109,16 @@ Latest validated outcome at implementation time:
 - `src/assets/scripts/main/functions.ts`
 - `src/organisms/contact/contact-form.tsx`
 - `xpack/filename.ts`
+- `xpack/hooks/handle-hot-update.ts`
+- `xpack/hooks/options-core.ts`
+- `xpack/hooks/transform-core.ts`
+- `xpack/hooks/transform-index-html.ts`
 - `xpack/integration-core.ts`
 - `xpack/manual-chunk.ts`
+- `xpack/paths.ts`
 - `xpack/prerender-core.ts`
+- `xpack/root/root-context.ts`
+- `xpack/root/use-click-outside.ts`
 - `xpack/scripts-core.ts`
 - `xpack/styles-core.ts`
 

@@ -50,6 +50,14 @@ The current hard-threshold gate applies to the following modules:
 | xpack prerender core    | `xpack/prerender-core.ts`                | Protects prerender URL building, duplicate asset relocation, and cache-busting rules                  |
 | xpack script build core | `xpack/scripts-core.ts`                  | Protects esbuild options, output writes, watch wiring, and error logging                              |
 | xpack styles core       | `xpack/styles-core.ts`                   | Protects injected SCSS prelude handling, sourcemap line shifting, and output naming                   |
+| CSS helper              | `src/_helpers/css-vip.ts`                | Protects CSS `!important` injection for VIP stylesheets                                               |
+| xpack path resolution   | `xpack/paths.ts`                         | Protects `--mode` argv parsing, root resolution, and `getAbsolutePath` normalization                  |
+| xpack transform core    | `xpack/hooks/transform-core.ts`          | Protects SVG content hashing and cache-busted path versioning                                         |
+| xpack options core      | `xpack/hooks/options-core.ts`            | Protects site input discovery, entry naming, and production `mock-api` exclusion                      |
+| xpack transform HTML    | `xpack/hooks/transform-index-html.ts`    | Protects base URL placeholder replacement in index HTML                                               |
+| xpack hot update        | `xpack/hooks/handle-hot-update.ts`       | Protects full-reload triggering for `.js`, `.css`, and `.json` file changes                           |
+| xpack root context      | `xpack/root/root-context.ts`             | Protects React context shape and `useRootContext` hook                                                |
+| xpack click outside     | `xpack/root/use-click-outside.ts`        | Protects click-outside detection, touch handling, and blur-based dismissal                            |
 
 These files are intentionally enforced with hard thresholds now because they are already covered by explicit tests. The next rollout phases will expand this gate to additional xpack build modules after their side effects are split into testable cores.
 
@@ -139,6 +147,56 @@ Current tests protect these rules:
 
 If build output naming changes, these tests fail before the change reaches deploy or the backend integration package.
 
+### CSS Helper
+
+Current tests protect these rules:
+
+- `css-vip.ts` must add `!important` to all standard CSS declarations
+- `css-vip.ts` must skip CSS custom properties (`--*` variables)
+- `css-vip.ts` must skip values that already contain `!important`
+- `css-vip.ts` must handle nested `@media` and `@supports` rules recursively
+- `css-vip.ts` must handle empty and comment-only stylesheets gracefully
+- `css-vip.ts` must log unknown rule types
+
+### xpack Path Resolution
+
+Current tests protect these rules:
+
+- `paths.ts` must default mode to `production` when `--mode` flag is absent
+- `paths.ts` must read the mode value following `--mode` when present
+- `paths.ts` must default to `production` when `--mode` is the last argument or followed by another flag
+- `paths.ts` must return slashed absolute paths from `getAbsolutePath`
+- `paths.ts` must resolve relative paths against root via `getAbsolutePath`
+
+### xpack Vite Hook Cores
+
+Current tests protect these rules:
+
+- `transform-core.ts` must produce consistent 10-character base64url SHA1 hashes
+- `transform-core.ts` must append `?v=<hash>` to SVG paths when the file exists on disk
+- `transform-core.ts` must skip SVG paths that already have query strings
+- `transform-core.ts` must return the original path when the SVG file does not exist
+- `transform-core.ts` must cache hashes across repeated calls
+- `options-core.ts` must include `index.html` when `scriptOnly` is falsy
+- `options-core.ts` must exclude `index.html` when `scriptOnly` is truthy
+- `options-core.ts` must strip `.entry.ts` suffixes from entry names
+- `options-core.ts` must exclude `mock-api` in production mode
+- `options-core.ts` must include `mock-api` in development mode
+- `transform-index-html.ts` must replace all `#__BASE_URL__/` with the provided base URL
+- `handle-hot-update.ts` must send full-reload for `.js`, `.css`, and `.json` files
+- `handle-hot-update.ts` must not send reload for other file types
+
+### xpack Root Components
+
+Current tests protect these rules:
+
+- `root-context.ts` must provide default noop setters when no provider is present
+- `root-context.ts` must return provided context via `useRootContext`
+- `use-click-outside.ts` must call handler when clicking outside the ref element
+- `use-click-outside.ts` must not call handler when clicking inside the ref or otherDependenceRef elements
+- `use-click-outside.ts` must call handler on window blur
+- `use-click-outside.ts` must clean up event listeners on unmount
+
 ## GitHub Workflow Gate
 
 The parent workflows now run `bun run test:ci` before continuing:
@@ -191,8 +249,9 @@ The next recommended phases for this rollout are:
 1. Finish the remaining `xpack/styles.ts` orchestration surface around Sass importer behavior, PostCSS emission, and watch-mode routing.
 2. Extract and test the remaining `xpack/prerender.ts` render-loop and file-write orchestration surface.
 3. Extract and test the remaining `xpack/renderer.ts` request-time HTML transform surface.
-4. Expand the component-behavior suites across the remaining high-value organisms that own conditional rendering or API-backed behavior.
-5. After those phases land, raise thresholds further and widen the enforced module set.
+4. Extract and test `xpack/routes.ts` route generation logic (requires refactoring away from top-level `import.meta.glob`).
+5. Expand the component-behavior suites across the remaining high-value organisms that own conditional rendering or API-backed behavior.
+6. After those phases land, raise thresholds further and widen the enforced module set.
 
 ## Why the Gate Is Scoped This Way
 

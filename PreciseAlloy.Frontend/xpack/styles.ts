@@ -120,13 +120,19 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
   if (srcFile.includes('style-base') || srcFile.includes('style-all')) {
     glob.sync('./src/atoms/**/*.scss').forEach((atomPath) => {
       if (!path.basename(atomPath).startsWith('_')) {
-        cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: atomPath }).join(''), stringOptions(atomPath)).css);
+        cssStrings.push(
+          sass.compileString(prepareCssFileContent({ srcFile: atomPath }).join(''), stringOptions(atomPath) as unknown as sass.StringOptions<'sync'>)
+            .css
+        );
       }
     });
 
     glob.sync('./src/molecules/**/*.scss').forEach((molPath) => {
       if (!path.basename(molPath).startsWith('_')) {
-        cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: molPath }).join(''), stringOptions(molPath)).css);
+        cssStrings.push(
+          sass.compileString(prepareCssFileContent({ srcFile: molPath }).join(''), stringOptions(molPath) as unknown as sass.StringOptions<'sync'>)
+            .css
+        );
       }
     });
   }
