@@ -143,7 +143,7 @@ export const _useRenderer = ({ app, indexProd, isProd, viteDevServer, resolve }:
     } catch (e: any) {
       !isProd && viteDevServer!.ssrFixStacktrace(e);
       console.log(e.stack);
-      res.status(500).end(e.stack);
+      res.status(500).end('Internal Server Error');
     }
   });
 };
