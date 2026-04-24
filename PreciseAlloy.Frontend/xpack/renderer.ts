@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { Express } from 'express';
+import rateLimit from 'express-rate-limit';
 import { ViteDevServer } from 'vite';
 import * as cheerio from 'cheerio';
 import jsBeautify, { CSSBeautifyOptions, HTMLBeautifyOptions, JSBeautifyOptions } from 'js-beautify';
@@ -33,6 +34,13 @@ const beautifyOptions: HTMLBeautifyOptions | JSBeautifyOptions | CSSBeautifyOpti
   indent_empty_lines: false,
   wrap_attributes: 'force',
 };
+
+const rendererRateLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 const updateResourcePath = ($: cheerio.CheerioAPI, tagName: string, attr: string) => {
   $(tagName).each((_, el) => {
@@ -95,7 +103,7 @@ const removeDuplicateAssets = ($: cheerio.CheerioAPI, selector: string, attr: st
 };
 
 export const _useRenderer = ({ app, indexProd, isProd, viteDevServer, resolve }: Props) => {
-  app.use(async (req, res) => {
+  app.use(rendererRateLimiter, async (req, res) => {
     try {
       let template, render;
 
