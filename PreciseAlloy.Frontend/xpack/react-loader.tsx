@@ -8,17 +8,7 @@ const blocks: Record<string, React.LazyExoticComponent<React.ComponentType<any>>
   ...clientComponents,
 };
 
-const SAFE_CONTAINER_TAGS = new Set([
-  'section',
-  'div',
-  'article',
-  'main',
-  'aside',
-  'header',
-  'footer',
-  'nav',
-  'span',
-]);
+const SAFE_CONTAINER_TAGS = new Set(['div', 'section']);
 
 const getSafeTagName = (tagName: string | null): string => {
   const normalizedTag = (tagName ?? '').trim().toLowerCase();
