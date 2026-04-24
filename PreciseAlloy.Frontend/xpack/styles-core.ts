@@ -33,7 +33,7 @@ export const prepareCssFileContent = (
       : undefined,
     includeMixins ? slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/01-mixins/mixins'))}' as *;\n`) : undefined,
     dependencies.readFileSync(srcFile, 'utf-8'),
-  ].filter(Boolean);
+  ].filter((content): content is string => content !== undefined);
 };
 
 export const resolveSourceMapPath = (source: string, sourceRoot?: string | null): string | undefined => {
