@@ -8,6 +8,23 @@ const blocks: Record<string, React.LazyExoticComponent<React.ComponentType<any>>
   ...clientComponents,
 };
 
+const SAFE_CONTAINER_TAGS = new Set([
+  'section',
+  'div',
+  'article',
+  'main',
+  'aside',
+  'header',
+  'footer',
+  'nav',
+  'span',
+]);
+
+const getSafeTagName = (tagName: string | null): string => {
+  const normalizedTag = (tagName ?? '').trim().toLowerCase();
+  return SAFE_CONTAINER_TAGS.has(normalizedTag) ? normalizedTag : 'section';
+};
+
 const renderComponent = (scriptSection: HTMLScriptElement) => {
   const blockType = scriptSection.getAttribute('data-rct');
   const data = scriptSection.textContent ? scriptSection.textContent : '{}';
@@ -20,7 +37,8 @@ const renderComponent = (scriptSection: HTMLScriptElement) => {
 
   if (Component) {
     scriptSection.textContent = null;
-    const section = document.createElement(scriptSection.getAttribute('data-tag') ?? 'section');
+    const tagName = getSafeTagName(scriptSection.getAttribute('data-tag'));
+    const section = document.createElement(tagName);
 
     section.className = scriptSection.getAttribute('data-class') ?? '';
     scriptSection.replaceWith(section);
