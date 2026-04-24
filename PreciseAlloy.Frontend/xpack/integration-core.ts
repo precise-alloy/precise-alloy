@@ -1,4 +1,4 @@
-import path, { resolve } from 'path';
+import path from 'path';
 
 import slash from 'slash';
 
@@ -133,7 +133,7 @@ export const getPatternCopyTarget = (patternPath: string, sourcePath: string) =>
 
       return {
         sourcePath,
-        targetPath: resolve(patternPath, basename),
+        targetPath: slash(path.join(patternPath, basename)),
         recursive: false,
       };
     default:
@@ -141,7 +141,7 @@ export const getPatternCopyTarget = (patternPath: string, sourcePath: string) =>
 
       return {
         sourcePath,
-        targetPath: resolve(patternPath, segments.join('-')),
+        targetPath: slash(path.join(patternPath, segments.join('-'))),
         recursive: true,
       };
   }
@@ -175,7 +175,7 @@ export const normalizePatternFiles = (
   patternPath: string,
   dependencies: Pick<IntegrationDependencies, 'globSync' | 'readFileSync' | 'writeFileSync'>
 ) => {
-  dependencies.globSync(slash(path.resolve(patternPath + '/**/*.{htm,html}'))).forEach((patternFile) => {
+  dependencies.globSync(slash(path.join(patternPath, '**/*.{htm,html}'))).forEach((patternFile) => {
     const fileContent = dependencies.readFileSync(patternFile, 'utf-8');
     const text = typeof fileContent === 'string' ? fileContent : fileContent.toString('utf-8');
     const newText = normalizePatternHtml(text);
