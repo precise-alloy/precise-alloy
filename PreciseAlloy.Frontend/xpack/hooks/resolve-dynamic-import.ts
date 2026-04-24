@@ -1,5 +1,4 @@
-import { AcornNode } from 'rollup';
-import { PluginOption } from 'vite';
+import type { PluginOption } from 'vite';
 
 const resolveDynamicImport = (): PluginOption => {
   // console.log('[INIT] resolveDynamicImport');
@@ -8,7 +7,7 @@ const resolveDynamicImport = (): PluginOption => {
     name: 'xpack-transform',
     enforce: 'post',
 
-    resolveDynamicImport(_specifier: string | AcornNode, _importer: string) {
+    resolveDynamicImport(_specifier, _importer) {
       // console.log('resolveDynamicImport');
       // console.log(_specifier, _importer);
     },
