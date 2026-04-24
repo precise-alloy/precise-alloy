@@ -1,18 +1,20 @@
 const BORDER_SIZE = 20;
 const MIN_FRAME_SIZE = 350;
 const MSG_IFRAME_SIZE = 'MSG_IFRAME_SIZE';
+const MSG_IS_TOP_PANEL = 'MSG_IS_TOP_PANEL';
 
 let orgWidth: number;
 let pos: number;
 
-const wrapper = document.getElementById('root-iframe-wrapper');
-const frame = document.getElementById('root-iframe');
-const frameBackdrop = document.getElementById('root-iframe-backdrop');
-const resizer = document.getElementById('root-iframe-resizer');
+const getWrapper = () => document.getElementById('root-iframe-wrapper');
+const getFrame = () => document.getElementById('root-iframe');
+const getFrameBackdrop = () => document.getElementById('root-iframe-backdrop');
+const getResizer = () => document.getElementById('root-iframe-resizer');
 
 let iframeSize = sessionStorage.getItem(MSG_IFRAME_SIZE);
 
 const setIFrameWidth = (width?: number) => {
+  const wrapper = getWrapper();
   if (!wrapper) {
     return;
   }
@@ -32,12 +34,15 @@ const resize = (e: globalThis.MouseEvent) => {
   const size = Math.max(MIN_FRAME_SIZE, orgWidth + dx);
 
   setIFrameWidth(size);
-  iframeSize = size + '';
+  iframeSize = String(size);
 
   return false;
 };
 
 const mouseUp = () => {
+  const wrapper = getWrapper();
+  const frame = getFrame();
+  const frameBackdrop = getFrameBackdrop();
   if (!wrapper || !frame || !frameBackdrop) {
     return;
   }
@@ -51,6 +56,9 @@ const mouseUp = () => {
 };
 
 const handleResizerMouseDown = (e: MouseEvent) => {
+  const wrapper = getWrapper();
+  const frame = getFrame();
+  const frameBackdrop = getFrameBackdrop();
   if (!wrapper || !frame || !frameBackdrop || e.offsetX >= BORDER_SIZE) {
     return;
   }
@@ -58,13 +66,13 @@ const handleResizerMouseDown = (e: MouseEvent) => {
   wrapper.style.transition = 'none';
   frameBackdrop.style.display = 'block';
   pos = e.x;
-  orgWidth = parseInt(getComputedStyle(wrapper, '').width);
+  orgWidth = parseFloat(getComputedStyle(wrapper, '').width);
   document.addEventListener('mousemove', resize, false);
   document.addEventListener('mouseup', mouseUp, false);
 };
 
 const initTopPanel = () => {
-  const isTopPanel = localStorage.getItem('MSG_IS_TOP_PANEL') === 'true';
+  const isTopPanel = localStorage.getItem(MSG_IS_TOP_PANEL) === 'true';
   const rootEl = document.querySelector('.xpack-t-root');
 
   if (!rootEl) {
@@ -77,7 +85,7 @@ const initTopPanel = () => {
 
 const handleStoreModified = (event: StorageEvent) => {
   switch (event.key) {
-    case 'MSG_IS_TOP_PANEL': {
+    case MSG_IS_TOP_PANEL: {
       const isTopPanel = event.newValue === 'true';
       const rootEl = document.querySelector('.xpack-t-root');
 
@@ -100,6 +108,8 @@ const addStoreEvent = () => {
 };
 
 const setup = () => {
+  const resizer = getResizer();
+  const frame = getFrame();
   if (!resizer || !frame) {
     return;
   }
@@ -111,7 +121,7 @@ const setup = () => {
     const el = document.getElementById('root-actual-iframe-width');
 
     if (el) {
-      el.textContent = Math.ceil(parseInt(getComputedStyle(frame).width)) + 'px';
+      el.textContent = `${Math.ceil(parseFloat(getComputedStyle(frame).width))}px`;
     }
   };
 
@@ -127,6 +137,7 @@ const setup = () => {
   initTopPanel();
   addStoreEvent();
 
+  const wrapper = getWrapper();
   if (wrapper) {
     window.onload = () => wrapper.classList.add('initialized');
   }
