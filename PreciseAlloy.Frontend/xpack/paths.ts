@@ -9,7 +9,10 @@ const mode =
     ? process.argv[argvModeIndex + 1]
     : 'production';
 
-export const root = slash(path.resolve(__dirname, '..'));
+import { fileURLToPath } from 'url';
+const currentDir = path.dirname(fileURLToPath(import.meta.url));
+
+export const root = slash(path.resolve(currentDir, '..'));
 
 export const xpackEnv = loadEnv(mode, root);
 

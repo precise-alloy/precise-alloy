@@ -30,7 +30,7 @@ env:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    timeout-minutes: 5
+    timeout-minutes: 12
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -52,9 +52,16 @@ jobs:
       - name: Bun Setup 🛎️
         uses: oven-sh/setup-bun@v2
 
+      - name: Bun Install
+        run: bun install
+        working-directory: PreciseAlloy.Frontend
+
+      - name: Test and Coverage Gate
+        run: bun run test:ci
+        working-directory: PreciseAlloy.Frontend
+
       - name: Bun Install and Inte 🛎️
         run: |
-          bun install
           bun run inte
           git checkout -- .
         working-directory: PreciseAlloy.Frontend

@@ -11,7 +11,9 @@ import { glob } from 'glob';
 import postcss, { ProcessOptions } from 'postcss';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
-import { RawSourceMap, SourceMapConsumer, SourceMapGenerator } from 'source-map-js';
+import { RawSourceMap } from 'source-map-js';
+
+import { getStylesOutputFileName, prepareCssFileContent, stripInjectedPreludeFromSourceMap } from './styles-core';
 
 const isWatch = process.argv.includes('--watch');
 const outDir = './public/assets/css';
@@ -28,116 +30,6 @@ if (!fs.existsSync(outDir)) {
 
 // Something to use when events are received.
 const log = console.log.bind(console);
-
-const prepareCssFileContent = ({
-  srcFile,
-  includeMixins = true,
-  includeAbstracts = true,
-}: {
-  srcFile: string;
-  includeMixins?: boolean;
-  includeAbstracts?: boolean;
-}) => {
-  return [
-    includeAbstracts
-      ? slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/00-abstracts/abstracts'))}' as *;\n`)
-      : undefined,
-    includeMixins ? slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/01-mixins/mixins'))}' as *;\n`) : undefined,
-    fs.readFileSync(srcFile, 'utf-8'),
-  ].filter(Boolean);
-};
-
-const resolveSourceMapPath = (source: string, sourceRoot?: string | null): string | undefined => {
-  if (source.startsWith('data:')) {
-    return undefined;
-  }
-
-  try {
-    if (/^[a-zA-Z][a-zA-Z\d+.-]*:/.test(source)) {
-      return fileURLToPath(new URL(source));
-    }
-
-    if (sourceRoot && /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(sourceRoot)) {
-      return fileURLToPath(new URL(source, sourceRoot));
-    }
-  } catch {
-    return undefined;
-  }
-
-  return path.resolve(sourceRoot ?? '.', source);
-};
-
-const stripInjectedPreludeFromSourceMap = (sourceMap: RawSourceMap): RawSourceMap => {
-  const consumer = new SourceMapConsumer(sourceMap);
-  const generator = new SourceMapGenerator({
-    file: sourceMap.file,
-    sourceRoot: sourceMap.sourceRoot,
-  });
-  const sourceLineOffsets = new Map<string, number>();
-
-  consumer.sources.forEach((source) => {
-    const sourceContent = consumer.sourceContentFor(source, true);
-    const filePath = resolveSourceMapPath(source, consumer.sourceRoot);
-
-    if (!filePath || !sourceContent || !fs.existsSync(filePath)) {
-      generator.setSourceContent(source, sourceContent ?? undefined);
-
-      return;
-    }
-
-    const realSourceContent = fs.readFileSync(filePath, 'utf-8');
-
-    if (!sourceContent.endsWith(realSourceContent)) {
-      generator.setSourceContent(source, sourceContent);
-
-      return;
-    }
-
-    const injectedPrelude = sourceContent.slice(0, sourceContent.length - realSourceContent.length);
-    const lineOffset = injectedPrelude.match(/\n/g)?.length ?? 0;
-
-    if (lineOffset > 0) {
-      sourceLineOffsets.set(source, lineOffset);
-    }
-
-    generator.setSourceContent(source, realSourceContent);
-  });
-
-  consumer.eachMapping((mapping) => {
-    const generated = {
-      line: mapping.generatedLine,
-      column: mapping.generatedColumn,
-    };
-
-    if (!mapping.source || mapping.originalLine == null || mapping.originalColumn == null) {
-      generator.addMapping({
-        generated,
-        name: mapping.name ?? undefined,
-      });
-
-      return;
-    }
-
-    const lineOffset = sourceLineOffsets.get(mapping.source) ?? 0;
-    const originalLine = mapping.originalLine - lineOffset;
-
-    if (originalLine < 1) {
-      return;
-    }
-
-    generator.addMapping({
-      generated,
-      original: {
-        line: originalLine,
-        column: mapping.originalColumn,
-      },
-      source: mapping.source,
-      name: mapping.name ?? undefined,
-    });
-  });
-
-  return generator.toJSON();
-};
 
 const stringOptions = (srcFile: string): sass.StringOptions<'sync' | 'async'> => {
   const options: sass.StringOptions<'sync' | 'async'> = {
@@ -310,15 +202,7 @@ const sassCompile = (inputPath: string, isReady: boolean) => {
 };
 
 const getOutFileName = (srcFile: string): string | undefined => {
-  if (path.basename(srcFile).startsWith('_')) return undefined;
-
-  const name =
-    path.basename(srcFile) === 'index.scss' ? path.basename(path.dirname(srcFile)) + '.css' : path.basename(srcFile).replace(/\.scss$/, '.css');
-
-  if (srcFile.includes('organisms')) return ORGANISM_PREFIX + name;
-  if (srcFile.includes('templates')) return TEMPLATE_PREFIX + name;
-
-  return name;
+  return getStylesOutputFileName(srcFile, { organismPrefix: ORGANISM_PREFIX, templatePrefix: TEMPLATE_PREFIX });
 };
 
 const cleanUpOutput = (srcFile: string) => {
