@@ -106,13 +106,13 @@ describe('xpack/integration-core.ts', () => {
   it('maps pattern output names for shallow and nested static files', () => {
     expect(getPatternCopyTarget('D:/patterns', 'dist/static/pages/home.html')).toEqual({
       sourcePath: 'dist/static/pages/home.html',
-      targetPath: 'D:\\patterns\\pages-home.html',
+      targetPath: 'D:/patterns/pages-home.html',
       recursive: false,
     });
 
     expect(getPatternCopyTarget('D:/patterns', 'dist/static/pages/home/card/index.html')).toEqual({
       sourcePath: 'dist/static/pages/home/card/index.html',
-      targetPath: 'D:\\patterns\\pages-home-card-index.html',
+      targetPath: 'D:/patterns/pages-home-card-index.html',
       recursive: true,
     });
   });
@@ -173,8 +173,8 @@ describe('xpack/integration-core.ts', () => {
       expect.stringMatching(/[\\/]dest[\\/]hashes\.json$/),
       expect.stringContaining('/assets/js/main.js')
     );
-    expect(dependencies.copyFileSync).toHaveBeenCalledWith('dist/static/pages/home.html', 'D:\\patterns\\pages-home.html');
-    expect(dependencies.nodeFsCpSync).toHaveBeenCalledWith('dist/static/pages/home/card/index.html', 'D:\\patterns\\pages-home-card-index.html', {
+    expect(dependencies.copyFileSync).toHaveBeenCalledWith('dist/static/pages/home.html', 'D:/patterns/pages-home.html');
+    expect(dependencies.nodeFsCpSync).toHaveBeenCalledWith('dist/static/pages/home/card/index.html', 'D:/patterns/pages-home-card-index.html', {
       recursive: true,
     });
   });
