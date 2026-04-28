@@ -5,7 +5,7 @@ import { useOnClickOutside } from './use-click-outside';
 import StateAnimationHtml from './state-animation-html';
 
 export default function ActiveItemOptions() {
-  const { activeItem, isTopPanel } = useRootContext();
+  const { activeItem, isTopPanel, isRtl } = useRootContext();
   const key = 'pl-show-state-selector';
   const keyExist = localStorage.getItem(key);
   const optionItemsRef = createRef<HTMLDivElement>();
@@ -40,6 +40,14 @@ export default function ActiveItemOptions() {
     setShow(!show);
   };
 
+  const handleRtlToggle = () => {
+    const key = 'MSG_IS_RTL';
+    const value = isRtl ? 'false' : 'true';
+    localStorage.setItem(key, value);
+    window.dispatchEvent(new StorageEvent('storage', { key, newValue: value }));
+    setShow(false);
+  };
+
   const handleChangePanelPosition = () => {
     const key = 'MSG_IS_TOP_PANEL';
     const value = isTopPanel ? 'false' : 'true';
@@ -71,6 +79,10 @@ export default function ActiveItemOptions() {
 
         <button className="xpack-o-root__nav-item pl-state-toggle" onClick={handleThemeToggle}>
           Change theme
+        </button>
+
+        <button className="xpack-o-root__nav-item" onClick={handleRtlToggle}>
+          {isRtl ? 'Disable RTL' : 'Enable RTL'}
         </button>
 
         <button className="xpack-o-root__nav-item panel-position" onClick={handleChangePanelPosition}>

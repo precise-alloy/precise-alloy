@@ -43,3 +43,7 @@ public/pl-states.json
 
 # cli
 bin
+
+# claude
+.claude
+**/CLAUDE.md
