@@ -39,7 +39,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout Base 🛎️
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Bun 🛎️
         uses: oven-sh/setup-bun@v2
@@ -54,7 +54,7 @@ jobs:
 
       - name: Upload Coverage Artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: frontend-coverage
           path: PreciseAlloy.Frontend/coverage
