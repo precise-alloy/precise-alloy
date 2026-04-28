@@ -26,12 +26,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:ci": "bun run typecheck && vitest run --coverage --reporter=default",
-    "basesync:github": "rm -rf .github/ && cp -r ../../tuyen-wiki/ui/.github/ .",
-    "basesync:test": "rm -rf .github/ && cp -r ../../tuyen-wiki/ui/test/ .",
-    "basesync:src:helpers": "rm -rf xpack/ && cp -r ../../tuyen-wiki/ui/src/_helpers/ ./src",
-    "basesync:xpack": "rm -rf xpack/ && cp -r ../../tuyen-wiki/ui/xpack/ .",
-    "basesync": "bun run basesync:github && bun run basesync:src:helpers && bun run basesync:test && bun run basesync:xpack"
+    "test:ci": "bun run typecheck && vitest run --coverage --reporter=default"
   },
   "engines": {
     "node": ">=20.0.0"
