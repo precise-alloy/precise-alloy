@@ -1,2 +1,2 @@
-const c=()=>{const s=document.querySelector(".zzz-o-header");if(!s)return;const e=s.querySelector(".zzz-o-header__nav-toggle"),t=s.querySelector(".zzz-o-header__nav-list");!e||!t||(e.addEventListener("click",()=>{e.classList.toggle("active"),t.classList.toggle("active")}),t.onOutsideClick(()=>{e.classList.remove("active"),t.classList.remove("active")},[e]))};c();
+(()=>{let e=document.querySelector(`.zzz-o-header`);if(!e)return;let t=e.querySelector(`.zzz-o-header__nav-toggle`),n=e.querySelector(`.zzz-o-header__nav-list`);!t||!n||(t.addEventListener(`click`,()=>{t.classList.toggle(`active`),n.classList.toggle(`active`)}),n.onOutsideClick(()=>{t.classList.remove(`active`),n.classList.remove(`active`)},[t]))})();
 //# sourceMappingURL=header.js.map
