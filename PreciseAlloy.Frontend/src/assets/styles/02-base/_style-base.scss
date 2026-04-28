@@ -5,6 +5,12 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.translated-rtl,
+[dir='rtl'] {
+  direction: rtl;
+  --rtl-sign: -1;
+}
+
 body {
   & {
     min-height: 100vh;

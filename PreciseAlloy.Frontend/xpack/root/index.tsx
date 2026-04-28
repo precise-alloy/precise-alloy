@@ -12,6 +12,7 @@ export default function Root(props: RootModel) {
   const [isTopPanel, setTopPanel] = useState<boolean>(() =>
     typeof localStorage !== 'undefined' ? localStorage.getItem('MSG_IS_TOP_PANEL') === 'true' : false
   );
+  const [isRtl, setRtl] = useState<boolean>(() => (typeof localStorage !== 'undefined' ? localStorage.getItem('MSG_IS_RTL') === 'true' : false));
 
   useEffect(() => {
     if (!activeItem) {
@@ -33,6 +34,8 @@ export default function Root(props: RootModel) {
     setActiveItem,
     isTopPanel,
     setTopPanel,
+    isRtl,
+    setRtl,
   };
 
   const routes = useMemo(() => {
@@ -80,6 +83,9 @@ export default function Root(props: RootModel) {
       case 'MSG_IS_TOP_PANEL':
         setTopPanel(event.newValue === 'true');
         break;
+      case 'MSG_IS_RTL':
+        setRtl(event.newValue === 'true');
+        break;
     }
   };
 
@@ -90,6 +96,25 @@ export default function Root(props: RootModel) {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
+
+  useEffect(() => {
+    const frame = document.querySelector<HTMLIFrameElement>('#root-iframe');
+
+    if (!frame) {
+      return;
+    }
+
+    const applyDir = () => {
+      frame.contentDocument?.documentElement.setAttribute('dir', isRtl ? 'rtl' : 'ltr');
+    };
+
+    applyDir();
+    frame.addEventListener('load', applyDir);
+
+    return () => {
+      frame.removeEventListener('load', applyDir);
+    };
+  }, [isRtl]);
 
   return routes ? (
     <RootContext.Provider value={rootData}>

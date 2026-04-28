@@ -5,6 +5,8 @@ export interface RootData {
   setActiveItem: (item?: SinglePageNode) => void;
   isTopPanel?: boolean;
   setTopPanel: (isTopPanel: boolean) => void;
+  isRtl: boolean;
+  setRtl: (value: boolean) => void;
 }
 
 export const RootContext = createContext<RootData>({
@@ -12,6 +14,10 @@ export const RootContext = createContext<RootData>({
     // empty
   },
   setTopPanel: () => {
+    // empty
+  },
+  isRtl: false,
+  setRtl: () => {
     // empty
   },
 });
