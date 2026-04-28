@@ -1,4 +1,5 @@
 @using EPiServer.Framework.Web.Mvc.Html
+@using PreciseAlloy.Web.Generated
 @model PreciseAlloy.Models.Interfaces.IPageViewModel
 <!DOCTYPE html>
 <html lang="@ContentLanguage.PreferredCulture.TwoLetterISOLanguageName" class="page-@Model.ClassName">
@@ -8,13 +9,12 @@
     @await Component.InvokeAsync("MetaData")
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="@Html.GetCacheBusterPath("/assets/css/style-base.css")">
+    <link rel="stylesheet" href="@AssetPaths.StyleBaseCss">
 
-    <script src="@Html.GetCacheBusterPath("/assets/js/main.js")"></script>
+    <script src="@AssetPaths.MainJs"></script>
     @Html.RequiredClientResources("Header")
 
-    <script type="module" src="@Html.GetWidgetAssetPath("react-loader")"></script>
-    <link rel="modulepreload" href="@Html.GetWidgetAssetPath("vendor")">
+    <script type="module" src="@AssetPaths.WidgetReactLoaderJs"></script>
 </head>
 
 <body class="page-@Model.ClassName">

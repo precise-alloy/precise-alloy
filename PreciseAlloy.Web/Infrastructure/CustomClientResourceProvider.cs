@@ -1,5 +1,5 @@
 ﻿using EPiServer.Framework.Web.Resources;
-using PreciseAlloy.Utils.Extensions;
+using PreciseAlloy.Web.Generated;
 
 namespace PreciseAlloy.Web.Infrastructure;
 
@@ -15,7 +15,7 @@ public class CustomClientResourceProvider
             new ClientResource
             {
                 Name = "epi-cms.widgets.base",
-                Path = HtmlExtensions.GetCacheBusterPath("/assets/css/b-cms-editor.css"),
+                Path = AssetPaths.BCmsEditorCss,
                 ResourceType = ClientResourceType.Style
             }
         ];

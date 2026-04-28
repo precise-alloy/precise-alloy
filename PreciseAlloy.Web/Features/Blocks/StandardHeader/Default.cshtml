@@ -1,8 +1,8 @@
 ﻿@model PreciseAlloy.Models.Blocks.Header.StandardHeaderViewModel
 
 @{
-    Html.RequireStyle("/assets/css/b-header.css").AtHeader();
-    Html.RequireScript("/assets/js/header.js").AtHeader();
+    Html.RequireStyle(PreciseAlloy.Web.Generated.AssetPaths.BHeaderCss).AtHeader();
+    Html.RequireScript(PreciseAlloy.Web.Generated.AssetPaths.HeaderJs).AtHeader();
 }
 
 <header class="zzz-o-header">
@@ -13,7 +13,7 @@
                      width="70"
                      height="50"
                      alt="@Model.LogoAlternativeText"
-                     src="@Html.GetCacheBusterPath("/assets/images/logo.svg")">
+                     src="@PreciseAlloy.Web.Generated.AssetPaths.LogoSvg">
             </a>
             <span class="zzz-o-header__title">@Model.CompanyName</span>
             <div class="zzz-o-header__nav-mobile">

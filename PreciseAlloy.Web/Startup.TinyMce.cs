@@ -1,5 +1,5 @@
 ﻿using EPiServer.Cms.TinyMce.Core;
-using PreciseAlloy.Utils.Extensions;
+using PreciseAlloy.Web.Generated;
 
 namespace PreciseAlloy.Web;
 
@@ -21,9 +21,8 @@ public partial class Startup
                     "bullist numlist outdent indent | alignleft aligncenter alignright | epi-link unlink anchor | fullscreen | code")
                 .BodyClass("zzz-rich-text-box")
                 .AddSiteCss(
-                    HtmlExtensions.GetCacheBusterPath("/assets/css/style-base.css"),
-                    HtmlExtensions.GetCacheBusterPath("/assets/css/b-tiny-mce.css"),
-                    HtmlExtensions.GetCacheBusterPath("/assets/css/b-rich-text-box.css"));
+                    AssetPaths.StyleBaseCss,
+                    AssetPaths.BTinyMceCss);
         });
         // ReSharper restore StringLiteralTypo
     }

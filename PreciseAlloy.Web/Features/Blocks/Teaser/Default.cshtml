@@ -1,7 +1,7 @@
 ﻿@model PreciseAlloy.Models.Blocks.Teaser.TeaserBlockViewModel
 
 @{
-    Html.RequireStyle("/assets/css/b-teaser.css").AtHeader();
+    Html.RequireStyle(PreciseAlloy.Web.Generated.AssetPaths.BTeaserCss).AtHeader();
 
     var imageClass = Model.CurrentBlock.ShowImageOnTheRight
         ? ""

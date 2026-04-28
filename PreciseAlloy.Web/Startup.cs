@@ -41,6 +41,9 @@ public partial class Startup(
             services.Configure<ClientResourceOptions>(uiOptions => { uiOptions.Debug = true; });
             
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            // Hot-reload AssetPaths when the FE pipeline rewrites hashes.json.
+            services.AddHostedService<AssetPathsRefresher>();
         }
         else
         {

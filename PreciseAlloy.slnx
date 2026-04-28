@@ -4,5 +4,6 @@
   <Project Path="PreciseAlloy.Services.Tests/PreciseAlloy.Services.Tests.csproj" />
   <Project Path="PreciseAlloy.Services/PreciseAlloy.Services.csproj" />
   <Project Path="PreciseAlloy.Utils/PreciseAlloy.Utils.csproj" />
+  <Project Path="PreciseAlloy.Utils.SourceGenerators/PreciseAlloy.Utils.SourceGenerators.csproj" />
   <Project Path="PreciseAlloy.Web/PreciseAlloy.Web.csproj" />
 </Solution>
