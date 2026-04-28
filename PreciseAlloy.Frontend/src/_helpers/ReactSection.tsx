@@ -10,27 +10,27 @@ const ReactSection = ({ type, data, css }: Model) => {
 
   if (!css) {
     return <script dangerouslySetInnerHTML={innerHtml} data-rct={type} type="application/json" />;
-  } else if (typeof css === 'string') {
+  }
+
+  if (typeof css === 'string') {
     return (
       <>
         <RequireCss path={css} />
         <script dangerouslySetInnerHTML={innerHtml} data-rct={type} type="application/json" />
       </>
     );
-  } else if (typeof css === 'object') {
-    const cssItems = css as string[];
-
-    return (
-      <>
-        {cssItems.map((i) => (
-          <RequireCss key={i} path={i} />
-        ))}
-        <script dangerouslySetInnerHTML={innerHtml} data-rct={type} type="application/json" />
-      </>
-    );
-  } else {
-    return <></>;
   }
+
+  // css is `string[]` here: the prop type narrows to `string | string[]` and
+  // the previous branches cover `undefined` and `string`.
+  return (
+    <>
+      {css.map((i) => (
+        <RequireCss key={i} path={i} />
+      ))}
+      <script dangerouslySetInnerHTML={innerHtml} data-rct={type} type="application/json" />
+    </>
+  );
 };
 
 export default ReactSection;

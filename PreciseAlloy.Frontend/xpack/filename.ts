@@ -1,13 +1,20 @@
 import _ from 'lodash';
-import { PreRenderedAsset, PreRenderedChunk } from 'rollup';
 
 // console.log('filename');
 
-interface AssetPathInfo {
+type AssetPathInfo = {
   name?: string;
   ext: string;
   noHash?: boolean;
-}
+};
+
+export type PreRenderedAsset = {
+  name?: string;
+};
+
+export type PreRenderedChunk = {
+  name?: string;
+};
 
 const getAssetPath = ({ name, ext, noHash }: AssetPathInfo) => {
   const normalizedName = _.lowerCase(name).replaceAll(/(\s+)/gi, '-');

@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import ReactDOM from 'react-dom/client';
+import YAML from 'js-yaml';
 
 import { clientComponents } from '../src/client-components';
 
@@ -12,12 +13,14 @@ const SAFE_CONTAINER_TAGS = new Set(['div', 'section']);
 
 const getSafeTagName = (tagName: string | null): string => {
   const normalizedTag = (tagName ?? '').trim().toLowerCase();
+
   return SAFE_CONTAINER_TAGS.has(normalizedTag) ? normalizedTag : 'section';
 };
 
 const renderComponent = (scriptSection: HTMLScriptElement) => {
   const blockType = scriptSection.getAttribute('data-rct');
   const data = scriptSection.textContent ? scriptSection.textContent : '{}';
+  const type = scriptSection.getAttribute('type');
 
   if (!blockType || !data) {
     return;
@@ -33,7 +36,7 @@ const renderComponent = (scriptSection: HTMLScriptElement) => {
     section.className = scriptSection.getAttribute('data-class') ?? '';
     scriptSection.replaceWith(section);
 
-    const props = JSON.parse(data);
+    const props = type === 'application/json' ? JSON.parse(data) : type === 'application/yaml' ? YAML.load(data) : {};
 
     ReactDOM.createRoot(section).render(<Component {...props} />);
   } else {

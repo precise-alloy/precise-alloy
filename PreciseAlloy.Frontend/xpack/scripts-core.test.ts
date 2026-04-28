@@ -88,7 +88,7 @@ describe('xpack/scripts-core', () => {
     expect(dependencies.transformWithEsbuild).toHaveBeenCalledTimes(2);
   });
 
-  it('wires add, change, and unlink handlers in watch mode', () => {
+  it('wires add, change, and unlink handlers in watch mode and invokes them as expected', async () => {
     const { dependencies, watcher } = createDependencies();
 
     const watched = watchScripts(dependencies);
@@ -98,6 +98,22 @@ describe('xpack/scripts-core', () => {
     expect(watcher.on).toHaveBeenNthCalledWith(2, 'change', expect.any(Function));
     expect(watcher.on).toHaveBeenNthCalledWith(3, 'unlink', expect.any(Function));
     expect(watched).toBe(watcher);
+
+    // Capture and invoke each registered callback so the watcher event handlers
+    // execute end-to-end and the corresponding compileScript / log paths run.
+    const onMock = vi.mocked(watcher.on);
+    const addCallback = onMock.mock.calls[0]?.[1] as (path: string) => unknown;
+    const changeCallback = onMock.mock.calls[1]?.[1] as (path: string) => unknown;
+    const unlinkCallback = onMock.mock.calls[2]?.[1] as (path: string) => unknown;
+
+    await addCallback('src/assets/scripts/added.ts');
+    await changeCallback('src/assets/scripts/changed.ts');
+    await unlinkCallback('src/assets/scripts/removed.ts');
+
+    expect(dependencies.transformWithEsbuild).toHaveBeenCalledTimes(2);
+    expect(dependencies.log).toHaveBeenCalledWith('compile:', 'src/assets/scripts/added.ts');
+    expect(dependencies.log).toHaveBeenCalledWith('compile:', 'src/assets/scripts/changed.ts');
+    expect(dependencies.log).toHaveBeenCalledWith('File src/assets/scripts/removed.ts has been removed');
   });
 
   it('routes argv into watch or compile mode', async () => {

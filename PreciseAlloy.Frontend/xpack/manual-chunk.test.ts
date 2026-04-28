@@ -36,4 +36,15 @@ describe('xpack/manual-chunk.ts', () => {
 
     expect(getManualChunk('src/organisms/hero/index.tsx', api as never)).toBeUndefined();
   });
+
+  it('returns undefined for entry modules outside the src root', () => {
+    // Entry files that resolve outside of `src/` (e.g. xpack scripts or root
+    // configuration entries) must not be rewritten into the internal chunk
+    // naming convention.
+    const api = {
+      getModuleInfo: vi.fn().mockReturnValue({ isEntry: true }),
+    };
+
+    expect(getManualChunk('xpack/scripts.ts', api as never)).toBeUndefined();
+  });
 });

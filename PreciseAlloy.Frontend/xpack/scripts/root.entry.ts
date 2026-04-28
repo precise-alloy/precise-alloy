@@ -15,6 +15,7 @@ let iframeSize = sessionStorage.getItem(MSG_IFRAME_SIZE);
 
 const setIFrameWidth = (width?: number) => {
   const wrapper = getWrapper();
+
   if (!wrapper) {
     return;
   }
@@ -43,6 +44,7 @@ const mouseUp = () => {
   const wrapper = getWrapper();
   const frame = getFrame();
   const frameBackdrop = getFrameBackdrop();
+
   if (!wrapper || !frame || !frameBackdrop) {
     return;
   }
@@ -59,6 +61,7 @@ const handleResizerMouseDown = (e: MouseEvent) => {
   const wrapper = getWrapper();
   const frame = getFrame();
   const frameBackdrop = getFrameBackdrop();
+
   if (!wrapper || !frame || !frameBackdrop || e.offsetX >= BORDER_SIZE) {
     return;
   }
@@ -110,6 +113,7 @@ const addStoreEvent = () => {
 const setup = () => {
   const resizer = getResizer();
   const frame = getFrame();
+
   if (!resizer || !frame) {
     return;
   }
@@ -138,6 +142,7 @@ const setup = () => {
   addStoreEvent();
 
   const wrapper = getWrapper();
+
   if (wrapper) {
     window.addEventListener('load', () => wrapper.classList.add('initialized'));
   }

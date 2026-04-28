@@ -14,6 +14,7 @@ import cssnano from 'cssnano';
 import { RawSourceMap } from 'source-map-js';
 
 import { getStylesOutputFileName, prepareCssFileContent, stripInjectedPreludeFromSourceMap } from './styles-core';
+import { rewriteAssetHashes } from './asset-hash';
 
 const isWatch = process.argv.includes('--watch');
 const outDir = './public/assets/css';
@@ -30,7 +31,29 @@ const XPACK_STYLES_PREFIX = 'xpack/styles';
 const DEBOUNCE_DELAY_MS = 200;
 const ORGANISM_PREFIX = 'b-';
 const TEMPLATE_PREFIX = 'p-';
-const DIRECT_READ_PATH_MARKERS = ['abstracts', '_mixins', '_base', 'xpack'] as const;
+// Path-segment markers (slash-bounded) used to decide which prelude pieces
+// to inject when an importer load lands on a particular file. We intentionally
+// match by `/segment/` instead of bare `substring` because a naive
+// `srcFile.includes('_base')` check would also match unrelated component
+// partials like `_base-header.scss` or `_base-style.scss`, silently dropping
+// their prelude and producing "Undefined mixin" errors at compile time.
+//
+// Each matcher accepts both absolute (`/.../xpack/...`) and relative
+// (`xpack/...`) inputs because `compile()` is called with workspace-relative
+// paths while the Sass importer hands us absolute `file://` paths.
+const matchesPathSegment = (slashed: string, segment: string) => slashed.includes(`/${segment}/`) || slashed.startsWith(`${segment}/`);
+const matchesPathSuffix = (slashed: string, suffix: string) => slashed.endsWith(`/${suffix}`) || slashed === suffix;
+
+const ABSTRACTS_DIR = 'src/assets/styles/00-abstracts';
+const MIXINS_DIR = 'src/assets/styles/01-mixins';
+const FUNCTIONS_DIR = 'src/assets/styles/01-functions';
+const BASE_DIR = 'src/assets/styles/02-base';
+const XPACK_DIR = 'xpack';
+// Barrel files that just `@forward` their siblings — injecting a prelude that
+// `@use`s the same barrel would recurse forever.
+const MIXINS_BARREL = `${MIXINS_DIR}/_mixins.scss`;
+const FUNCTIONS_BARREL = `${FUNCTIONS_DIR}/_functions.scss`;
+const BASE_BARREL = `${BASE_DIR}/_base.scss`;
 
 if (!isWatch && fs.existsSync(outDir)) {
   fs.rmSync(outDir, { force: true, recursive: true });
@@ -44,19 +67,52 @@ if (!fs.existsSync(outDir)) {
 const log = console.log.bind(console);
 
 const getCssSourceContent = (srcFile: string, mode: 'importer' | 'compile'): string[] => {
+  const slashed = slash(srcFile);
+
   if (mode === 'importer') {
-    if (DIRECT_READ_PATH_MARKERS.some((marker) => srcFile.includes(marker))) {
+    // Abstract leaves (variables, colors, etc.) and the abstracts barrel
+    // don't depend on anything; they ARE the abstracts. The same applies to
+    // xpack stylesheets, which manage their own `@use` graph and should not
+    // see any of the component-tree preludes.
+    if (matchesPathSegment(slashed, ABSTRACTS_DIR) || matchesPathSegment(slashed, XPACK_DIR)) {
       return [fs.readFileSync(srcFile, 'utf-8')];
     }
 
-    if (srcFile.includes('mixins')) {
+    // Mixins barrel only `@forward`s siblings; injecting the mixins prelude
+    // here would recurse. Mixin partials themselves (e.g. `_borders.scss`)
+    // reference abstract variables and helpers like `px2rem`, so they get
+    // the abstracts + functions preludes but NOT the mixins one.
+    if (matchesPathSuffix(slashed, MIXINS_BARREL)) {
+      return [fs.readFileSync(srcFile, 'utf-8')];
+    }
+
+    if (matchesPathSegment(slashed, MIXINS_DIR)) {
       return prepareCssFileContent({ srcFile, includeMixins: false });
+    }
+
+    // Functions barrel: same self-recursion concern as the mixins barrel.
+    if (matchesPathSuffix(slashed, FUNCTIONS_BARREL)) {
+      return [fs.readFileSync(srcFile, 'utf-8')];
+    }
+
+    // Function partials reference abstract variables (`$rem`, `$rtl-sign`)
+    // but cannot pull in either the functions barrel (self-recurse) or the
+    // mixins barrel (mixins depend on functions, would recurse the other way).
+    if (matchesPathSegment(slashed, FUNCTIONS_DIR)) {
+      return prepareCssFileContent({ srcFile, includeMixins: false, includeFunctions: false });
+    }
+
+    // The `_base.scss` barrel only `@use`s its siblings; the base partials
+    // themselves use the full prelude and fall through to the default branch.
+    if (matchesPathSuffix(slashed, BASE_BARREL)) {
+      return [fs.readFileSync(srcFile, 'utf-8')];
     }
 
     return prepareCssFileContent({ srcFile });
   }
 
-  if (srcFile.includes('xpack')) {
+  // Compile mode: xpack entry stylesheets manage their own imports.
+  if (matchesPathSegment(slashed, XPACK_DIR)) {
     return [fs.readFileSync(srcFile, 'utf-8')];
   }
 
@@ -71,8 +127,28 @@ const getStringOptions = <Sync extends 'sync' | 'async'>(srcFile: string): sass.
     style: 'compressed',
     url: pathToFileURL(path.resolve(srcFile)),
     importer: {
-      canonicalize(url) {
-        return new URL(url);
+      // Resolve every `@use`/`@forward` URL to a `file://` canonical URL so
+      // our `load()` always runs and gets to inject the abstracts/functions/
+      // mixins preludes. The previous `new URL(url)` form threw on relative
+      // specifiers like `@use 'sibling'`; Sass would catch the throw and fall
+      // back to its built-in file-system loader, which bypasses our `load()`
+      // entirely. The result was that partials silently lost access to all
+      // globally-injected mixins/functions and produced "Undefined mixin"
+      // errors at first use.
+      canonicalize(url, context) {
+        try {
+          return new URL(url);
+        } catch {
+          if (context?.containingUrl) {
+            try {
+              return new URL(url, context.containingUrl);
+            } catch {
+              return null;
+            }
+          }
+
+          return null;
+        }
       },
       load(canonicalUrl: URL) {
         let filePath = fileURLToPath(canonicalUrl);
@@ -149,7 +225,13 @@ const postcssProcess = (result: sass.CompileResult, from: string, to: string) =>
   postcss([autoprefixer({ grid: true }), cssnano])
     .process(result.css, postcssOptions)
     .then((postcssResult) => {
-      fs.writeFileSync(path.join(outDir, to), postcssResult.css + (postcssResult.map ? `\n/*# sourceMappingURL=${to}.map */` : ''));
+      // Append `?v=<hash>` to every `/assets/...` URL in the final CSS so
+      // browsers cache-bust whenever a referenced font/image changes. This
+      // mirrors the JS/TS pipeline in `xpack/hooks/transform.ts` and shares
+      // the same regex + hash cache through `asset-hash.ts`.
+      const hashedCss = rewriteAssetHashes(postcssResult.css);
+
+      fs.writeFileSync(path.join(outDir, to), hashedCss + (postcssResult.map ? `\n/*# sourceMappingURL=${to}.map */` : ''));
 
       if (postcssResult.map) {
         fs.writeFileSync(path.join(outDir, to + '.map'), postcssResult.map.toString());

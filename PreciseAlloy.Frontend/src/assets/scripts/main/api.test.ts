@@ -118,4 +118,52 @@ describe('src/assets/scripts/main/api.ts', () => {
       error: expect.any(Error),
     });
   });
+
+  it('reuses an existing window.appApi instead of redefining it', async () => {
+    const existing = { getAsync: vi.fn() };
+
+    vi.resetModules();
+    vi.unstubAllEnvs();
+    Object.defineProperty(window, 'appApi', {
+      configurable: true,
+      writable: true,
+      value: existing,
+    });
+
+    await import('./api');
+
+    expect(window.appApi).toBe(existing);
+  });
+
+  it('initializes on globalThis and falls back to a localhost origin when window and location are absent', async () => {
+    const globalRef = globalThis as { window?: unknown; location?: unknown; appApi?: unknown };
+    const originalWindow = globalRef.window;
+    const originalLocation = globalRef.location;
+
+    vi.resetModules();
+    vi.unstubAllEnvs();
+    globalRef.appApi = undefined;
+    globalRef.window = undefined;
+    globalRef.location = undefined;
+
+    const json = vi.fn().mockResolvedValue({ ok: true });
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue({ json } as unknown as Response);
+
+    try {
+      await import('./api');
+
+      // The module re-attached itself to globalThis as `window`.
+      expect((globalRef.window as { appApi?: unknown })?.appApi).toBeDefined();
+      const appApi = (globalRef as unknown as { appApi: { getAsync: (path: string) => Promise<unknown> } }).appApi;
+
+      await appApi.getAsync('health');
+
+      expect(fetchSpy).toHaveBeenCalledWith('http://localhost/health', {
+        method: 'GET',
+      });
+    } finally {
+      globalRef.window = originalWindow;
+      globalRef.location = originalLocation;
+    }
+  });
 });

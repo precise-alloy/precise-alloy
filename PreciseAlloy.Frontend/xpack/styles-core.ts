@@ -20,16 +20,30 @@ export const prepareCssFileContent = (
     srcFile,
     includeMixins = true,
     includeAbstracts = true,
+    includeFunctions = true,
   }: {
     srcFile: string;
     includeMixins?: boolean;
     includeAbstracts?: boolean;
+    /**
+     * Inject the `01-functions/functions` barrel so partials gain global
+     * access to helpers like `px2rem`, `rtl`, and `str-replace`. There is no
+     * `@forward` chain that re-exposes these from `00-abstracts` or
+     * `01-mixins`, so each consuming file needs its own `@use ... as *`. We
+     * inject it here for the same reason we inject the abstracts/mixins
+     * barrels: every component partial expects these helpers to resolve
+     * without ceremony, the way they did under the legacy `@import` setup.
+     */
+    includeFunctions?: boolean;
   },
   dependencies: Pick<StyleCoreDependencies, 'readFileSync'> = defaultDependencies
 ) => {
   return [
     includeAbstracts
       ? slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/00-abstracts/abstracts'))}' as *;\n`)
+      : undefined,
+    includeFunctions
+      ? slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/01-functions/functions'))}' as *;\n`)
       : undefined,
     includeMixins ? slash(`@use '${path.relative(path.dirname(srcFile), path.resolve('src/assets/styles/01-mixins/mixins'))}' as *;\n`) : undefined,
     dependencies.readFileSync(srcFile, 'utf-8'),

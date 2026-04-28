@@ -1,9 +1,16 @@
 import path from 'path';
 
-import { ManualChunkMeta } from 'rollup';
 import slash from 'slash';
 
 import { getAbsolutePath, srcRoot } from './paths';
+
+type ManualChunkMeta = {
+  getModuleInfo: (id: string) => ModuleInfo | null;
+};
+
+type ModuleInfo = {
+  isEntry: boolean;
+};
 
 // console.log('manual-chunk');
 

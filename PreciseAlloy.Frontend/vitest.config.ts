@@ -37,10 +37,15 @@ export default defineConfig({
       exclude: ['src/**/*.test.{ts,tsx}', 'xpack/**/*.test.{ts,tsx}', 'src/**/*.d.ts', 'src/vite-env.d.ts', 'types.d.ts'],
       thresholds: {
         perFile: true,
-        lines: 90,
-        statements: 90,
-        functions: 90,
-        branches: 80,
+        lines: 100,
+        statements: 100,
+        functions: 100,
+        // Branches stays at the achieved per-file minimum: the `||` chain in
+        // removeDuplicateAssets includes a defensive bare-defer comparator
+        // (`attr('defer') === ''`) whose execution depends on cheerio's attr
+        // normalization, which V8 occasionally reports as a partial branch.
+        // 95 keeps the gate strict while tolerating the residual micro-branch.
+        branches: 95,
       },
     },
   },

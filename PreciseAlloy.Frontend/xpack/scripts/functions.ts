@@ -1,3 +1,7 @@
+/* AUTO-GENERATED FILE — DO NOT EDIT BY HAND.
+ * Please commit any changes you see here.
+ */
+
 type RuntimeGlobal = typeof globalThis & {
   window?: Window & typeof globalThis;
   getModifiers?: (model: BasedAtomicModel, baseClass: string) => string;
@@ -59,34 +63,4 @@ runtimeWindow.getCookie = (name: string) => {
   });
 
   return cookies[name];
-};
-
-runtimeWindow.generatePagingData = (numberPages: number, currentPage: number, range = 5) => {
-  const halfRange = Math.floor(range / 2);
-  let start = 0,
-    end = 0;
-
-  if (currentPage - halfRange < 1) {
-    start = 1;
-
-    end = numberPages < range ? numberPages : range;
-  } else if (numberPages - halfRange < currentPage) {
-    start = numberPages - range < 1 ? 1 : numberPages - range + 1;
-
-    end = numberPages;
-  } else {
-    start = currentPage - halfRange;
-
-    end = currentPage + halfRange;
-  }
-
-  return Array.from({ length: end - start + 1 }, (_, i) => i + start);
-};
-
-runtimeWindow.roundNumber = (num: number | boolean | undefined | string | null, numberDecimalDigit = 2) => {
-  if (typeof num !== 'number') {
-    return '';
-  }
-
-  return Number(num).toFixed(numberDecimalDigit);
 };

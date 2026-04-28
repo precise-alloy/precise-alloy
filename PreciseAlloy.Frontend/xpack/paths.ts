@@ -1,4 +1,5 @@
 import path from 'path';
+import { fileURLToPath } from 'url';
 
 import slash from 'slash';
 import { loadEnv } from 'vite';
@@ -9,7 +10,6 @@ const mode =
     ? process.argv[argvModeIndex + 1]
     : 'production';
 
-import { fileURLToPath } from 'url';
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
 export const root = slash(path.resolve(currentDir, '..'));

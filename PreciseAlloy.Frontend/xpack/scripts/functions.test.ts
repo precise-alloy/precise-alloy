@@ -11,7 +11,7 @@ const importFunctionsModule = async (env: Record<string, string> = {}) => {
   await import('./functions');
 };
 
-describe('src/assets/scripts/main/functions.ts', () => {
+describe('xpack/scripts/functions.ts', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
   });
@@ -33,6 +33,12 @@ describe('src/assets/scripts/main/functions.ts', () => {
         'zzz-o-card'
       )
     ).toBe('zzz-o-card section-margin-top zzz-o-card--compact theme-dark');
+  });
+
+  it('returns only the base class when no modifiers or theme are provided', async () => {
+    await importFunctionsModule();
+
+    expect(getModifiers({} as BasedAtomicModel, 'zzz-o-card')).toBe('zzz-o-card');
   });
 
   it('normalizes relative paths and preserves absolute URLs', async () => {
@@ -63,23 +69,5 @@ describe('src/assets/scripts/main/functions.ts', () => {
     expect(window.getCookie('feature')).toBe('on');
     expect(window.getCookie('theme')).toBe('dark');
     expect(window.getCookie('missing')).toBeUndefined();
-  });
-
-  it('builds paging data for start, middle, and end windows', async () => {
-    await importFunctionsModule();
-
-    expect(window.generatePagingData(10, 1, 5)).toEqual([1, 2, 3, 4, 5]);
-    expect(window.generatePagingData(10, 5, 5)).toEqual([3, 4, 5, 6, 7]);
-    expect(window.generatePagingData(10, 10, 5)).toEqual([6, 7, 8, 9, 10]);
-    expect(window.generatePagingData(3, 2, 5)).toEqual([1, 2, 3]);
-  });
-
-  it('formats numeric values and rejects non-numeric inputs', async () => {
-    await importFunctionsModule();
-
-    expect(window.roundNumber(10)).toBe('10.00');
-    expect(window.roundNumber(10.3456, 3)).toBe('10.346');
-    expect(window.roundNumber('10')).toBe('');
-    expect(window.roundNumber(undefined)).toBe('');
   });
 });

@@ -13,6 +13,7 @@ import handleHotUpdate from './hooks/handle-hot-update';
 import transformIndexHtml from './hooks/transform-index-html';
 import options from './hooks/options';
 import transfrom from './hooks/transform';
+import injectFunctions from './hooks/inject-functions';
 
 // console.log('config');
 
@@ -22,6 +23,7 @@ const config = defineConfig({
     react(),
     options(),
     buildStart(),
+    injectFunctions(),
     transfrom(),
     transformIndexHtml(xpackEnv.VITE_BASE_URL),
     resolveDynamicImport(),
@@ -31,7 +33,7 @@ const config = defineConfig({
   ],
   assetsInclude: ['**/*.svg', '**/*.htm', '**/*.cshtml'],
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       output: {
         entryFileNames: getEntryFileName,
         chunkFileNames: getChunkFileName,
@@ -39,7 +41,7 @@ const config = defineConfig({
         manualChunks: getManualChunk,
       },
     },
-    minify: 'esbuild',
+    minify: 'oxc',
     sourcemap: true,
     outDir,
     emptyOutDir: true,

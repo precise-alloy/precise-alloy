@@ -3,8 +3,7 @@
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 
-import '../src/assets/scripts/main/functions';
-import '../src/assets/scripts/main/api';
+import './scripts/functions';
 import { routesToPrerender } from './routes';
 import { App } from './app';
 

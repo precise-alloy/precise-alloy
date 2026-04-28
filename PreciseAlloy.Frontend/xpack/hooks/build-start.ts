@@ -1,4 +1,3 @@
-import { NormalizedInputOptions } from 'rollup';
 import { PluginOption } from 'vite';
 
 const buildStart = (): PluginOption => {
@@ -8,7 +7,7 @@ const buildStart = (): PluginOption => {
     name: 'xpack-build-start',
     enforce: 'pre',
 
-    buildStart(_options: NormalizedInputOptions) {
+    buildStart(_options: unknown) {
       // console.log('buildStart');
     },
   };
