@@ -2,6 +2,8 @@
 import fs from 'fs';
 import path from 'path';
 
+import slash from 'slash';
+
 import { root } from './paths';
 import { getAssetVersion } from './cryptography';
 
@@ -35,7 +37,7 @@ export const defaultAssetHashDependencies: AssetHashDependencies = {
   existsSync: fs.existsSync,
   readFileSync: (filePath: string) => fs.readFileSync(filePath),
   hash: getAssetVersion,
-  resolveAssetPath: (assetUrl: string) => path.resolve(root, 'public' + assetUrl),
+  resolveAssetPath: (assetUrl: string) => slash(path.resolve(root, 'public' + assetUrl)),
   // Process-wide cache of `/assets/...` path -> content hash. Shared across
   // every caller (CSS post-processing, the Vite `xpack-transform` plugin,
   // etc.) so any given asset file is read from disk and hashed at most once
