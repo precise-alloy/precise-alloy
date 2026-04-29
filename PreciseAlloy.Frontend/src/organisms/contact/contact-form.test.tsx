@@ -102,6 +102,30 @@ describe('ContactForm', () => {
     });
   });
 
+  it('does not alert or reset the form when the API responds with success but no message', async () => {
+    const user = userEvent.setup();
+
+    submitContactForm.mockResolvedValueOnce({ success: true });
+
+    render(<ContactForm {...contactForm} />);
+
+    await user.type(screen.getByLabelText('Name'), 'Alice');
+    await user.type(screen.getByLabelText('Email'), 'alice@example.com');
+    await user.type(screen.getByLabelText('Message'), 'Hello');
+    await user.click(screen.getByRole('button', { name: 'Submit' }));
+
+    await waitFor(() => {
+      expect(submitContactForm).toHaveBeenCalled();
+    });
+
+    // No alert because message is falsy; no reset because the success branch
+    // requires both flags.
+    expect(alert).not.toHaveBeenCalled();
+    expect(screen.getByLabelText('Name')).toHaveValue('Alice');
+    expect(screen.getByLabelText('Email')).toHaveValue('alice@example.com');
+    expect(screen.getByLabelText('Message')).toHaveValue('Hello');
+  });
+
   it('submits safely when optional fields are omitted from the model', async () => {
     const user = userEvent.setup();
 

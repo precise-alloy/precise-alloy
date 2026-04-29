@@ -25,7 +25,7 @@ bun run test:ci
 
 `typecheck` runs `tsc --noEmit` and catches interface drift like stale Rollup or Vite fixture objects before runtime tests even start.
 
-`test:ci` is the command used by GitHub Actions. It now runs type checking before the coverage run, and it must pass before the updated CI, deploy, and integration workflows can complete.
+`test:ci` is the command used by GitHub Actions. It now runs type checking before the coverage run, runs on Ubuntu, Windows, and macOS in the parent frontend workflows, and must pass on every OS before the updated CI, deploy, and integration workflows can complete.
 
 After `bun install`, the repo also installs a local `pre-push` hook through `simple-git-hooks` that runs `bun run typecheck` before Git pushes proceed.
 
@@ -57,13 +57,15 @@ These files are intentionally enforced with hard thresholds now because they are
 
 The enforced thresholds for the gated module set are:
 
-- statements: `>= 90%`
-- lines: `>= 90%`
-- functions: `>= 90%`
-- branches: `>= 80%`
+- statements: `>= 100%`
+- lines: `>= 100%`
+- functions: `>= 100%`
+- branches: `>= 95%`
 - enforcement mode: per file
 
 This means a single weakly tested critical module fails the build even if the aggregate percentage looks acceptable.
+
+The branches threshold sits at 95% because a single defensive `||` operand in `removeDuplicateAssets` (`attr('defer') === ''`) reports as a partial branch under V8 depending on cheerio's attribute normalization, even though the matching unit test exercises the bare-defer path explicitly. All other gated modules are at 100% across every metric.
 
 ## Implemented Test Contracts
 
@@ -141,25 +143,26 @@ If build output naming changes, these tests fail before the change reaches deplo
 
 ## GitHub Workflow Gate
 
-The parent workflows now run `bun run test:ci` before continuing:
+The parent workflows now run `bun run test:ci` on `ubuntu-latest`, `windows-latest`, and `macos-latest` before continuing:
 
 - `.github/workflows/frontend-ci.yml`
 - `.github/workflows/frontend-deploy.yml`
 - `.github/workflows/frontend-integration.yml`
 
-This gives three separate protections:
+This gives four separate protections:
 
 - PR validation fails before merge when the CI workflow runs.
+- OS-specific path behavior is checked on Linux, Windows, and macOS before later workflow steps run.
 - Static-site deployment cannot continue if tests or coverage fail.
 - Integration-package generation cannot continue if tests or coverage fail.
 
-The CI workflow also uploads the `coverage/` folder as a GitHub Actions artifact.
+The CI workflow also uploads the `coverage/` folder as a GitHub Actions artifact per OS.
 
 ## Required GitHub Setting
 
-Workflow files alone cannot force GitHub branch protection. In repository settings, require the check from the `Frontend CI` workflow before merging into `master`.
+Workflow files alone cannot force GitHub branch protection. In repository settings, require the checks from the `Frontend CI` workflow before merging into `master`.
 
-In the GitHub Checks UI this usually appears as the `build` job under the `Frontend CI` workflow, commonly displayed as `Frontend CI / build`.
+In the GitHub Checks UI these include the cross-platform `Test (ubuntu-latest)`, `Test (windows-latest)`, and `Test (macos-latest)` jobs, plus the Ubuntu `build` job.
 
 Without that repository setting, the PR workflow still fails correctly, but GitHub will not treat it as a mandatory merge gate.
 

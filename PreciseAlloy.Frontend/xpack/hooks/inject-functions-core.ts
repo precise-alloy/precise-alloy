@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
+import slash from 'slash';
+
 export const FUNCTIONS_PLACEHOLDER = '/* DO NOT REMOVE - AUTO-IMPORTS FUNCTIONS PLACEHOLDER */';
 
-export const FUNCTIONS_SOURCE_PATH = path.resolve('xpack/scripts/functions.ts');
+export const FUNCTIONS_SOURCE_PATH = slash(path.resolve('xpack/scripts/functions.ts'));
 
 export interface InjectFunctionsDependencies {
   readFileSync: typeof fs.readFileSync;
