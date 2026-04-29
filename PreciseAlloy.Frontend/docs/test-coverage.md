@@ -42,7 +42,7 @@ The current hard-threshold gate applies to the following modules:
 | Asset helper            | `src/_helpers/RequireCss.tsx`            | Protects stylesheet path normalization                                                                |
 | Asset helper            | `src/_helpers/RequireJs.tsx`             | Protects script path normalization and attributes                                                     |
 | Runtime API             | `src/assets/scripts/main/api.ts`         | Protects URL building, HTTP method mapping, body handling, and fallback origin behavior               |
-| Runtime helper          | `src/assets/scripts/main/functions.ts`   | Protects `getModifiers`, `viteAbsoluteUrl`, cookies, paging, and numeric formatting                   |
+| Runtime helper          | `xpack/scripts/functions.ts`             | Protects `getModifiers`, `viteAbsoluteUrl`, cookies, paging, and numeric formatting                   |
 | Mission-critical form   | `src/organisms/contact/contact-form.tsx` | Protects payload mapping, success/failure alerts, and reset behavior                                  |
 | xpack output naming     | `xpack/filename.ts`                      | Protects asset, entry, and chunk naming conventions                                                   |
 | xpack integration core  | `xpack/integration-core.ts`              | Protects asset copying, hash manifest generation, pattern normalization, and required-file validation |
@@ -92,13 +92,13 @@ If one of these helpers changes path rules, removes attributes, or changes the r
 
 Current tests protect these rules:
 
-- `functions.ts` must compose classes from base, global modifiers, style modifiers, and theme.
-- `functions.ts` must preserve absolute URLs in `viteAbsoluteUrl`.
-- `functions.ts` must normalize relative URLs and append the configured page extension only when requested.
-- `functions.ts` must support base URLs with and without trailing slashes.
-- `functions.ts` must read cookies by trimmed key name.
-- `functions.ts` must generate paging windows correctly at the beginning, middle, end, and short-range cases.
-- `functions.ts` must reject non-number input in `roundNumber` and format numeric input to the requested precision.
+- `xpack/scripts/functions.ts` must compose classes from base, global modifiers, style modifiers, and theme.
+- `xpack/scripts/functions.ts` must preserve absolute URLs in `viteAbsoluteUrl`.
+- `xpack/scripts/functions.ts` must normalize relative URLs and append the configured page extension only when requested.
+- `xpack/scripts/functions.ts` must support base URLs with and without trailing slashes.
+- `xpack/scripts/functions.ts` must read cookies by trimmed key name.
+- `xpack/scripts/functions.ts` must generate paging windows correctly at the beginning, middle, end, and short-range cases.
+- `xpack/scripts/functions.ts` must reject non-number input in `roundNumber` and format numeric input to the requested precision.
 - `api.ts` must build API URLs from `VITE_APP_API_URL` when present.
 - `api.ts` must fall back to `window.location.origin` when no API base is configured.
 - `api.ts` must serialize only defined query params and stringify booleans.

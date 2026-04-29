@@ -44,7 +44,7 @@ The repo coverage rollout was designed around these requirements:
 - Covered `src/_helpers/RequireCss.tsx`
 - Covered `src/_helpers/RequireJs.tsx`
 - Covered `src/assets/scripts/main/api.ts` (jsdom suite + dedicated `api.node-env.test.ts` for SSR guard branches)
-- Covered `src/assets/scripts/main/functions.ts` (jsdom suite + dedicated `functions.node-env.test.ts` for SSR guard branches)
+- Covered `xpack/scripts/functions.ts` (jsdom suite + dedicated `functions.node-env.test.ts` for SSR guard branches)
 - Covered `src/organisms/contact/contact-form.tsx`
 
 ### xpack Core Coverage
@@ -88,8 +88,8 @@ Latest validated outcome at implementation time:
 - `src/_helpers/RequireCss.tsx`
 - `src/_helpers/RequireJs.tsx`
 - `src/assets/scripts/main/api.ts`
-- `src/assets/scripts/main/functions.ts`
 - `src/organisms/contact/contact-form.tsx`
+- `xpack/scripts/functions.ts`
 - `xpack/filename.ts`
 - `xpack/integration-core.ts`
 - `xpack/manual-chunk.ts`
