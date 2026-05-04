@@ -1,11 +1,49 @@
 // @vitest-environment node
 
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
+import { fileURLToPath, pathToFileURL } from 'url';
+
+import * as sass from 'sass';
 import { SourceMapConsumer, SourceMapGenerator } from 'source-map-js';
 import { describe, expect, it, vi } from 'vitest';
 
-import { getStylesOutputFileName, prepareCssFileContent, resolveSourceMapPath, stripInjectedPreludeFromSourceMap } from './styles-core';
+import {
+  createScssImporterResult,
+  getStyleWatchOptions,
+  getStylesOutputFileName,
+  isStyleWatchIgnored,
+  prepareCssFileContent,
+  resolveSourceMapPath,
+  stripInjectedPreludeFromSourceMap,
+} from './styles-core';
 
 describe('xpack/styles-core.ts', () => {
+  it('uses polling watch options so editor writes reliably trigger SCSS rebuilds', () => {
+    const options = getStyleWatchOptions();
+
+    expect(options).toMatchObject({
+      ignored: isStyleWatchIgnored,
+      usePolling: true,
+      interval: 200,
+      awaitWriteFinish: {
+        stabilityThreshold: 200,
+        pollInterval: 100,
+      },
+    });
+  });
+
+  it('keeps the SCSS watcher focused on stylesheet files', () => {
+    const fileStats = { isFile: () => true };
+    const directoryStats = { isFile: () => false };
+
+    expect(isStyleWatchIgnored('src/templates/search/search-critical.scss', fileStats)).toBe(false);
+    expect(isStyleWatchIgnored('src/templates/search/index.tsx', fileStats)).toBe(true);
+    expect(isStyleWatchIgnored('src/templates/search', directoryStats)).toBe(false);
+    expect(isStyleWatchIgnored('src/templates/search/index.tsx')).toBe(false);
+  });
+
   it('injects abstracts, functions, and mixins into component scss by default', () => {
     // Component partials need all three preludes available without a
     // per-file `@use`: abstracts (variables/colors), functions (`px2rem`,
@@ -72,6 +110,74 @@ describe('xpack/styles-core.ts', () => {
         }
       )
     ).toEqual(["@use '../00-abstracts/abstracts' as *;\n", '@function px2rem($v) { @return $v; }']);
+  });
+
+  it('assigns importer-loaded scss files a file-backed source map url instead of a data url', () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'styles-core-sourcemap-'));
+
+    try {
+      const entryFile = path.join(tempDir, 'entry.scss');
+      const depFile = path.join(tempDir, '_dep.scss');
+
+      fs.writeFileSync(entryFile, "@use 'dep';\n.a { color: dep.$c; }\n");
+      fs.writeFileSync(depFile, '$c: red;\n');
+
+      const compileSources = (withSourceMapUrl: boolean) => {
+        const result = sass.compileString(fs.readFileSync(entryFile, 'utf-8'), {
+          sourceMap: true,
+          sourceMapIncludeSources: true,
+          syntax: 'scss',
+          url: pathToFileURL(entryFile),
+          importer: {
+            canonicalize(url, context) {
+              const baseUrl = context.containingUrl ?? pathToFileURL(entryFile);
+              const resolvedUrl = new URL(url, baseUrl);
+              const resolvedPath = fileURLToPath(resolvedUrl);
+
+              if (fs.existsSync(resolvedPath)) {
+                return resolvedUrl;
+              }
+
+              const parentDir = path.dirname(resolvedPath);
+              const fileName = path.basename(resolvedPath);
+              const extensionCandidate = path.join(parentDir, fileName + '.scss');
+              const partialCandidate = path.join(parentDir, '_' + fileName + '.scss');
+              const filePath = fs.existsSync(extensionCandidate) ? extensionCandidate : partialCandidate;
+
+              return fs.existsSync(filePath) ? pathToFileURL(filePath) : null;
+            },
+            load(canonicalUrl) {
+              const filePath = fileURLToPath(canonicalUrl);
+              const contents = fs.readFileSync(filePath, 'utf-8');
+
+              if (withSourceMapUrl) {
+                return createScssImporterResult(filePath, contents);
+              }
+
+              return {
+                contents,
+                syntax: 'scss' as const,
+              };
+            },
+          },
+        });
+
+        if (!result.sourceMap) {
+          throw new Error('Expected Sass to return a source map when sourceMap is enabled.');
+        }
+
+        return result.sourceMap.sources;
+      };
+
+      expect(compileSources(false).some((source) => source.startsWith('data:'))).toBe(true);
+
+      const sourcesWithFileUrls = compileSources(true);
+
+      expect(sourcesWithFileUrls.some((source) => source.startsWith('data:'))).toBe(false);
+      expect(sourcesWithFileUrls).toContain(pathToFileURL(depFile).toString());
+    } finally {
+      fs.rmSync(tempDir, { force: true, recursive: true });
+    }
   });
 
   it('resolves source map paths for data urls, file urls, rooted urls, and relative files', () => {

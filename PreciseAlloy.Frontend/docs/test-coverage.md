@@ -23,7 +23,7 @@ bun run test:coverage
 bun run test:ci
 ```
 
-`typecheck` runs `tsc --noEmit` and catches interface drift like stale Rollup or Vite fixture objects before runtime tests even start.
+`typecheck` runs `tsc --noEmit` and catches interface drift like stale Rolldown or Vite fixture objects before runtime tests even start.
 
 `test:ci` is the command used by GitHub Actions. It now runs type checking before the coverage run, runs on Ubuntu, Windows, and macOS in the parent frontend workflows, and must pass on every OS before the updated CI, deploy, and integration workflows can complete.
 

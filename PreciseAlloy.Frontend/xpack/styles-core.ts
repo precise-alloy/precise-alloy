@@ -1,6 +1,9 @@
+import type { Stats } from 'fs';
+import type { ChokidarOptions } from 'chokidar';
+
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 import slash from 'slash';
 import { RawSourceMap, SourceMapConsumer, SourceMapGenerator } from 'source-map-js';
@@ -13,6 +16,29 @@ export interface StyleCoreDependencies {
 const defaultDependencies: StyleCoreDependencies = {
   existsSync: fs.existsSync,
   readFileSync: fs.readFileSync,
+};
+
+const STYLE_WATCH_POLL_INTERVAL_MS = 200;
+
+export const isStyleWatchIgnored = (filePath: string, stats?: Pick<Stats, 'isFile'>) => {
+  return !!stats?.isFile() && !filePath.endsWith('.scss');
+};
+
+export const getStyleWatchOptions = (): ChokidarOptions => {
+  return {
+    ignored: isStyleWatchIgnored,
+    // Native file events are not reliable for every editor/remote-volume path
+    // this workspace is used through; when they are missed, Sass sources change
+    // but `public/assets/css/*.css` stays stale until a manual `touch`. Polling
+    // keeps watch mode deterministic, and the interval matches the compile
+    // debounce so quick save bursts are still coalesced before Sass runs.
+    usePolling: true,
+    interval: STYLE_WATCH_POLL_INTERVAL_MS,
+    awaitWriteFinish: {
+      stabilityThreshold: STYLE_WATCH_POLL_INTERVAL_MS,
+      pollInterval: STYLE_WATCH_POLL_INTERVAL_MS / 2,
+    },
+  };
 };
 
 export const prepareCssFileContent = (
@@ -50,6 +76,27 @@ export const prepareCssFileContent = (
   ].filter((content): content is string => content !== undefined);
 };
 
+export const createScssImporterResult = (filePath: string, contents: string) => {
+  return {
+    contents,
+    syntax: 'scss' as const,
+    // Sass falls back to embedding importer-provided sources as `data:` URLs
+    // when `sourceMapUrl` is omitted. That makes DevTools show imported SCSS
+    // partials under synthetic `data:` filenames instead of the real file on
+    // disk. We still return the prelude-injected contents here so compilation
+    // sees the shared mixins/functions, but we pin the sourcemap identity to
+    // the actual file URL so `stripInjectedPreludeFromSourceMap()` can later
+    // remove the synthetic prelude lines while keeping the original filename.
+    sourceMapUrl: pathToFileURL(path.resolve(filePath)),
+  };
+};
+
+const fileUrlToPath = (url: URL) => {
+  decodeURI(url.href);
+
+  return fileURLToPath(url);
+};
+
 export const resolveSourceMapPath = (source: string, sourceRoot?: string | null): string | undefined => {
   const isWindowsDrivePath = (value: string) => /^[a-zA-Z]:[\\/]/.test(value);
 
@@ -59,11 +106,11 @@ export const resolveSourceMapPath = (source: string, sourceRoot?: string | null)
 
   try {
     if (/^[a-zA-Z][a-zA-Z\d+.-]*:/.test(source) && !isWindowsDrivePath(source)) {
-      return fileURLToPath(new URL(source));
+      return fileUrlToPath(new URL(source));
     }
 
     if (sourceRoot && /^[a-zA-Z][a-zA-Z\d+.-]*:/.test(sourceRoot) && !isWindowsDrivePath(sourceRoot)) {
-      return fileURLToPath(new URL(source, sourceRoot));
+      return fileUrlToPath(new URL(source, sourceRoot));
     }
   } catch {
     return undefined;

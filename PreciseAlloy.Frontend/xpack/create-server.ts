@@ -46,6 +46,7 @@ const createServer = async ({ root, hmrPort, baseUrl, isTest }: Props) => {
   app.use('/assets/fonts', serveStatic(resolve('public/assets/fonts'), { index: false }));
   app.use('/assets/css', serveStatic(resolve('public/assets/css'), { index: false }));
   app.use('/assets/js', serveStatic(resolve('public/assets/js'), { index: false }));
+  app.use('/assets/search', serveStatic(resolve('public/assets/search'), { index: false }));
   app.use('/assets/vendors', serveStatic(resolve('public/assets/vendors'), { index: false }));
   app.use('/assets', serveStatic(resolve('dist/assets'), { index: false }));
   app.use('/samples', serveStatic(resolve('public/samples'), { index: false }));

@@ -43,6 +43,7 @@ export default function ActiveItemOptions() {
   const handleRtlToggle = () => {
     const key = 'MSG_IS_RTL';
     const value = isRtl ? 'false' : 'true';
+
     localStorage.setItem(key, value);
     window.dispatchEvent(new StorageEvent('storage', { key, newValue: value }));
     setShow(false);

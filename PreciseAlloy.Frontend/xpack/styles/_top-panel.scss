@@ -8,7 +8,7 @@
     @include border-bottom;
 
     @include lg {
-      --navbar-max-width: px2rem(240px);
+      --navbar-max-width: #{px2rem(240px)};
       width: 100%;
       flex-direction: row;
       height: min-content;
