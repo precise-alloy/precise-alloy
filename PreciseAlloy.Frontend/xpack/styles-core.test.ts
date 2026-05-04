@@ -174,7 +174,7 @@ describe('xpack/styles-core.ts', () => {
       const sourcesWithFileUrls = compileSources(true);
 
       expect(sourcesWithFileUrls.some((source) => source.startsWith('data:'))).toBe(false);
-      expect(sourcesWithFileUrls).toContain(pathToFileURL(depFile).toString());
+      expect(sourcesWithFileUrls.some((source) => source.startsWith('file:') && fileURLToPath(source) === depFile)).toBe(true);
     } finally {
       fs.rmSync(tempDir, { force: true, recursive: true });
     }
