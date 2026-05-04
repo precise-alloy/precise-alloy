@@ -46,8 +46,7 @@
       background-color: $white;
       position: absolute;
       top: 100%;
-      left: 0;
-      right: 0;
+      inset-inline: 0;
       width: 100%;
       border: px2rem(1px) solid transparent;
       margin: 0;

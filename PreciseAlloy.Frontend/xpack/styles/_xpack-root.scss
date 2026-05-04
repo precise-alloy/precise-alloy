@@ -13,7 +13,7 @@
   background-color: $body-bg;
   position: sticky;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 100;
   overflow: hidden;
   line-height: 1.5;
@@ -73,10 +73,10 @@
     flex-grow: 1;
     position: fixed;
     top: px2rem(50px);
-    left: 0;
+    inset-inline-start: 0;
     height: calc(100vh - px2rem(275px));
     max-width: var(--navbar-max-width);
-    transform: translateX(-100%);
+    transform: translateX(var(--xpack-slide-start-offset, -100%));
     background-color: $body-bg;
     border-bottom: px2rem(1px) solid $border-color;
 
@@ -224,7 +224,7 @@
       &::after {
         text-shadow: 0 0 #9453d5;
         content: '\2795';
-        margin-left: auto;
+        margin-inline-start: auto;
         flex-shrink: 0;
         font-weight: normal;
         display: flex;
@@ -256,10 +256,10 @@
   &__frame-control {
     display: block;
     max-width: var(--navbar-max-width);
-    margin-left: auto;
+    margin-inline-start: auto;
 
     @include lg {
-      margin-left: unset;
+      margin-inline-start: unset;
     }
   }
 
@@ -269,9 +269,9 @@
     background-color: $body-bg;
     position: fixed;
     top: px2rem(50px);
-    right: 0;
+    inset-inline-end: 0;
     padding: px2rem(20px) 0 px2rem(8px);
-    transform: translateX(100%);
+    transform: translateX(var(--xpack-slide-end-offset, 100%));
 
     &.show {
       display: block;
@@ -289,7 +289,7 @@
 
   &__actual-width {
     margin-top: px2rem(8px);
-    margin-right: px2rem(10px);
+    margin-inline-end: px2rem(10px);
     text-align: center;
     font-size: px2rem(14px);
   }

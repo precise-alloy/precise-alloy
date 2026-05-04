@@ -10,7 +10,7 @@ $-pl-state-bubble-bg: #f30;
   &__circles {
     position: absolute;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -30,14 +30,14 @@ $-pl-state-bubble-bg: #f30;
     }
 
     &:nth-child(1) {
-      left: 25%;
+      inset-inline-start: 25%;
       width: calc(80px * #{$-size-ratio});
       height: calc(80px * #{$-size-ratio});
       animation-delay: calc(0s * #{$-time-ratio});
     }
 
     &:nth-child(2) {
-      left: 10%;
+      inset-inline-start: 10%;
       width: calc(20px * #{$-size-ratio});
       height: calc(20px * #{$-size-ratio});
       animation-delay: calc(2s * #{$-time-ratio});
@@ -45,14 +45,14 @@ $-pl-state-bubble-bg: #f30;
     }
 
     &:nth-child(3) {
-      left: 70%;
+      inset-inline-start: 70%;
       width: calc(20px * #{$-size-ratio});
       height: calc(20px * #{$-size-ratio});
       animation-delay: calc(4s * #{$-time-ratio});
     }
 
     &:nth-child(4) {
-      left: 40%;
+      inset-inline-start: 40%;
       width: calc(60px * #{$-size-ratio});
       height: calc(60px * #{$-size-ratio});
       animation-delay: calc(0s * #{$-time-ratio});
@@ -60,28 +60,28 @@ $-pl-state-bubble-bg: #f30;
     }
 
     &:nth-child(5) {
-      left: 65%;
+      inset-inline-start: 65%;
       width: calc(20px * #{$-size-ratio});
       height: calc(20px * #{$-size-ratio});
       animation-delay: calc(0s * #{$-time-ratio});
     }
 
     &:nth-child(6) {
-      left: 75%;
+      inset-inline-start: 75%;
       width: calc(110px * #{$-size-ratio});
       height: calc(110px * #{$-size-ratio});
       animation-delay: calc(3s * #{$-time-ratio});
     }
 
     &:nth-child(7) {
-      left: 35%;
+      inset-inline-start: 35%;
       width: calc(150px * #{$-size-ratio});
       height: calc(150px * #{$-size-ratio});
       animation-delay: calc(7s * #{$-time-ratio});
     }
 
     &:nth-child(8) {
-      left: 50%;
+      inset-inline-start: 50%;
       width: calc(25px * #{$-size-ratio});
       height: calc(25px * #{$-size-ratio});
       animation-delay: calc(15s * #{$-time-ratio});
@@ -89,7 +89,7 @@ $-pl-state-bubble-bg: #f30;
     }
 
     &:nth-child(9) {
-      left: 20%;
+      inset-inline-start: 20%;
       width: calc(15px * #{$-size-ratio});
       height: calc(15px * #{$-size-ratio});
       animation-delay: calc(2s * #{$-time-ratio});
@@ -97,7 +97,7 @@ $-pl-state-bubble-bg: #f30;
     }
 
     &:nth-child(10) {
-      left: 85%;
+      inset-inline-start: 85%;
       width: calc(150px * #{$-size-ratio});
       height: calc(150px * #{$-size-ratio});
       animation-delay: calc(0s * #{$-time-ratio});

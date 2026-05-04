@@ -26,7 +26,7 @@
     position: absolute;
     background-color: var(--bg-hover-color);
     top: 0;
-    left: 50%;
+    inset-inline-start: 50%;
     border-radius: var(--border-radius);
   }
 
@@ -37,7 +37,7 @@
       z-index: -1;
       transition: 400ms;
       width: 100%;
-      left: 0;
+      inset-inline-start: 0;
     }
   }
 

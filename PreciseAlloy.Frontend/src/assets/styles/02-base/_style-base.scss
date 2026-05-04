@@ -28,8 +28,7 @@ main {
 }
 
 .zzz-container {
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline: auto;
   max-width: min(px2rem(1200px), 80vw);
   width: 100%;
 }

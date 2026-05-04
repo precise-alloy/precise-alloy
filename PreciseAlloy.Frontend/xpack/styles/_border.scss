@@ -14,9 +14,9 @@
 }
 
 @mixin border-left {
-  border-left: px2rem(1px) solid $border-color;
+  border-inline-start: px2rem(1px) solid $border-color;
 }
 
 @mixin border-right {
-  border-right: px2rem(1px) solid $border-color;
+  border-inline-end: px2rem(1px) solid $border-color;
 }

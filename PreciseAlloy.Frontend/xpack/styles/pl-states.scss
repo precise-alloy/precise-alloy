@@ -32,7 +32,7 @@ $-wave-50: #d2dde4;
   line-height: 1.4;
   position: absolute;
   top: px2rem(8px);
-  right: px2rem(8px);
+  inset-inline-end: px2rem(8px);
   display: block;
   height: auto;
   max-height: none;
@@ -95,35 +95,30 @@ $-wave-50: #d2dde4;
   }
 
   &--top-left {
-    left: px2rem(8px);
-    right: auto;
+    inset-inline: px2rem(8px) auto;
   }
 
   &--top-center {
-    left: 50%;
-    right: auto;
+    inset-inline: 50% auto;
 
     & > * {
       position: relative;
-      left: -50%;
+      inset-inline-start: -50%;
     }
   }
 
   &--top-right {
-    left: auto;
-    right: px2rem(8px);
+    inset-inline: auto px2rem(8px);
   }
 
   &--bottom-left {
-    left: px2rem(8px);
-    right: auto;
+    inset-inline: px2rem(8px) auto;
     top: auto;
     bottom: px2rem(8px);
   }
 
   &--bottom-right {
-    left: auto;
-    right: px2rem(8px);
+    inset-inline: auto px2rem(8px);
     top: auto;
     bottom: px2rem(8px);
   }
@@ -133,7 +128,7 @@ $-wave-50: #d2dde4;
   position: fixed;
   z-index: 9999999;
   top: 0;
-  left: 0;
+  inset-inline-start: 0;
   width: 100%;
   background-color: $-bar-bg;
   color: $-bar-fg;
@@ -191,7 +186,7 @@ $-wave-50: #d2dde4;
     display: none;
     position: absolute;
     top: calc(100% + 1px);
-    left: 0;
+    inset-inline-start: 0;
     background-color: $-sand;
     width: px2rem(160px);
     min-width: 100%;
@@ -217,7 +212,7 @@ $-wave-50: #d2dde4;
           content: '✓';
           display: block;
           position: absolute;
-          left: -(px2rem(15px));
+          inset-inline-start: -(px2rem(15px));
           font-weight: $-bold;
         }
       }
@@ -249,7 +244,7 @@ $-wave-50: #d2dde4;
     display: none;
 
     @include md {
-      margin-right: px2rem(16px);
+      margin-inline-end: px2rem(16px);
       display: flex;
       grid-column: 2 / 2;
     }
@@ -270,7 +265,7 @@ $-wave-50: #d2dde4;
     &:before,
     &:after {
       position: absolute;
-      left: px2rem(15px);
+      inset-inline-start: px2rem(15px);
       content: ' ';
       height: px2rem(33px);
       width: px2rem(2px);
