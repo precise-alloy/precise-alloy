@@ -97,6 +97,27 @@ const fileUrlToPath = (url: URL) => {
   return fileURLToPath(url);
 };
 
+const normalizeSourceMapFilePath = (filePath: string): string => {
+  const normalized = slash(filePath);
+
+  return normalized.replace(/^\/([a-zA-Z]:\/)/, '$1');
+};
+
+export const getRelativeSourceMapPath = (filePath: string, projectRoot: string = path.resolve('.')): string => {
+  const normalizedFilePath = normalizeSourceMapFilePath(filePath);
+  const normalizedProjectRoot = normalizeSourceMapFilePath(projectRoot).replace(/\/$/, '');
+
+  if (normalizedFilePath === normalizedProjectRoot) {
+    return '.';
+  }
+
+  if (normalizedFilePath.startsWith(`${normalizedProjectRoot}/`)) {
+    return normalizedFilePath.slice(normalizedProjectRoot.length + 1);
+  }
+
+  return normalizedFilePath;
+};
+
 export const resolveSourceMapPath = (source: string, sourceRoot?: string | null): string | undefined => {
   const isWindowsDrivePath = (value: string) => /^[a-zA-Z]:[\\/]/.test(value);
 
@@ -121,7 +142,8 @@ export const resolveSourceMapPath = (source: string, sourceRoot?: string | null)
 
 export const stripInjectedPreludeFromSourceMap = (
   sourceMap: RawSourceMap,
-  dependencies: StyleCoreDependencies = defaultDependencies
+  dependencies: StyleCoreDependencies = defaultDependencies,
+  { projectRoot = path.resolve('.') }: { projectRoot?: string } = {}
 ): RawSourceMap => {
   const consumer = new SourceMapConsumer(sourceMap);
   const generator = new SourceMapGenerator({
@@ -129,13 +151,17 @@ export const stripInjectedPreludeFromSourceMap = (
     sourceRoot: sourceMap.sourceRoot,
   });
   const sourceLineOffsets = new Map<string, number>();
+  const normalizedSources = new Map<string, string>();
 
   consumer.sources.forEach((source) => {
     const sourceContent = consumer.sourceContentFor(source, true);
     const filePath = resolveSourceMapPath(source, consumer.sourceRoot);
+    const normalizedSource = filePath ? getRelativeSourceMapPath(filePath, projectRoot) : source;
+
+    normalizedSources.set(source, normalizedSource);
 
     if (!filePath || !sourceContent || !dependencies.existsSync(filePath)) {
-      generator.setSourceContent(source, sourceContent ?? undefined);
+      generator.setSourceContent(normalizedSource, sourceContent ?? undefined);
 
       return;
     }
@@ -143,7 +169,7 @@ export const stripInjectedPreludeFromSourceMap = (
     const realSourceContent = dependencies.readFileSync(filePath, 'utf-8');
 
     if (!sourceContent.endsWith(realSourceContent)) {
-      generator.setSourceContent(source, sourceContent);
+      generator.setSourceContent(normalizedSource, sourceContent);
 
       return;
     }
@@ -155,7 +181,7 @@ export const stripInjectedPreludeFromSourceMap = (
       sourceLineOffsets.set(source, lineOffset);
     }
 
-    generator.setSourceContent(source, realSourceContent);
+    generator.setSourceContent(normalizedSource, realSourceContent);
   });
 
   consumer.eachMapping((mapping) => {
@@ -186,7 +212,7 @@ export const stripInjectedPreludeFromSourceMap = (
         line: originalLine,
         column: mapping.originalColumn,
       },
-      source: mapping.source,
+      source: normalizedSources.get(mapping.source) ?? mapping.source,
       name: mapping.name ?? undefined,
     });
   });

@@ -11,6 +11,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import {
   createScssImporterResult,
+  getRelativeSourceMapPath,
   getStyleWatchOptions,
   getStylesOutputFileName,
   isStyleWatchIgnored,
@@ -192,6 +193,14 @@ describe('xpack/styles-core.ts', () => {
     expect(resolveSourceMapPath('file.scss', null)).toMatch(/file\.scss$/);
   });
 
+  it('converts in-workspace source paths to project-root-relative paths', () => {
+    expect(getRelativeSourceMapPath('/workspace/PreciseAlloy.Frontend/xpack/styles/root.scss', '/workspace/PreciseAlloy.Frontend')).toBe(
+      'xpack/styles/root.scss'
+    );
+    expect(getRelativeSourceMapPath('/workspace/PreciseAlloy.Frontend', '/workspace/PreciseAlloy.Frontend/')).toBe('.');
+    expect(getRelativeSourceMapPath('/workspace/shared/file.scss', '/workspace/PreciseAlloy.Frontend')).toBe('/workspace/shared/file.scss');
+  });
+
   it('passes through sources that have no embedded content without trying to read them', () => {
     // No setSourceContent for the source: stripInjectedPreludeFromSourceMap
     // should leave the source content as undefined and never call readFileSync.
@@ -230,14 +239,18 @@ describe('xpack/styles-core.ts', () => {
       source,
     });
 
-    const result = stripInjectedPreludeFromSourceMap(generator.toJSON(), {
-      existsSync: vi.fn().mockReturnValue(true) as never,
-      readFileSync: vi.fn().mockReturnValue('.hero { color: red; }') as never,
-    });
+    const result = stripInjectedPreludeFromSourceMap(
+      generator.toJSON(),
+      {
+        existsSync: vi.fn().mockReturnValue(true) as never,
+        readFileSync: vi.fn().mockReturnValue('.hero { color: red; }') as never,
+      },
+      { projectRoot: 'D:/repo' }
+    );
     const consumer = new SourceMapConsumer(result);
 
     expect(consumer.originalPositionFor({ line: 1, column: 0 }).line).toBe(1);
-    expect(consumer.sourceContentFor(source, true)).toBe('.hero { color: red; }');
+    expect(consumer.sourceContentFor('src/hero.scss', true)).toBe('.hero { color: red; }');
   });
 
   it('strips injected prelude lines from source maps and preserves real source content', () => {
@@ -251,14 +264,45 @@ describe('xpack/styles-core.ts', () => {
       source,
     });
 
-    const result = stripInjectedPreludeFromSourceMap(generator.toJSON(), {
-      existsSync: vi.fn().mockReturnValue(true) as never,
-      readFileSync: vi.fn().mockReturnValue('.hero { color: red; }') as never,
-    });
+    const result = stripInjectedPreludeFromSourceMap(
+      generator.toJSON(),
+      {
+        existsSync: vi.fn().mockReturnValue(true) as never,
+        readFileSync: vi.fn().mockReturnValue('.hero { color: red; }') as never,
+      },
+      { projectRoot: 'D:/repo' }
+    );
     const consumer = new SourceMapConsumer(result);
 
     expect(consumer.originalPositionFor({ line: 1, column: 0 }).line).toBe(1);
-    expect(consumer.sourceContentFor(source, true)).toBe('.hero { color: red; }');
+    expect(result.sources).toEqual(['src/hero.scss']);
+    expect(consumer.sourceContentFor('src/hero.scss', true)).toBe('.hero { color: red; }');
+  });
+
+  it('normalizes absolute non-url source paths to project-root-relative paths', () => {
+    const source = '/workspace/PreciseAlloy.Frontend/xpack/styles/root.scss';
+    const generator = new SourceMapGenerator({ file: 'root.css' });
+
+    generator.setSourceContent(source, '.root { color: red; }');
+    generator.addMapping({
+      generated: { line: 1, column: 0 },
+      original: { line: 1, column: 0 },
+      source,
+    });
+
+    const result = stripInjectedPreludeFromSourceMap(
+      generator.toJSON(),
+      {
+        existsSync: vi.fn().mockReturnValue(true) as never,
+        readFileSync: vi.fn().mockReturnValue('.root { color: red; }') as never,
+      },
+      { projectRoot: '/workspace/PreciseAlloy.Frontend' }
+    );
+    const consumer = new SourceMapConsumer(result);
+
+    expect(result.sources).toEqual(['xpack/styles/root.scss']);
+    expect(consumer.originalPositionFor({ line: 1, column: 0 }).source).toBe('xpack/styles/root.scss');
+    expect(consumer.sourceContentFor('xpack/styles/root.scss', true)).toBe('.root { color: red; }');
   });
 
   it('preserves source content when the injected prelude cannot be matched to the real file', () => {
@@ -272,14 +316,18 @@ describe('xpack/styles-core.ts', () => {
       source,
     });
 
-    const result = stripInjectedPreludeFromSourceMap(generator.toJSON(), {
-      existsSync: vi.fn().mockReturnValue(true) as never,
-      readFileSync: vi.fn().mockReturnValue('.other { color: blue; }') as never,
-    });
+    const result = stripInjectedPreludeFromSourceMap(
+      generator.toJSON(),
+      {
+        existsSync: vi.fn().mockReturnValue(true) as never,
+        readFileSync: vi.fn().mockReturnValue('.other { color: blue; }') as never,
+      },
+      { projectRoot: 'D:/repo' }
+    );
     const consumer = new SourceMapConsumer(result);
 
     expect(consumer.originalPositionFor({ line: 1, column: 0 }).line).toBe(2);
-    expect(consumer.sourceContentFor(source, true)).toBe("@use 'a';\n.hero { color: red; }");
+    expect(consumer.sourceContentFor('src/hero.scss', true)).toBe("@use 'a';\n.hero { color: red; }");
   });
 
   it('keeps source content when the source file cannot be resolved on disk', () => {
@@ -293,13 +341,17 @@ describe('xpack/styles-core.ts', () => {
       source,
     });
 
-    const result = stripInjectedPreludeFromSourceMap(generator.toJSON(), {
-      existsSync: vi.fn().mockReturnValue(false) as never,
-      readFileSync: vi.fn() as never,
-    });
+    const result = stripInjectedPreludeFromSourceMap(
+      generator.toJSON(),
+      {
+        existsSync: vi.fn().mockReturnValue(false) as never,
+        readFileSync: vi.fn() as never,
+      },
+      { projectRoot: 'D:/repo' }
+    );
     const consumer = new SourceMapConsumer(result);
 
-    expect(consumer.sourceContentFor(source, true)).toBe('.hero { color: red; }');
+    expect(consumer.sourceContentFor('src/hero.scss', true)).toBe('.hero { color: red; }');
     expect(consumer.originalPositionFor({ line: 1, column: 0 }).line).toBe(1);
   });
 
