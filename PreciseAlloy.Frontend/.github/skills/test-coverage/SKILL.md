@@ -43,7 +43,7 @@ Use this skill for repo-specific coverage work in `PreciseAlloy.Frontend`.
 9. Prefer removing genuinely unreachable code (with a one-line comment explaining the narrowing) over force-testing it through `as never` casts.
 10. Run the narrowest impacted suites before widening validation.
 11. Run `bun run test:ci` before considering the change complete.
-12. For integration-output determinism, run `bun inte` and verify `../PreciseAlloy.Patterns` plus `../PreciseAlloy.Web/wwwroot/assets` have no content diff with `git diff --quiet -- ../PreciseAlloy.Patterns ../PreciseAlloy.Web/wwwroot/assets`. On Windows, `git status` can still list LF-normalized text files under `text=auto`; trust the content diff check.
+12. For integration-output determinism, run `bun inte` and verify `{VITE_INTE_PATTERN_DIR}` plus `{VITE_INTE_ASSET_DIR}` have no content diff with `git diff --quiet -- {VITE_INTE_PATTERN_DIR} {VITE_INTE_ASSET_DIR}`. On Windows, `git status` can still list LF-normalized text files under `text=auto`; trust the content diff check.
 13. If the change expands what can be tested, widen the enforced coverage scope in `vitest.config.ts` and update `docs/test-coverage.md` and `references/current-state.md`.
 14. If local developer tooling changes, preserve the `simple-git-hooks` `pre-push` gate that runs `bun run typecheck` after install.
 15. If the change touches CI or merge rules, verify the frontend workflow files still run `bun run test:ci` before build, deploy, or integration steps.

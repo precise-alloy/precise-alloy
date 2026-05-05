@@ -108,7 +108,7 @@ For any frontend change covered by the workspace instruction:
 - add tests for every logic, branch, path, error-handling, or workflow behavior change
 - keep generated integration assets byte-stable across Windows, WSL, and Ubuntu by normalizing text to LF in code rather than depending on `.gitattributes`
 - run narrow impacted suites first, then run `bun run test:ci`
-- for `bun inte` determinism changes, confirm `git diff --quiet -- ../PreciseAlloy.Patterns ../PreciseAlloy.Web/wwwroot/assets`; Windows `git status` may still show LF/text-auto warnings when content diff is empty
+- for `bun inte` determinism changes, confirm `git diff --quiet -- {VITE_INTE_PATTERN_DIR} {VITE_INTE_ASSET_DIR}`; Windows `git status` may still show LF/text-auto warnings when content diff is empty
 - update `docs/test-coverage.md` when the enforced scope, thresholds, or workflow policy changes
 - widen the gated module set when new critical code becomes testable
 
