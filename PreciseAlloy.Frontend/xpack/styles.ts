@@ -17,6 +17,7 @@ import {
   getStyleWatchOptions,
   getStylesOutputFileName,
   prepareCssFileContent,
+  sortStylePaths,
   stripInjectedPreludeFromSourceMap,
 } from './styles-core';
 import { rewriteAssetHashes } from './asset-hash';
@@ -223,13 +224,13 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
   const cssStrings = getCssSourceContent(srcFile, 'compile');
 
   if (srcFile.includes('style-base') || srcFile.includes('style-all')) {
-    glob.sync('./src/atoms/**/*.scss').forEach((atomPath) => {
+    sortStylePaths(glob.sync('./src/atoms/**/*.scss')).forEach((atomPath) => {
       if (!path.basename(atomPath).startsWith('_')) {
         cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: atomPath }).join(''), getStringOptions<'sync'>(atomPath)).css);
       }
     });
 
-    glob.sync('./src/molecules/**/*.scss').forEach((molPath) => {
+    sortStylePaths(glob.sync('./src/molecules/**/*.scss')).forEach((molPath) => {
       if (!path.basename(molPath).startsWith('_')) {
         cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: molPath }).join(''), getStringOptions<'sync'>(molPath)).css);
       }
@@ -355,13 +356,13 @@ const postcssProcess = (result: sass.CompileResult, from: string, to: string) =>
 };
 
 const styleOrganisms = debounce((isReady: boolean) => {
-  const paths = glob.sync('src/organisms/**/*.scss', { nodir: true });
+  const paths = sortStylePaths(glob.sync('src/organisms/**/*.scss', { nodir: true }));
 
   paths.forEach((p) => styleOrganism(p, isReady));
 }, DEBOUNCE_DELAY_MS);
 
 const styleTemplates = debounce((isReady: boolean) => {
-  const paths = glob.sync('src/templates/**/*.scss', { nodir: true });
+  const paths = sortStylePaths(glob.sync('src/templates/**/*.scss', { nodir: true }));
 
   paths.forEach((p) => styleTemplate(p, isReady));
 }, DEBOUNCE_DELAY_MS);
@@ -388,8 +389,7 @@ const sassCompile = (inputPath: string, isReady: boolean) => {
 
   if (p.startsWith(SRC_ORGANISMS_PREFIX)) {
     if (path.basename(p).startsWith('_')) {
-      glob
-        .sync(path.dirname(p) + '/*.scss', { nodir: true })
+      sortStylePaths(glob.sync(path.dirname(p) + '/*.scss', { nodir: true }))
         .filter((f) => !path.basename(f).startsWith('_'))
         .forEach((f) => styleOrganism(f, isReady));
     } else {
@@ -399,8 +399,7 @@ const sassCompile = (inputPath: string, isReady: boolean) => {
 
   if (p.startsWith(SRC_TEMPLATES_PREFIX)) {
     if (path.basename(p).startsWith('_')) {
-      glob
-        .sync(path.dirname(p) + '/*.scss', { nodir: true })
+      sortStylePaths(glob.sync(path.dirname(p) + '/*.scss', { nodir: true }))
         .filter((f) => !path.basename(f).startsWith('_'))
         .forEach((f) => styleTemplate(f, isReady));
     } else {
@@ -450,8 +449,7 @@ if (isWatch) {
   styleBase(true);
   stylePlState(true);
 
-  glob
-    .sync(['src/{organisms,templates}/**/*.scss', 'xpack/styles/**/*.scss'])
+  sortStylePaths(glob.sync(['src/{organisms,templates}/**/*.scss', 'xpack/styles/**/*.scss']))
     .filter((f) => !path.basename(f).startsWith('_'))
     .forEach((f) => sassCompile(f, true));
 

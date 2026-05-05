@@ -17,6 +17,7 @@ import {
   isStyleWatchIgnored,
   prepareCssFileContent,
   resolveSourceMapPath,
+  sortStylePaths,
   stripInjectedPreludeFromSourceMap,
 } from './styles-core';
 
@@ -43,6 +44,17 @@ describe('xpack/styles-core.ts', () => {
     expect(isStyleWatchIgnored('src/templates/search/index.tsx', fileStats)).toBe(true);
     expect(isStyleWatchIgnored('src/templates/search', directoryStats)).toBe(false);
     expect(isStyleWatchIgnored('src/templates/search/index.tsx')).toBe(false);
+  });
+
+  it('sorts style paths deterministically with normalized separators', () => {
+    expect(
+      sortStylePaths([
+        'src\\molecules\\card\\index.scss',
+        'src/atoms/button/index.scss',
+        'src/atoms/alert/index.scss',
+        'src\\atoms\\button\\index.scss',
+      ])
+    ).toEqual(['src/atoms/alert/index.scss', 'src/atoms/button/index.scss', 'src\\atoms\\button\\index.scss', 'src\\molecules\\card\\index.scss']);
   });
 
   it('injects abstracts, functions, and mixins into component scss by default', () => {

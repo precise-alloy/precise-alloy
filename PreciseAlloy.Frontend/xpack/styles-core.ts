@@ -41,6 +41,19 @@ export const getStyleWatchOptions = (): ChokidarOptions => {
   };
 };
 
+export const sortStylePaths = (paths: string[]) => {
+  return [...paths].sort((left, right) => {
+    const normalizedLeft = slash(left);
+    const normalizedRight = slash(right);
+
+    if (normalizedLeft === normalizedRight) {
+      return 0;
+    }
+
+    return normalizedLeft < normalizedRight ? -1 : 1;
+  });
+};
+
 export const prepareCssFileContent = (
   {
     srcFile,
