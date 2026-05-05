@@ -53,6 +53,33 @@ describe('xpack/asset-hash.ts', () => {
     expect(hash).toHaveBeenCalledTimes(1);
   });
 
+  it('hashes text assets after LF normalization so checkout line endings do not change versions', () => {
+    const hash = vi.fn((content: Buffer | string) => (content === '<svg>\n</svg>\n' ? 'lfhash' : 'rawhash')) as never;
+    const append = createAppendAssetHash(
+      buildDeps({
+        readFileSync: vi.fn().mockReturnValue(Buffer.from('<svg>\r\n</svg>\r\n')) as never,
+        hash,
+      })
+    );
+
+    expect(append('/assets/images/icon.svg')).toBe('/assets/images/icon.svg?v=lfhash');
+    expect(hash).toHaveBeenCalledWith('<svg>\n</svg>\n');
+  });
+
+  it('keeps binary asset bytes unchanged when hashing', () => {
+    const content = Buffer.from([0, 1, 2, 3]);
+    const hash = vi.fn().mockReturnValue('binaryhash') as never;
+    const append = createAppendAssetHash(
+      buildDeps({
+        readFileSync: vi.fn().mockReturnValue(content) as never,
+        hash,
+      })
+    );
+
+    expect(append('/assets/images/photo.png')).toBe('/assets/images/photo.png?v=binaryhash');
+    expect(hash).toHaveBeenCalledWith(content);
+  });
+
   it('skips URLs that already carry a query string', () => {
     // Already-versioned URLs (anything containing `?`) must be passed through
     // untouched so callers that intentionally annotate a URL are not

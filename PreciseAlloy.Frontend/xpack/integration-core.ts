@@ -3,6 +3,7 @@ import path from 'path';
 import slash from 'slash';
 
 import { hashFileContent, hasContentHashInFileName, parsePrerenderArgs } from './prerender-core';
+import { normalizeTextLikeContent, normalizeTextLineEndings } from './text-normalization';
 
 export interface CopyItem {
   from: string;
@@ -24,7 +25,7 @@ export interface IntegrationDependencies {
   readFileSync: (path: string, encoding?: BufferEncoding) => string | Buffer;
   writeFileSync: (path: string, data: string) => void;
   readdirSync: (path: string) => string[];
-  globSync: (pattern: string) => string[];
+  globSync: (pattern: string, options?: { nodir?: boolean }) => string[];
   nodeFsCpSync: (source: string, destination: string, options?: { recursive?: boolean }) => void;
   log: (message?: unknown, ...optionalParams: unknown[]) => void;
   warn: (value: string) => unknown;
@@ -94,9 +95,10 @@ export const collectAssetHashes = (
 
     files.forEach((file) => {
       const relativePath = slash(file.substring(staticBasePath.length));
+      const fileContent = dependencies.readFileSync(file);
 
       if (!hasContentHashInFileName(file)) {
-        hashes.set(relativePath, hashFileContent(dependencies.readFileSync(file)));
+        hashes.set(relativePath, hashFileContent(normalizeTextLikeContent(file, fileContent)));
       } else {
         hashes.set(relativePath, '');
       }
@@ -148,7 +150,25 @@ export const getPatternCopyTarget = (patternPath: string, sourcePath: string) =>
 };
 
 export const normalizePatternHtml = (text: string) => {
-  return text.replaceAll(/react-loader\.0x[a-z0-9_-]{8,12}\.js/gi, 'react-loader.0x00000000.js').replaceAll(/\.svg\?v=[a-z0-9_-]+/gi, '.svg');
+  return normalizeTextLineEndings(text)
+    .replaceAll(/react-loader\.0x[a-z0-9_-]{8,12}\.js/gi, 'react-loader.0x00000000.js')
+    .replaceAll(/\.svg\?v=[a-z0-9_-]+/gi, '.svg')
+    .replaceAll(/(<\/footer>)\n{2,}(\s*<script\s+type="module"\n\s+defer=""\n\s+src="\/assets\/js\/pl-states\.js"><\/script>)/g, '$1\n$2');
+};
+
+export const normalizeGeneratedTextFiles = (
+  targetPath: string,
+  dependencies: Pick<IntegrationDependencies, 'globSync' | 'readFileSync' | 'writeFileSync'>
+) => {
+  dependencies.globSync(slash(path.join(targetPath, '**/*')), { nodir: true }).forEach((file) => {
+    const fileContent = dependencies.readFileSync(file);
+    const text = typeof fileContent === 'string' ? fileContent : fileContent.toString('utf-8');
+    const newText = normalizeTextLikeContent(file, fileContent);
+
+    if (typeof newText === 'string' && text !== newText) {
+      dependencies.writeFileSync(file, newText);
+    }
+  });
 };
 
 export const copyPatternArtifacts = (
@@ -234,6 +254,7 @@ export const runIntegrationBuild = (config: IntegrationConfig, dependencies: Int
   const sortedHashes = sortHashes(hashes);
 
   dependencies.writeFileSync(path.join(config.destBasePath, 'hashes.json'), JSON.stringify(sortedHashes, null, '  '));
+  normalizeGeneratedTextFiles(config.destBasePath, dependencies);
 
   if (config.patternPath) {
     copyPatternArtifacts(config.patternPath, dependencies);

@@ -291,6 +291,31 @@ describe('xpack/styles-core.ts', () => {
     expect(consumer.sourceContentFor('src/hero.scss', true)).toBe('.hero { color: red; }');
   });
 
+  it('normalizes source map contents to LF before comparing and emitting them', () => {
+    const source = 'file:///D:/repo/src/hero.scss';
+    const generator = new SourceMapGenerator({ file: 'hero.css' });
+
+    generator.setSourceContent(source, "@use 'a';\n.hero {\r\n  color: red;\r\n}");
+    generator.addMapping({
+      generated: { line: 1, column: 0 },
+      original: { line: 2, column: 0 },
+      source,
+    });
+
+    const result = stripInjectedPreludeFromSourceMap(
+      generator.toJSON(),
+      {
+        existsSync: vi.fn().mockReturnValue(true) as never,
+        readFileSync: vi.fn().mockReturnValue('.hero {\r\n  color: red;\r\n}') as never,
+      },
+      { projectRoot: 'D:/repo' }
+    );
+    const consumer = new SourceMapConsumer(result);
+
+    expect(consumer.originalPositionFor({ line: 1, column: 0 }).line).toBe(1);
+    expect(consumer.sourceContentFor('src/hero.scss', true)).toBe('.hero {\n  color: red;\n}');
+  });
+
   it('normalizes absolute non-url source paths to project-root-relative paths', () => {
     const source = '/workspace/PreciseAlloy.Frontend/xpack/styles/root.scss';
     const generator = new SourceMapGenerator({ file: 'root.css' });

@@ -50,6 +50,7 @@ The current hard-threshold gate applies to the following modules:
 | xpack prerender core    | `xpack/prerender-core.ts`                | Protects prerender URL building, duplicate asset relocation, and cache-busting rules                  |
 | xpack script build core | `xpack/scripts-core.ts`                  | Protects esbuild options, output writes, watch wiring, and error logging                              |
 | xpack styles core       | `xpack/styles-core.ts`                   | Protects injected SCSS prelude handling, sourcemap line shifting, and output naming                   |
+| xpack text normalizer   | `xpack/text-normalization.ts`            | Protects platform-independent LF normalization for text assets, sourcemaps, and generated outputs     |
 
 These files are intentionally enforced with hard thresholds now because they are already covered by explicit tests. The next rollout phases will expand this gate to additional xpack build modules after their side effects are split into testable cores.
 
@@ -138,6 +139,9 @@ Current tests protect these rules:
 - `prerender-core.ts` must keep `style-base` removal on the root route logic intact
 - `integration-core.ts` must preserve asset copy behavior, hash manifest generation, pattern output normalization, and required-file validation without relying on `process.exit`
 - `styles-core.ts` must preserve shared `@use` prelude injection, sourcemap prelude stripping, and CSS output naming
+- `text-normalization.ts` must normalize text to LF, normalize source-map `sourcesContent`, detect text-like extensionless content, and leave binary bytes unchanged
+
+Generated integration output must not depend on `.gitattributes`, `core.autocrlf`, or the local OS checkout style. When this area changes, run `bun inte` and confirm there is no content diff under `../PreciseAlloy.Patterns` and `../PreciseAlloy.Web/wwwroot/assets` with `git diff --quiet -- ../PreciseAlloy.Patterns ../PreciseAlloy.Web/wwwroot/assets`. On Windows, `git status` can still list LF-normalized generated text files when the paths are `text=auto`; the content diff check is the source of truth.
 
 If build output naming changes, these tests fail before the change reaches deploy or the backend integration package.
 

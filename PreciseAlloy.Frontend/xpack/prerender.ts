@@ -14,6 +14,7 @@ import { loadEnv } from 'vite';
 import chalk from 'chalk';
 
 import { parsePrerenderArgs, removeDuplicateAssets, removeStyleBase, updateResourcePath, viteAbsoluteUrl } from './prerender-core';
+import { normalizeTextLineEndings } from './text-normalization';
 
 interface RenderedPage {
   name: string;
@@ -28,7 +29,7 @@ const xpackEnv = loadEnv(mode, projectRoot);
 const toAbsolute = (p: string) => path.resolve(projectRoot, p);
 const log = console.log.bind(console);
 
-const template = fs.readFileSync(toAbsolute(process.env.VITE_TEMPLATE ?? 'dist/static/index.html'), 'utf-8');
+const template = normalizeTextLineEndings(fs.readFileSync(toAbsolute(process.env.VITE_TEMPLATE ?? 'dist/static/index.html'), 'utf-8'));
 const { render, routesToPrerender } = await import(pathToFileURL(toAbsolute('./dist/server/entry-server.js')).href);
 
 const beautifyOptions: HTMLBeautifyOptions | JSBeautifyOptions | CSSBeautifyOptions = {
@@ -92,10 +93,10 @@ const renderPage = async (renderedPages: RenderedPage[], addHash: boolean) => {
 
     html = $.html();
 
-    html = jsBeautify.html_beautify(html, beautifyOptions);
+    html = normalizeTextLineEndings(jsBeautify.html_beautify(html, beautifyOptions));
     html = html.replace('/* app-styles */', output.styles);
 
-    fs.writeFileSync(toAbsolute(filePath), html);
+    fs.writeFileSync(toAbsolute(filePath), normalizeTextLineEndings(html));
     log('pre-rendered:', slash(filePath));
 
     renderedPages.push({

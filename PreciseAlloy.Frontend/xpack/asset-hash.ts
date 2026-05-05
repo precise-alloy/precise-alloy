@@ -6,6 +6,7 @@ import slash from 'slash';
 
 import { root } from './paths';
 import { getAssetVersion } from './cryptography';
+import { normalizeTextLikeContent } from './text-normalization';
 
 // Regex that matches `/assets/<path>.<ext>` URLs we want to cache-bust.
 //
@@ -68,7 +69,8 @@ export const createAppendAssetHash =
     const absPath = dependencies.resolveAssetPath(assetUrl);
 
     if (dependencies.existsSync(absPath)) {
-      const hash = dependencies.hash(dependencies.readFileSync(absPath));
+      const content = normalizeTextLikeContent(assetUrl, dependencies.readFileSync(absPath));
+      const hash = dependencies.hash(content);
 
       dependencies.cache[assetUrl] = hash;
 

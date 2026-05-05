@@ -1,6 +1,6 @@
 ---
 name: test-coverage
-description: 'Use when working on test coverage, Vitest thresholds, CI test gates, xpack refactors for testability, workflow enforcement, or reviewing whether a frontend change in PreciseAlloy.Frontend preserves the highest possible coverage. Covers the agreed requirements, current decisions, completed rollout, and the mandatory validation policy for any code change.'
+description: 'Use when working on test coverage, Vitest thresholds, CI test gates, xpack refactors for testability, generated asset line-ending determinism, sourcemap normalization, workflow enforcement, or reviewing whether a frontend change in PreciseAlloy.Frontend preserves the highest possible coverage. Covers the agreed requirements, current decisions, completed rollout, and the mandatory validation policy for any code change.'
 argument-hint: 'Describe the change, touched files, and coverage concern.'
 user-invocable: true
 ---
@@ -27,6 +27,7 @@ Use this skill for repo-specific coverage work in `PreciseAlloy.Frontend`.
 - Do not remove or weaken the local `pre-push` typecheck gate installed through `simple-git-hooks` without explicit user approval.
 - Prefer extracting testable core helpers from side-effect-heavy `xpack` modules rather than accepting untested logic.
 - For `xpack/asset-hash.ts`, keep the default resolved asset filesystem path slash-normalized with `slash(path.resolve(...))`; missing-file logs and default dependency behavior should be consistent across Windows/POSIX, while returned asset URLs must remain `/assets/...` strings.
+- For generated integration assets, make determinism independent of `.gitattributes`, `core.autocrlf`, or the checkout platform. Normalize text to LF in `xpack` before source-map content is emitted, before text assets are hashed, before prerendered HTML is written, and after generated text assets are copied. Preserve binary bytes unchanged.
 - Treat a change as incomplete until the narrow affected suites and `bun run test:ci` pass when execution is available.
 
 ## Procedure
@@ -38,13 +39,15 @@ Use this skill for repo-specific coverage work in `PreciseAlloy.Frontend`.
 5. For watcher / event-emitter callbacks, capture them from the mock's `mock.calls[i]?.[1]` and invoke directly so inline arrow bodies count toward function coverage.
 6. If `xpack` code is blocked by top-level side effects, extract a `*-core.ts` helper from the CLI shell first and inject every `fs`/`path` dependency through a typed `Dependencies` interface with a `defaultDependencies` fallback.
 7. When introducing a new helper module, add its path to `coverage.include` in `vitest.config.ts` and create the matching `*.test.ts` (or `*.node-env.test.ts` for SSR-shaped guards) in the same change.
-8. Prefer removing genuinely unreachable code (with a one-line comment explaining the narrowing) over force-testing it through `as never` casts.
-9. Run the narrowest impacted suites before widening validation.
-10. Run `bun run test:ci` before considering the change complete.
-11. If the change expands what can be tested, widen the enforced coverage scope in `vitest.config.ts` and update `docs/test-coverage.md` and `references/current-state.md`.
-12. If local developer tooling changes, preserve the `simple-git-hooks` `pre-push` gate that runs `bun run typecheck` after install.
-13. If the change touches CI or merge rules, verify the frontend workflow files still run `bun run test:ci` before build, deploy, or integration steps.
-14. If GitHub branch protection must change, note that repository files are not enough and GitHub authentication/settings are required.
+8. For generated asset or sourcemap determinism changes, add tests that compare CRLF input to LF-normalized output, cover source-map `sourcesContent` escape normalization, and prove binary inputs are not rewritten.
+9. Prefer removing genuinely unreachable code (with a one-line comment explaining the narrowing) over force-testing it through `as never` casts.
+10. Run the narrowest impacted suites before widening validation.
+11. Run `bun run test:ci` before considering the change complete.
+12. For integration-output determinism, run `bun inte` and verify `../PreciseAlloy.Patterns` plus `../PreciseAlloy.Web/wwwroot/assets` have no content diff with `git diff --quiet -- ../PreciseAlloy.Patterns ../PreciseAlloy.Web/wwwroot/assets`. On Windows, `git status` can still list LF-normalized text files under `text=auto`; trust the content diff check.
+13. If the change expands what can be tested, widen the enforced coverage scope in `vitest.config.ts` and update `docs/test-coverage.md` and `references/current-state.md`.
+14. If local developer tooling changes, preserve the `simple-git-hooks` `pre-push` gate that runs `bun run typecheck` after install.
+15. If the change touches CI or merge rules, verify the frontend workflow files still run `bun run test:ci` before build, deploy, or integration steps.
+16. If GitHub branch protection must change, note that repository files are not enough and GitHub authentication/settings are required.
 
 ## Expected Outcome
 

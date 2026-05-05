@@ -8,6 +8,8 @@ import { fileURLToPath, pathToFileURL } from 'url';
 import slash from 'slash';
 import { RawSourceMap, SourceMapConsumer, SourceMapGenerator } from 'source-map-js';
 
+import { normalizeTextLineEndings } from './text-normalization';
+
 export interface StyleCoreDependencies {
   existsSync: typeof fs.existsSync;
   readFileSync: typeof fs.readFileSync;
@@ -179,24 +181,25 @@ export const stripInjectedPreludeFromSourceMap = (
     const sourceContent = consumer.sourceContentFor(source, true);
     const filePath = resolveSourceMapPath(source, consumer.sourceRoot);
     const normalizedSource = filePath ? getRelativeSourceMapPath(filePath, projectRoot) : source;
+    const normalizedSourceContent = typeof sourceContent === 'string' ? normalizeTextLineEndings(sourceContent) : sourceContent;
 
     normalizedSources.set(source, normalizedSource);
 
-    if (!filePath || !sourceContent || !dependencies.existsSync(filePath)) {
-      generator.setSourceContent(normalizedSource, sourceContent ?? undefined);
+    if (!filePath || !normalizedSourceContent || !dependencies.existsSync(filePath)) {
+      generator.setSourceContent(normalizedSource, normalizedSourceContent ?? undefined);
 
       return;
     }
 
-    const realSourceContent = dependencies.readFileSync(filePath, 'utf-8');
+    const realSourceContent = normalizeTextLineEndings(dependencies.readFileSync(filePath, 'utf-8'));
 
-    if (!sourceContent.endsWith(realSourceContent)) {
-      generator.setSourceContent(normalizedSource, sourceContent);
+    if (!normalizedSourceContent.endsWith(realSourceContent)) {
+      generator.setSourceContent(normalizedSource, normalizedSourceContent);
 
       return;
     }
 
-    const injectedPrelude = sourceContent.slice(0, sourceContent.length - realSourceContent.length);
+    const injectedPrelude = normalizedSourceContent.slice(0, normalizedSourceContent.length - realSourceContent.length);
     const lineOffset = injectedPrelude.match(/\n/g)?.length ?? 0;
 
     if (lineOffset > 0) {

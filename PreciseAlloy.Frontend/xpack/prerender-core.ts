@@ -3,6 +3,8 @@ import crypto from 'node:crypto';
 
 import * as cheerio from 'cheerio';
 
+import { normalizeTextLikeContent } from './text-normalization';
+
 export interface PrerenderArgs {
   mode: string;
   addHash: boolean;
@@ -80,7 +82,7 @@ export const getUpdatedResourcePath = (href: string, options: ResourcePathOption
 
     if (options.existsSync(absolutePath)) {
       if (options.addHash) {
-        newPath += '?v=' + hashFileContent(options.readFileSync(absolutePath));
+        newPath += '?v=' + hashFileContent(normalizeTextLikeContent(href, options.readFileSync(absolutePath)));
       }
     } else if (!absolutePath.endsWith('mock-api.js')) {
       options.onMissingPath?.(absolutePath);

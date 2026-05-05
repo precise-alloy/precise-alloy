@@ -7,12 +7,14 @@ import {
   copyConfiguredItems,
   copyPatternArtifacts,
   getPatternCopyTarget,
+  normalizeGeneratedTextFiles,
   normalizePatternHtml,
   parseIntegrationArgs,
   runIntegrationBuild,
   sortHashes,
   validateExpectedFiles,
 } from './integration-core';
+import { hashFileContent } from './prerender-core';
 
 const createDependencies = () => ({
   existsSync: vi.fn().mockReturnValue(true),
@@ -156,6 +158,24 @@ describe('xpack/integration-core.ts', () => {
     expect(hashes.get('/assets/js/react-loader.0xAbcdEF12.js')).toBe('');
   });
 
+  it('collects text asset hashes from LF-normalized bytes', () => {
+    const dependencies = createDependencies();
+
+    dependencies.globSync.mockReturnValue(['D:/repo/dist/static/assets/images/icon.svg']);
+    dependencies.readFileSync.mockReturnValue(Buffer.from('<svg>\r\n</svg>\r\n'));
+
+    const hashes = collectAssetHashes(
+      ['images'],
+      {
+        staticBasePath: 'D:/repo/dist/static',
+        srcBasePath: 'D:/repo/dist/static/assets',
+      },
+      dependencies
+    );
+
+    expect(hashes.get('/assets/images/icon.svg')).toBe(hashFileContent('<svg>\n</svg>\n'));
+  });
+
   it('sorts hash output by key', () => {
     expect(
       sortHashes(
@@ -191,6 +211,57 @@ describe('xpack/integration-core.ts', () => {
   it('normalizes hashed loader names and strips svg query strings in pattern html', () => {
     expect(normalizePatternHtml('<script src="react-loader.0xAbcdEF12.js"></script><img src="icon.svg?v=abc123">')).toBe(
       '<script src="react-loader.0x00000000.js"></script><img src="icon.svg">'
+    );
+  });
+
+  it('normalizes pattern HTML line endings to LF', () => {
+    expect(normalizePatternHtml('<footer></footer>\r\n<script src="/assets/js/pl-states.js"></script>\r\n')).toBe(
+      '<footer></footer>\n<script src="/assets/js/pl-states.js"></script>\n'
+    );
+  });
+
+  it('collapses the platform-specific blank line before the pl-states script in pattern HTML', () => {
+    expect(normalizePatternHtml('</footer>\r\n\r\n  <script type="module"\r\n    defer=""\r\n    src="/assets/js/pl-states.js"></script>')).toBe(
+      '</footer>\n  <script type="module"\n    defer=""\n    src="/assets/js/pl-states.js"></script>'
+    );
+  });
+
+  it('rewrites copied generated text files with LF line endings', () => {
+    const dependencies = createDependencies();
+    const binary = Buffer.from([0, 1, 2, 3]);
+
+    dependencies.globSync.mockReturnValue(['D:/dest/assets/images/icon.svg', 'D:/dest/assets/custom/template', 'D:/dest/assets/images/photo.bin']);
+    dependencies.readFileSync.mockImplementation(((file: string) => {
+      if (file.endsWith('.svg')) {
+        return Buffer.from('<svg>\r\n</svg>\r\n');
+      }
+
+      if (file.endsWith('template')) {
+        return Buffer.from('custom\r\n');
+      }
+
+      return binary;
+    }) as never);
+
+    normalizeGeneratedTextFiles('D:/dest', dependencies);
+
+    expect(dependencies.globSync).toHaveBeenCalledWith('D:/dest/**/*', { nodir: true });
+    expect(dependencies.writeFileSync).toHaveBeenCalledWith('D:/dest/assets/images/icon.svg', '<svg>\n</svg>\n');
+    expect(dependencies.writeFileSync).toHaveBeenCalledWith('D:/dest/assets/custom/template', 'custom\n');
+    expect(dependencies.writeFileSync).toHaveBeenCalledTimes(2);
+  });
+
+  it('rewrites copied source maps whose sourcesContent contains CRLF escapes', () => {
+    const dependencies = createDependencies();
+
+    dependencies.globSync.mockReturnValue(['D:/dest/assets/js/main.js.map']);
+    dependencies.readFileSync.mockReturnValue(Buffer.from('{"version":3,"sourcesContent":["a\\r\\nb"],"mappings":""}\r\n'));
+
+    normalizeGeneratedTextFiles('D:/dest', dependencies);
+
+    expect(dependencies.writeFileSync).toHaveBeenCalledWith(
+      'D:/dest/assets/js/main.js.map',
+      '{"version":3,"sourcesContent":["a\\nb"],"mappings":""}'
     );
   });
 

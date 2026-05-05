@@ -60,6 +60,18 @@ describe('xpack/prerender-core.ts', () => {
     expect(onMissingPath).not.toHaveBeenCalled();
   });
 
+  it('hashes eligible text resource paths from LF-normalized bytes', () => {
+    expect(
+      getUpdatedResourcePath('/assets/images/logo.svg', {
+        addHash: true,
+        baseUrl: '/',
+        toAbsolute: (value) => `/repo/${value}`,
+        existsSync: vi.fn().mockReturnValue(true),
+        readFileSync: vi.fn().mockReturnValue(Buffer.from('<svg>\r\n</svg>\r\n')),
+      })
+    ).toBe('/assets/images/logo.svg?v=' + hashFileContent('<svg>\n</svg>\n'));
+  });
+
   it('skips vendor hashing, hashed filenames, missing mock-api files, and unsupported paths', () => {
     const onMissingPath = vi.fn();
 

@@ -25,6 +25,7 @@ The repo coverage rollout was designed around these requirements:
   - branches: `>= 95%`
 - Workflow gates must run `bun run test:ci` on Ubuntu, Windows, and macOS before frontend CI, deploy, and integration-package steps continue.
 - Side-effect-heavy `xpack` modules should be split into testable `*-core.ts` helpers before the logic is considered adequately protected.
+- Generated asset determinism must be enforced inside `xpack` tooling, not through project-specific `.gitattributes` or Git EOL settings. Text inputs and generated text outputs should be LF-normalized for hashing, sourcemaps, prerendered HTML, and copied integration assets; binary assets must keep their original bytes.
 - Thresholds, gated scope, or workflow gates must not be weakened without explicit approval.
 
 ## What Has Been Done
@@ -53,6 +54,7 @@ The repo coverage rollout was designed around these requirements:
 - Extracted and covered `xpack/prerender-core.ts`
 - Extracted and covered `xpack/integration-core.ts`
 - Extracted and covered `xpack/styles-core.ts`
+- Added and covered `xpack/text-normalization.ts` for platform-independent LF normalization of text content, source-map `sourcesContent`, and generated integration assets while preserving binary bytes.
 - Covered `xpack/filename.ts`
 - Covered `xpack/manual-chunk.ts`
 
@@ -71,12 +73,12 @@ Latest implemented validation target:
 
 Latest validated outcome at implementation time:
 
-- `19` test files passed
-- `114` tests passed
+- `20` test files passed
+- `135` tests passed
 - enforced coverage scope passed with:
   - `100%` statements
   - `100%` lines
-  - `99.22%` branches (per-file minimum 96.15% on `xpack/prerender-core.ts`)
+  - `98.4%` branches
   - `100%` functions
 
 ## Current Enforced Module Set
@@ -96,6 +98,7 @@ Latest validated outcome at implementation time:
 - `xpack/prerender-core.ts`
 - `xpack/scripts-core.ts`
 - `xpack/styles-core.ts`
+- `xpack/text-normalization.ts`
 
 ## Working Rule For Future Changes
 
@@ -103,13 +106,15 @@ For any frontend change covered by the workspace instruction:
 
 - preserve or improve coverage for the affected modules
 - add tests for every logic, branch, path, error-handling, or workflow behavior change
+- keep generated integration assets byte-stable across Windows, WSL, and Ubuntu by normalizing text to LF in code rather than depending on `.gitattributes`
 - run narrow impacted suites first, then run `bun run test:ci`
+- for `bun inte` determinism changes, confirm `git diff --quiet -- ../PreciseAlloy.Patterns ../PreciseAlloy.Web/wwwroot/assets`; Windows `git status` may still show LF/text-auto warnings when content diff is empty
 - update `docs/test-coverage.md` when the enforced scope, thresholds, or workflow policy changes
 - widen the gated module set when new critical code becomes testable
 
 ## Repeatable Testing Techniques Proven In This Rollout
 
-These patterns were used to drive coverage to 100% statements / 100% lines / 100% functions / 99.27% branches and should be reused for similar gaps:
+These patterns were used to keep coverage at 100% statements / 100% lines / 100% functions / 98.4% branches and should be reused for similar gaps:
 
 - **SSR guard branches** (`typeof window === 'undefined'`, `typeof document === 'undefined'`, `typeof location === 'undefined'`): create a dedicated `*.node-env.test.ts` sibling with `// @vitest-environment node` at the top, clear cached `globalThis` keys with `delete (globalThis as Record<string, unknown>).window` (and `appApi`, `viteAbsoluteUrl`, etc.) inside `beforeEach`/`afterEach`, then `vi.resetModules()` and dynamic `await import('./module')` so each guard branch runs against a clean global. Do not try to mock `typeof window` in jsdom.
 - **chokidar/event-emitter watcher callbacks** registered through `watcher.on('add' | 'change' | 'unlink', cb)`: keep the watcher mock chainable (`vi.fn(function (this: FSWatcher) { return this; })`), then capture the registered callbacks from `vi.mocked(watcher.on).mock.calls[i]?.[1]` and invoke them directly inside the test so the inline arrow bodies execute and count toward function coverage.
@@ -117,6 +122,7 @@ These patterns were used to drive coverage to 100% statements / 100% lines / 100
 - **Conditional-branch defensive returns** (`if (!resourcePath) return;`, `if (!href) return;`, `if (!target) return;`): trigger them by either widening the cheerio selector (e.g. `script[data-pl-require]` instead of `script[data-pl-require][src]`) or by feeding the helper an input the upstream classifier rejects (e.g. `'dist/static/readme.txt'` for `getPatternCopyTarget`).
 - **Cheerio attribute normalization edge cases** (`defer`, `defer="defer"`, `defer="true"`, bare `defer`): cover each comparator in the `||` chain with a separate test case so the per-file branch threshold stays meaningful even though V8 may still report one micro-branch as partial.
 - **Source-map prelude stripping**: build minimal fixtures with `SourceMapGenerator` (`setSourceContent`, `addMapping`) and read results back through `SourceMapConsumer` rather than asserting on raw VLQ output.
+- **Generated asset line endings**: normalize text to LF before embedding source-map `sourcesContent`, hashing SVG/CSS/JS/text assets, writing prerendered HTML, or copying integration assets. Test CRLF inputs, source-map JSON with escaped `\r\n`, extensionless text files, and binary buffers so output is deterministic without relying on Git checkout settings.
 - **Truly unreachable code** (e.g. an `else { return <></> }` after exhaustive `string | string[] | undefined` narrowing): remove the dead branch instead of forcing a test through `as never` casts. Document the narrowing in a short comment so the next reader does not re-add the guard.
 
 ## Remaining External Step
