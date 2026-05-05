@@ -120,6 +120,11 @@ export const getRelativeSourceMapPath = (filePath: string, projectRoot: string =
 
 export const resolveSourceMapPath = (source: string, sourceRoot?: string | null): string | undefined => {
   const isWindowsDrivePath = (value: string) => /^[a-zA-Z]:[\\/]/.test(value);
+  const isAbsoluteFileSystemPath = (value: string) => {
+    const normalizedValue = slash(value);
+
+    return normalizedValue.startsWith('/') || /^[a-zA-Z]:\//.test(normalizedValue);
+  };
 
   if (source.startsWith('data:')) {
     return undefined;
@@ -135,6 +140,10 @@ export const resolveSourceMapPath = (source: string, sourceRoot?: string | null)
     }
   } catch {
     return undefined;
+  }
+
+  if (isAbsoluteFileSystemPath(source)) {
+    return normalizeSourceMapFilePath(source);
   }
 
   return path.resolve(sourceRoot ?? '.', source);
