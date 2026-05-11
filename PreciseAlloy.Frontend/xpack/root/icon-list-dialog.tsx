@@ -1,65 +1,10 @@
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import * as cheerio from 'cheerio';
 
 export interface ParsedSvgSymbol {
   id: string;
   viewBox: string;
   svgContent: string;
-}
-
-function parseAttributes(tag: string): Record<string, string> {
-  const attrs: Record<string, string> = {};
-  const attrRegex = /([\w:.-]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g;
-  let match: RegExpExecArray | null;
-
-  while ((match = attrRegex.exec(tag)) !== null) {
-    attrs[match[1]] = match[2] ?? match[3] ?? '';
-  }
-
-  return attrs;
-}
-
-function extractSymbols(svgContent: string): Array<{ attrs: Record<string, string>; inner: string }> {
-  const results: Array<{ attrs: Record<string, string>; inner: string }> = [];
-
-  const symbolRegex = /<symbol([^>]*)>([\s\S]*?)<\/symbol>/gi;
-  let match: RegExpExecArray | null;
-
-  while ((match = symbolRegex.exec(svgContent)) !== null) {
-    const attrs = parseAttributes(match[1]);
-    const inner = match[2].trim();
-
-    results.push({ attrs, inner });
-  }
-
-  return results;
-}
-
-function parseSvgSprite(svgContent: string): ParsedSvgSymbol[] | null {
-  const trimmed = svgContent.trim();
-
-  if (!/^\s*<svg[\s>]/i.test(trimmed)) {
-    return null;
-  }
-
-  const symbols = extractSymbols(trimmed);
-
-  if (symbols.length < 2) {
-    return null;
-  }
-
-  return symbols.map(({ attrs, inner }) => {
-    const id = attrs['id'] ?? '';
-    const viewBox = attrs['viewBox'] ?? attrs['viewbox'] ?? '0 0 24 24';
-
-    const extraAttrs = Object.entries(attrs)
-      .filter(([key]) => !['id'].includes(key))
-      .map(([key, val]) => `${key}="${val}"`)
-      .join(' ');
-
-    const svgOut = `<svg xmlns="http://www.w3.org/2000/svg" ${extraAttrs}>\n${inner}\n</svg>`;
-
-    return { id, viewBox, svgContent: svgOut };
-  });
 }
 
 function SvgIcon({
@@ -94,19 +39,27 @@ const IconListDialog = () => {
   const [searchValue, setSearchValue] = useState<string>('');
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  const parseSvg = async () => {
-    const data = [];
+  const parseSvg = async (): Promise<ParsedSvgSymbol[]> => {
+    const data: ParsedSvgSymbol[] = [];
 
-    for (const [_, load] of Object.entries(sprites)) {
+    for (const load of Object.values(sprites)) {
       const content = (await load()) as string;
-      const parsed = parseSvgSprite(content);
+      const $ = cheerio.load(content, { xmlMode: true });
 
-      if (parsed) {
-        data.push(...parsed);
-      }
+      $('symbol').each((_, el) => {
+        const id = $(el).attr('id');
+
+        if (!id) return;
+
+        data.push({
+          id,
+          svgContent: $(el).html() ?? '',
+          viewBox: $(el).attr('viewBox') ?? '',
+        });
+      });
     }
 
-    setAllSvgs(data);
+    return data;
   };
 
   const filteredSvgs = useMemo(() => allSvgs.filter((s) => s.id.toLowerCase().includes(searchValue.toLowerCase())), [allSvgs, searchValue]);
@@ -135,7 +88,7 @@ const IconListDialog = () => {
   };
 
   useEffect(() => {
-    parseSvg();
+    parseSvg().then((data) => setAllSvgs(data));
   }, []);
 
   return (
