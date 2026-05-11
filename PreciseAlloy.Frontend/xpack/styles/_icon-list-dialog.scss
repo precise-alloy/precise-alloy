@@ -1,0 +1,78 @@
+@use 'px2rem' as *;
+@use 'theme' as *;
+@use 'form' as *;
+
+.xpack-o-icon-list-dialog {
+  position: fixed;
+  width: px2rem(900px);
+  background-color: $body-bg;
+  color: $body-color;
+
+  &__svg-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(px2rem(200px), 1fr));
+    grid-auto-flow: dense;
+    grid-auto-rows: px2rem(50px);
+    gap: px2rem(10px);
+    margin: px2rem(20px) 0;
+  }
+
+  &__item {
+    display: flex;
+    padding: px2rem(10px);
+    gap: px2rem(10px);
+    align-items: center;
+    position: relative;
+
+    &:hover {
+      border-color: $link-hover-color;
+    }
+  }
+
+  &__icon-id {
+    font-size: px2rem(14px);
+  }
+
+  &__search {
+    display: block;
+    margin-top: px2rem(10px);
+
+    input {
+      @include input;
+      padding: px2rem(8px);
+    }
+  }
+
+  &__copy-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: $body-strong-color;
+    color: $body-bg;
+    font-size: px2rem(12px);
+    padding: px2rem(4px) px2rem(10px);
+    border-radius: px2rem(4px);
+    white-space: nowrap;
+    pointer-events: none;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: px2rem(5px) solid transparent;
+      border-top-color: $body-strong-color;
+    }
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

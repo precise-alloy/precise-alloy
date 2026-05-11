@@ -6,6 +6,7 @@ import { RootContext, RootData } from './root-context';
 import FrameControls from './frame-controls';
 import ActiveItemOptions from './active-item-options';
 import RootNav from './root-nav';
+import IconListDialog from './icon-list-dialog';
 
 export default function Root(props: RootModel) {
   const [activeItem, setActiveItem] = useState<SinglePageNode | undefined>(typeof window !== 'undefined' ? undefined : undefined);
@@ -122,6 +123,7 @@ export default function Root(props: RootModel) {
         <RootNav routes={props.routes} />
         <FrameControls />
         <ActiveItemOptions />
+        <IconListDialog />
       </div>
     </RootContext.Provider>
   ) : (
