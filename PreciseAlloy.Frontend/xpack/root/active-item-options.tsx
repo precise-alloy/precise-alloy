@@ -94,7 +94,13 @@ export default function ActiveItemOptions() {
           Open in new tab
         </a>
 
-        <button className="xpack-o-root__nav-item" command="show-modal" commandfor="my-dialog">
+        <button
+          className="xpack-o-root__nav-item"
+          {...{
+            commandfor: 'icon-list-dialog',
+            command: 'show-modal',
+          }}
+        >
           Icon list
         </button>
 

@@ -5,6 +5,9 @@
 .xpack-o-icon-list-dialog {
   position: fixed;
   width: px2rem(900px);
+  max-width: calc(100vw - #{px2rem(32px)});
+  max-height: calc(100vh - #{px2rem(32px)});
+  overflow: auto;
   background-color: $body-bg;
   color: $body-color;
 

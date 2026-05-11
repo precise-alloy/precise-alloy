@@ -68,7 +68,7 @@ function SvgIcon({
   svgContent,
   copySvgId,
 }: ParsedSvgSymbol & {
-  copySvgId: (id: string, el: HTMLButtonElement | null) => void;
+  copySvgId: (id: string, el: HTMLElement | null) => void;
 }) {
   const inner = svgContent.replace(/^<svg[^>]*>/, '').replace(/<\/svg>$/, '');
   let tooltipRef = useRef<HTMLElement>(null);
@@ -92,6 +92,7 @@ const sprites = import.meta.glob(['../../public/assets/images/*.svg', '!../../pu
 const IconListDialog = () => {
   const [allSvgs, setAllSvgs] = useState<ParsedSvgSymbol[]>([]);
   const [searchValue, setSearchValue] = useState<string>('');
+  const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const parseSvg = async () => {
     const data = [];
@@ -114,14 +115,12 @@ const IconListDialog = () => {
     if (!el) return;
 
     try {
-      let hideTimer;
-
       await navigator.clipboard.writeText(`#${id}`);
 
       el?.classList?.add?.('show');
 
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => {
+      clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => {
         el?.classList?.remove?.('show');
       }, 2000);
     } catch (error) {
@@ -140,7 +139,7 @@ const IconListDialog = () => {
   }, []);
 
   return (
-    <dialog className="xpack-o-icon-list-dialog" id="my-dialog">
+    <dialog className="xpack-o-icon-list-dialog" id="icon-list-dialog">
       <p>Total: {allSvgs.length} icons</p>
 
       <div className="xpack-o-icon-list-dialog__search">
@@ -153,7 +152,12 @@ const IconListDialog = () => {
         ))}
       </div>
 
-      <button command="close" commandfor="my-dialog">
+      <button
+        {...{
+          command: 'close',
+          commandfor: 'icon-list-dialog',
+        }}
+      >
         Close
       </button>
     </dialog>
