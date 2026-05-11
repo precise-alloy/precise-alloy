@@ -7,6 +7,7 @@
 @use 'form' as *;
 @use 'xpack-root' as *;
 @use 'top-panel' as *;
+@use 'icon-list-dialog' as *;
 
 :root {
   --navbar-max-width: #{px2rem(240px)};

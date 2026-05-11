@@ -94,6 +94,10 @@ export default function ActiveItemOptions() {
           Open in new tab
         </a>
 
+        <button className="xpack-o-root__nav-item" command="show-modal" commandfor="my-dialog">
+          Icon list
+        </button>
+
         <div className="xpack-o-root__nav-item-seperator" />
 
         <a className="xpack-o-root__nav-item" href="https://tuyen.blog/optimizely-cms/frontend/get-started/" rel="noreferrer" target="_blank">
