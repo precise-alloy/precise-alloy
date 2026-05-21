@@ -13,7 +13,9 @@ import { browserslistToTargets, transform as lightningTransform, type Targets } 
 import { RawSourceMap } from 'source-map-js';
 
 import {
+  createStyleCompileQueue,
   createScssImporterResult,
+  getStyleCompileConcurrency,
   getStyleWatchOptions,
   getStylesOutputFileName,
   prepareCssFileContent,
@@ -38,6 +40,7 @@ const XPACK_STYLES_PREFIX = 'xpack/styles';
 const DEBOUNCE_DELAY_MS = 200;
 const ORGANISM_PREFIX = 'b-';
 const TEMPLATE_PREFIX = 'p-';
+const compileQueue = createStyleCompileQueue(getStyleCompileConcurrency());
 // Path-segment markers (slash-bounded) used to decide which prelude pieces
 // to inject when an importer load lands on a particular file. We intentionally
 // match by `/segment/` instead of bare `substring` because a naive
@@ -198,15 +201,6 @@ const reportStyleFailure = (file: string, kind: 'sass' | 'lightningcss-error' | 
   }
 };
 
-// Track every in-flight compile promise so one-shot mode can `await` them
-// before the script exits. Without this the script returns synchronously
-// while compiles are still pending, which means a `reportStyleFailure()`
-// call that fires AFTER Bun has already decided to exit cannot flip
-// `process.exitCode` in time — the build appears to succeed even though
-// rules were silently dropped. Watch mode does not need this because the
-// process never exits.
-const pendingCompiles = new Set<Promise<unknown>>();
-
 const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }) => {
   if (options.isReady) {
     log('compile:', slash(srcFile));
@@ -221,33 +215,37 @@ const compile = (srcFile: string, options: { prefix?: string; isReady: boolean }
 
   const outFile = (options.prefix ?? '') + name;
 
-  const cssStrings = getCssSourceContent(srcFile, 'compile');
+  // Queue the whole Sass + lightningcss job so one-shot builds do not start
+  // every stylesheet at once. Bun's async Sass path can retain enough native
+  // work at high fan-out to make clean `bun styles` runs flaky; using sync
+  // Sass inside a bounded queue keeps memory pressure predictable while still
+  // letting watch mode coalesce quick edit bursts through the existing
+  // debounced entry points.
+  void compileQueue.add(() => {
+    try {
+      const cssStrings = getCssSourceContent(srcFile, 'compile');
 
-  if (srcFile.includes('style-base') || srcFile.includes('style-all')) {
-    sortStylePaths(glob.sync('./src/atoms/**/*.scss')).forEach((atomPath) => {
-      if (!path.basename(atomPath).startsWith('_')) {
-        cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: atomPath }).join(''), getStringOptions<'sync'>(atomPath)).css);
+      if (srcFile.includes('style-base') || srcFile.includes('style-all')) {
+        sortStylePaths(glob.sync('./src/atoms/**/*.scss')).forEach((atomPath) => {
+          if (!path.basename(atomPath).startsWith('_')) {
+            cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: atomPath }).join(''), getStringOptions<'sync'>(atomPath)).css);
+          }
+        });
+
+        sortStylePaths(glob.sync('./src/molecules/**/*.scss')).forEach((molPath) => {
+          if (!path.basename(molPath).startsWith('_')) {
+            cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: molPath }).join(''), getStringOptions<'sync'>(molPath)).css);
+          }
+        });
       }
-    });
 
-    sortStylePaths(glob.sync('./src/molecules/**/*.scss')).forEach((molPath) => {
-      if (!path.basename(molPath).startsWith('_')) {
-        cssStrings.push(sass.compileString(prepareCssFileContent({ srcFile: molPath }).join(''), getStringOptions<'sync'>(molPath)).css);
-      }
-    });
-  }
+      const result = sass.compileString(cssStrings.join(''), getStringOptions<'sync'>(srcFile));
 
-  const compilePromise = sass
-    .compileStringAsync(cssStrings.join(''), getStringOptions<'async'>(srcFile))
-    .then((result) => postcssProcess(result, srcFile, outFile))
-    .catch((error) => {
+      postcssProcess(result, srcFile, outFile);
+    } catch (error) {
       reportStyleFailure(srcFile, 'sass', error);
-    });
-
-  pendingCompiles.add(compilePromise);
-  // Always remove the promise from the set, regardless of success/failure,
-  // so the set does not grow unboundedly across watch-mode rebuilds.
-  void compilePromise.finally(() => pendingCompiles.delete(compilePromise));
+    }
+  });
 };
 
 // Resolve the browser targets once at startup. lightningcss expects a
@@ -453,20 +451,16 @@ if (isWatch) {
     .filter((f) => !path.basename(f).startsWith('_'))
     .forEach((f) => sassCompile(f, true));
 
-  // Drain every pending compile before exiting so `reportStyleFailure()`
-  // calls reliably set `process.exitCode` BEFORE Bun terminates. Without
-  // this drain the script returns synchronously, the failures fire late,
-  // and the exit code is racy (0 vs. 1 across consecutive runs).
+  // Drain every queued compile before exiting so `reportStyleFailure()` calls
+  // reliably set `process.exitCode` BEFORE Bun terminates. Without this drain
+  // the script returns synchronously, failures fire late, and the exit code is
+  // racy (0 vs. 1 across consecutive runs).
   //
   // The compile entry points are debounced, so we wait one debounce tick
-  // first to let the queued debounced calls actually invoke `compile()` and
-  // populate `pendingCompiles`. After that, we keep draining in a loop
-  // because earlier compiles can asynchronously schedule further work
-  // (e.g. `style-base` aggregates atom/molecule sub-compiles).
+  // first to let queued debounced calls invoke `compile()` and enter the
+  // bounded queue.
   setTimeout(async () => {
-    while (pendingCompiles.size > 0) {
-      await Promise.allSettled([...pendingCompiles]);
-    }
+    await compileQueue.drain();
   }, DEBOUNCE_DELAY_MS + 50);
 }
 

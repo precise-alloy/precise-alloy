@@ -53,10 +53,18 @@ The repo coverage rollout was designed around these requirements:
 - Extracted and covered `xpack/scripts-core.ts`
 - Extracted and covered `xpack/prerender-core.ts`
 - Extracted and covered `xpack/integration-core.ts`
-- Extracted and covered `xpack/styles-core.ts`
+- Extracted and covered `xpack/styles-core.ts`, including stylesheet watch options, Sass source-map prelude stripping, CSS output naming, and the bounded stylesheet compile queue used by `xpack/styles.ts`.
 - Added and covered `xpack/text-normalization.ts` for platform-independent LF normalization of text content, source-map `sourcesContent`, and generated integration assets while preserving binary bytes.
 - Covered `xpack/filename.ts`
 - Covered `xpack/manual-chunk.ts`
+
+### Stylesheet Build Reliability
+
+- `xpack/styles.ts` runs Sass and lightningcss for many entry stylesheets; it must avoid unbounded Sass fan-out.
+- The current implementation queues Sass/lightningcss jobs through `createStyleCompileQueue` in `xpack/styles-core.ts`.
+- `STYLES_CONCURRENCY` controls the queue width and defaults to `5` when unset, blank, non-integer, or less than `1`.
+- One-shot `bun run styles` builds wait for debounced compile entry points, then drain the queue so Sass/lightningcss failures can set a non-zero exit code before Bun exits.
+- Keep queue parsing, bounded execution, drain behavior, and failed-task continuation covered in `xpack/styles-core.test.ts`.
 
 ### Workflow Gates
 
@@ -70,6 +78,7 @@ The repo coverage rollout was designed around these requirements:
 Latest implemented validation target:
 
 - `bun run test:ci`
+- `bun inte` for the stylesheet compile-queue build-tooling change
 
 Latest validated outcome at implementation time:
 
@@ -108,6 +117,7 @@ For any frontend change covered by the workspace instruction:
 - add tests for every logic, branch, path, error-handling, or workflow behavior change
 - keep generated integration assets byte-stable across Windows, WSL, and Ubuntu by normalizing text to LF in code rather than depending on `.gitattributes`
 - run narrow impacted suites first, then run `bun run test:ci`
+- for `xpack/styles.ts` or `xpack/styles-core.ts`, preserve the bounded compile queue contract and run `bun run styles` or `bun inte` after focused tests
 - for `bun inte` determinism changes, confirm `git diff --quiet -- {VITE_INTE_PATTERN_DIR} {VITE_INTE_ASSET_DIR}`; Windows `git status` may still show LF/text-auto warnings when content diff is empty
 - update `docs/test-coverage.md` when the enforced scope, thresholds, or workflow policy changes
 - widen the gated module set when new critical code becomes testable
@@ -122,6 +132,7 @@ These patterns were used to keep coverage at 100% statements / 100% lines / 100%
 - **Conditional-branch defensive returns** (`if (!resourcePath) return;`, `if (!href) return;`, `if (!target) return;`): trigger them by either widening the cheerio selector (e.g. `script[data-pl-require]` instead of `script[data-pl-require][src]`) or by feeding the helper an input the upstream classifier rejects (e.g. `'dist/static/readme.txt'` for `getPatternCopyTarget`).
 - **Cheerio attribute normalization edge cases** (`defer`, `defer="defer"`, `defer="true"`, bare `defer`): cover each comparator in the `||` chain with a separate test case so the per-file branch threshold stays meaningful even though V8 may still report one micro-branch as partial.
 - **Source-map prelude stripping**: build minimal fixtures with `SourceMapGenerator` (`setSourceContent`, `addMapping`) and read results back through `SourceMapConsumer` rather than asserting on raw VLQ output.
+- **Stylesheet compile queue**: cover default `STYLES_CONCURRENCY` parsing, bounded queue execution, drain completion, invalid concurrency normalization, and rejected task continuation in `xpack/styles-core.test.ts`; keep `xpack/styles.ts` as the side-effect shell that wires the queue into Sass/lightningcss.
 - **Generated asset line endings**: normalize text to LF before embedding source-map `sourcesContent`, hashing SVG/CSS/JS/text assets, writing prerendered HTML, or copying integration assets. Test CRLF inputs, source-map JSON with escaped `\r\n`, extensionless text files, and binary buffers so output is deterministic without relying on Git checkout settings.
 - **Truly unreachable code** (e.g. an `else { return <></> }` after exhaustive `string | string[] | undefined` narrowing): remove the dead branch instead of forcing a test through `as never` casts. Document the narrowing in a short comment so the next reader does not re-add the guard.
 

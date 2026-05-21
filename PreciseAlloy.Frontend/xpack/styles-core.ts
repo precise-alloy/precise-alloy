@@ -21,6 +21,69 @@ const defaultDependencies: StyleCoreDependencies = {
 };
 
 const STYLE_WATCH_POLL_INTERVAL_MS = 200;
+const DEFAULT_STYLE_COMPILE_CONCURRENCY = 5;
+
+export const getStyleCompileConcurrency = (value: string | undefined = process.env.STYLES_CONCURRENCY) => {
+  const parsed = value && value.trim() !== '' ? Number(value) : DEFAULT_STYLE_COMPILE_CONCURRENCY;
+
+  return Number.isInteger(parsed) && parsed > 0 ? parsed : DEFAULT_STYLE_COMPILE_CONCURRENCY;
+};
+
+export const createStyleCompileQueue = (concurrency: number) => {
+  const maxConcurrency = Math.max(1, Math.floor(concurrency));
+  const queuedTasks: Array<() => void> = [];
+  const pendingTasks = new Set<Promise<unknown>>();
+  let activeCount = 0;
+
+  const startNext = () => {
+    while (activeCount < maxConcurrency && queuedTasks.length > 0) {
+      queuedTasks.shift()?.();
+    }
+  };
+
+  const add = (task: () => unknown | Promise<unknown>) => {
+    let taskPromise: Promise<unknown>;
+
+    taskPromise = new Promise((resolve, reject) => {
+      queuedTasks.push(() => {
+        activeCount += 1;
+
+        const settleTask = (settle: () => void) => {
+          activeCount -= 1;
+          pendingTasks.delete(taskPromise);
+          startNext();
+          settle();
+        };
+
+        Promise.resolve()
+          .then(task)
+          .then(
+            (value) => settleTask(() => resolve(value)),
+            (error: unknown) => settleTask(() => reject(error))
+          );
+      });
+    });
+
+    pendingTasks.add(taskPromise);
+    startNext();
+
+    return taskPromise;
+  };
+
+  const drain = async () => {
+    while (pendingTasks.size > 0) {
+      await Promise.allSettled([...pendingTasks]);
+    }
+  };
+
+  return {
+    add,
+    drain,
+    getActiveCount: () => activeCount,
+    getPendingCount: () => pendingTasks.size,
+    getQueuedCount: () => queuedTasks.length,
+  };
+};
 
 export const isStyleWatchIgnored = (filePath: string, stats?: Pick<Stats, 'isFile'>) => {
   return !!stats?.isFile() && !filePath.endsWith('.scss');

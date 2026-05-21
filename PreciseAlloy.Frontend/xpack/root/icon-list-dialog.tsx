@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ChangeEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as cheerio from 'cheerio';
 
@@ -20,7 +21,7 @@ function SvgIcon({
 
   return (
     <button className="xpack-o-icon-list-dialog__item" onClick={() => copySvgId(id, tooltipRef.current)}>
-      <span className="xpack-o-icon-list-dialog__copy-tooltip" ref={tooltipRef}>
+      <span ref={tooltipRef} className="xpack-o-icon-list-dialog__copy-tooltip">
         Copied!
       </span>
       <svg dangerouslySetInnerHTML={{ __html: inner }} aria-label={id} height={24} viewBox={viewBox} width={24} xmlns="http://www.w3.org/2000/svg" />

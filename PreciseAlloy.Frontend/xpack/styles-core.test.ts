@@ -10,7 +10,9 @@ import { SourceMapConsumer, SourceMapGenerator } from 'source-map-js';
 import { describe, expect, it, vi } from 'vitest';
 
 import {
+  createStyleCompileQueue,
   createScssImporterResult,
+  getStyleCompileConcurrency,
   getRelativeSourceMapPath,
   getStyleWatchOptions,
   getStylesOutputFileName,
@@ -22,6 +24,107 @@ import {
 } from './styles-core';
 
 describe('xpack/styles-core.ts', () => {
+  it('parses style compile concurrency from the environment with a conservative fallback', () => {
+    expect(getStyleCompileConcurrency(undefined)).toBe(5);
+    expect(getStyleCompileConcurrency('')).toBe(5);
+    expect(getStyleCompileConcurrency(' 3 ')).toBe(3);
+    expect(getStyleCompileConcurrency('0')).toBe(5);
+    expect(getStyleCompileConcurrency('-1')).toBe(5);
+    expect(getStyleCompileConcurrency('2.5')).toBe(5);
+    expect(getStyleCompileConcurrency('fast')).toBe(5);
+  });
+
+  it('runs style compile tasks through a bounded queue and drains queued work', async () => {
+    const queue = createStyleCompileQueue(2);
+    const events: string[] = [];
+    const releaseTasks: Array<() => void> = [];
+    const createTask = (name: string) => async () => {
+      events.push(`start:${name}`);
+      await new Promise<void>((resolve) => releaseTasks.push(resolve));
+      events.push(`end:${name}`);
+    };
+
+    const first = queue.add(createTask('first'));
+    const second = queue.add(createTask('second'));
+    const third = queue.add(createTask('third'));
+
+    await Promise.resolve();
+
+    expect(events).toEqual(['start:first', 'start:second']);
+    expect(queue.getActiveCount()).toBe(2);
+    expect(queue.getQueuedCount()).toBe(1);
+    expect(queue.getPendingCount()).toBe(3);
+
+    releaseTasks[0]?.();
+    await first;
+    await Promise.resolve();
+
+    expect(events).toEqual(['start:first', 'start:second', 'end:first', 'start:third']);
+
+    releaseTasks[1]?.();
+    releaseTasks[2]?.();
+    await Promise.all([second, third, queue.drain()]);
+
+    expect(events).toEqual(['start:first', 'start:second', 'end:first', 'start:third', 'end:second', 'end:third']);
+    expect(queue.getActiveCount()).toBe(0);
+    expect(queue.getQueuedCount()).toBe(0);
+    expect(queue.getPendingCount()).toBe(0);
+  });
+
+  it('normalizes invalid style compile queue concurrency to one worker', async () => {
+    const queue = createStyleCompileQueue(0);
+    const events: string[] = [];
+    const releaseTasks: Array<() => void> = [];
+    const createTask = (name: string) => async () => {
+      events.push(`start:${name}`);
+      await new Promise<void>((resolve) => releaseTasks.push(resolve));
+      events.push(`end:${name}`);
+    };
+
+    const first = queue.add(createTask('first'));
+    const second = queue.add(createTask('second'));
+
+    await Promise.resolve();
+
+    expect(events).toEqual(['start:first']);
+    expect(queue.getActiveCount()).toBe(1);
+    expect(queue.getQueuedCount()).toBe(1);
+
+    releaseTasks[0]?.();
+    await first;
+    await Promise.resolve();
+
+    expect(events).toEqual(['start:first', 'end:first', 'start:second']);
+
+    releaseTasks[1]?.();
+    await Promise.all([second, queue.drain()]);
+
+    expect(events).toEqual(['start:first', 'end:first', 'start:second', 'end:second']);
+  });
+
+  it('rejects failed style compile tasks and continues draining the queue', async () => {
+    const queue = createStyleCompileQueue(1);
+    const failure = new Error('compile failed');
+    const events: string[] = [];
+
+    const failed = queue.add(() => {
+      events.push('failed');
+      throw failure;
+    });
+    const next = queue.add(() => {
+      events.push('next');
+    });
+
+    await expect(failed).rejects.toBe(failure);
+    await expect(next).resolves.toBeUndefined();
+    await queue.drain();
+
+    expect(events).toEqual(['failed', 'next']);
+    expect(queue.getActiveCount()).toBe(0);
+    expect(queue.getQueuedCount()).toBe(0);
+    expect(queue.getPendingCount()).toBe(0);
+  });
+
   it('uses polling watch options so editor writes reliably trigger SCSS rebuilds', () => {
     const options = getStyleWatchOptions();
 
