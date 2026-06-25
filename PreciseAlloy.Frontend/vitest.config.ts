@@ -17,7 +17,6 @@ export default defineConfig({
       { find: '@assets', replacement: path.resolve(srcRoot, 'assets') },
       { find: '@helpers', replacement: path.resolve(srcRoot, '_helpers') },
       { find: '@data', replacement: path.resolve(srcRoot, '_data') },
-      { find: '@_http', replacement: path.resolve(srcRoot, '_http') },
       { find: '@_api', replacement: path.resolve(srcRoot, '_api') },
       { find: '@mocks', replacement: path.resolve(srcRoot, 'mocks') },
     ],

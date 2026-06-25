@@ -100,5 +100,5 @@ src/
 
 - `vite.config.ts` - Vite configuration (uses `defineAlveoConfig` from alveo)
 - `vitest.config.ts` - Test configuration
-- `tsconfig.json` - TypeScript configuration (extends alveo base)
+- `tsconfig.json` - TypeScript configuration
 - `.env` - Environment variables (base URL, API endpoints, integration paths)
