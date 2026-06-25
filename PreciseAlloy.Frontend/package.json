@@ -11,7 +11,10 @@
     "styles": "alveo styles",
     "lint": "eslint --fix",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ci": "bun run typecheck && vitest run --coverage --reporter=default"
   },
   "dependencies": {
     "alveo": "latest",
