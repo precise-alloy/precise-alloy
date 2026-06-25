@@ -5,8 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "alveo dev",
-    "build": "alveo build",
+    "build:eshn": "alveo build --mode eshn",
     "generate": "alveo generate",
+    "eshn": "alveo generate --mode eshn",
     "inte": "alveo inte",
     "styles": "alveo styles",
     "lint": "eslint --fix",
