@@ -24,6 +24,7 @@
     "react-router-dom": "^7.17.0"
   },
   "devDependencies": {
+    "@types/css": "^0.0.38",
     "@next/eslint-plugin-next": "^16.2.4",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
@@ -50,7 +51,8 @@
     "msw": "^2.13.6",
     "prettier": "^3.6.2",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.5",
+    "css": "^3.0.0"
   },
   "engines": {
     "node": ">=24"
