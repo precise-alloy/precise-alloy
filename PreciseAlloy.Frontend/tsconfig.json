@@ -1,17 +1,26 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext",
+      "WebWorker"
+    ],
+    "composite": true,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "noEmit": true,
-    "strict": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noEmit": true,
     "jsx": "react-jsx",
+    "sourceMap": true,
     "paths": {
       "@helpers/*": ["./src/_helpers/*"],
       "@assets/*": ["./src/assets/*"],
@@ -25,6 +34,8 @@
       "@mocks/*": ["./src/mocks/*"],
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "types.d.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "test/**/*.ts", "test/**/*.tsx", "types.d.ts"],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -8,11 +8,6 @@ declare module '*.htm?raw' {
   export default value;
 }
 
-declare module '*.htm?raw' {
-  const value: string;
-  export default value;
-}
-
 declare module '*.cshtml?raw' {
   const value: string;
   export default value;
