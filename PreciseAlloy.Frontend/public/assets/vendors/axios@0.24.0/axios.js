@@ -303,7 +303,7 @@ module.exports = function xhrAdapter(config) {
 
     if (config.cancelToken || config.signal) {
       // Handle cancellation
-      // eslint-disable-next-line func-names
+       
       onCanceled = function(cancel) {
         if (!request) {
           return;
@@ -462,7 +462,7 @@ function CancelToken(executor) {
 
   var token = this;
 
-  // eslint-disable-next-line func-names
+   
   this.promise.then(function(cancel) {
     if (!token._listeners) return;
 
@@ -475,10 +475,10 @@ function CancelToken(executor) {
     token._listeners = null;
   });
 
-  // eslint-disable-next-line func-names
+   
   this.promise.then = function(onfulfilled) {
     var _resolve;
-    // eslint-disable-next-line func-names
+     
     var promise = new Promise(function(resolve) {
       token.subscribe(resolve);
       _resolve = resolve;
@@ -1042,7 +1042,7 @@ var utils = __webpack_require__(/*! ../utils */ "./lib/utils.js");
  * @returns {Object} New object resulting from merging config2 to config1
  */
 module.exports = function mergeConfig(config1, config2) {
-  // eslint-disable-next-line no-param-reassign
+   
   config2 = config2 || {};
   var config = {};
 
@@ -1057,7 +1057,7 @@ module.exports = function mergeConfig(config1, config2) {
     return source;
   }
 
-  // eslint-disable-next-line consistent-return
+   
   function mergeDeepProperties(prop) {
     if (!utils.isUndefined(config2[prop])) {
       return getMergedValue(config1[prop], config2[prop]);
@@ -1066,14 +1066,14 @@ module.exports = function mergeConfig(config1, config2) {
     }
   }
 
-  // eslint-disable-next-line consistent-return
+   
   function valueFromConfig2(prop) {
     if (!utils.isUndefined(config2[prop])) {
       return getMergedValue(undefined, config2[prop]);
     }
   }
 
-  // eslint-disable-next-line consistent-return
+   
   function defaultToConfig2(prop) {
     if (!utils.isUndefined(config2[prop])) {
       return getMergedValue(undefined, config2[prop]);
@@ -1082,7 +1082,7 @@ module.exports = function mergeConfig(config1, config2) {
     }
   }
 
-  // eslint-disable-next-line consistent-return
+   
   function mergeDirectKeys(prop) {
     if (prop in config2) {
       return getMergedValue(config1[prop], config2[prop]);
@@ -1829,7 +1829,7 @@ var VERSION = __webpack_require__(/*! ../env/data */ "./lib/env/data.js").versio
 
 var validators = {};
 
-// eslint-disable-next-line func-names
+ 
 ['object', 'boolean', 'number', 'function', 'string', 'symbol'].forEach(function(type, i) {
   validators[type] = function validator(thing) {
     return typeof thing === type || 'a' + (i < 1 ? 'n ' : ' ') + type;
@@ -1850,7 +1850,7 @@ validators.transitional = function transitional(validator, version, message) {
     return '[Axios v' + VERSION + '] Transitional option \'' + opt + '\'' + desc + (message ? '. ' + message : '');
   }
 
-  // eslint-disable-next-line func-names
+   
   return function(value, opt, opts) {
     if (validator === false) {
       throw new Error(formatMessage(opt, ' has been removed' + (version ? ' in ' + version : '')));
@@ -1858,7 +1858,7 @@ validators.transitional = function transitional(validator, version, message) {
 
     if (version && !deprecatedWarnings[opt]) {
       deprecatedWarnings[opt] = true;
-      // eslint-disable-next-line no-console
+       
       console.warn(
         formatMessage(
           opt,

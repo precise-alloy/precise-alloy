@@ -1,32 +1,104 @@
-# Create React App with x-pkg
+# alveo Sample Project
 
-The easiest way to get started with React.js is by using x-pkg. This CLI tool enables you to quickly start building a new React.js application, with everything set up for you. To get started, use the following command:
+A minimal project demonstrating how to use `alveo` as a framework dependency.
 
-## Interactive
+## Prerequisites
 
-You can create a new project interactively by running:
+- [Bun](https://bun.sh/) (recommended) or Node.js >= 20
+- `alveo` installed (linked via monorepo or published to npm)
 
-```bash
-npx x-pkg@latest
-```
-
-You will be asked for the name of your project
+## Install
 
 ```bash
-What is your project named?
+bun install
 ```
 
-### Non-Interactive
+## Development
 
-You can also pass command line arguments to set up a new project
-non-interactively. See `x-pkg --help`:
+Start the dev server with hot reload:
 
 ```bash
-npx x-pkg <project-directory>
+bun run dev
 ```
 
-## SCSS Migration
-To replace deprecated `@import` statements in base assets with `@use` and `@forward`, run this command in the frontend root folder:
+## Build
+
+Build for production:
+
+```bash
+bun run build
 ```
-bun xpack/migrate-scss.ts
+
+Generate pre-rendered static pages:
+
+```bash
+bun run generate
 ```
+
+## Integration
+
+Output assets and patterns to integration directories (configured in `.env`):
+
+```bash
+bun run inte
+```
+
+## Styles
+
+Compile SCSS styles independently:
+
+```bash
+bun run styles
+```
+
+## Testing
+
+Run unit tests:
+
+```bash
+bun run test
+```
+
+## Linting and Formatting
+
+```bash
+bun run lint
+bun run typecheck
+```
+
+## Project Structure
+
+```
+src/
+  _api/          API client modules
+  _data/         Static data and content
+  _helpers/      Utility functions
+  _types/        TypeScript type definitions
+  assets/        Static assets (images, fonts, scripts, styles)
+  atoms/         Atomic design: smallest UI elements
+  molecules/     Atomic design: composed atoms
+  organisms/     Atomic design: composed molecules
+  templates/     Page layout templates
+  pages/         Full page components
+  mocks/         MSW mock handlers for API testing
+  client-components.tsx   Registry of client-rendered React components
+```
+
+## Adding Components
+
+1. Create a new component directory under the appropriate atomic level (`atoms/`, `molecules/`, etc.)
+2. Add an `index.tsx` barrel file in the directory
+3. Use alias imports: `@atoms/*`, `@molecules/*`, `@organisms/*`, `@templates/*`, `@pages/*`
+
+## Adding Pages
+
+1. Create a new page component under `src/pages/`
+2. Pages are pre-rendered during the `generate` step
+3. Each page should have a default export
+
+## Configuration
+
+- `vite.config.ts` - Vite configuration (uses `defineAlveoConfig` from alveo)
+- `vitest.config.ts` - Test configuration
+- `tsconfig.json` - TypeScript configuration (extends alveo base)
+- `.env` - Environment variables (base URL, API endpoints, integration paths)

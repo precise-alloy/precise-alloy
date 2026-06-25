@@ -1,3 +1,5 @@
-import config from './xpack/config';
+import { defineAlveoConfig } from 'alveo';
 
-export default config;
+export default defineAlveoConfig({
+  root: import.meta.dirname,
+});
