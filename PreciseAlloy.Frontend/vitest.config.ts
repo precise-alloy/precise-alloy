@@ -1,18 +1,32 @@
+import path from 'path';
+
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 
-import alias from './xpack/alias';
+const srcRoot = path.resolve(import.meta.dirname, 'src');
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
-    alias,
+    alias: [
+      { find: '@atoms', replacement: path.resolve(srcRoot, 'atoms') },
+      { find: '@molecules', replacement: path.resolve(srcRoot, 'molecules') },
+      { find: '@organisms', replacement: path.resolve(srcRoot, 'organisms') },
+      { find: '@templates', replacement: path.resolve(srcRoot, 'templates') },
+      { find: '@pages', replacement: path.resolve(srcRoot, 'pages') },
+      { find: '@assets', replacement: path.resolve(srcRoot, 'assets') },
+      { find: '@helpers', replacement: path.resolve(srcRoot, '_helpers') },
+      { find: '@data', replacement: path.resolve(srcRoot, '_data') },
+      { find: '@_http', replacement: path.resolve(srcRoot, '_http') },
+      { find: '@_api', replacement: path.resolve(srcRoot, '_api') },
+      { find: '@mocks', replacement: path.resolve(srcRoot, 'mocks') },
+    ],
   },
   test: {
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./test/setup.ts'],
-    include: ['src/**/*.test.{ts,tsx}', 'xpack/**/*.test.{ts,tsx}', 'test/**/*.test.{ts,tsx}'],
+    include: ['src/**/*.test.{ts,tsx}', 'test/**/*.test.{ts,tsx}'],
     coverage: {
       provider: 'v8',
       reportsDirectory: './coverage',
@@ -26,17 +40,8 @@ export default defineConfig({
         'src/_helpers/RequireJs.tsx',
         'src/assets/scripts/main/api.ts',
         'src/organisms/contact/contact-form.tsx',
-        'xpack/asset-hash.ts',
-        'xpack/filename.ts',
-        'xpack/hooks/inject-functions.ts',
-        'xpack/hooks/inject-functions-core.ts',
-        'xpack/integration-core.ts',
-        'xpack/manual-chunk.ts',
-        'xpack/prerender-core.ts',
-        'xpack/scripts-core.ts',
-        'xpack/styles-core.ts',
       ],
-      exclude: ['src/**/*.test.{ts,tsx}', 'xpack/**/*.test.{ts,tsx}', 'src/**/*.d.ts', 'src/vite-env.d.ts', 'types.d.ts'],
+      exclude: ['src/**/*.test.{ts,tsx}', 'src/**/*.d.ts', 'src/vite-env.d.ts', 'types.d.ts'],
       thresholds: {
         perFile: true,
         lines: 100,

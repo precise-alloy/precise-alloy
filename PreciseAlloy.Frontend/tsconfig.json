@@ -1,71 +1,30 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "useDefineForClassFields": true,
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext",
-      "WebWorker"
-    ],
-    "composite": true,
-    "allowJs": false,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "noEmit": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx",
-    "sourceMap": true,
     "paths": {
-      "@helpers/*": [
-        "./src/_helpers/*"
-      ],
-      "@assets/*": [
-        "./src/assets/*"
-      ],
-      "@data/*": [
-        "./src/_data/*"
-      ],
-      "@atoms/*": [
-        "./src/atoms/*"
-      ],
-      "@molecules/*": [
-        "./src/molecules/*"
-      ],
-      "@organisms/*": [
-        "./src/organisms/*"
-      ],
-      "@templates/*": [
-        "./src/templates/*"
-      ],
-      "@pages/*": [
-        "./src/pages/*"
-      ],
-      "@_http/*": [
-        "./src/_http/*"
-      ],
-      "@_api/*": [
-        "./src/_api/*"
-      ],
-      "@mocks/*": [
-        "./src/mocks/*"
-      ],
-      "@xpack/*": [
-        "./xpack/*"
-      ],
+      "@helpers/*": ["./src/_helpers/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@data/*": ["./src/_data/*"],
+      "@atoms/*": ["./src/atoms/*"],
+      "@molecules/*": ["./src/molecules/*"],
+      "@organisms/*": ["./src/organisms/*"],
+      "@templates/*": ["./src/templates/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@_api/*": ["./src/_api/*"],
+      "@mocks/*": ["./src/mocks/*"],
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.json"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "types.d.ts"],
+  "exclude": ["node_modules", "dist"]
 }
