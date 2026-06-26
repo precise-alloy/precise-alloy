@@ -12,4 +12,4 @@ var e=`<svg width="70" height="50" viewBox="0 0 70 50" fill="none" xmlns="http:/
     d="M13.4808 7.5851C13.4808 11.3081 10.4629 14.3255 6.7404 14.3255C3.01794 14.3255 0 11.3081 0 7.5851C0 3.86264 3.01794 0.844696 6.7404 0.844696C10.4629 0.844696 13.4808 3.86264 13.4808 7.5851Z"
     fill="#fff" />
 </svg>`;export{e as default};
-//# sourceMappingURL=logo.0xB_wB6XHd.js.map
+//# sourceMappingURL=logo.0xDtVk-ilp.js.map
