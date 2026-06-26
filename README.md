@@ -2,10 +2,19 @@
 
 ## Rename
 
-To rename the code base, update `$replaces` array in **new-project.ps1** file, then run following PowerShell script:
+To rename the code base, update the replacement table, then run the script for your platform.
+
+On Windows (PowerShell), update the `$replaces` array in **new-project.ps1**, then run:
 
 ```powershell
 & ./new-project.ps1
+```
+
+On Ubuntu/WSL/macOS (Bash), update the `REPLACES` array in **new-project.sh**, then run:
+
+```bash
+chmod +x ./new-project.sh
+./new-project.sh
 ```
 
 ## Documentation
