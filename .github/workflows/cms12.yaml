@@ -70,7 +70,7 @@ jobs:
           REQUEST_FOR: ${{ github.event.head.user.login }}
         shell: pwsh
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         name: ${{ env.ENV_ID }} - Checkout
         with:
           ref: ${{ env.BRANCH }}
