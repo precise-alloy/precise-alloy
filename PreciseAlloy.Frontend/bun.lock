@@ -5,7 +5,7 @@
     "": {
       "name": "alveo-demo",
       "dependencies": {
-        "alveo": "^0.1.2",
+        "alveo": "^0.1.3",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
         "react-hook-form": "^7.74.0",
@@ -381,7 +381,7 @@
 
     "ajv": ["ajv@6.15.0", "", { "dependencies": { "fast-deep-equal": "^3.1.1", "fast-json-stable-stringify": "^2.0.0", "json-schema-traverse": "^0.4.1", "uri-js": "^4.2.2" } }, "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw=="],
 
-    "alveo": ["alveo@0.1.2", "", { "dependencies": { "@vitejs/plugin-react": "^6.0.1", "browserslist": "^4.28.2", "chalk": "^5.5.0", "cheerio": "^1.2.0", "chokidar": "^4.0.3", "commander": "^13.1.0", "concurrently": "^9.2.0", "debounce": "^3.0.0", "express": "^5.2.1", "express-rate-limit": "^8.4.1", "glob": "^13.0.6", "js-beautify": "^1.15.4", "js-yaml": "^4.1.1", "lightningcss": "^1.32.0", "lodash": "^4.17.21", "magic-string": "^0.30.17", "react-router-dom": "^7.13.1", "sass": "^1.89.2", "serve-static": "^2.2.0", "slash": "^5.1.0", "source-map-js": "^1.2.1", "vite": "^8.0.10" }, "peerDependencies": { "react": "^19.0.0", "react-dom": "^19.0.0", "typescript": "^5" }, "bin": { "alveo": "bin/cli.js" } }, "sha512-P+O82kbTH26HGei0diebbWuKGEri5/tSRevWbFx/7FSAU1FoQkhSp8emvTpZfgUsfk73+tHqD9r7pVJdcg9Y3A=="],
+    "alveo": ["alveo@0.1.3", "", { "dependencies": { "@vitejs/plugin-react": "^6.0.1", "browserslist": "^4.28.2", "chalk": "^5.5.0", "cheerio": "^1.2.0", "chokidar": "^4.0.3", "commander": "^13.1.0", "concurrently": "^9.2.0", "debounce": "^3.0.0", "express": "^5.2.1", "express-rate-limit": "^8.4.1", "glob": "^13.0.6", "js-beautify": "^1.15.4", "js-yaml": "^4.1.1", "lightningcss": "^1.32.0", "lodash": "^4.17.21", "magic-string": "^0.30.17", "react-router-dom": "^7.13.1", "sass": "^1.89.2", "serve-static": "^2.2.0", "slash": "^5.1.0", "source-map-js": "^1.2.1", "vite": "^8.0.10" }, "peerDependencies": { "react": "^19.0.0", "react-dom": "^19.0.0", "typescript": "^6.0.0" }, "bin": { "alveo": "bin/cli.js" } }, "sha512-Dv64KeNsdQDCCjthYF5cWy1UEohJDvzpCbbLc0Qr5KaZxiHxwEwj5AK2pDnVzLMVRienYGJ8uQl8GuKGaS4TgA=="],
 
     "ansi-regex": ["ansi-regex@5.0.1", "", {}, "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="],
 
