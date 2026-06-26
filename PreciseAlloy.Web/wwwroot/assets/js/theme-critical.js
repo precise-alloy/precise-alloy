@@ -1,2 +1,2 @@
-(()=>{let e=`MSG_THEME`,t=new URLSearchParams(window.location.search).get(`theme`);if(t===`dark`||t==`light`){document.documentElement.setAttribute(`data-theme`,t);return}(localStorage.getItem(e)===`dark`||!localStorage.getItem(e)&&window.matchMedia(`(prefers-color-scheme: dark)`).matches)&&document.documentElement.setAttribute(`data-theme`,`dark`)})();
+(()=>{let e=`MSG_THEME`,t=new URLSearchParams(window.location.search).get(`theme`);if(t===`dark`||t===`light`){document.documentElement.setAttribute(`data-theme`,t);return}(localStorage.getItem(e)===`dark`||!localStorage.getItem(e)&&window.matchMedia(`(prefers-color-scheme: dark)`).matches)&&document.documentElement.setAttribute(`data-theme`,`dark`)})();
 //# sourceMappingURL=theme-critical.js.map

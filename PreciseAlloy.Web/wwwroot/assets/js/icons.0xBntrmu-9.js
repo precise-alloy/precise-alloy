@@ -65,4 +65,4 @@ var e=`<svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg"
       d="M14.78 13.31c-4.913 0-8.892-3.982-8.892-8.892 0-1.617 0.464-3.113 1.219-4.418-4.094 1.181-7.106 4.912-7.106 9.386 0 5.419 4.392 9.813 9.811 9.813 4.474 0 8.208-3.014 9.389-7.106-1.308 0.752-2.803 1.217-4.42 1.217z" />
   </symbol>
 </svg>`;export{e as default};
-//# sourceMappingURL=icons.0xCqSMSxgc.js.map
+//# sourceMappingURL=icons.0xBntrmu-9.js.map
