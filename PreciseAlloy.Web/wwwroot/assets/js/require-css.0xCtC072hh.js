@@ -1,0 +1,2 @@
+import{n as e}from"./react-loader.0xk2c5nCQ2.js";var t=e(),n=({path:e,rel:n})=>(0,t.jsx)(`link`,{"data-pl-require":!0,href:/^https?:\/\//gi.test(e)?e:e.startsWith(`vendors/`)?viteAbsoluteUrl(`/assets/`+e+`.css`):viteAbsoluteUrl(`/assets/css/`+e+`.css`),rel:n??`stylesheet`});export{n as t};
+//# sourceMappingURL=require-css.0xCtC072hh.js.map
