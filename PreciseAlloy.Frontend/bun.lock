@@ -5,7 +5,7 @@
     "": {
       "name": "alveo-demo",
       "dependencies": {
-        "alveo": "^0.2.2",
+        "alveo": "^0.2.3",
         "react": "^19.2.4",
         "react-dom": "^19.2.4",
         "react-hook-form": "^7.74.0",
@@ -377,7 +377,7 @@
 
     "ajv": ["ajv@6.15.0", "", { "dependencies": { "fast-deep-equal": "^3.1.1", "fast-json-stable-stringify": "^2.0.0", "json-schema-traverse": "^0.4.1", "uri-js": "^4.2.2" } }, "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw=="],
 
-    "alveo": ["alveo@0.2.2", "", { "dependencies": { "@vitejs/plugin-react": "^6.0.5", "browserslist": "^4.28.8", "chalk": "^6.0.0", "cheerio": "^1.2.0", "chokidar": "^5.0.0", "commander": "^15.0.0", "debounce": "^3.0.0", "express": "^5.2.1", "express-rate-limit": "^8.6.2", "glob": "^13.0.6", "js-beautify": "^2.0.3", "js-yaml": "^5.2.3", "lightningcss": "^1.33.0", "lodash": "^4.17.21", "magic-string": "^1.1.0", "react-router-dom": "^7.18.2", "sass": "^1.102.0", "serve-static": "^2.2.0", "slash": "^5.1.0", "source-map-js": "^1.2.1", "vite": "^8.2.1" }, "peerDependencies": { "react": "^19.2.8", "react-dom": "^19.2.8", "typescript": "^6.0.0" }, "bin": { "alveo": "bin/cli.js" } }, "sha512-68ohrLHsxSoDYqVXvIyWKez/ekiJ93fJuI8S7hri9inGGsiR3RgpSRlD07NsyLyEBGQJ+HnZ9b9EkqI3eEDS2g=="],
+    "alveo": ["alveo@0.2.3", "", { "dependencies": { "@vitejs/plugin-react": "^6.0.5", "browserslist": "^4.28.8", "chalk": "^6.0.0", "cheerio": "^1.2.0", "chokidar": "^5.0.0", "commander": "^15.0.0", "debounce": "^3.0.0", "express": "^5.2.1", "express-rate-limit": "^8.6.2", "glob": "^13.0.6", "js-beautify": "^2.0.3", "js-yaml": "^5.2.3", "lightningcss": "^1.33.0", "lodash": "^4.17.21", "magic-string": "^1.1.0", "react-router-dom": "^7.18.2", "sass": "^1.102.0", "serve-static": "^2.2.0", "slash": "^5.1.0", "source-map-js": "^1.2.1", "vite": "^8.2.1" }, "peerDependencies": { "react": "^19.2.8", "react-dom": "^19.2.8", "typescript": "^6.0.0" }, "bin": { "alveo": "bin/cli.js" } }, "sha512-/cxlCceNRmmYYFpaasMvRe2YG67+p2ix0zjzkJnRP4lOEhXtBb1xezmTulRa2Yr/rhIplbY4D8ETp05UzeeCqw=="],
 
     "ansi-regex": ["ansi-regex@5.0.1", "", {}, "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="],
 
