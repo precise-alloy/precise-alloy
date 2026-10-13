@@ -22,19 +22,48 @@
     "jsx": "react-jsx",
     "sourceMap": true,
     "paths": {
-      "@helpers/*": ["./src/_helpers/*"],
-      "@assets/*": ["./src/assets/*"],
-      "@data/*": ["./src/_data/*"],
-      "@atoms/*": ["./src/atoms/*"],
-      "@molecules/*": ["./src/molecules/*"],
-      "@organisms/*": ["./src/organisms/*"],
-      "@templates/*": ["./src/templates/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@_api/*": ["./src/_api/*"],
-      "@mocks/*": ["./src/mocks/*"],
+      "@helpers/*": [
+        "./src/_helpers/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@data/*": [
+        "./src/_data/*"
+      ],
+      "@atoms/*": [
+        "./src/atoms/*"
+      ],
+      "@molecules/*": [
+        "./src/molecules/*"
+      ],
+      "@organisms/*": [
+        "./src/organisms/*"
+      ],
+      "@templates/*": [
+        "./src/templates/*"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@_api/*": [
+        "./src/_api/*"
+      ],
+      "@mocks/*": [
+        "./src/mocks/*"
+      ],
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "test/**/*.ts", "test/**/*.tsx", "types.d.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts",
+    "test/**/*.ts",
+    "test/**/*.tsx",
+    "types.d.ts",
+    "vite.config.ts",
+    "vitest.config.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

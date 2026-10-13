@@ -8,7 +8,6 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 import importPlugin from 'eslint-plugin-import';
 import unusedImports from 'eslint-plugin-unused-imports';
 import prettierRecommended from 'eslint-plugin-prettier/recommended';
-import nextPlugin from '@next/eslint-plugin-next';
 import globals from 'globals';
 
 export default defineConfig([
@@ -41,7 +40,6 @@ export default defineConfig([
       react.configs.flat['jsx-runtime'],
       reactHooks.configs.flat['recommended-latest'],
       jsxA11y.flatConfigs.recommended,
-      nextPlugin.configs.recommended,
       prettierRecommended,
     ],
 
@@ -89,7 +87,6 @@ export default defineConfig([
       'unused-imports/no-unused-imports': 'warn',
       'react-refresh/only-export-components': 'error',
       'no-new': 'error',
-      '@next/next/no-img-element': 'off',
       complexity: ['error', 15],
       'max-depth': ['error', 4],
 
