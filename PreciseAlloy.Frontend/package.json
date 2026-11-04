@@ -34,7 +34,7 @@
     "@typescript-eslint/parser": "^8.58.2",
     "@vitejs/plugin-react": "^6.0.1",
     "@vitest/coverage-v8": "^5.0.4",
-    "alveo": "^0.5.0",
+    "alveo": "^0.5.1",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import": "2.32.0",
