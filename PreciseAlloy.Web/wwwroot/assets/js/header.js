@@ -1,2 +1,2 @@
-(()=>{let e=document.querySelector(`.zzz-o-header`);if(!e)return;let t=e.querySelector(`.zzz-o-header__nav-toggle`),n=e.querySelector(`.zzz-o-header__nav-list`);!t||!n||(t.addEventListener(`click`,()=>{t.classList.toggle(`active`),n.classList.toggle(`active`)}),n.onOutsideClick(()=>{t.classList.remove(`active`),n.classList.remove(`active`)},[t]))})();
+(()=>{let e=document.querySelector(`.zzz-o-header`);if(!e)return;let t=e.querySelector(`.zzz-o-header__nav-toggle`),n=e.querySelector(`.zzz-o-header__nav-list`);t&&n&&(t.addEventListener(`click`,()=>{t.classList.toggle(`active`),n.classList.toggle(`active`)}),n.onOutsideClick(()=>{t.classList.remove(`active`),n.classList.remove(`active`)},[t]))})();
 //# sourceMappingURL=header.js.map
