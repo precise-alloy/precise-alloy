@@ -91,6 +91,10 @@ jobs:
         run: bun run eshn
         working-directory: PreciseAlloy.Frontend
 
+      - name: Verify People ships its late-mounted Avatar styles
+        run: grep -Eq '\.zzz-o-avatar[[:space:]]*\{' dist/static/assets/css/b-people.css
+        working-directory: PreciseAlloy.Frontend
+
       - name: INTE check
         run: bun run inte
         working-directory: PreciseAlloy.Frontend

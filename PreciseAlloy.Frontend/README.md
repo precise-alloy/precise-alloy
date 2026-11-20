@@ -90,7 +90,9 @@ src/
 2. Add an `index.tsx` barrel file in the directory
 3. Use alias imports: `@atoms/*`, `@molecules/*`, `@organisms/*`, `@templates/*`, `@pages/*`
 
-For widgets registered in `src/client-components.tsx`, declare styles in both the owning Razor view (`Html.RequireStyle`) and the static page template. Include child styles needed after data loads, such as Avatar in People. The mounted React component renders markup, not stylesheet links; the host can then apply the existing content hash before the first request.
+Keep `RequireCss` and `RequireJs` in the organism that needs the resource. Prerendering moves the live tag to the page head and leaves a comment at the declaration site in the integration pattern. That comment tells the backend which resource to register for the block.
+
+People is mounted from JSON rather than rendered into the pattern. Its existing `b-people.css` registration includes the styles for the Avatars it loads later. A standalone Avatar still declares `b-avatar.css`; a backend that already integrates People needs no new registration.
 
 ## Adding Pages
 

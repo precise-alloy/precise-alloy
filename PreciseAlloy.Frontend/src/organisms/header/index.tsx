@@ -1,3 +1,5 @@
+import RequireCss from '@helpers/RequireCss';
+import RequireJs from '@helpers/RequireJs';
 import Icon from '@atoms/icons';
 
 const Header = (model: HeaderModel) => {
@@ -44,6 +46,9 @@ const Header = (model: HeaderModel) => {
           )}
         </div>
       </div>
+
+      <RequireJs defer path="header" />
+      <RequireCss path="b-header" />
     </header>
   );
 };

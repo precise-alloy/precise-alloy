@@ -1,5 +1,5 @@
 import Footer from '@organisms/footer';
-import Header from '@templates/header';
+import Header from '@organisms/header';
 import Contact from '@organisms/contact';
 import Alert from '@organisms/alert';
 

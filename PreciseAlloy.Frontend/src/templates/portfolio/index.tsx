@@ -1,5 +1,5 @@
 import Footer from '@organisms/footer';
-import Header from '@templates/header';
+import Header from '@organisms/header';
 import Portfolio from '@organisms/portfolio';
 
 interface Props {
