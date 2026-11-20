@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="@Html.GetCacheBusterPath("/assets/css/style-base.css")">
 
+    @Html.RenderClientAssetVersions()
     <script src="@Html.GetCacheBusterPath("/assets/js/main.js")"></script>
     @Html.RequiredClientResources("Header")
 
