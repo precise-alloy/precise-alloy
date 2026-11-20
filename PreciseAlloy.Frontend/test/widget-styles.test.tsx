@@ -1,9 +1,9 @@
 import { getAllAvatars } from '@_api/avatar';
 import { avatars } from '@data/avatars';
 import { people } from '@data/people';
+import Avatar from '@organisms/avatar';
 import Header from '@organisms/header';
 import People from '@organisms/people';
-import TemplateHeader from '@templates/header';
 import Home from '@templates/home';
 import { render, screen } from '@testing-library/react';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -12,14 +12,16 @@ import { describe, expect, it, vi } from 'vitest';
 vi.mock('@_api/avatar', () => ({ getAllAvatars: vi.fn() }));
 
 describe('widget resource ownership', () => {
-  it('declares child styles in the initial page only when the People block is present', () => {
+  it('keeps the existing People stylesheet as the only requirement next to the widget payload', () => {
     const withPeople = renderToStaticMarkup(<Home people={people} />);
     const withoutPeople = renderToStaticMarkup(<Home />);
 
-    for (const style of ['b-people', 'b-avatar']) {
-      expect(withPeople.split(`href="/assets/css/${style}.css"`)).toHaveLength(2);
-      expect(withoutPeople).not.toContain(`/assets/css/${style}.css`);
-    }
+    const main = new DOMParser().parseFromString(withPeople, 'text/html').querySelector('main')!;
+    const requirement = main.querySelector('script[data-rct="people"]')?.previousElementSibling;
+
+    expect(requirement?.matches('link[data-pl-require][href="/assets/css/b-people.css"]')).toBe(true);
+    expect(withPeople).not.toContain('b-avatar.css');
+    expect(withoutPeople).not.toContain('b-people.css');
   });
 
   it('mounts avatars after the API responds without adding stylesheet links', async () => {
@@ -29,12 +31,19 @@ describe('widget resource ownership', () => {
     expect(document.querySelector('link[rel="stylesheet"]')).toBeNull();
   });
 
-  it('keeps Header resources in the page template, not the client widget', () => {
-    const template = renderToStaticMarkup(<TemplateHeader />);
+  it('keeps resource markers inside standalone organisms for backend integration', () => {
+    const fragment = new DOMParser().parseFromString(
+      renderToStaticMarkup(
+        <>
+          <Header />
+          <Avatar {...avatars[0]!} />
+        </>
+      ),
+      'text/html'
+    );
 
-    expect(template).toContain('href="/assets/css/b-header.css"');
-    expect(template).toContain('src="/assets/js/header.js"');
-    render(<Header />);
-    expect(document.querySelector('link[rel="stylesheet"], script[src]')).toBeNull();
+    expect(fragment.querySelector('header > link[data-pl-require][href="/assets/css/b-header.css"]')).not.toBeNull();
+    expect(fragment.querySelector('header > script[data-pl-require][src="/assets/js/header.js"]')).not.toBeNull();
+    expect(fragment.querySelector('.zzz-o-avatar > link[data-pl-require][href="/assets/css/b-avatar.css"]')).not.toBeNull();
   });
 });

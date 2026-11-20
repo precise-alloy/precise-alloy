@@ -1,0 +1,36 @@
+@use 'px2rem' as *;
+
+@mixin avatar {
+  padding: px2rem(20px) px2rem(38px);
+  background: $primary-bg;
+  box-shadow: px2rem(3px) px2rem(4px) px2rem(12px) px2rem(1px) rgba($primary-rgb, 0.25);
+  border-radius: px2rem(5px);
+
+  &__image {
+    margin: 0 auto;
+    width: px2rem(175px);
+    height: px2rem(175px);
+    border: px2rem(1px) solid $primary;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+      transition: all 0.4s ease;
+    }
+  }
+
+  &:hover &__image {
+    img {
+      transform: scale(1.05);
+    }
+  }
+
+  &__info {
+    text-align: start;
+    margin-top: px2rem(19px);
+    width: px2rem(202px);
+    display: flex;
+    flex-direction: column;
+    gap: px2rem(17px);
+  }
+}

@@ -27,7 +27,7 @@ const People = (model: PeopleModel) => {
       {items && items.length && (
         <div className="zzz-o-people__items">
           {items.map((item, index) => (
-            <Avatar {...item} key={index} />
+            <Avatar {...item} key={index} requireStyles={false} />
           ))}
         </div>
       )}

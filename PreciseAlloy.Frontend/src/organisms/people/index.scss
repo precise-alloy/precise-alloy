@@ -1,3 +1,11 @@
+@use '../../assets/styles/01-mixins/avatar';
+
+// People mounts its children after the API responds. Its existing stylesheet
+// must be sufficient even for hosts that never register a standalone Avatar.
+.zzz-o-avatar {
+  @include avatar.avatar;
+}
+
 .zzz-o-people {
   text-align: center;
   color: $primary;

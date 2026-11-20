@@ -2,7 +2,7 @@ import Partner from '@organisms/partner';
 import Footer from '@organisms/footer';
 import Hero from '@organisms/hero';
 import Teaser from '@organisms/teaser';
-import Header from '@templates/header';
+import Header from '@organisms/header';
 import ReactSection from '@helpers/ReactSection';
 
 interface Props {
@@ -27,7 +27,7 @@ const Home = (model: Props) => {
         {partner && <Partner {...partner} />}
         {teaserImageLeft && <Teaser {...teaserImageLeft} />}
         {teaser && <Teaser {...teaser} />}
-        {people && <ReactSection css={['b-people', 'b-avatar']} data={people} type="people" />}
+        {people && <ReactSection css={'b-people'} data={people} type="people" />}
       </main>
       <Footer {...footer} />
     </>

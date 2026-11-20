@@ -39,7 +39,7 @@ export default defineConfig({
         'src/_helpers/RequireJs.tsx',
         'src/assets/scripts/main/api.ts',
         'src/organisms/contact/contact-form.tsx',
-        'src/templates/header.tsx',
+        'src/organisms/avatar/index.tsx',
       ],
       exclude: ['src/**/*.test.{ts,tsx}', 'src/**/*.d.ts', 'src/vite-env.d.ts', 'types.d.ts'],
       thresholds: {
