@@ -14,7 +14,6 @@ namespace PreciseAlloy.Utils.Extensions;
 public static class HtmlExtensions
 {
     private static readonly IDictionary<string, string> CacheBusterValues;
-    private static readonly IHtmlContent ClientAssetVersionsScript;
 
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {
@@ -50,13 +49,7 @@ public static class HtmlExtensions
         finally
         {
             CacheBusterValues ??= new ConcurrentDictionary<string, string>();
-            ClientAssetVersionsScript = ClientAssetVersions.Render(CacheBusterValues);
         }
-    }
-
-    public static IHtmlContent RenderClientAssetVersions(this IHtmlHelper htmlHelper)
-    {
-        return ClientAssetVersionsScript;
     }
 
     public static string GetCacheBusterPath(string path)

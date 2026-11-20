@@ -1,5 +1,4 @@
 import Picture from '@atoms/pictures';
-import RequireCss from '@helpers/RequireCss';
 
 const Avatar = (model: AvatarModel) => {
   const { image, name, jobTitle } = model;
@@ -15,7 +14,6 @@ const Avatar = (model: AvatarModel) => {
 
         <div className="zzz-o-avatar__job-title">{jobTitle}</div>
       </div>
-      <RequireCss path="b-avatar" />
     </div>
   );
 };

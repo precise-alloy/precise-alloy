@@ -90,6 +90,8 @@ src/
 2. Add an `index.tsx` barrel file in the directory
 3. Use alias imports: `@atoms/*`, `@molecules/*`, `@organisms/*`, `@templates/*`, `@pages/*`
 
+For widgets registered in `src/client-components.tsx`, declare styles in both the owning Razor view (`Html.RequireStyle`) and the static page template. Include child styles needed after data loads, such as Avatar in People. The mounted React component renders markup, not stylesheet links; the host can then apply the existing content hash before the first request., `@pages/*`
+
 ## Adding Pages
 
 1. Create a new page component under `src/pages/`
